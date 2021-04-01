@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:last_national_bank/core/login/login.dart';
+import 'constants/app_constants.dart';
 
 void main() {
   runApp(MyApp());
@@ -9,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Banking System',
+      title: appName,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -25,6 +27,6 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return LoginPage();
   }
 }
