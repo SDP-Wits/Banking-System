@@ -4,8 +4,8 @@ env:
   global:
     - DARTSDK=./flutter/bin/cache/dart-sdk/bin
     - DARTFMT=$DARTSDK/dartfmt
-    - FLUTTER=./flutter/bin/flutter
-    - FLUTTER_UP=../flutter/bin/flutter
+    - FLUTTER=./flutter/bin/flutter/banking_system_app
+    - FLUTTER_UP=../flutter/bin/flutter/banking_system_app
     - FLUTTER_GITHUB=https://github.com/flutter/flutter.git
     - CODECOV=https://codecov.io/bash
     - PACKAGES=packages
@@ -31,7 +31,7 @@ jobs:
 
     - stage: App's Flutter Test
       script:
-        - cd $APP/banking_system_app
+        - cd $APP
         - $FLUTTER_UP test --coverage
       after_success:
         - bash <(curl -s $CODECOV)
