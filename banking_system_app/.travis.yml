@@ -6,12 +6,12 @@ addons:
       - lib32stdc++6
 install:
   - git clone https://github.com/flutter/flutter.git -b stable
-  - ./banking_system_app/flutter/bin/flutter doctor
+  - ./flutter/bin/flutter doctor
   - gem install coveralls-lcov
 script:
-  - ./banking_system_app/flutter/bin/flutter test --coverage
+  - ./flutter/bin/flutter test --coverage
 after_success:
   - coveralls-lcov coverage/lcov.info
 cache:
   directories:
-    - $HOME/banking_system_app/.pub-cache
+    - $HOME/.pub-cache
