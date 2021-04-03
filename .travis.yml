@@ -36,21 +36,6 @@ jobs:
       after_success:
         - bash <(curl -s $CODECOV)
 
-    - stage: iOS Integration Tests
-      os: osx
-      osx_image: xcode11
-      before_script:
-        - open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
-        - export HOMEBREW_NO_AUTO_UPDATE=1
-        - brew install libimobiledevice
-        - brew install ideviceinstaller
-        - brew install ios-deploy
-        - brew install cocoapods || echo 'ignore exit(1)'
-        - brew link --overwrite cocoapods
-      script:
-        - cd $APP
-        - $FLUTTER_UP driver --target=test_driver/app.dart77
-
     - stage: Android Integration Tests
       language: android
       dist: trusty
