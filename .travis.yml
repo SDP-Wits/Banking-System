@@ -6,9 +6,9 @@ addons:
       - lib32stdc++6
 install:
   - git clone https://github.com/flutter/flutter.git -b stable
-  - ./flutter/bin/banking_system_app/flutter doctor
+  - ./flutter/bin/flutter doctor
 script:
-  - ./flutter/bin/banking_system_app/flutter test
+  - ./flutter/bin/flutter test
 cache:
   directories:
     - $HOME/.pub-cache
