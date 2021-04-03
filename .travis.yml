@@ -1,18 +1,14 @@
-os:
-  - linux
-sudo: false
+language: dart
+dist: xenial
 addons:
   apt:
-    sources:
-      - ubuntu-toolchain-r-test 
     packages:
-      - libstdc++6
-      - fonts-droid-fallback
-before_script:
-  - git clone https://github.com/flutter/flutter.git -b beta
-  - ./flutter/bin/flutter doctor
+      - lib32stdc++6
+install:
+  - git clone https://github.com/flutter/flutter.git -b stable
+  - ./flutter/bin/banking_system_app/flutter doctor
 script:
-  - ./flutter/bin/flutter test
+  - ./flutter/bin/banking_system_app/flutter test
 cache:
   directories:
     - $HOME/.pub-cache
