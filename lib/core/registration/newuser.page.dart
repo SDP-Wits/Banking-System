@@ -23,18 +23,19 @@ class _NewUserState extends State<NewUser> {
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: [Colors.blueGrey, Colors.lightBlueAccent]),
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Colors.blueGrey, Colors.teal]),
         ),
         child: ListView(
           children: <Widget>[
             Column(
               children: <Widget>[
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    //Logo(),
-                    TextNew(),
+                    Logo(),
+                    //TextNew(),
                   ],
                 ),
                 NewName(),
