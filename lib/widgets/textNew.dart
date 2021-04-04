@@ -21,7 +21,7 @@ class _TextNewState extends State<TextNew> {
             ),
             Center(
               child: Text(
-                'We can start something new',
+                'Sign up now and build a better life with Last National Bank',
                 style: TextStyle(
                   fontSize: 24,
                   color: Colors.white,

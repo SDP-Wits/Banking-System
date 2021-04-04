@@ -18,12 +18,12 @@ class _NewEmailState extends State<NewEmail> {
             color: Colors.white,
           ),
           decoration: InputDecoration(
-            border: InputBorder.none,
-            fillColor: Colors.lightBlueAccent,
-            labelText: 'E-mail',
-            labelStyle: TextStyle(
-              color: Colors.white70,
-            ),
+            fillColor: Colors.transparent,
+            hintText: 'Email',
+            hintStyle: TextStyle(fontSize: 16.0, color: Colors.white),
+            helperText: 'eg. JohnDoe@gmail.com',
+            helperStyle: TextStyle(fontSize: 12.0, color: Colors.white),
+            icon: Icon(Icons.email_rounded, color: Colors.white),
           ),
         ),
       ),

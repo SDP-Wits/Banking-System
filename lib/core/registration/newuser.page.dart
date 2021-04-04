@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:last_national_bank/widgets/NewAge.dart';
+import 'package:last_national_bank/widgets/NewIDnum.dart';
+import 'package:last_national_bank/widgets/NewSurname.dart';
+import 'package:last_national_bank/widgets/NewLoc.dart';
 import 'package:last_national_bank/widgets/buttonNewUser.dart';
 import 'package:last_national_bank/widgets/newEmail.dart';
 import 'package:last_national_bank/widgets/newName.dart';
 import 'package:last_national_bank/widgets/password.dart';
-import 'package:last_national_bank/widgets/singup.dart';
+import 'package:last_national_bank/widgets/Logo.dart';
 import 'package:last_national_bank/widgets/textNew.dart';
 import 'package:last_national_bank/widgets/userOld.dart';
 
@@ -29,12 +33,16 @@ class _NewUserState extends State<NewUser> {
               children: <Widget>[
                 Row(
                   children: <Widget>[
-                    SingUp(),
+                    //Logo(),
                     TextNew(),
                   ],
                 ),
-                NewNome(),
+                NewName(),
+                NewSurname(),
+                NewAge(),
                 NewEmail(),
+                NewIDnum(),
+                NewLoc(),
                 PasswordInput(),
                 ButtonNewUser(),
                 UserOld(),

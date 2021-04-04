@@ -9,22 +9,22 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 40, right: 50, left: 200),
+      padding: const EdgeInsets.only(top: 40),
       child: Container(
-        alignment: Alignment.bottomRight,
-        height: 50,
-        width: MediaQuery.of(context).size.width,
+        alignment: Alignment.center,
+        height: 40,
+        width: MediaQuery.of(context).size.width / 2,
         decoration: BoxDecoration(boxShadow: [
           BoxShadow(
             color: Colors.black12,
             blurRadius: 10.0, // has the effect of softening the shadow
             spreadRadius: 1.0, // has the effect of extending the shadow
-            offset: Offset(
+            /*offset: Offset(
               5.0, // horizontal, move right 10
               5.0, // vertical, move down 10
-            ),
+            ),*/
           ),
-        ], color: Colors.white, borderRadius: BorderRadius.circular(30)),
+        ], color: Colors.indigo[200], borderRadius: BorderRadius.circular(30)),
         child: FlatButton(
           onPressed: () {
             Navigator.pop(context);
@@ -33,16 +33,11 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                'OK',
+                'Create Account',
                 style: TextStyle(
-                  color: Colors.lightBlueAccent,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
+                  color: Colors.white,
+                  fontSize: 16,
                 ),
-              ),
-              Icon(
-                Icons.arrow_forward,
-                color: Colors.lightBlueAccent,
               ),
             ],
           ),

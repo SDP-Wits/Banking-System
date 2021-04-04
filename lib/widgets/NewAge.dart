@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class NewName extends StatefulWidget {
+class NewAge extends StatefulWidget {
   @override
-  NewNameState createState() => NewNameState();
+  NewAgeState createState() => NewAgeState();
 }
 
-class NewNameState extends State<NewName> {
+class NewAgeState extends State<NewAge> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 30, left: 50, right: 50),
+      padding: const EdgeInsets.only(top: 20, left: 50, right: 50),
       child: Container(
         height: 60,
         width: MediaQuery.of(context).size.width,
@@ -19,7 +19,7 @@ class NewNameState extends State<NewName> {
           ),
           decoration: InputDecoration(
             fillColor: Colors.transparent,
-            hintText: 'First Name',
+            hintText: 'Age',
             hintStyle: TextStyle(fontSize: 16.0, color: Colors.white),
           ),
         ),

@@ -5,7 +5,7 @@ class UserOld extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 30, left: 30),
+      padding: const EdgeInsets.only(top: 30, left: 50),
       child: Container(
         alignment: Alignment.topRight,
         //color: Colors.red,
@@ -13,7 +13,7 @@ class UserOld extends StatelessWidget {
         child: Row(
           children: <Widget>[
             Text(
-              'Have we met before?',
+              'Already have an account?',
               style: TextStyle(
                 fontSize: 12,
                 color: Colors.white70,
@@ -28,7 +28,7 @@ class UserOld extends StatelessWidget {
               child: Text(
                 'Sign in',
                 style: TextStyle(
-                  fontSize: 12,
+                  fontSize: 14,
                   color: Colors.white,
                 ),
                 textAlign: TextAlign.right,
