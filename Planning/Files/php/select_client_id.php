@@ -1,6 +1,8 @@
 <?php
 include "./helpers/server_details.php";
 
+$id = $_REQUEST['id'];
+
 // Create connection
 $conn = new mysqli($serverName, $username, $password, $dbName);
 
@@ -9,8 +11,7 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT * FROM CLIENT";
-
+$sql = "SELECT * FROM CLIENT WHERE id = $id";
 
 $result = $conn->query($sql);
 
