@@ -16,7 +16,7 @@ $conn = new mysqli($serverName, $username, $password, $dbName);
 // Check connection
 if ($conn->connect_error) {
     echo json_encode([["error" => "Connection Failed", "status" => FALSE]]);
-  die("Connection failed: " . $conn->connect_error);
+    return;
 }
 
 $sql = "SELECT password FROM CLIENT WHERE id = $id";
