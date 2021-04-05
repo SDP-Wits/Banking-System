@@ -6,10 +6,12 @@ import '../../widgets/NewIDnum.dart';
 import '../../widgets/NewLoc.dart';
 import '../../widgets/NewSurname.dart';
 import '../../widgets/Secret.dart';
+import '../../widgets/NewPhone.dart';
 import '../../widgets/buttonNewUser.dart';
 import '../../widgets/newEmail.dart';
 import '../../widgets/newName.dart';
-import '../../widgets/password.dart';
+import '../../widgets/NewPassword.dart';
+import '../../widgets/NewPassword2.dart';
 import '../../widgets/userOld.dart';
 
 class AdminRegistrationPage extends StatefulWidget {
@@ -42,10 +44,12 @@ class _AdminRegistrationPage extends State<AdminRegistrationPage> {
                 NewName(),
                 NewSurname(),
                 NewAge(),
+                NewPhone(),
                 NewEmail(),
                 NewIDnum(),
                 NewLoc(),
                 PasswordInput(),
+                PasswordInput2(),
                 SecretKey(),
                 ButtonNewUser(),
                 UserOld(),
