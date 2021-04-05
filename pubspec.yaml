@@ -27,8 +27,10 @@ dependencies:
     fluttertoast: ^8.0.3 #Shows toasts
     path_provider: ^2.0.1 #For Local Storage Path to store DB
     sqflite: ^2.0.0+3 #For Local Storage - SQLite
+    crypto: ^3.0.1 #for encryption algorithm
 
 dev_dependencies:
+    
     flutter_test:
         sdk: flutter
 
