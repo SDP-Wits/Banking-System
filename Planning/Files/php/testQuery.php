@@ -19,7 +19,13 @@ $sql = "SELECT * FROM tempClient";
 
 $result = $conn->query($sql);
 
-return $results
+$output = array();
+
+while ($row=$result->fetch_assoc()){
+        $output[]=$row;
+}
+
+echo json_encode($output);
 
   $conn->close();
 ?>
