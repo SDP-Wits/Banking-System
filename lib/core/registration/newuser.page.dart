@@ -10,7 +10,7 @@ import 'package:last_national_bank/widgets/Secret.dart';
 import 'package:last_national_bank/widgets/buttonNewUser.dart';
 import 'package:last_national_bank/widgets/newEmail.dart';
 import 'package:last_national_bank/widgets/newName.dart';
-import 'package:last_national_bank/widgets/password.dart';
+import 'package:last_national_bank/widgets/NewPassword.dart';
 import 'package:last_national_bank/widgets/userOld.dart';
 
 class NewUser extends StatefulWidget {

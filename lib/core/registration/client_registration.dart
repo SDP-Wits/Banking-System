@@ -4,11 +4,13 @@ import '../../widgets/Logo.dart';
 import '../../widgets/NewAge.dart';
 import '../../widgets/NewIDnum.dart';
 import '../../widgets/NewLoc.dart';
+import '../../widgets/NewPhone.dart';
 import '../../widgets/NewSurname.dart';
 import '../../widgets/buttonNewUser.dart';
 import '../../widgets/newEmail.dart';
 import '../../widgets/newName.dart';
-import '../../widgets/password.dart';
+import '../../widgets/NewPassword.dart';
+import '../../widgets/NewPassword2.dart';
 import '../../widgets/userOld.dart';
 
 class ClientRegistrationPage extends StatefulWidget {
@@ -40,10 +42,12 @@ class _ClientRegistrationPageState extends State<ClientRegistrationPage> {
                 NewName(),
                 NewSurname(),
                 NewAge(),
+                NewPhone(),
                 NewEmail(),
                 NewIDnum(),
                 NewLoc(),
                 PasswordInput(),
+                PasswordInput2(),
                 ButtonNewUser(),
                 UserOld(),
               ],

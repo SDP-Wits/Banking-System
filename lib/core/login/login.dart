@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../widgets/button.dart';
 import '../../widgets/first.dart';
 import '../../widgets/inputEmail.dart';
-import '../../widgets/password.dart';
+import '../../widgets/NewPassword.dart';
 import '../../widgets/textLogin.dart';
 import '../../widgets/verticalText.dart';
 
