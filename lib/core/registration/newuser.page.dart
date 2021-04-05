@@ -1,6 +1,6 @@
 // TODO:turn this page into selector for admin or customer registration
 
-/*import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:last_national_bank/widgets/NewAge.dart';
 import 'package:last_national_bank/widgets/NewIDnum.dart';
 import 'package:last_national_bank/widgets/NewSurname.dart';
@@ -58,4 +58,4 @@ class _NewUserState extends State<NewUser> {
       ),
     );
   }
-}*/
+}
