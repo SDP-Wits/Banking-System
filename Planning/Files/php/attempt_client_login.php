@@ -4,6 +4,7 @@ include "./helpers/server_details.php";
 $id = $_REQUEST['id'];
 $password = $_REQUEST['password'];
 
+//Sanitization
 if (strlen($id) != 13 || !is_numeric($id)){
     echo json_decode([["error" => "Invalid ID Number"]]);
     return;
