@@ -1,5 +1,0 @@
-Description: The purpose of this project is to create a banking mobile application. The application
-allows for two different users to interact with the banking system - customers and administrators. 
-The software will have functionalities such as interacting with user profiles, allowing for 
-account transactions, and administrative duties can be performed. It is beneficial for users because 
-it promotes and enables remote access and efficiency. 
