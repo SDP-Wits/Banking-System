@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:last_national_bank/widgets/button.dart';
-import 'package:last_national_bank/widgets/first.dart';
-import 'package:last_national_bank/widgets/inputEmail.dart';
-import 'package:last_national_bank/widgets/password.dart';
-import 'package:last_national_bank/widgets/textLogin.dart';
-import 'package:last_national_bank/widgets/verticalText.dart';
+
+import '../../widgets/button.dart';
+import '../../widgets/first.dart';
+import '../../widgets/inputEmail.dart';
+import '../../widgets/password.dart';
+import '../../widgets/textLogin.dart';
+import '../../widgets/verticalText.dart';
 
 class LoginPage extends StatelessWidget {
   @override

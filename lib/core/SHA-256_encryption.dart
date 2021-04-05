@@ -1,6 +1,6 @@
-import 'dart:html';
-import 'package:crypto/crypto.dart';
 import 'dart:convert'; // for the utf8.encode method
+
+import 'package:crypto/crypto.dart';
 
 String encode(String word){
 

@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:last_national_bank/config/routes/router.helper.dart';
-import 'package:last_national_bank/config/routes/undefined_page.dart';
-import 'package:last_national_bank/constants/route_constants.dart';
-import 'package:last_national_bank/core/login/login.dart';
-import 'package:last_national_bank/core/registration/admin_registration.dart';
-import 'package:last_national_bank/core/registration/client_registration.dart';
+
+import '../../constants/route_constants.dart';
+import '../../core/login/login.dart';
+import '../../core/registration/admin_registration.dart';
+import '../../core/registration/client_registration.dart';
+import 'router.helper.dart';
+import 'undefined_page.dart';
 
 //TODO: Testing
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:last_national_bank/core/registration/newuser.page.dart';
+
+import '../core/registration/newuser.page.dart';
 
 class FirstTime extends StatefulWidget {
   @override

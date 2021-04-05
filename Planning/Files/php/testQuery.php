@@ -19,13 +19,7 @@ $sql = "SELECT * FROM tempClient";
 
 $result = $conn->query($sql);
 
-if ($result->num_rows > 0) {
-	// output data of each row
-	while($row = $result->fetch_assoc()) {
-		echo "age: " . $row["age"]. " - idNumber: " . $row["idNumber"]. " " . $row["hashPassoword"]. "<br>";
-	}
-} else {
-	echo "0 results";
-}
+return $results
+
   $conn->close();
 ?>
