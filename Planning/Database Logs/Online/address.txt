@@ -1,0 +1,3 @@
+//CREATE TABLE
+
+CREATE TABLE `3796506_ee`.`ADDRESS` ( `id` CHAR(13) NOT NULL , `streetName` VARCHAR(64) NOT NULL , `streetNumber` INT NOT NULL , `suburb` VARCHAR(64) NOT NULL , `province` VARCHAR(64) NOT NULL , `country` VARCHAR(64) NOT NULL , `apartmentNumber` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = MyISAM;

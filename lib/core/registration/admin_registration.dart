@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:last_national_bank/widgets/NewAge.dart';
-import 'package:last_national_bank/widgets/NewIDnum.dart';
-import 'package:last_national_bank/widgets/NewSurname.dart';
-import 'package:last_national_bank/widgets/NewLoc.dart';
-import 'package:last_national_bank/widgets/Secret.dart';
-import 'package:last_national_bank/widgets/buttonNewUser.dart';
-import 'package:last_national_bank/widgets/newEmail.dart';
-import 'package:last_national_bank/widgets/newName.dart';
-import 'package:last_national_bank/widgets/password.dart';
-import 'package:last_national_bank/widgets/Logo.dart';
-import 'package:last_national_bank/widgets/textNew.dart';
-import 'package:last_national_bank/widgets/userOld.dart';
-import 'package:flutter/material.dart';
-import 'package:last_national_bank/config/routes/router.dart';
-import 'package:last_national_bank/widgets/routeButton.dart';
+
+import '../../widgets/Logo.dart';
+import '../../widgets/NewAge.dart';
+import '../../widgets/NewIDnum.dart';
+import '../../widgets/NewLoc.dart';
+import '../../widgets/NewSurname.dart';
+import '../../widgets/Secret.dart';
+import '../../widgets/NewPhone.dart';
+import '../../widgets/buttonNewUser.dart';
+import '../../widgets/newEmail.dart';
+import '../../widgets/newName.dart';
+import '../../widgets/NewPassword.dart';
+import '../../widgets/NewPassword2.dart';
+import '../../widgets/userOld.dart';
 
 class AdminRegistrationPage extends StatefulWidget {
   @override
@@ -45,10 +44,12 @@ class _AdminRegistrationPage extends State<AdminRegistrationPage> {
                 NewName(),
                 NewSurname(),
                 NewAge(),
+                NewPhone(),
                 NewEmail(),
                 NewIDnum(),
                 NewLoc(),
                 PasswordInput(),
+                PasswordInput2(),
                 SecretKey(),
                 ButtonNewUser(),
                 UserOld(),

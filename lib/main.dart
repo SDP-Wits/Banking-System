@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:last_national_bank/config/routes/router.dart' as router;
-import 'package:last_national_bank/constants/route_constants.dart';
-import 'package:last_national_bank/core/login/login.dart';
+
+import 'config/routes/router.dart' as router;
 import 'constants/app_constants.dart';
+import 'constants/route_constants.dart';
+import 'core/login/login.dart';
 
 void main() {
   runApp(MyApp());

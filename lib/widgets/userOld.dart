@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:last_national_bank/core/login/login.dart';
+import '../core/login/login.dart';
 
 class UserOld extends StatelessWidget {
   @override

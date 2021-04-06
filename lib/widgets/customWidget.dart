@@ -2,8 +2,9 @@
 //for example we will make a button
 //that matches our theme here and then we will reuse it
 
-import '../utils/helpers/style.dart';
 import 'package:flutter/material.dart';
+
+import '../utils/helpers/style.dart';
 
 class CustomText extends StatelessWidget {
   late String text;
