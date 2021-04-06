@@ -6,7 +6,11 @@ $password = $_REQUEST['password'];
 
 //Sanitization
 if (strlen($id) != 13 || !is_numeric($id)){
-    echo json_encode([["error" => "Invalid ID Number", "status" => FALSE]]);
+    echo json_encode(
+        array(
+            array("error" => "Invalid ID Number", "status" => FALSE)
+        )
+    );
     return;
 }
 
@@ -15,7 +19,11 @@ $conn = new mysqli($serverName, $username, $password, $dbName);
 
 // Check connection
 if ($conn->connect_error) {
-    echo json_encode([["error" => "Connection Failed", "status" => FALSE]]);
+    echo json_encode(
+        array(
+            array("error" => "Connection Failed", "status" => FALSE)
+        )
+    );
     return;
 }
 
@@ -31,13 +39,21 @@ while ($row=$result->fetch_assoc()){
 
 if (count($output) == 1){
     if ($password == $output['password']){
-        echo json_encode([["status" => TRUE]]); //Successful login
+        echo json_encode(
+            array(
+                array("status" => TRUE)
+            )
+        ); //Successful login
         $conn->close();
         return;
     }
 }
 
-echo json_encode([["error" => "This ID number is not registered", "status" => FALSE]]);
+echo json_encode(
+    array(
+        array("error" => "This ID number is not registered", "status" => FALSE)
+    )
+);
 
 $conn->close();
 ?>
