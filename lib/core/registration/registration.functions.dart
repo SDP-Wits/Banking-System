@@ -23,8 +23,8 @@ var surname = NewSurnameState().returnSurName();
 var email = NewEmailState().returnEmail();
 var idNum = NewIDnumState().returnID();
 var loc = NewLocState().returnloc();
-var password = PasswordInputState().getPassword();
-var password2 = PasswordInput2State().returnpassword() ;
+var password = "";//PasswordInputState().getPassword();
+var password2 = "";//PasswordInput2State().returnpassword() ;
 var phone = NewPhoneState().returnPhone();
 
 var hash = encode(password);
