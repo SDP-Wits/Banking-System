@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:last_national_bank/core/registration/admin_registration.dart';
 
 import 'core/registration/admin_registration.dart';
 import 'config/routes/router.dart' as router;

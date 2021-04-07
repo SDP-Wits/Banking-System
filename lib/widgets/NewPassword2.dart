@@ -4,13 +4,13 @@ import 'package:last_national_bank/widgets/NewPassword2.dart';
 
 class PasswordInput2 extends StatefulWidget {
   @override
-  PasswordInput2State createState() => PasswordInput2State();
+  _PasswordInput2State createState() => _PasswordInput2State();
 }
 
-class PasswordInput2State extends State<PasswordInput2> {
+class _PasswordInput2State extends State<PasswordInput2> {
   bool _hasInputError = false; //error control variable
   String _password2 = "";//password variable
-  String password1 = PasswordInputState().getPassword(); // this is the first password from the first password input
+  //String password1 = PasswordInputState().getPassword(); // this is the first password from the first password input
   bool hasInputErrors(String password){
     if (password.length < 8 || password.length > 20){ //check if password length is correct
       return true;
