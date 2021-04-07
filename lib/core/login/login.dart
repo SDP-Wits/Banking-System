@@ -17,18 +17,16 @@ class LoginPage extends StatelessWidget {
             end: Alignment.bottomLeft,
             colors: [Colors.blueGrey, Colors.purple]),
       ),
-      child: Column(
-        children: <Widget>[
-          Row(children: <Widget>[
-            VerticalText(),
-            TextLogin(),
-          ]),
-          InputEmail(),
-          PasswordInput(),
-          ButtonLogin(),
-          FirstTime(),
-        ],
-      ),
+      child: ListView(children: [
+        Row(children: <Widget>[
+          VerticalText(),
+          TextLogin(),
+        ]),
+        InputEmail(),
+        PasswordInput(),
+        ButtonLogin(),
+        FirstTime(),
+      ]),
     );
   }
 }

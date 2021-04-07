@@ -23,12 +23,13 @@ environment:
 dependencies:
     flutter:
         sdk: flutter
+    crypto: ^3.0.1
     cupertino_icons: ^1.0.2
-    fluttertoast: ^8.0.3 #Shows toasts
-    path_provider: ^2.0.1 #For Local Storage Path to store DB
-    sqflite: ^2.0.0+3 #For Local Storage - SQLite
-    crypto: ^3.0.1 #For encryption algorithm
-    http: ^0.13.1 #For Getting JSON data from PHP files
+    fluttertoast: ^8.0.3
+    html: ^0.15.0
+    http: ^0.13.1
+    path_provider: ^2.0.1
+    sqflite: ^2.0.0+3
 
 dev_dependencies:
     flutter_test:
@@ -43,7 +44,6 @@ flutter:
     # the material Icons class.
     uses-material-design: true
     # To add assets to your application, add an assets section, like this:
-
     assets:
         - lib/assets/logo.png
         #images/a_dot_ham.jpeg
