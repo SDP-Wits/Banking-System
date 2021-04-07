@@ -22,41 +22,39 @@ class AdminRegistrationPage extends StatefulWidget {
 class _AdminRegistrationPage extends State<AdminRegistrationPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [Colors.blueGrey, Colors.teal]),
-        ),
-        child: ListView(
-          children: <Widget>[
-            Column(
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Logo(),
-                    //TextNew(),
-                  ],
-                ),
-                NewName(),
-                NewSurname(),
-                NewAge(),
-                NewPhone(),
-                NewEmail(),
-                NewIDnum(),
-                NewLoc(),
-                PasswordInput(),
-                PasswordInput2(),
-                SecretKey(),
-                ButtonNewUser(),
-                UserOld(),
-              ],
-            ),
-          ],
-        ),
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Colors.blueGrey, Colors.teal]),
+      ),
+      child: ListView(
+        children: <Widget>[
+          Column(
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Logo(),
+                  //TextNew(),
+                ],
+              ),
+              NewName(),
+              NewSurname(),
+              NewAge(),
+              NewPhone(),
+              NewEmail(),
+              NewIDnum(),
+              NewLoc(),
+              PasswordInput(),
+              PasswordInput2(),
+              SecretKey(),
+              ButtonNewUser(),
+              UserOld(),
+            ],
+          ),
+        ],
       ),
     );
   }

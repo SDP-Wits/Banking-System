@@ -30,20 +30,18 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
             ),*/
           ),
         ], color: Colors.indigo[200], borderRadius: BorderRadius.circular(30)),
-        child: FlatButton(
+        child: TextButton(
           onPressed: () {
             Fluttertoast.showToast(
-        msg: giveError(),
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 3,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0
-    );
-        
-            //Navigator.pop(context);
+                msg: giveError(),
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 3,
+                backgroundColor: Colors.red,
+                textColor: Colors.white,
+                fontSize: 16.0);
 
+            //Navigator.pop(context);
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
