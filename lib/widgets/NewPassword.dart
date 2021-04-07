@@ -5,10 +5,10 @@ import 'package:last_national_bank/widgets/NewPassword2.dart';
 
 class PasswordInput extends StatefulWidget {
   @override
-    _PasswordInputState createState() => _PasswordInputState();
+    PasswordInputState createState() => PasswordInputState();
 }
 
-class _PasswordInputState extends State<PasswordInput> {
+class PasswordInputState extends State<PasswordInput> {
   bool _hasInputError = false; //error control variable
   String _password = "";//password variable
   //String password2 = PasswordInput2State().returnpassword();

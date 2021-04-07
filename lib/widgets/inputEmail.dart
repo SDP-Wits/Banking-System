@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' ;
 class InputEmail extends StatefulWidget {
   @override
   _InputEmailState createState() => _InputEmailState();
