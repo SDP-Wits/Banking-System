@@ -1,4 +1,9 @@
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+//import 'package:last_national_bank/core/SHA-256_encryption.dart';
+import 'package:last_national_bank/core/login/login.functions.dart';
+import 'package:last_national_bank/core/registration/registration.functions.dart';
 
 class ButtonNewUser extends StatefulWidget {
   @override
@@ -27,7 +32,18 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
         ], color: Colors.indigo[200], borderRadius: BorderRadius.circular(30)),
         child: FlatButton(
           onPressed: () {
-            Navigator.pop(context);
+    //         Fluttertoast.showToast(
+    //     msg: returnhash(),
+    //     toastLength: Toast.LENGTH_SHORT,
+    //     gravity: ToastGravity.CENTER,
+    //     timeInSecForIosWeb: 1,
+    //     backgroundColor: Colors.red,
+    //     textColor: Colors.white,
+    //     fontSize: 16.0
+    // );
+        
+            //Navigator.pop(context);
+
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,

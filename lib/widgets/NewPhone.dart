@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class NewPhone extends StatefulWidget {
   @override
-  _NewPhoneState createState() => _NewPhoneState();
+  NewPhoneState createState() => NewPhoneState();
 }
 
-class _NewPhoneState extends State<NewPhone> {
+class NewPhoneState extends State<NewPhone> {
   bool _hasInputError = false; //error control variable
   String _phone = ""; //id number variable
 
@@ -16,7 +16,9 @@ class _NewPhoneState extends State<NewPhone> {
     bool hasLetters = double.tryParse(phone) != null; //checks if phone number contains any letters
     return !hasLetters;
   }
-
+String returnPhone(){
+  return _phone;
+}
   @override
   Widget build(BuildContext context) {
     return Padding(

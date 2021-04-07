@@ -16,6 +16,9 @@ class NewIDnumState extends State<NewIDnum> {
     bool hasLetters = double.tryParse(idNum) != null; //checks if id number contains any letters
     return !hasLetters;
   }
+String returnID(){
+  return _idNum;
+}
 
   @override
   Widget build(BuildContext context) {

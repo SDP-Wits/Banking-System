@@ -16,7 +16,9 @@ class NewAgeState extends State<NewAge> {
     }
     return false;
   }
-
+int returnAge(){
+  return _age;
+}
   //assign age if no value present
   void assignAge(int age){
     if (hasInputError(age) == false){

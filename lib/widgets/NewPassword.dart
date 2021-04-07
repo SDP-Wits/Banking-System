@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class PasswordInput extends StatefulWidget {
   @override
-  _PasswordInputState createState() => _PasswordInputState();
+    PasswordInputState createState() => PasswordInputState();
 }
 
-class _PasswordInputState extends State<PasswordInput> {
+class PasswordInputState extends State<PasswordInput> {
   bool _hasInputError = false; //error control variable
   String _password = "";//password variable
 
@@ -19,6 +19,10 @@ class _PasswordInputState extends State<PasswordInput> {
       return !regExp.hasMatch(password);
     }
     return false;
+  }
+
+  String getPassword(){
+  return _password;
   }
 
   @override
