@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:last_national_bank/widgets/NewPassword.dart';
+import 'package:last_national_bank/widgets/NewPassword2.dart';
+
 
 class PasswordInput extends StatefulWidget {
   @override
@@ -8,7 +11,7 @@ class PasswordInput extends StatefulWidget {
 class PasswordInputState extends State<PasswordInput> {
   bool _hasInputError = false; //error control variable
   String _password = "";//password variable
-
+  String password2 = PasswordInput2State().returnpassword();
   bool hasInputErrors(String password){
     if (password.length < 8 || password.length > 20){ //check if password length is correct
       return true;
