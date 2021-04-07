@@ -16,9 +16,9 @@ class LoginPage extends StatelessWidget {
           gradient: LinearGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
-              colors: [Colors.blueGrey, Colors.lightBlueAccent]),
+              colors: [Colors.blueGrey, Colors.purple]),
         ),
-        child: ListView(
+        /*child: ListView(
           children: <Widget>[
             Column(
               children: <Widget>[
@@ -33,7 +33,7 @@ class LoginPage extends StatelessWidget {
               ],
             ),
           ],
-        ),
+        ),*/
       ),
     );
   }
