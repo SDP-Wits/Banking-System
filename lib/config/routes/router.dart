@@ -26,7 +26,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     //If page to go to equals "client-registration"
     case ClientRegistrationRoute:
       return MaterialRouteWrap(ClientRegistrationPage());
-      
+
     //If page to go to equals "admin-verification-list"
     case AdminVerificationListRoute:
       return MaterialRouteWrap(VerificationListPage());
