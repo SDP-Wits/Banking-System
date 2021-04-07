@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:last_national_bank/widgets/NewPassword.dart';
+import 'package:last_national_bank/widgets/NewPassword2.dart';
 
 class PasswordInput2 extends StatefulWidget {
   @override
-  _PasswordInput2State createState() => _PasswordInput2State();
+  PasswordInput2State createState() => PasswordInput2State();
 }
 
-class _PasswordInput2State extends State<PasswordInput2> {
+class PasswordInput2State extends State<PasswordInput2> {
   bool _hasInputError = false; //error control variable
   String _password2 = "";//password variable
-
+  String password1 = PasswordInputState().getPassword(); // this is the first password from the first password input
   bool hasInputErrors(String password){
     if (password.length < 8 || password.length > 20){ //check if password length is correct
       return true;
@@ -20,7 +22,9 @@ class _PasswordInput2State extends State<PasswordInput2> {
     }
     return false;
   }
-  
+  String returnpassword(){
+  return _password2;
+}
   @override
   Widget build(BuildContext context) {
     return Padding(

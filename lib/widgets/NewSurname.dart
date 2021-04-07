@@ -16,7 +16,9 @@ class NewSurnameState extends State<NewSurname> {
     }
     return false;
   }
-
+String returnSurName(){
+  return _surname;
+}
   //function to assign name
   void assignSurname(String surname){
     if (hasInputError(surname) == false){

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class NewEmail extends StatefulWidget {
   @override
-  _NewEmailState createState() => _NewEmailState();
+  NewEmailState createState() => NewEmailState();
 }
 
-class _NewEmailState extends State<NewEmail> {
+class NewEmailState extends State<NewEmail> {
   bool _hasInputError = false; //error control variable
   String _email = ""; //email variable
 
@@ -20,7 +20,9 @@ class _NewEmailState extends State<NewEmail> {
     }
     return false;
   }
-
+  String returnEmail(){
+  return _email;
+}
   //assign email if no errors present
   void assignEmail(String email){
     if (hasInputError(email) == false){

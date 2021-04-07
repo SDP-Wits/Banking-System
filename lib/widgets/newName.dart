@@ -23,7 +23,9 @@ class NewNameState extends State<NewName> {
       _name = name;
     }
   }
-
+String returnName(){
+  return _name;
+}
   @override
   Widget build(BuildContext context) {
     return Padding(

@@ -16,7 +16,9 @@ class NewLocState extends State<NewLoc> {
     }
     return false;
   }
-
+  String returnloc(){
+  return _loc;
+}
   @override
   Widget build(BuildContext context) {
     return Padding(
