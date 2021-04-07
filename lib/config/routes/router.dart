@@ -6,7 +6,6 @@ import 'package:last_national_bank/constants/route_constants.dart';
 import 'package:last_national_bank/core/login/login.dart';
 import 'package:last_national_bank/core/registration/admin_registration.dart';
 import 'package:last_national_bank/core/registration/client_registration.dart';
-import 'package:last_national_bank/core/verification_list/admin_verification_list.dart';
 
 //TODO: Testing
 
@@ -26,10 +25,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     //If page to go to equals "client-registration"
     case ClientRegistrationRoute:
       return MaterialRouteWrap(ClientRegistrationPage());
-      
-    //If page to go to equals "admin-verification-list"
-    case AdminVerificationListRoute:
-      return MaterialRouteWrap(VerificationListPage());
 
     //If page to go to is unknown, go to default home page, i.e. Login Page
     default:
@@ -61,10 +56,4 @@ void goToAdminRegistration(BuildContext context) {
   Navigator.popUntil(context, ModalRoute.withName("/login"));
 
   Navigator.pushNamed(context, AdminRegistrationRoute);
-}
-
-void goToAdminVerificationList(BuildContext context) {
-  Navigator.popUntil(context, ModalRoute.withName("/login"));
-
-  Navigator.pushNamed(context, AdminVerificationListRoute);
 }

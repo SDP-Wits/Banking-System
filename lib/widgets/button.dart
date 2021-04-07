@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:last_national_bank/config/routes/router.dart';
-import 'package:last_national_bank/core/verification_list/admin_verification_list.dart';
-import 'package:last_national_bank/widgets/routeButton.dart';
 
 class ButtonLogin extends StatefulWidget {
   @override
@@ -33,10 +30,7 @@ class _ButtonLoginState extends State<ButtonLogin> {
           borderRadius: BorderRadius.circular(30),
         ),
         child: TextButton(
-          onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => VerificationListPage()));
-              },
+          onPressed: () {},
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[

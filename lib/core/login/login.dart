@@ -21,7 +21,6 @@ class LoginPage extends StatelessWidget {
           children: <Widget>[
             Column(
               children: <Widget>[
-
                 Row(children: <Widget>[
                   VerticalText(),
                   TextLogin(),
