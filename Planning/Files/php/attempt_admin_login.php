@@ -14,7 +14,7 @@ if (strlen($id) != 13 || !is_numeric($id)){
     return;
 }
 
-$sql = "SELECT * FROM ADMIN INNER JOIN ADDRESS ON ADDRESS.idNumber = ADMIN.idNumber";
+$sql = "SELECT * FROM ADMIN INNER JOIN ADDRESS ON ADDRESS.idNumber = ADMIN.idNumber WHERE ADMIN.idNumber = '$id'";
 
 $result = $conn->query($sql);
 
@@ -23,6 +23,7 @@ $output = array();
 while ($row=$result->fetch_assoc()){
         $output[]=$row;
 }
+
 
 if (count($output) == 1){
     if ($password == $output[0]['password']){

@@ -14,7 +14,7 @@ if (strlen($id) != 13 || !is_numeric($id)){
     return;
 }
 
-$sql = "SELECT * FROM CLIENT INNER JOIN ADDRESS ON ADDRESS.idNumber = CLIENT.idNumber";
+$sql = "SELECT * FROM CLIENT INNER JOIN ADDRESS ON ADDRESS.idNumber = CLIENT.idNumber WHERE CLIENT.idNumber = '$id'";
 
 $result = $conn->query($sql);
 

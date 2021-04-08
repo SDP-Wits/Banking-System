@@ -62,7 +62,7 @@ Future<String> userLoginOnline(
   print(data["apartmentNumber"]);
   bool isAdmin = !isClientLogin;
   User user = User(
-    int.parse(data["clientID"]),
+    (isAdmin) ? int.parse(data["adminID"]) : int.parse(data["clientID"]),
     data["firstName"],
     data["middleName"],
     data["lastName"],
