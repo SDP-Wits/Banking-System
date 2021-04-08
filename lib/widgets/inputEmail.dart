@@ -5,10 +5,13 @@ class InputEmail extends StatefulWidget {
   _InputEmailState createState() => _InputEmailState();
 }
 
+  String inputText = ""; 
+  
 class _InputEmailState extends State<InputEmail> {
-  final myController = TextEditingController();
+  final myController = new TextEditingController();
   @override
   Widget build(BuildContext context) {
+    inputText = myController.text;
     return Padding(
       padding: const EdgeInsets.only(top: 50, left: 50, right: 50),
       child: Container(
