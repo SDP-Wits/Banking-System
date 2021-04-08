@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:last_national_bank/core/registration/registration.functions.dart';
+
+import '../registration.functions.dart';
 
 class NewSurname extends StatefulWidget {
   @override
@@ -11,18 +12,20 @@ class NewSurnameState extends State<NewSurname> {
   String _surname = ""; //surname variable
 
   //function to check for invalid name
-  bool hasInputError(String surname){
-    if (surname.length == 0){
+  bool hasInputError(String surname) {
+    if (surname.length == 0) {
       return true;
     }
     return false;
   }
-String returnSurName(){
-  return _surname;
-}
+
+  String returnSurName() {
+    return _surname;
+  }
+
   //function to assign name
-  void assignSurname(String surname){
-    if (hasInputError(surname) == false){
+  void assignSurname(String surname) {
+    if (hasInputError(surname) == false) {
       _surname = surname;
     }
   }
@@ -35,9 +38,11 @@ String returnSurName(){
         height: 60,
         width: MediaQuery.of(context).size.width,
         child: TextField(
-          onChanged: (value){
-            _hasInputError = hasInputError(value);  //call validator to check for errors
-            if (_hasInputError == false){ //if no errors, assign surname
+          onChanged: (value) {
+            _hasInputError =
+                hasInputError(value); //call validator to check for errors
+            if (_hasInputError == false) {
+              //if no errors, assign surname
               assignSurname(value);
               Data.surname = value;
             }
@@ -47,7 +52,9 @@ String returnSurName(){
             color: Colors.white,
           ),
           decoration: InputDecoration(
-            errorText: _hasInputError ? "Invalid Surname": null, //display text if errors present
+            errorText: _hasInputError
+                ? "Invalid Surname"
+                : null, //display text if errors present
             fillColor: Colors.transparent,
             hintText: 'Last Name',
             hintStyle: TextStyle(fontSize: 16.0, color: Colors.white),

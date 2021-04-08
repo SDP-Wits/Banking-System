@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:last_national_bank/core/registration/registration.functions.dart';
+
+import '../registration.functions.dart';
 
 class NewEmail extends StatefulWidget {
   @override
@@ -11,26 +12,29 @@ class NewEmailState extends State<NewEmail> {
   String _email = ""; //email variable
 
   //function to check if email is invalid
-  bool hasInputError(String email){
-    if (email.length == 0){
+  bool hasInputError(String email) {
+    if (email.length == 0) {
       return true;
-    }
-    else if(email.length > 0){
+    } else if (email.length > 0) {
       //Regular expression to check if email contains all necessary email components (@, .com, etc.)
-      return !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email);
+      return !RegExp(
+              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+          .hasMatch(email);
     }
     return false;
   }
-  String returnEmail(){
-  return _email;
-}
+
+  String returnEmail() {
+    return _email;
+  }
+
   //assign email if no errors present
-  void assignEmail(String email){
-    if (hasInputError(email) == false){
+  void assignEmail(String email) {
+    if (hasInputError(email) == false) {
       _email = email;
     }
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -40,8 +44,10 @@ class NewEmailState extends State<NewEmail> {
         width: MediaQuery.of(context).size.width,
         child: TextField(
           onChanged: (value) {
-            _hasInputError = hasInputError(value);  //call validator to check for errors
-            if (_hasInputError == false){ //if no errors, assign assign email
+            _hasInputError =
+                hasInputError(value); //call validator to check for errors
+            if (_hasInputError == false) {
+              //if no errors, assign assign email
               assignEmail(value);
               Data.email = value;
             }
@@ -51,7 +57,9 @@ class NewEmailState extends State<NewEmail> {
             color: Colors.white,
           ),
           decoration: InputDecoration(
-            errorText: _hasInputError ? "Invalid Email Address": null, //error text if email is invalid
+            errorText: _hasInputError
+                ? "Invalid Email Address"
+                : null, //error text if email is invalid
             fillColor: Colors.transparent,
             hintText: 'Email',
             hintStyle: TextStyle(fontSize: 16.0, color: Colors.white),

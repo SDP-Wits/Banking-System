@@ -1,20 +1,10 @@
 library bankingsystem.globals;
 
-import 'dart:convert';
 import 'dart:core';
+
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter/material.dart';
-import 'package:last_national_bank/core/registration/widgets/NewAge.dart';
-import 'package:last_national_bank/core/registration/widgets/NewIDnum.dart';
-import 'package:last_national_bank/core/registration/widgets/NewLoc.dart';
-import 'package:last_national_bank/core/registration/widgets/NewPassword.dart';
-import 'package:last_national_bank/core/registration/widgets/NewPassword2.dart';
-import 'package:last_national_bank/core/registration/widgets/NewPhone.dart';
-import 'package:last_national_bank/core/registration/widgets/NewSurname.dart';
-import 'package:last_national_bank/core/registration/widgets/newEmail.dart';
-import 'package:last_national_bank/core/registration/widgets/newName.dart';
-import 'package:last_national_bank/core/SHA-256_encryption.dart';
 import 'package:last_national_bank/constants/php_url.dart';
 
 // bool registerAdmin(String idNumber) {

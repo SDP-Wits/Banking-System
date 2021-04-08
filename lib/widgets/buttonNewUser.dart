@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:last_national_bank/constants/php_url.dart';
+import '../constants/php_url.dart';
 
 import '../core/registration/registration.functions.dart';
 

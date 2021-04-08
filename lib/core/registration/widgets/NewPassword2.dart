@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:last_national_bank/core/registration/widgets/NewPassword.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:last_national_bank/core/registration/registration.functions.dart';
 
 import '../registration.functions.dart';
 
@@ -13,7 +10,7 @@ class PasswordInput2 extends StatefulWidget {
 class PasswordInput2State extends State<PasswordInput2> {
   bool _hasInputError = false; //error control variable
   String _password2 = ""; //password variable
- // this is the first password from the first password input
+  // this is the first password from the first password input
 
   bool hasInputErrors(String passwordVal) {
     if (Data.password1 != passwordVal) {
@@ -48,8 +45,8 @@ class PasswordInput2State extends State<PasswordInput2> {
             _hasInputError = hasInputErrors(value);
             if (_hasInputError == false) {
               //check if password has errors
-              _password2 = value; 
-              Data.password2 = value ; //assign password if no errors present
+              _password2 = value;
+              Data.password2 = value; //assign password if no errors present
             }
             setState(() {});
           },

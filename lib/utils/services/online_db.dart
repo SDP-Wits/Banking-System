@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import 'package:html/parser.dart';
 import "package:http/http.dart" as http;
-import '../../classes/user.client.dart';
-import 'local_db.dart';
 
+import '../../classes/name.class.dart';
+import '../../classes/user.client.dart';
 import '../../constants/database_constants.dart';
 import '../../constants/php_url.dart';
+import 'local_db.dart';
 
 Future<List<Map<String, dynamic>>> getURLData(String url) async {
   final Uri uri = Uri.parse(url);
@@ -118,6 +118,24 @@ Future<String> adminRegisterOnline(String idNumber, String hashPassword) async {
 //TODO: insert_client
 
 //TODO: select_unverified_clients
+Future<List<Name>> getUnverifiedClienta() async {
+  final String url = urlPath + select_unverified_client_names;
+
+  final data = await getURLData(url);
+
+  List<Name> names = [];
+  for (var map in data) {
+    Name name = Name(
+      fName: map["firstName"],
+      mName: (map["middleName"] == null) ? null : map["middleName"],
+      sName: map["lastName"],
+    );
+
+    names.add(name);
+  }
+
+  return names;
+}
 
 //Helper Functions
 

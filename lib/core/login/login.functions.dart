@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:last_national_bank/config/routes/router.dart';
-import 'package:last_national_bank/core/SHA-256_encryption.dart';
-import 'package:last_national_bank/utils/services/online_db.dart';
+
+import '../../config/routes/router.dart';
+import '../../utils/services/online_db.dart';
+import '../SHA-256_encryption.dart';
 
 final TextEditingController idController = TextEditingController(text: "");
 final TextEditingController passwordController =

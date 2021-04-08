@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:last_national_bank/core/login/login.dart';
-import 'package:last_national_bank/core/manual_testing/playground.dart';
 
 import 'config/routes/router.dart' as router;
 import 'constants/app_constants.dart';
-import 'constants/route_constants.dart';
-import 'core/registration/admin_registration.dart';
+import 'core/login/login.dart';
+import 'core/verification_list/admin_verification_list.dart';
 import 'utils/services/local_db.dart';
 
 void main() {
@@ -44,17 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    LocalDatabaseHelper.instance.isUser().then((isUser) {
-      if (isUser) {
-        LocalDatabaseHelper.instance.getUserAndAddress().then((user) {
-          if (user!.isAdmin) {
-            router.goToAdminVerificationList(context);
-          } else {
-            router.goToAdminVerificationStatus(context);
-          }
-        });
-      }
-    });
+    // autoLogin(context);
   }
 
   @override
@@ -62,6 +50,20 @@ class _MyHomePageState extends State<MyHomePage> {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.blueAccent,
     ));
-    return LoginPage();
+    return VerificationListPage();
   }
+}
+
+void autoLogin(BuildContext context) {
+  LocalDatabaseHelper.instance.isUser().then((isUser) {
+    if (isUser) {
+      LocalDatabaseHelper.instance.getUserAndAddress().then((user) {
+        if (user!.isAdmin) {
+          router.goToAdminVerificationList(context);
+        } else {
+          router.goToAdminVerificationStatus(context);
+        }
+      });
+    }
+  });
 }

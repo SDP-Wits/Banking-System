@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:last_national_bank/core/login/login.functions.dart';
+
+import '../login.functions.dart';
 
 class PasswordInput extends StatefulWidget {
   @override

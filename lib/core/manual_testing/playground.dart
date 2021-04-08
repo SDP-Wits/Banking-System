@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:last_national_bank/classes/user.client.dart';
-import 'package:last_national_bank/constants/database_constants.dart';
-import 'package:last_national_bank/utils/helpers/helper.dart';
-import 'package:last_national_bank/utils/services/local_db.dart';
-import 'package:last_national_bank/utils/services/online_db.dart';
+
+import '../../classes/user.client.dart';
+import '../../constants/database_constants.dart';
+import '../../utils/helpers/helper.dart';
+import '../../utils/services/local_db.dart';
+import '../../utils/services/online_db.dart';
 
 class PlaygroundTest extends StatefulWidget {
   @override

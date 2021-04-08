@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../config/routes/router.dart';
-import '../config/routes/router.dart';
-import '../config/routes/router.dart';
 
 class FirstTime extends StatefulWidget {
   @override
