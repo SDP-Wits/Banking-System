@@ -59,6 +59,7 @@ class _FirstTimeState extends State<FirstTime> {
                               child: Text('Client'),
                               onPressed: () {
                                 Data.is_client = true;
+                                Navigator.pop(context);
                                 goToClientRegistration(context);
                               },
                             ),
@@ -66,6 +67,7 @@ class _FirstTimeState extends State<FirstTime> {
                               child: Text('Administrator'),
                               onPressed: () {
                                 Data.is_client = false;
+                                Navigator.pop(context);
                                 goToAdminRegistration(context);
                               },
                             ),

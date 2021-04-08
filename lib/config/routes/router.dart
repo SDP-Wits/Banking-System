@@ -55,38 +55,25 @@ Route<dynamic> unknownRoute(RouteSettings settings) {
 }
 
 void goToLogin(BuildContext context) {
-  //TODO: Handle when starting screen is not login screen (i.e. When already have credientials)
   Navigator.popUntil(context, ModalRoute.withName("/login"));
-
-  Navigator.pushNamed(context, LoginRoute);
 }
 
 void goToClientRegistration(BuildContext context) {
-  Navigator.popUntil(context, ModalRoute.withName("/login"));
-
   Navigator.pushNamed(context, ClientRegistrationRoute);
 }
 
 void goToAdminRegistration(BuildContext context) {
-  Navigator.popUntil(context, ModalRoute.withName("/login"));
-
   Navigator.pushNamed(context, AdminRegistrationRoute);
 }
 
 void goToAdminVerificationList(BuildContext context) {
-  Navigator.popUntil(context, ModalRoute.withName("/login"));
-
   Navigator.pushNamed(context, AdminVerificationListRoute);
 }
 
 void goToAdminVerificationStatus(BuildContext context) {
-  Navigator.popUntil(context, ModalRoute.withName("/login"));
-
   Navigator.pushNamed(context, VerificationStatusRoute);
 }
 
 void goToNewUser(BuildContext context) {
-  Navigator.popUntil(context, ModalRoute.withName("/login"));
-
   Navigator.pushNamed(context, NewUserRoute);
 }
