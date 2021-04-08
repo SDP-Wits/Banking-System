@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:last_national_bank/constants/route_constants.dart';
+import 'package:last_national_bank/core/verification_status/verification_status.dart';
 
 import 'config/routes/router.dart' as router;
 import 'config/routes/router.helper.dart';
@@ -54,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.blueAccent,
     ));
-    return LoginPage();
+    return VerificationStatus();
   }
 }
 

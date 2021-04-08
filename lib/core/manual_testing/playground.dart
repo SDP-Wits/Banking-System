@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../classes/user.client.dart';
+import '../../classes/user.class.dart';
 import '../../constants/database_constants.dart';
 import '../../utils/helpers/helper.dart';
 import '../../utils/services/local_db.dart';

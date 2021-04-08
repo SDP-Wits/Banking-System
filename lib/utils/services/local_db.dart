@@ -4,7 +4,7 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../../classes/user.client.dart';
+import '../../classes/user.class.dart';
 import '../../constants/database_constants.dart';
 import '../helpers/db_helper.dart';
 

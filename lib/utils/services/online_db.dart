@@ -3,7 +3,7 @@ import 'dart:convert';
 import "package:http/http.dart" as http;
 
 import '../../classes/name.class.dart';
-import '../../classes/user.client.dart';
+import '../../classes/user.class.dart';
 import '../../constants/database_constants.dart';
 import '../../constants/php_url.dart';
 import 'local_db.dart';
