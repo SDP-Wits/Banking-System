@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../config/routes/router.dart';
 import '../config/routes/router.dart';
 import '../config/routes/router.dart';
+import 'package:last_national_bank/core/registration/registration.functions.dart';
 
 class FirstTime extends StatefulWidget {
   @override
@@ -59,12 +60,14 @@ class _FirstTimeState extends State<FirstTime> {
                           FlatButton(
                             child: Text('Client'),              
                             onPressed: () {
+                              Data.is_client = true;
                               goToClientRegistration(context);
                             },
                           ),
                           FlatButton(
                             child: Text('Administrator'),
                             onPressed: () {
+                              Data.is_client = false;
                               goToAdminRegistration(context);
                             },
                           ),
