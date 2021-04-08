@@ -28,10 +28,12 @@ class _InputIDState extends State<InputID> {
             color: Colors.white,
           ),
           decoration: InputDecoration(
-            border: InputBorder.none,
-            errorText: _hasInputError
-                ? "Invalid ID Number"
-                : null, //text if password has errors
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.black26, width: 2.0),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.black, width: 1.0),
+            ),
             fillColor: Colors.lightBlueAccent,
             hintText: 'ID Number',
             hintStyle: TextStyle(fontSize: 16.0, color: Colors.white),

@@ -12,6 +12,9 @@ import 'login.functions.dart';
 class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.blueAccent,
+    ));
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(

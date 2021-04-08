@@ -18,42 +18,47 @@ TextEditingController getPasswordController() {
 
 Future<void> loginProcedure(BuildContext context) async {
   bool isAdmin = false;
-  Fluttertoast.showToast(msg: "hey there you tappedm e");
   await showDialog(
       context: context,
-      builder: (context) {
-        return Center(
-          child: Container(
-            padding: EdgeInsets.all(15),
-            color: Colors.white,
-            child: Column(
-              children: [
-                Text("Do you want to login in with your Admin account?"),
-                Row(
-                  children: [
-                    TextButton(
-                      onPressed: () {
-                        isAdmin = true;
-                        Fluttertoast.showToast(msg: isAdmin.toString());
-                        Navigator.pop(context);
-                      },
-                      child: Text("Yes"),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        isAdmin = false;
-                        Fluttertoast.showToast(msg: isAdmin.toString());
-                        Navigator.pop(context);
-                      },
-                      child: Text("No"),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Center(
+            child: Text("Login?"),
           ),
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Expanded(
+                child: Text(
+                  "Do you want to login in with your Admin account",
+                  textAlign: TextAlign.start,
+                ),
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('Yes'),
+              onPressed: () {
+                isAdmin = true;
+                Fluttertoast.showToast(msg: isAdmin.toString());
+                Navigator.pop(context);
+              },
+            ),
+            FlatButton(
+              child: Text('No'),
+              onPressed: () {
+                isAdmin = false;
+                Fluttertoast.showToast(msg: isAdmin.toString());
+                Navigator.pop(context);
+              },
+            ),
+          ],
         );
       });
+
   String id = idController.text;
   String password = passwordController.text;
 

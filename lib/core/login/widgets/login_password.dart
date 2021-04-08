@@ -29,9 +29,12 @@ class PasswordInputState extends State<PasswordInput> {
           ),
           obscureText: true,
           decoration: InputDecoration(
-            errorText: _hasInputError
-                ? "Invalid Password"
-                : null, //text if password has errors
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.black26, width: 2.0),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.black, width: 1.0),
+            ),
             fillColor: Colors.transparent,
             hintText: 'Password',
             hintStyle: TextStyle(fontSize: 16.0, color: Colors.white),
