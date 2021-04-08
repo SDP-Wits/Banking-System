@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../constants/php_url.dart';
-
-import '../constants/php_url.dart';
-import '../constants/php_url.dart';
 import '../core/registration/registration.functions.dart';
 import '../utils/services/online_db.dart';
 
@@ -25,7 +22,7 @@ Future<String> userRegisterOnline(bool isClientRegistration) async {
     Data.name,
     "",
     Data.surname,
-    Data.age as String,
+    Data.age.toString(),
     Data.phone,
     Data.email,
     Data.idnum,
@@ -85,6 +82,7 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
                     fontSize: 16.0);
               } else {
                 // call php for client
+                userRegisterOnline(true);
                 Fluttertoast.showToast(
                     msg: "client sorted",
                     toastLength: Toast.LENGTH_SHORT,
