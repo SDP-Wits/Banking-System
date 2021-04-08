@@ -19,7 +19,7 @@ $apartmentNum = $_REQUEST["apartmentNum"];*/
 
 $sql1 = "SELECT COUNT(*) AS RESULT FROM CLIENT WHERE idNumber = '$idNum'";
 
-if(mysqli_query($conn, $sql1)) {
+if($check = mysqli_query($conn, $sql1)) {
 	$check_count = mysqli_fetch_array($check);
     if($check_count['RESULT'] != '0'){
 		echo json_encode(
