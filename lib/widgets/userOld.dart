@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../core/login/login.dart';
+
+import '../config/routes/router.dart';
 
 class UserOld extends StatelessWidget {
   @override
@@ -22,8 +23,7 @@ class UserOld extends StatelessWidget {
             FlatButton(
               padding: EdgeInsets.all(0),
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => LoginPage()));
+                goToLogin(context);
               },
               child: Text(
                 'Sign in',

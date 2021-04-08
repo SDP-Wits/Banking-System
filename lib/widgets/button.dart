@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:last_national_bank/config/routes/router.dart';
-import 'package:last_national_bank/core/verification_list/admin_verification_list.dart';
-import 'package:last_national_bank/widgets/routeButton.dart';
+
+import 'package:fluttertoast/fluttertoast.dart';
+import '../config/routes/router.dart';
+import '../core/verification_list/admin_verification_list.dart';
+import 'routeButton.dart';
 
 class ButtonLogin extends StatefulWidget {
+  final Function(String) onTap;
+  ButtonLogin(this.onTap);
   @override
   _ButtonLoginState createState() => _ButtonLoginState();
 }
@@ -34,9 +38,8 @@ class _ButtonLoginState extends State<ButtonLogin> {
         ),
         child: TextButton(
           onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => VerificationListPage()));
-              },
+            goToAdminVerificationList(context);
+          },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[

@@ -1,10 +1,12 @@
 import 'dart:io';
 
-import '../../constants/database_constants.dart';
-import '../helpers/db_helper.dart';
-import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:sqflite/sqflite.dart';
+
+import '../../classes/user.client.dart';
+import '../../constants/database_constants.dart';
+import '../helpers/db_helper.dart';
 
 class LocalDatabaseHelper {
   // #region Set Up Code
@@ -41,9 +43,13 @@ class LocalDatabaseHelper {
   //SQL codes for making the database
   Future<void> _onCreate(Database db, int version) async {
     final String userTableSQL =
-        "CREATE TABLE USER(userID AUTO INCREMENT PRIMARY KEY, email TEXT NOT NULL, phoneNumber TEXT NOT NULL, id TEXT NOT NULL, password TEXT NOT NULL, age INTEGER NOT NULL, firstName TEXT NOT NULL, middleName TEXT, lastName TEXT NOT NULL, isAdmin INT NOT NULL)";
+        "CREATE TABLE USER(userID AUTO INCREMENT PRIMARY KEY, email TEXT NOT NULL, phoneNumber TEXT NOT NULL, idNumber TEXT NOT NULL, password TEXT NOT NULL, age INTEGER NOT NULL, firstName TEXT NOT NULL, middleName TEXT, lastName TEXT NOT NULL, isAdmin INT NOT NULL)";
+
+    final String addressTableSQL =
+        "CREATE TABLE ADDRESS(addressID INT AUTO INCREMENT PRIMARY KEY, streetNumber INTEGER NOT NULL, streetName TEXT NOT NULL, suburb TEXT NOT NULL, province TEXT NOT NULL, country TEXT NOT NULL, apartmentNumber TEXT)";
 
     await db.rawQuery(userTableSQL);
+    await db.rawQuery(addressTableSQL);
   }
 
   //When upgrading the version of the app
@@ -62,6 +68,9 @@ class LocalDatabaseHelper {
   }
 
   // #endregion Set Up Code
+
+  // #region User
+
   Future<String> addUser(
       int userID,
       String email,
@@ -74,7 +83,7 @@ class LocalDatabaseHelper {
       String lastName,
       bool isAdmin) async {
     final String sql =
-        "INSERT INTO USER(userID, email, phoneNumber, id, password, age, firstName, middleName, lastName, isAdmin)" +
+        "INSERT INTO USER(userID, email, phoneNumber, idNumber, password, age, firstName, middleName, lastName, isAdmin)" +
             "VALUES($userID, ${doubleQuote(email)}, ${doubleQuote(phoneNumber)}, ${doubleQuote(idNumber)}, ${doubleQuote(password)}, $age, ${doubleQuote(firstName)},${doubleQuote(middleName)},${doubleQuote(lastName)}, ${isAdmin ? 1 : 0})";
 
     try {
@@ -87,5 +96,142 @@ class LocalDatabaseHelper {
     } catch (error) {
       return error.toString();
     }
+  }
+
+  Future<bool> isUser() async {
+    final String sql = "SELECT * FROM USER";
+
+    List<Map> data = await rawQuery(sql);
+
+    return data.isNotEmpty;
+  }
+
+  Future<bool> deleteUser() async {
+    final String sql = "DELETE FROM USER";
+
+    await rawQuery(sql);
+
+    return !(await isUser());
+  }
+
+  Future<User?> getUserAndAddress() async {
+    if (await isUser()) {
+      final String sql = "SELECT * FROM USER LEFT JOIN ADDRESS";
+
+      Map data = (await rawQuery(sql))[0];
+
+      return User(
+          data["userID"],
+          data["firstName"],
+          data["middleName"],
+          data["lastName"],
+          data["age"],
+          data["phoneNumber"],
+          data["email"],
+          data["idNumber"],
+          data["password"],
+          data["isAdmin"],
+          data["streetNumber"],
+          data["streetName"],
+          data["suburb"],
+          data["province"],
+          data["country"],
+          data["apartmentNumber"]);
+    }
+    return null;
+  }
+
+  // #endregion
+
+  // #region Address
+  Future<String> addAddress(
+      String streetNumber,
+      String streetName,
+      String suburb,
+      String province,
+      String country,
+      String? apartmentNumber) async {
+    final String sql =
+        "INSERT INTO ADDRESS(streetNumber, streetName, suburb, province, country, apartmentNumber) VALUES(${doubleQuote(streetNumber)}, ${doubleQuote(streetName)}, ${doubleQuote(suburb)},${doubleQuote(province)}, ${doubleQuote(country)}, ${doubleQuote(apartmentNumber)})";
+
+    try {
+      List<Map> results = await rawQuery(sql);
+      if (results.isEmpty) {
+        return dbSuccess;
+      } else {
+        return dbFailed;
+      }
+    } catch (error) {
+      return error.toString();
+    }
+  }
+
+  Future<bool> isAddress() async {
+    final String sql = "SELECT * FROM ADDRESS";
+
+    List<Map> data = await rawQuery(sql);
+
+    return data.isNotEmpty;
+  }
+
+  Future<bool> deleteAddress() async {
+    final String sql = "DELETE FROM ADDRESS";
+
+    await rawQuery(sql);
+
+    return !(await isUser());
+  }
+  // #endregion
+
+  Future<String> addUserDetails(
+      int userID,
+      String email,
+      String phoneNumber,
+      String idNumber,
+      String password,
+      int age,
+      String firstName,
+      String middleName,
+      String lastName,
+      bool isAdmin,
+      String streetNumber,
+      String streetName,
+      String suburb,
+      String province,
+      String country,
+      String? apartmentNumber) async {
+    //Clearing up any old data
+    await deleteData();
+    //Adding user & address to the table
+    String addressResponse = await addAddress(
+        streetNumber, streetName, suburb, province, country, apartmentNumber);
+
+    String userResponse = await addUser(userID, email, phoneNumber, idNumber,
+        password, age, firstName, middleName, lastName, isAdmin);
+
+    //Setting to see if the data was inserted correctly
+    bool addressFlag = addressResponse != dbSuccess;
+    bool userFlag = userResponse != dbSuccess;
+
+    if (userFlag && addressFlag) {
+      return dbFailed;
+    }
+
+    if (userFlag) {
+      await deleteAddress();
+      return dbFailed;
+    }
+
+    if (userFlag) {
+      await deleteUser();
+      return dbFailed;
+    }
+
+    return dbSuccess;
+  }
+
+  Future<void> deleteData() async {
+    await deleteAddress();
+    await deleteUser();
   }
 }

@@ -11,7 +11,7 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT * FROM CLIENT WHERE id = '$id'";
+$sql = "SELECT * FROM CLIENT";
 
 $result = $conn->query($sql);
 

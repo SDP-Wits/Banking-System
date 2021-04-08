@@ -1,12 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:last_national_bank/config/routes/router.helper.dart';
-import 'package:last_national_bank/config/routes/undefined_page.dart';
-import 'package:last_national_bank/constants/route_constants.dart';
-import 'package:last_national_bank/core/login/login.dart';
-import 'package:last_national_bank/core/registration/admin_registration.dart';
-import 'package:last_national_bank/core/registration/client_registration.dart';
-import 'package:last_national_bank/core/verification_list/admin_verification_list.dart';
+
+import '../../constants/route_constants.dart';
+import '../../core/login/login.dart';
+import '../../core/registration/admin_registration.dart';
+import '../../core/registration/client_registration.dart';
+import '../../core/registration/newuser.page.dart';
+import '../../core/verification_list/admin_verification_list.dart';
+import '../../core/verification_status/verification_status.dart';
+import 'router.helper.dart';
+import 'undefined_page.dart';
 
 //TODO: Testing
 
@@ -30,6 +33,13 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     //If page to go to equals "admin-verification-list"
     case AdminVerificationListRoute:
       return MaterialRouteWrap(VerificationListPage());
+
+    //If User, go to see your application status
+    case VerificationStatusRoute:
+      return MaterialRouteWrap(VerificationStatus());
+
+    case NewUserRoute:
+      return MaterialRouteWrap(NewUser());
 
     //If page to go to is unknown, go to default home page, i.e. Login Page
     default:
@@ -67,4 +77,16 @@ void goToAdminVerificationList(BuildContext context) {
   Navigator.popUntil(context, ModalRoute.withName("/login"));
 
   Navigator.pushNamed(context, AdminVerificationListRoute);
+}
+
+void goToAdminVerificationStatus(BuildContext context) {
+  Navigator.popUntil(context, ModalRoute.withName("/login"));
+
+  Navigator.pushNamed(context, VerificationStatusRoute);
+}
+
+void goToNewUser(BuildContext context) {
+  Navigator.popUntil(context, ModalRoute.withName("/login"));
+
+  Navigator.pushNamed(context, NewUserRoute);
 }

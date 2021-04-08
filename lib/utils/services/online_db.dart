@@ -1,9 +1,10 @@
 import 'dart:convert';
 
-import 'package:fluttertoast/fluttertoast.dart';
 import "package:http/http.dart" as http;
-import 'package:last_national_bank/constants/database_constants.dart';
+import '../../classes/user.client.dart';
+import 'local_db.dart';
 
+import '../../constants/database_constants.dart';
 import '../../constants/php_url.dart';
 
 Future<List<Map<String, dynamic>>> getURLData(String url) async {
@@ -28,33 +29,80 @@ Future<List<Map<String, dynamic>>> getURLData(String url) async {
   }
 }
 
-Future<String> clientLoginOnline(String idNumber, String hashPassword) async {
-  //TODO: Testing
-  //Either [{error : ErrorMsg, status : false}]
-  //OR [{status : true}]
+//TODO: Tests
+//
+Future<String> userLoginOnline(
+    String idNumber, String hashPassword, bool isClientLogin) async {
+  //Choosing php file based off whether the user is a client or admin
+  String phpFileToUse =
+      isClientLogin ? attempt_client_login : attempt_admin_login;
+  Map data = (await getURLData(urlPath + phpFileToUse))[0];
 
-  Map data = (await getURLData(urlPath + attempt_client_login))[0];
+  //If there is an error
+  if (data.containsKey("status")) {
+    if (!data["status"]) {
+      return data["error"];
+    }
+  }
+
+  //If there isn't an error, then we should add User to local DB
+  //then we should return dbSuccess
+
+  //TODO: check out how null values get returned from the database
+  //i.e. the apartmentNumber
+  bool isAdmin = !isClientLogin;
+  User user = User(
+      data["clientID"],
+      data["firstName"],
+      data["middleName"],
+      data["lastName"],
+      data["age"],
+      data["phoneNumber"],
+      data["email"],
+      data["idNumber"],
+      data["password"],
+      isAdmin,
+      data["streetNumber"],
+      data["streetName"],
+      data["suburb"],
+      data["province"],
+      data["country"],
+      data["apartmentNumber"]);
+
+  //TODO: Chech how the user data is looking like
+
+  return await LocalDatabaseHelper.instance.addUserDetails(
+      user.userID,
+      user.email,
+      user.phoneNumber,
+      user.idNumber,
+      user.hashPassword,
+      user.age,
+      user.firstName,
+      user.middleName,
+      user.lastName,
+      user.isAdmin,
+      user.address.streetNumber,
+      user.address.streetName,
+      user.address.suburb,
+      user.address.province,
+      user.address.country,
+      user.address.apartmentNumber);
+}
+
+//TODO: insert_admin
+Future<String> adminRegisterOnline(String idNumber, String hashPassword) async {
+  Map data = (await getURLData(urlPath + insert_admin))[0];
 
   bool status = data["status"];
 
   if (status) {
     return dbSuccess;
-    //returns "Success", in the frontend, check if the return
-    // string is dbSuccess, if it is then you know you it works, else you know you
-    // got an error message instead
   } else {
-    //So if status is false, hence there is an error of some sort
     return data["error"];
   }
-
-  //And on the front end your code will look something like this
-  /*
-  String clientLoginString = await clientLoginOnline(idNumber, hashPassword);
-  if (clientLoginString == dbSuccess) {
-    //Do something coz the user had correct credentials
-  } else {
-    //Insert some kwl error handling shit here
-    Fluttertoast.showToast(msg: "THERE IS AN ERROR!!! $clientLoginString");
-  }
-  */
 }
+
+//TODO: insert_client
+
+//TODO: select_unverified_clients

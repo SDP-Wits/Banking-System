@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
-import '../../widgets/Logo.dart';
-import '../../widgets/NewAge.dart';
-import '../../widgets/NewIDnum.dart';
-import '../../widgets/NewLoc.dart';
-import '../../widgets/NewSurname.dart';
+import 'widgets/Logo.dart';
 import '../../widgets/Secret.dart';
-import '../../widgets/NewPhone.dart';
 import '../../widgets/buttonNewUser.dart';
-import '../../widgets/newEmail.dart';
-import '../../widgets/newName.dart';
-import '../../widgets/NewPassword.dart';
-import '../../widgets/NewPassword2.dart';
 import '../../widgets/userOld.dart';
+import 'widgets/NewAge.dart';
+import 'widgets/NewIDnum.dart';
+import 'widgets/NewLoc.dart';
+import 'widgets/NewPassword.dart';
+import 'widgets/NewPassword2.dart';
+import 'widgets/NewPhone.dart';
+import 'widgets/NewSurname.dart';
+import 'widgets/newEmail.dart';
+import 'widgets/newName.dart';
 
 class AdminRegistrationPage extends StatefulWidget {
   @override
@@ -22,41 +22,39 @@ class AdminRegistrationPage extends StatefulWidget {
 class _AdminRegistrationPage extends State<AdminRegistrationPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [Colors.blueGrey, Colors.teal]),
-        ),
-        child: ListView(
-          children: <Widget>[
-            Column(
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Logo(),
-                    //TextNew(),
-                  ],
-                ),
-                NewName(),
-                NewSurname(),
-                NewAge(),
-                NewPhone(),
-                NewEmail(),
-                NewIDnum(),
-                NewLoc(),
-                PasswordInput(),
-                PasswordInput2(),
-                SecretKey(),
-                ButtonNewUser(),
-                UserOld(),
-              ],
-            ),
-          ],
-        ),
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Colors.blueGrey, Colors.teal]),
+      ),
+      child: ListView(
+        children: <Widget>[
+          Column(
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Logo(),
+                  //TextNew(),
+                ],
+              ),
+              NewName(),
+              NewSurname(),
+              NewAge(),
+              NewPhone(),
+              NewEmail(),
+              NewIDnum(),
+              NewLoc(),
+              PasswordInput(),
+              PasswordInput2(),
+              SecretKey(),
+              ButtonNewUser(),
+              UserOld(),
+            ],
+          ),
+        ],
       ),
     );
   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../core/registration/newuser.page.dart';
+import '../config/routes/router.dart';
 
 class FirstTime extends StatefulWidget {
   @override
@@ -14,33 +14,38 @@ class _FirstTimeState extends State<FirstTime> {
       padding: const EdgeInsets.only(top: 30, left: 30),
       child: Container(
         alignment: Alignment.topRight,
-        color: Colors.red,
+        color: Colors.blueGrey,
         height: 20,
-        child: Row(
-          children: <Widget>[
-            Text(
-              'Your first time?',
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.white70,
-              ),
-            ),
-            FlatButton(
-              padding: EdgeInsets.all(0),
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => NewUser()));
-              },
-              child: Text(
-                'Sign up',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.white,
+        child: Container(
+          // padding: EdgeInsets.all(15),
+          alignment: Alignment.center,
+          child: Row(
+            children: <Widget>[
+              Container(
+                // padding: EdgeInsets.all(15),
+                child: Text(
+                  'Your first time?',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.white70,
+                  ),
                 ),
-                textAlign: TextAlign.right,
               ),
-            ),
-          ],
+              TextButton(
+                onPressed: () {
+                  goToNewUser(context);
+                },
+                child: Text(
+                  'Sign up',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.white,
+                  ),
+                  textAlign: TextAlign.right,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
