@@ -34,8 +34,6 @@ class Data {
   static int age = 0;
   static String prikey = "";
   static bool is_client = false;
-
-
 }
 
 bool fullvalidation() {
@@ -82,7 +80,6 @@ bool fullvalidation() {
   return flag;
 }
 
-
 String giveError() {
   if (!fullvalidation()) {
     return ("Some Fields Have Errors");
@@ -91,43 +88,33 @@ String giveError() {
   }
 }
 
-
-
 String apiURLclient = urlPath + insert_client;
 
 Future insertClient() async {
-
-  http.Response response = await http.post(
-    apiURLclient as Uri,
-    body: {
-      "firstName": Data.name,
-      "lastName" : Data.surname,
-      "age" : Data.age,
-      "phoneNum" : Data.phone,
-      "email": Data.email,
-      "idNum": Data.idnum,
-      "password":Data.password1,
-    }
-
-  );
-    // final response = await http.post(apiURLclient as Uri, body:{
-    //   "firstName": Data.name,
-    //   "lastName" : Data.surname,
-    //   "age" : Data.age,
-    //   "phoneNum" : Data.phone,
-    //   "email": Data.email,
-    //   "idNum": Data.idnum,
-    //   "password":Data.password1,
-    // });
-     Fluttertoast.showToast(
-          msg: response.statusCode.toString(),
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 3,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0);
-
+  http.Response response = await http.post(apiURLclient as Uri, body: {
+    "firstName": Data.name,
+    "lastName": Data.surname,
+    "age": Data.age,
+    "phoneNum": Data.phone,
+    "email": Data.email,
+    "idNum": Data.idnum,
+    "password": Data.password1,
+  });
+  // final response = await http.post(apiURLclient as Uri, body:{
+  //   "firstName": Data.name,
+  //   "lastName" : Data.surname,
+  //   "age" : Data.age,
+  //   "phoneNum" : Data.phone,
+  //   "email": Data.email,
+  //   "idNum": Data.idnum,
+  //   "password":Data.password1,
+  // });
+  Fluttertoast.showToast(
+      msg: response.statusCode.toString(),
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.CENTER,
+      timeInSecForIosWeb: 3,
+      backgroundColor: Colors.red,
+      textColor: Colors.white,
+      fontSize: 16.0);
 }
-
-
