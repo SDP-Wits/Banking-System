@@ -71,6 +71,9 @@ bool fullvalidation() {
   if (surname.length == 0) {
     flag = false;
   }
+  if (password != password2){
+    flag = false;
+  }
   return flag;
 }
 

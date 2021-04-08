@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 
 class PasswordInput extends StatefulWidget {
@@ -34,10 +35,18 @@ class PasswordInputState extends State<PasswordInput> {
         height: 60,
         width: MediaQuery.of(context).size.width,
         child: TextField(
-          onSubmitted: (value) {
+          onChanged: (value) {
             _hasInputError = hasInputErrors(value);
             if (_hasInputError == false){ //check if password has errors
               _password = value; //assign password if no errors present
+              Fluttertoast.showToast(
+                msg: _password,
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 3,
+                backgroundColor: Colors.red,
+                textColor: Colors.white,
+                fontSize: 16.0);
             }
             setState(() {});
           },
