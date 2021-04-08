@@ -38,7 +38,6 @@ class _InputIDState extends State<InputID> {
             labelStyle: TextStyle(
               color: Colors.white70,
             ),
-            icon: Icon(Icons.lock_rounded, color: Colors.white),
           ),
         ),
       ),
