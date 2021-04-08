@@ -27,7 +27,7 @@ if ($conn->connect_error) {
     return;
 }
 
-$sql = "SELECT * FROM CLIENT INNER JOIN ADDRESS ON ADDRESS.idNumber = CLIENT.idNumber";
+$sql = "SELECT * FROM ADMIN INNER JOIN ADDRESS ON ADDRESS.idNumber = ADMIN.idNumber";
 
 $result = $conn->query($sql);
 

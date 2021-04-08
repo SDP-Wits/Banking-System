@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:last_national_bank/core/verification_list/verification.functions.dart';
-import 'package:last_national_bank/utils/helpers/style.dart';
-import 'package:last_national_bank/widgets/verifyUsersTitle.dart';
+
+import '../../utils/helpers/style.dart';
+import '../../widgets/verifyUsersTitle.dart';
+import 'verification.functions.dart';
 
 class VerificationListPage extends StatefulWidget {
   @override

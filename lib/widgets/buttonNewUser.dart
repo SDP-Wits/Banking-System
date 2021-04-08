@@ -1,9 +1,7 @@
-import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-//import 'package:last_national_bank/core/SHA-256_encryption.dart';
-import 'package:last_national_bank/core/login/login.functions.dart';
-import 'package:last_national_bank/core/registration/registration.functions.dart';
+
+import '../core/registration/registration.functions.dart';
 
 class ButtonNewUser extends StatefulWidget {
   @override

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import '../../widgets/button.dart';
 import '../../widgets/first.dart';
 import '../../widgets/inputEmail.dart';
-import '../../widgets/NewPassword.dart';
 import '../../widgets/textLogin.dart';
 import '../../widgets/verticalText.dart';
+import '../registration/widgets/NewPassword.dart';
 import 'login.functions.dart';
 
 class LoginPage extends StatelessWidget {
@@ -18,7 +18,7 @@ class LoginPage extends StatelessWidget {
             end: Alignment.bottomLeft,
             colors: [Colors.blueGrey, Colors.purple]),
       ),
-      child: ListView(children: [
+      child: Column(children: [
         Row(children: <Widget>[
           VerticalText(),
           TextLogin(),

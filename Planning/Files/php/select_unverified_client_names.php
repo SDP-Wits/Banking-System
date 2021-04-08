@@ -21,7 +21,11 @@ if ($result = mysqli_query($conn,$sql)){
 	}
 	echo json_encode($output);
 } else{
-	echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+	echo json_encode(
+        array(
+            array("error" => "Unsuccessful", "status" => FALSE, "debug" => "Could not execute $sql.")
+        )
+    );
 }
 
 $conn->close();

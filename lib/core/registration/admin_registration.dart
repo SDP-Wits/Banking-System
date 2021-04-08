@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
 import '../../widgets/Logo.dart';
-import '../../widgets/NewAge.dart';
-import '../../widgets/NewIDnum.dart';
-import '../../widgets/NewLoc.dart';
-import '../../widgets/NewSurname.dart';
 import '../../widgets/Secret.dart';
-import '../../widgets/NewPhone.dart';
 import '../../widgets/buttonNewUser.dart';
-import '../../widgets/newEmail.dart';
-import '../../widgets/newName.dart';
-import '../../widgets/NewPassword.dart';
-import '../../widgets/NewPassword2.dart';
 import '../../widgets/userOld.dart';
+import 'widgets/NewAge.dart';
+import 'widgets/NewIDnum.dart';
+import 'widgets/NewLoc.dart';
+import 'widgets/NewPassword.dart';
+import 'widgets/NewPassword2.dart';
+import 'widgets/NewPhone.dart';
+import 'widgets/NewSurname.dart';
+import 'widgets/newEmail.dart';
+import 'widgets/newName.dart';
 
 class AdminRegistrationPage extends StatefulWidget {
   @override

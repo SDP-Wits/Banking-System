@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:last_national_bank/widgets/NewPassword.dart';
-import 'package:last_national_bank/widgets/NewPassword2.dart';
 
 
 class PasswordInput extends StatefulWidget {
