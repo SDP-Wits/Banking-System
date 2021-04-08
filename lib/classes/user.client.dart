@@ -3,7 +3,7 @@ import 'address.class.dart';
 class User {
   late int userID;
   late String firstName;
-  late String middleName;
+  late String? middleName;
   late String lastName;
   late int age;
   late String phoneNumber;
@@ -16,7 +16,7 @@ class User {
   User(
     int userID,
     String firstName,
-    String middleName,
+    String? middleName,
     String lastName,
     int age,
     String phoneNumber,
@@ -24,12 +24,12 @@ class User {
     String idNumber,
     String hashPassword,
     bool isAdmin,
-    String streetNumber,
+    int streetNumber,
     String streetName,
     String suburb,
     String province,
     String country,
-    String? apartmentNumber,
+    int? apartmentNumber,
   ) {
     this.userID = userID;
     this.firstName = firstName;

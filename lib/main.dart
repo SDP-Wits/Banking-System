@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:last_national_bank/core/login/login.dart';
+import 'package:last_national_bank/core/manual_testing/playground.dart';
 
 import 'config/routes/router.dart' as router;
 import 'constants/app_constants.dart';
@@ -22,7 +24,8 @@ class MyApp extends StatelessWidget {
       ),
       onGenerateRoute: router.generateRoute,
       onUnknownRoute: router.unknownRoute,
-      initialRoute: LoginRoute,
+      // initialRoute: LoginRoute,
+      //TODO: UNCOMMENT THIS OUT
       home: Scaffold(
         body: SafeArea(
           child: MyHomePage(),

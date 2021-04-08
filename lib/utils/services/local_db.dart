@@ -46,7 +46,7 @@ class LocalDatabaseHelper {
         "CREATE TABLE USER(userID AUTO INCREMENT PRIMARY KEY, email TEXT NOT NULL, phoneNumber TEXT NOT NULL, idNumber TEXT NOT NULL, password TEXT NOT NULL, age INTEGER NOT NULL, firstName TEXT NOT NULL, middleName TEXT, lastName TEXT NOT NULL, isAdmin INT NOT NULL)";
 
     final String addressTableSQL =
-        "CREATE TABLE ADDRESS(addressID INT AUTO INCREMENT PRIMARY KEY, streetNumber INTEGER NOT NULL, streetName TEXT NOT NULL, suburb TEXT NOT NULL, province TEXT NOT NULL, country TEXT NOT NULL, apartmentNumber TEXT)";
+        "CREATE TABLE ADDRESS(addressID INT AUTO INCREMENT PRIMARY KEY, streetNumber INTEGER NOT NULL, streetName TEXT NOT NULL, suburb TEXT NOT NULL, province TEXT NOT NULL, country TEXT NOT NULL, apartmentNumber INT)";
 
     await db.rawQuery(userTableSQL);
     await db.rawQuery(addressTableSQL);
@@ -79,12 +79,12 @@ class LocalDatabaseHelper {
       String password,
       int age,
       String firstName,
-      String middleName,
+      String? middleName,
       String lastName,
       bool isAdmin) async {
     final String sql =
         "INSERT INTO USER(userID, email, phoneNumber, idNumber, password, age, firstName, middleName, lastName, isAdmin)" +
-            "VALUES($userID, ${doubleQuote(email)}, ${doubleQuote(phoneNumber)}, ${doubleQuote(idNumber)}, ${doubleQuote(password)}, $age, ${doubleQuote(firstName)},${doubleQuote(middleName)},${doubleQuote(lastName)}, ${isAdmin ? 1 : 0})";
+            "VALUES($userID, ${doubleQuote(email)}, ${doubleQuote(phoneNumber)}, ${doubleQuote(idNumber)}, ${doubleQuote(password)}, $age, ${doubleQuote(firstName)},${(middleName == null) ? "null" : doubleQuote(middleName)},${doubleQuote(lastName)}, ${isAdmin ? 1 : 0})";
 
     try {
       List<Map> results = await rawQuery(sql);
@@ -130,7 +130,7 @@ class LocalDatabaseHelper {
           data["email"],
           data["idNumber"],
           data["password"],
-          data["isAdmin"],
+          (data["isAdmin"] == 1) ? true : false,
           data["streetNumber"],
           data["streetName"],
           data["suburb"],
@@ -144,15 +144,10 @@ class LocalDatabaseHelper {
   // #endregion
 
   // #region Address
-  Future<String> addAddress(
-      String streetNumber,
-      String streetName,
-      String suburb,
-      String province,
-      String country,
-      String? apartmentNumber) async {
+  Future<String> addAddress(int streetNumber, String streetName, String suburb,
+      String province, String country, int? apartmentNumber) async {
     final String sql =
-        "INSERT INTO ADDRESS(streetNumber, streetName, suburb, province, country, apartmentNumber) VALUES(${doubleQuote(streetNumber)}, ${doubleQuote(streetName)}, ${doubleQuote(suburb)},${doubleQuote(province)}, ${doubleQuote(country)}, ${doubleQuote(apartmentNumber)})";
+        "INSERT INTO ADDRESS(streetNumber, streetName, suburb, province, country, apartmentNumber) VALUES($streetNumber, ${doubleQuote(streetName)}, ${doubleQuote(suburb)},${doubleQuote(province)}, ${doubleQuote(country)}, ${(apartmentNumber == null) ? "null" : apartmentNumber})";
 
     try {
       List<Map> results = await rawQuery(sql);
@@ -191,15 +186,15 @@ class LocalDatabaseHelper {
       String password,
       int age,
       String firstName,
-      String middleName,
+      String? middleName,
       String lastName,
       bool isAdmin,
-      String streetNumber,
+      int streetNumber,
       String streetName,
       String suburb,
       String province,
       String country,
-      String? apartmentNumber) async {
+      int? apartmentNumber) async {
     //Clearing up any old data
     await deleteData();
     //Adding user & address to the table

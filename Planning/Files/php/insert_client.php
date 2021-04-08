@@ -1,14 +1,6 @@
 <?php
 include "./helpers/server_details.php";
 
-// Create connection
-$conn = new mysqli($serverName, $username, $password, $dbName);
-
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-
 $firstName = $_REQUEST["firstName"];
 $middleName = $_REQUEST["middleName"];
 $lastName = $_REQUEST["lastName"];

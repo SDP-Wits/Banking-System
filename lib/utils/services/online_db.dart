@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:html/parser.dart';
 import "package:http/http.dart" as http;
 import '../../classes/user.client.dart';
 import 'local_db.dart';
@@ -13,6 +14,7 @@ Future<List<Map<String, dynamic>>> getURLData(String url) async {
   final httpResponse = await http.get(uri);
 
   if (httpResponse.statusCode == 200) {
+    // print("response from json is " + httpResponse.body);
     final jsonOutput = json.decode(httpResponse.body);
 
     List<Map<String, dynamic>> map = [];
@@ -36,7 +38,13 @@ Future<String> userLoginOnline(
   //Choosing php file based off whether the user is a client or admin
   String phpFileToUse =
       isClientLogin ? attempt_client_login : attempt_admin_login;
-  Map data = (await getURLData(urlPath + phpFileToUse))[0];
+
+  List<String> phpNames = ["id", "password"];
+  final String arguments = argumentMaker(
+      phpNames: phpNames, inputVariables: [idNumber, hashPassword]);
+
+  // print(urlPath + phpFileToUse + arguments);
+  Map data = (await getURLData(urlPath + phpFileToUse + arguments))[0];
 
   //If there is an error
   if (data.containsKey("status")) {
@@ -50,24 +58,27 @@ Future<String> userLoginOnline(
 
   //TODO: check out how null values get returned from the database
   //i.e. the apartmentNumber
+  print("null value in sql is: ");
+  print(data["apartmentNumber"]);
   bool isAdmin = !isClientLogin;
   User user = User(
-      data["clientID"],
-      data["firstName"],
-      data["middleName"],
-      data["lastName"],
-      data["age"],
-      data["phoneNumber"],
-      data["email"],
-      data["idNumber"],
-      data["password"],
-      isAdmin,
-      data["streetNumber"],
-      data["streetName"],
-      data["suburb"],
-      data["province"],
-      data["country"],
-      data["apartmentNumber"]);
+    int.parse(data["clientID"]),
+    data["firstName"],
+    data["middleName"],
+    data["lastName"],
+    int.parse(data["age"]),
+    data["phoneNumber"],
+    data["email"],
+    data["idNumber"],
+    data["password"],
+    isAdmin,
+    int.parse(data["streetNumber"]),
+    data["streetName"],
+    data["suburb"],
+    data["province"],
+    data["country"],
+    int.parse(data["apartmentNumber"]),
+  );
 
   //TODO: Chech how the user data is looking like
 
@@ -92,7 +103,8 @@ Future<String> userLoginOnline(
 
 //TODO: insert_admin
 Future<String> adminRegisterOnline(String idNumber, String hashPassword) async {
-  Map data = (await getURLData(urlPath + insert_admin))[0];
+  final String arguments = "?id=$idNumber;password=$hashPassword";
+  Map data = (await getURLData(urlPath + insert_admin + arguments))[0];
 
   bool status = data["status"];
 
@@ -106,3 +118,21 @@ Future<String> adminRegisterOnline(String idNumber, String hashPassword) async {
 //TODO: insert_client
 
 //TODO: select_unverified_clients
+
+//Helper Functions
+
+String argumentMaker(
+    {required List<String> phpNames, required List<String> inputVariables}) {
+  String argument = "?";
+  int length = phpNames.length;
+
+  for (int i = 0; i < length; i++) {
+    argument += "${phpNames[i]}=${inputVariables[i]}";
+
+    if (i != length - 1) {
+      argument += '&';
+    }
+  }
+
+  return argument;
+}
