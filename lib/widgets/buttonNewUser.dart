@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:last_national_bank/constants/php_url.dart';
 
 import '../core/registration/registration.functions.dart';
 
@@ -30,16 +31,16 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
         ], color: Colors.indigo[200], borderRadius: BorderRadius.circular(30)),
         child: TextButton(
           onPressed: () {
-            Fluttertoast.showToast(
-                msg: giveError(),
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.CENTER,
-                timeInSecForIosWeb: 3,
-                backgroundColor: Colors.red,
-                textColor: Colors.white,
-                fontSize: 16.0);
-
-            //Navigator.pop(context);
+            // Fluttertoast.showToast(
+            //     msg: giveError(),
+            //     toastLength: Toast.LENGTH_SHORT,
+            //     gravity: ToastGravity.CENTER,
+            //     timeInSecForIosWeb: 3,
+            //     backgroundColor: Colors.red,
+            //     textColor: Colors.white,
+            //     fontSize: 16.0);
+            
+            insertClient();
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,

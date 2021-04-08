@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:last_national_bank/core/registration/registration.functions.dart';
 
 class NewEmail extends StatefulWidget {
   @override
@@ -42,6 +43,7 @@ class NewEmailState extends State<NewEmail> {
             _hasInputError = hasInputError(value);  //call validator to check for errors
             if (_hasInputError == false){ //if no errors, assign assign email
               assignEmail(value);
+              Data.email = value;
             }
             setState(() {});
           },

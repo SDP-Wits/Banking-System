@@ -1,10 +1,10 @@
 class Address {
-  String streetNumber;
+  int streetNumber;
   String streetName;
   String suburb;
   String province;
   String country;
-  String? apartmentNumber;
+  int? apartmentNumber;
 
   Address(
       {required this.streetNumber,

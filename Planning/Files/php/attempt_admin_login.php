@@ -14,20 +14,7 @@ if (strlen($id) != 13 || !is_numeric($id)){
     return;
 }
 
-// Create connection
-$conn = new mysqli($serverName, $username, $password, $dbName);
-
-// Check connection
-if ($conn->connect_error) {
-    echo json_encode(
-        array(
-            array("error" => "Connection Failed", "status" => FALSE)
-        )
-    );
-    return;
-}
-
-$sql = "SELECT * FROM ADMIN INNER JOIN ADDRESS ON ADDRESS.idNumber = ADMIN.idNumber";
+$sql = "SELECT * FROM ADMIN INNER JOIN ADDRESS ON ADDRESS.idNumber = ADMIN.idNumber WHERE ADMIN.idNumber = '$id'";
 
 $result = $conn->query($sql);
 
@@ -37,8 +24,9 @@ while ($row=$result->fetch_assoc()){
         $output[]=$row;
 }
 
+
 if (count($output) == 1){
-    if ($password == $output['password']){
+    if ($password == $output[0]['password']){
         echo json_encode($output); //Successful login
         $conn->close();
         return;

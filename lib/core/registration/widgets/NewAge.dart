@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:last_national_bank/core/registration/registration.functions.dart';
 
 class NewAge extends StatefulWidget {
   @override
@@ -23,6 +24,7 @@ int returnAge(){
   void assignAge(int age){
     if (hasInputError(age) == false){
       _age = age;
+
     }
   }
 
@@ -43,6 +45,7 @@ int returnAge(){
               _hasInputError = hasInputError(age);
               if (_hasInputError == false){
                 assignAge(age);
+                Data.age = age;
               }
             }
             setState(() {});

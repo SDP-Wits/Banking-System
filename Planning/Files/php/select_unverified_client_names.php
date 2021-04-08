@@ -1,14 +1,6 @@
 <?php
 include "./helpers/server_details.php";
 
-// Create connection
-$conn = new mysqli($serverName, $username, $password, $dbName);
-
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-
 $sql = "SELECT firstName, middleName,lastName 
 FROM CLIENT LEFT JOIN `VERIFIED CLIENT` 
 ON CLIENT.clientID = `VERIFIED CLIENT`.clientID 
