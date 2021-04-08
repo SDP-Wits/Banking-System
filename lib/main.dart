@@ -50,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.blueAccent,
     ));
-    return VerificationListPage();
+    return LoginPage();
   }
 }
 
