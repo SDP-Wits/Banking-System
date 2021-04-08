@@ -19,12 +19,12 @@ $idNum = $_REQUEST["idNum"];
 $password = $_REQUEST["password"];
 $secretKey = $_REQUEST["secretKey"];
 
-$streetName = $_REQUEST["streetName"];
+/*$streetName = $_REQUEST["streetName"];
 $streetNum = $_REQUEST["streetNum"];
 $suburb = $_REQUEST["suburb"];
 $province = $_REQUEST["province"];
 $country = $_REQUEST["country"];
-$apartmentNum = $_REQUEST["apartmentNum"];
+$apartmentNum = $_REQUEST["apartmentNum"];*/
 
 $sql1 = "SELECT COUNT(*) AS RESULT FROM ADMIN WHERE idNumber = '$idNum'";
 $sql2 = "SELECT COUNT(*) AS RESULT FROM `SECRET KEY` WHERE secretKey = '$secretKey'";
