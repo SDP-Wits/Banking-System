@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../widgets/Logo.dart';
+import 'widgets/Logo.dart';
 import '../../widgets/buttonNewUser.dart';
 import '../../widgets/userOld.dart';
 import 'widgets/NewAge.dart';

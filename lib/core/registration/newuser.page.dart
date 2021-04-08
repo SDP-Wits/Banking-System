@@ -8,7 +8,7 @@ import 'package:last_national_bank/core/registration/widgets/NewPassword.dart';
 import 'package:last_national_bank/core/registration/widgets/NewSurname.dart';
 import 'package:last_national_bank/core/registration/widgets/newEmail.dart';
 import 'package:last_national_bank/core/registration/widgets/newName.dart';
-import 'package:last_national_bank/widgets/Logo.dart';
+import 'package:last_national_bank/core/registration/widgets/Logo.dart';
 import 'package:last_national_bank/widgets/Secret.dart';
 import 'package:last_national_bank/widgets/buttonNewUser.dart';
 import 'package:last_national_bank/widgets/userOld.dart';
