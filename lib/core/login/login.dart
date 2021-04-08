@@ -6,6 +6,7 @@ import '../../widgets/inputEmail.dart';
 import '../../widgets/NewPassword.dart';
 import '../../widgets/textLogin.dart';
 import '../../widgets/verticalText.dart';
+import 'login.functions.dart';
 
 class LoginPage extends StatelessWidget {
   @override
@@ -24,7 +25,7 @@ class LoginPage extends StatelessWidget {
         ]),
         InputEmail(),
         PasswordInput(),
-        ButtonLogin(),
+        ButtonLogin(loginProcedure),
         FirstTime(),
       ]),
     );
