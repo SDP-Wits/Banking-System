@@ -62,6 +62,6 @@ class _MyHomePageState extends State<MyHomePage> {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.blueAccent,
     ));
-    return AdminRegistrationPage();
+    return LoginPage();
   }
 }
