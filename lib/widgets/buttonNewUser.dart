@@ -44,7 +44,7 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
                         fontSize: 16.0);
                   } else {
                       // call php for client
-                      //insertClient();
+                      insertClient();
                       Fluttertoast.showToast(
                         msg: "client sorted",
                         toastLength: Toast.LENGTH_SHORT,
@@ -67,7 +67,7 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
                         fontSize: 16.0);
                   } else {
                     Fluttertoast.showToast(
-                        msg: "client sorted",
+                        msg: "admin sorted",
                         toastLength: Toast.LENGTH_SHORT,
                         gravity: ToastGravity.CENTER,
                         timeInSecForIosWeb: 3,
