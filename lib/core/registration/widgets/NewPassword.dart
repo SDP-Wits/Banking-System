@@ -1,30 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
+import 'package:last_national_bank/core/registration/registration.functions.dart';
 
 class PasswordInput extends StatefulWidget {
   @override
-    PasswordInputState createState() => PasswordInputState();
+  PasswordInputState createState() => PasswordInputState();
 }
 
 class PasswordInputState extends State<PasswordInput> {
   bool _hasInputError = false; //error control variable
-  String _password = "";//password variable
+  String _password = ""; //password variable
   //String password2 = PasswordInput2State().returnpassword();
-  bool hasInputErrors(String password){
-    if (password.length < 8 || password.length > 20){ //check if password length is correct
+  bool hasInputErrors(String password) {
+    if (password.length < 8 || password.length > 20) {
+      //check if password length is correct
       return true;
     }
-    if (password.length >= 8 && password.length <= 20){ //check if password contains uppercase, lowercase letters, number, special characters
-      String  pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+    if (password.length >= 8 && password.length <= 20) {
+      //check if password contains uppercase, lowercase letters, number, special characters
+      String pattern =
+          r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
       RegExp regExp = new RegExp(pattern);
       return !regExp.hasMatch(password);
     }
     return false;
   }
 
-  String getPassword(){
-  return _password;
+  String getPassword() {
+    return _password;
   }
 
   @override
@@ -37,16 +40,18 @@ class PasswordInputState extends State<PasswordInput> {
         child: TextField(
           onChanged: (value) {
             _hasInputError = hasInputErrors(value);
-            if (_hasInputError == false){ //check if password has errors
+            if (_hasInputError == false) {
+              //check if password has errors
               _password = value; //assign password if no errors present
+              Data.p = value;
               Fluttertoast.showToast(
-                msg: _password,
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.CENTER,
-                timeInSecForIosWeb: 3,
-                backgroundColor: Colors.red,
-                textColor: Colors.white,
-                fontSize: 16.0);
+                  msg: _password,
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.CENTER,
+                  timeInSecForIosWeb: 3,
+                  backgroundColor: Colors.red,
+                  textColor: Colors.white,
+                  fontSize: 16.0);
             }
             setState(() {});
           },
@@ -55,7 +60,9 @@ class PasswordInputState extends State<PasswordInput> {
           ),
           obscureText: true,
           decoration: InputDecoration(
-            errorText: _hasInputError ? "Invalid Password": null, //text if password has errors
+            errorText: _hasInputError
+                ? "Invalid Password"
+                : null, //text if password has errors
             fillColor: Colors.transparent,
             hintText: 'Password',
             hintStyle: TextStyle(fontSize: 16.0, color: Colors.white),

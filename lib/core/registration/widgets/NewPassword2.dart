@@ -5,7 +5,6 @@ import 'package:last_national_bank/core/registration/registration.functions.dart
 
 import '../registration.functions.dart';
 
-
 class PasswordInput2 extends StatefulWidget {
   @override
   PasswordInput2State createState() => PasswordInput2State();
@@ -14,19 +13,20 @@ class PasswordInput2 extends StatefulWidget {
 class PasswordInput2State extends State<PasswordInput2> {
   bool _hasInputError = false; //error control variable
   String _password2 = ""; //password variable
-  String password1 = password; // this is the first password from the first password input
-  
+  String password1 =
+      password; // this is the first password from the first password input
+
   bool hasInputErrors(String passwordVal) {
     if (password != passwordVal) {
       Fluttertoast.showToast(
-                msg: password1,
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.CENTER,
-                timeInSecForIosWeb: 3,
-                backgroundColor: Colors.red,
-                textColor: Colors.white,
-                fontSize: 16.0);
-        
+          msg: Data.p,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 3,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+
       //check if password length is correct
       return true;
     }
