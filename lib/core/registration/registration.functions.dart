@@ -32,7 +32,8 @@ class Data {
   static String loc = "";
   static String phone = "";
   static int age = 0;
-
+  static String prikey = "";
+  static bool is_client = false;
 
 
 }
@@ -96,7 +97,9 @@ String apiURLclient = urlPath + insert_client;
 
 Future insertClient() async {
 
-    final response = await http.post(apiURLclient as Uri, body:{
+  http.Response response = await http.post(
+    apiURLclient as Uri,
+    body: {
       "firstName": Data.name,
       "lastName" : Data.surname,
       "age" : Data.age,
@@ -104,9 +107,20 @@ Future insertClient() async {
       "email": Data.email,
       "idNum": Data.idnum,
       "password":Data.password1,
-    });
+    }
+
+  );
+    // final response = await http.post(apiURLclient as Uri, body:{
+    //   "firstName": Data.name,
+    //   "lastName" : Data.surname,
+    //   "age" : Data.age,
+    //   "phoneNum" : Data.phone,
+    //   "email": Data.email,
+    //   "idNum": Data.idnum,
+    //   "password":Data.password1,
+    // });
      Fluttertoast.showToast(
-          msg: response.toString(),
+          msg: response.statusCode.toString(),
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 3,

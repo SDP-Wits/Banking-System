@@ -31,6 +31,53 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
         ], color: Colors.indigo[200], borderRadius: BorderRadius.circular(30)),
         child: TextButton(
           onPressed: () {
+              if (Data.is_client){
+                  if (!fullvalidation()) {
+                      // give error
+                      Fluttertoast.showToast(
+                        msg: "client error",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.CENTER,
+                        timeInSecForIosWeb: 3,
+                        backgroundColor: Colors.red,
+                        textColor: Colors.white,
+                        fontSize: 16.0);
+                  } else {
+                      // call php for client
+                      //insertClient();
+                      Fluttertoast.showToast(
+                        msg: "client sorted",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.CENTER,
+                        timeInSecForIosWeb: 3,
+                        backgroundColor: Colors.red,
+                        textColor: Colors.white,
+                        fontSize: 16.0);
+                  }
+              }else{
+                  if (!fullvalidation()) {
+                      // give error
+                      Fluttertoast.showToast(
+                        msg: "admin error",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.CENTER,
+                        timeInSecForIosWeb: 3,
+                        backgroundColor: Colors.red,
+                        textColor: Colors.white,
+                        fontSize: 16.0);
+                  } else {
+                    Fluttertoast.showToast(
+                        msg: "client sorted",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.CENTER,
+                        timeInSecForIosWeb: 3,
+                        backgroundColor: Colors.red,
+                        textColor: Colors.white,
+                        fontSize: 16.0);
+                      // call php for admin
+                  }
+              }
+
             // Fluttertoast.showToast(
             //     msg: giveError(),
             //     toastLength: Toast.LENGTH_SHORT,
@@ -40,7 +87,7 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
             //     textColor: Colors.white,
             //     fontSize: 16.0);
             
-            insertClient();
+            //insertClient();
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,

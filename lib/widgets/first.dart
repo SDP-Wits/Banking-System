@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../config/routes/router.dart';
+import 'package:last_national_bank/core/registration/registration.functions.dart';
 
 class FirstTime extends StatefulWidget {
   @override
@@ -8,8 +9,6 @@ class FirstTime extends StatefulWidget {
 }
 
 class _FirstTimeState extends State<FirstTime> {
-  
-  
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -36,40 +35,43 @@ class _FirstTimeState extends State<FirstTime> {
               TextButton(
                 onPressed: () {
                   showDialog(
-                    context: context,
-                    barrierDismissible: false,
-                    builder: (BuildContext context){
-                      return AlertDialog(
-                        title: Center(child: Text('Registration'),),
-                        content: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Expanded(
-                              child: Text(
-                                "Are you registering as a client or an administartor?",
-                                textAlign: TextAlign.start,
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Center(
+                            child: Text('Registration'),
+                          ),
+                          content: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Expanded(
+                                child: Text(
+                                  "Are you registering as a client or an administartor?",
+                                  textAlign: TextAlign.start,
+                                ),
                               ),
+                            ],
+                          ),
+                          actions: <Widget>[
+                            FlatButton(
+                              child: Text('Client'),
+                              onPressed: () {
+                                Data.is_client = true;
+                                goToClientRegistration(context);
+                              },
+                            ),
+                            FlatButton(
+                              child: Text('Administrator'),
+                              onPressed: () {
+                                Data.is_client = false;
+                                goToAdminRegistration(context);
+                              },
                             ),
                           ],
-                        ),
-                        actions: <Widget>[
-                          FlatButton(
-                            child: Text('Client'),              
-                            onPressed: () {
-                              goToClientRegistration(context);
-                            },
-                          ),
-                          FlatButton(
-                            child: Text('Administrator'),
-                            onPressed: () {
-                              goToAdminRegistration(context);
-                            },
-                          ),
-                        ],
-                      );
-                    }
-                  );
+                        );
+                      });
                 },
                 child: Text(
                   'Sign up',
