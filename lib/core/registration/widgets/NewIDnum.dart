@@ -28,7 +28,7 @@ String returnID(){
         height: 60,
         width: MediaQuery.of(context).size.width,
         child: TextField(
-          onSubmitted: (value){
+          onChanged: (value){
             _hasInputError = hasInputError(value);
             if (_hasInputError == false){ //check if id number is valid
               _idNum = value; //assign id number if valid
