@@ -1,8 +1,87 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../constants/php_url.dart';
-
 import '../core/registration/registration.functions.dart';
+import '../utils/services/online_db.dart';
+
+Future<String> clientRegisterOnline() async {
+  //Choosing php file based off whether the user is a client or admin
+  String phpFileToUse = insert_client;
+  List<String> phpNames = [
+    "firstName",
+    "middleName",
+    "lastName",
+    "age",
+    "phoneNum",
+    "email",
+    "idNum",
+    "password"
+  ];
+  final String arguments = argumentMaker(phpNames: phpNames, inputVariables: [
+    Data.name,
+    "",
+    Data.surname,
+    Data.age.toString(),
+    Data.phone,
+    Data.email,
+    Data.idnum,
+    Data.password1
+  ]);
+
+  // print(urlPath + phpFileToUse + arguments);
+  Map data = (await getURLData(urlPath + phpFileToUse + arguments))[0];
+
+  //If there is an error
+  if (data.containsKey("status")) {
+    if (!data["status"]) {
+      return data["error"];
+    }
+  }
+
+  return data["error"];
+}
+
+Future<String> adminRegisterOnline() async {
+  //Choosing php file based off whether the user is a client or admin
+  String phpFileToUse = insert_admin;
+
+  List<String> phpNames = [
+    "firstName",
+    "middleName",
+    "lastName",
+    "age",
+    "phoneNum",
+    "email",
+    "idNum",
+    "password",
+    "secretKey",
+    "currentDate"
+  ];
+  final String arguments = argumentMaker(phpNames: phpNames, inputVariables: [
+    Data.name,
+    "",
+    Data.surname,
+    Data.age.toString(),
+    Data.phone,
+    Data.email,
+    Data.idnum,
+    Data.password1,
+    Data.secretKey,
+    currentDate()
+  ]);
+
+  // print(urlPath + phpFileToUse + arguments);
+  Map data = (await getURLData(urlPath + phpFileToUse + arguments))[0];
+
+  //If there is an error
+  if (data.containsKey("status")) {
+    if (!data["status"]) {
+      return data["error"];
+    }
+  }
+
+  return data["error"];
+}
 
 class ButtonNewUser extends StatefulWidget {
   @override
@@ -31,52 +110,53 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
         ], color: Colors.indigo[200], borderRadius: BorderRadius.circular(30)),
         child: TextButton(
           onPressed: () {
-              if (Data.is_client){
-                  if (!fullvalidation()) {
-                      // give error
-                      Fluttertoast.showToast(
-                        msg: "client error",
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.CENTER,
-                        timeInSecForIosWeb: 3,
-                        backgroundColor: Colors.red,
-                        textColor: Colors.white,
-                        fontSize: 16.0);
-                  } else {
-                      // call php for client
-                      insertClient();
-                      Fluttertoast.showToast(
-                        msg: "client sorted",
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.CENTER,
-                        timeInSecForIosWeb: 3,
-                        backgroundColor: Colors.red,
-                        textColor: Colors.white,
-                        fontSize: 16.0);
-                  }
-              }else{
-                  if (!fullvalidation()) {
-                      // give error
-                      Fluttertoast.showToast(
-                        msg: "admin error",
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.CENTER,
-                        timeInSecForIosWeb: 3,
-                        backgroundColor: Colors.red,
-                        textColor: Colors.white,
-                        fontSize: 16.0);
-                  } else {
-                    Fluttertoast.showToast(
-                        msg: "admin sorted",
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.CENTER,
-                        timeInSecForIosWeb: 3,
-                        backgroundColor: Colors.red,
-                        textColor: Colors.white,
-                        fontSize: 16.0);
-                      // call php for admin
-                  }
+            if (Data.is_client) {
+              if (!fullvalidation()) {
+                // give error
+                Fluttertoast.showToast(
+                    msg: "client error",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.CENTER,
+                    timeInSecForIosWeb: 3,
+                    backgroundColor: Colors.red,
+                    textColor: Colors.white,
+                    fontSize: 16.0);
+              } else {
+                // call php for client
+                clientRegisterOnline();
+                Fluttertoast.showToast(
+                    msg: "client sorted",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.CENTER,
+                    timeInSecForIosWeb: 3,
+                    backgroundColor: Colors.red,
+                    textColor: Colors.white,
+                    fontSize: 16.0);
               }
+            } else {
+              if (!fullvalidation()) {
+                // give error
+                Fluttertoast.showToast(
+                    msg: "admin error",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.CENTER,
+                    timeInSecForIosWeb: 3,
+                    backgroundColor: Colors.red,
+                    textColor: Colors.white,
+                    fontSize: 16.0);
+              } else {
+                //call php for admin
+                adminRegisterOnline();
+                Fluttertoast.showToast(
+                    msg: "admin sorted",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.CENTER,
+                    timeInSecForIosWeb: 3,
+                    backgroundColor: Colors.red,
+                    textColor: Colors.white,
+                    fontSize: 16.0);
+              }
+            }
 
             // Fluttertoast.showToast(
             //     msg: giveError(),
@@ -86,7 +166,7 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
             //     backgroundColor: Colors.red,
             //     textColor: Colors.white,
             //     fontSize: 16.0);
-            
+
             //insertClient();
           },
           child: Row(
