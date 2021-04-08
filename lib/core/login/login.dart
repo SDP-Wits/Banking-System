@@ -22,7 +22,7 @@ class LoginPage extends StatelessWidget {
             end: Alignment.bottomLeft,
             colors: [Colors.blueGrey, Colors.lightBlueAccent]),
       ),
-      child: Column(children: [
+      child: ListView(children: [
         Row(children: <Widget>[
           VerticalText(),
           TextLogin(),

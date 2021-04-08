@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:last_national_bank/config/routes/router.dart';
+import 'package:last_national_bank/constants/database_constants.dart';
 import 'package:last_national_bank/core/SHA-256_encryption.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
 
@@ -43,7 +44,6 @@ Future<void> loginProcedure(BuildContext context) async {
               child: Text('Yes'),
               onPressed: () {
                 isAdmin = true;
-                Fluttertoast.showToast(msg: isAdmin.toString());
                 Navigator.pop(context);
               },
             ),
@@ -51,7 +51,6 @@ Future<void> loginProcedure(BuildContext context) async {
               child: Text('No'),
               onPressed: () {
                 isAdmin = false;
-                Fluttertoast.showToast(msg: isAdmin.toString());
                 Navigator.pop(context);
               },
             ),
@@ -63,26 +62,22 @@ Future<void> loginProcedure(BuildContext context) async {
   String password = passwordController.text;
 
   if (isAdmin) {
-    String encodedPassword = encode(password);
-    String response = await userLoginOnline(id, encodedPassword, isAdmin);
+    //String encodedPassword = encode(password);
+    String response = await userLoginOnline(id, password, !isAdmin);
+    Fluttertoast.showToast(msg: response);
 
-    if (response == "dbSuccess") {
-      Fluttertoast.showToast(msg: "Login Successful");
+    if (response == dbSuccess) {
       //Transfer admin to verification list page
       goToAdminVerificationList(context);
-    } else {
-      Fluttertoast.showToast(msg: "Invalid ID/Password combination");
     }
   } else {
-    String encodedPassword = encode(password);
-    String response = await userLoginOnline(id, encodedPassword, isAdmin);
+    //String encodedPassword = encode(password);
+    String response = await userLoginOnline(id, password, !isAdmin);
+    Fluttertoast.showToast(msg: response);
 
-    if (response == "dbSuccess") {
-      Fluttertoast.showToast(msg: "Login Successful");
+    if (response == dbSuccess) {
       //Transfer user to next page
-      //
-    } else {
-      Fluttertoast.showToast(msg: "Invalid ID/Password combination");
+      goToAdminVerificationStatus(context);
     }
   }
 }
