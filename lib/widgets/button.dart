@@ -6,7 +6,7 @@ import '../core/verification_list/admin_verification_list.dart';
 import 'routeButton.dart';
 
 class ButtonLogin extends StatefulWidget {
-  final Function(String) onTap;
+  final Function onTap;
   ButtonLogin(this.onTap);
   @override
   _ButtonLoginState createState() => _ButtonLoginState();
@@ -38,7 +38,7 @@ class _ButtonLoginState extends State<ButtonLogin> {
         ),
         child: TextButton(
           onPressed: () {
-            goToAdminVerificationList(context);
+            this.widget.onTap();
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,

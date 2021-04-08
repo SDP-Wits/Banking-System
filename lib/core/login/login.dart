@@ -1,36 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:last_national_bank/core/login/widgets/login_id.dart';
 import '../../widgets/button.dart';
 import '../../widgets/first.dart';
-import '../../widgets/inputEmail.dart';
 import '../../widgets/textLogin.dart';
 import '../../widgets/verticalText.dart';
-import '../registration/widgets/NewPassword.dart';
+import './widgets/login_password.dart';
 import 'login.functions.dart';
 
 class LoginPage extends StatelessWidget {
-  String email = "";
-
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.blueAccent,
-    ));
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
             begin: Alignment.topRight,
             end: Alignment.bottomLeft,
-            colors: [Colors.blueGrey, Colors.blueAccent]),
+            colors: [Colors.blueGrey, Colors.lightBlueAccent]),
       ),
       child: Column(children: [
         Row(children: <Widget>[
           VerticalText(),
           TextLogin(),
         ]),
-        InputEmail(),
-        PasswordInput(),
-        ButtonLogin(loginProcedure),
+        InputID(getIDController()),
+        PasswordInput(getPasswordController()),
+        ButtonLogin(() {
+          loginProcedure(context);
+        }),
         FirstTime(),
       ]),
     );
