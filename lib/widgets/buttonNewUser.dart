@@ -4,10 +4,9 @@ import '../constants/php_url.dart';
 import '../core/registration/registration.functions.dart';
 import '../utils/services/online_db.dart';
 
-Future<String> userRegisterOnline(bool isClientRegistration) async {
+Future<String> clientRegisterOnline() async {
   //Choosing php file based off whether the user is a client or admin
-  String phpFileToUse = isClientRegistration ? insert_client : insert_admin;
-
+  String phpFileToUse = insert_client;
   List<String> phpNames = [
     "firstName",
     "middleName",
@@ -27,6 +26,48 @@ Future<String> userRegisterOnline(bool isClientRegistration) async {
     Data.email,
     Data.idnum,
     Data.password1
+  ]);
+
+  // print(urlPath + phpFileToUse + arguments);
+  Map data = (await getURLData(urlPath + phpFileToUse + arguments))[0];
+
+  //If there is an error
+  if (data.containsKey("status")) {
+    if (!data["status"]) {
+      return data["error"];
+    }
+  }
+
+  return data["error"];
+}
+
+Future<String> adminRegisterOnline() async {
+  //Choosing php file based off whether the user is a client or admin
+  String phpFileToUse = insert_admin;
+
+  List<String> phpNames = [
+    "firstName",
+    "middleName",
+    "lastName",
+    "age",
+    "phoneNum",
+    "email",
+    "idNum",
+    "password",
+    "secretKey",
+    "currentDate"
+  ];
+  final String arguments = argumentMaker(phpNames: phpNames, inputVariables: [
+    Data.name,
+    "",
+    Data.surname,
+    Data.age.toString(),
+    Data.phone,
+    Data.email,
+    Data.idnum,
+    Data.password1,
+    Data.secretKey,
+    currentDate()
   ]);
 
   // print(urlPath + phpFileToUse + arguments);
@@ -82,7 +123,7 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
                     fontSize: 16.0);
               } else {
                 // call php for client
-                userRegisterOnline(true);
+                clientRegisterOnline();
                 Fluttertoast.showToast(
                     msg: "client sorted",
                     toastLength: Toast.LENGTH_SHORT,
@@ -104,6 +145,8 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
                     textColor: Colors.white,
                     fontSize: 16.0);
               } else {
+                //call php for admin
+                adminRegisterOnline();
                 Fluttertoast.showToast(
                     msg: "admin sorted",
                     toastLength: Toast.LENGTH_SHORT,
@@ -112,7 +155,6 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
                     backgroundColor: Colors.red,
                     textColor: Colors.white,
                     fontSize: 16.0);
-                // call php for admin
               }
             }
 

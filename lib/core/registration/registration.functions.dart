@@ -1,6 +1,7 @@
 library bankingsystem.globals;
 
 import 'dart:core';
+import 'package:intl/intl.dart';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -32,8 +33,8 @@ class Data {
   static String loc = "";
   static String phone = "";
   static int age = 0;
-  static String prikey = "";
   static bool is_client = false;
+  static String secretKey = "";
 }
 
 bool fullvalidation() {
@@ -88,33 +89,9 @@ String giveError() {
   }
 }
 
-String apiURLclient = urlPath + insert_client;
-
-Future insertClient() async {
-  http.Response response = await http.post(apiURLclient as Uri, body: {
-    "firstName": Data.name,
-    "lastName": Data.surname,
-    "age": Data.age,
-    "phoneNum": Data.phone,
-    "email": Data.email,
-    "idNum": Data.idnum,
-    "password": Data.password1,
-  });
-  // final response = await http.post(apiURLclient as Uri, body:{
-  //   "firstName": Data.name,
-  //   "lastName" : Data.surname,
-  //   "age" : Data.age,
-  //   "phoneNum" : Data.phone,
-  //   "email": Data.email,
-  //   "idNum": Data.idnum,
-  //   "password":Data.password1,
-  // });
-  Fluttertoast.showToast(
-      msg: response.statusCode.toString(),
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.CENTER,
-      timeInSecForIosWeb: 3,
-      backgroundColor: Colors.red,
-      textColor: Colors.white,
-      fontSize: 16.0);
+String currentDate() {
+  var now = new DateTime.now();
+  var formatter = new DateFormat('yyyy-MM-dd');
+  String formattedDate = formatter.format(now);
+  return formattedDate;
 }
