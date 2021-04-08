@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:last_national_bank/core/registration/widgets/NewPassword.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:last_national_bank/core/registration/registration.functions.dart';
+
+import '../registration.functions.dart';
 
 class PasswordInput2 extends StatefulWidget {
   @override
@@ -8,18 +13,22 @@ class PasswordInput2 extends StatefulWidget {
 class PasswordInput2State extends State<PasswordInput2> {
   bool _hasInputError = false; //error control variable
   String _password2 = ""; //password variable
-  //String password1 = PasswordInputState().getPassword(); // this is the first password from the first password input
-  bool hasInputErrors(String password) {
-    if (password.length < 8 || password.length > 20) {
+  String password1 =
+      password; // this is the first password from the first password input
+
+  bool hasInputErrors(String passwordVal) {
+    if (password != passwordVal) {
+      Fluttertoast.showToast(
+          msg: Data.p,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 3,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+
       //check if password length is correct
       return true;
-    }
-    if (password.length >= 8 && password.length <= 20) {
-      //check if password contains uppercase, lowercase letters, number, special characters
-      String pattern =
-          r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
-      RegExp regExp = new RegExp(pattern);
-      return !regExp.hasMatch(password);
     }
     return false;
   }
@@ -36,7 +45,7 @@ class PasswordInput2State extends State<PasswordInput2> {
         height: 60,
         width: MediaQuery.of(context).size.width,
         child: TextField(
-          onSubmitted: (value) {
+          onChanged: (value) {
             _hasInputError = hasInputErrors(value);
             if (_hasInputError == false) {
               //check if password has errors
@@ -50,7 +59,7 @@ class PasswordInput2State extends State<PasswordInput2> {
           obscureText: true,
           decoration: InputDecoration(
             errorText: _hasInputError
-                ? "Invalid Second Password"
+                ? "Passwords do not match"
                 : null, //error text if password is invalid
             fillColor: Colors.transparent,
             hintText: 'Password confirmation',

@@ -27,7 +27,7 @@ String returnPhone(){
         height: 60,
         width: MediaQuery.of(context).size.width,
         child: TextField(
-          onSubmitted: (value){
+          onChanged: (value){
             _hasInputError = hasInputError(value);
             if (_hasInputError == false){ //check if phone number is valid
               _phone = value; //assign phone number if valid

@@ -29,6 +29,10 @@ var phone = NewPhoneState().returnPhone();
 
 var hash = encode(password);
 
+class Data {
+  static String p = "";
+}
+
 String returnhash() {
   return hash;
 }
@@ -69,6 +73,9 @@ bool fullvalidation() {
     flag = false;
   }
   if (surname.length == 0) {
+    flag = false;
+  }
+  if (password != password2) {
     flag = false;
   }
   return flag;

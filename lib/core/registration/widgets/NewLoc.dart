@@ -27,7 +27,7 @@ class NewLocState extends State<NewLoc> {
         height: 60,
         width: MediaQuery.of(context).size.width,
         child: TextField(
-          onSubmitted: (value){
+          onChanged: (value){
             _hasInputError = hasInputError(value);  //call validator to check for errors
             if (_hasInputError == false){ //if no errors, assign location
               _loc = value;

@@ -34,7 +34,7 @@ int returnAge(){
         height: 60,
         width: MediaQuery.of(context).size.width,
         child: TextField(
-          onSubmitted: (value){
+          onChanged: (value){
             if (value == ""){         //if no value is enterred in age field, call error
               _hasInputError = true;
             }
