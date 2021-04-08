@@ -14,7 +14,7 @@ class _FirstTimeState extends State<FirstTime> {
       padding: const EdgeInsets.only(top: 30, left: 30),
       child: Container(
         alignment: Alignment.topRight,
-        color: Colors.red,
+        color: Colors.blueGrey,
         height: 20,
         child: Container(
           // padding: EdgeInsets.all(15),
