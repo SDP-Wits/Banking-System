@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:last_national_bank/constants/route_constants.dart';
 
 import 'config/routes/router.dart' as router;
+import 'config/routes/router.helper.dart';
 import 'constants/app_constants.dart';
 import 'core/login/login.dart';
 import 'core/verification_list/admin_verification_list.dart';
@@ -22,11 +24,13 @@ class MyApp extends StatelessWidget {
       ),
       onGenerateRoute: router.generateRoute,
       onUnknownRoute: router.unknownRoute,
-      // initialRoute: LoginRoute,
-      //TODO: UNCOMMENT THIS OUT
-      home: Scaffold(
-        body: SafeArea(
-          child: MyHomePage(),
+      initialRoute: LoginRoute,
+      home: WillPopScope(
+        onWillPop: () => onPop(context),
+        child: Scaffold(
+          body: SafeArea(
+            child: MyHomePage(),
+          ),
         ),
       ),
     );
@@ -42,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    // autoLogin(context);
+    autoLogin(context);
   }
 
   @override
@@ -50,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.blueAccent,
     ));
-    return VerificationListPage();
+    return LoginPage();
   }
 }
 
