@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:last_national_bank/core/registration/registration.functions.dart';
 
 class NewPhone extends StatefulWidget {
   @override
@@ -31,6 +32,7 @@ String returnPhone(){
             _hasInputError = hasInputError(value);
             if (_hasInputError == false){ //check if phone number is valid
               _phone = value; //assign phone number if valid
+              Data.phone = value;
             }
             setState(() {});
           },

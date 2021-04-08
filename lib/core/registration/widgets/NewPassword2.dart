@@ -13,19 +13,18 @@ class PasswordInput2 extends StatefulWidget {
 class PasswordInput2State extends State<PasswordInput2> {
   bool _hasInputError = false; //error control variable
   String _password2 = ""; //password variable
-  String password1 =
-      password; // this is the first password from the first password input
+ // this is the first password from the first password input
 
   bool hasInputErrors(String passwordVal) {
-    if (password != passwordVal) {
-      Fluttertoast.showToast(
-          msg: Data.p,
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 3,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0);
+    if (Data.password1 != passwordVal) {
+      // Fluttertoast.showToast(
+      //     msg: Data.p,
+      //     toastLength: Toast.LENGTH_SHORT,
+      //     gravity: ToastGravity.CENTER,
+      //     timeInSecForIosWeb: 3,
+      //     backgroundColor: Colors.red,
+      //     textColor: Colors.white,
+      //     fontSize: 16.0);
 
       //check if password length is correct
       return true;
@@ -49,7 +48,8 @@ class PasswordInput2State extends State<PasswordInput2> {
             _hasInputError = hasInputErrors(value);
             if (_hasInputError == false) {
               //check if password has errors
-              _password2 = value; //assign password if no errors present
+              _password2 = value; 
+              Data.password2 = value ; //assign password if no errors present
             }
             setState(() {});
           },

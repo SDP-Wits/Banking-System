@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:last_national_bank/core/registration/registration.functions.dart';
 
 class NewIDnum extends StatefulWidget {
   @override
@@ -32,6 +33,7 @@ String returnID(){
             _hasInputError = hasInputError(value);
             if (_hasInputError == false){ //check if id number is valid
               _idNum = value; //assign id number if valid
+              Data.idnum = value;
             }
             setState(() {});
           },

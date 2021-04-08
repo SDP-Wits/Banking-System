@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:last_national_bank/core/registration/registration.functions.dart';
 
 class NewName extends StatefulWidget {
   @override
@@ -43,6 +44,7 @@ class NewNameState extends State<NewName> {
             if (_hasInputError == false) {
               //if no errors, assign name
               assignName(value);
+              Data.name = value;
             }
             setState(() {});
           },

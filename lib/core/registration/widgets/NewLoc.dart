@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:last_national_bank/core/registration/registration.functions.dart';
 
 class NewLoc extends StatefulWidget {
   @override
@@ -31,6 +32,7 @@ class NewLocState extends State<NewLoc> {
             _hasInputError = hasInputError(value);  //call validator to check for errors
             if (_hasInputError == false){ //if no errors, assign location
               _loc = value;
+              Data.loc = value;
             }
             setState(() {});
           },

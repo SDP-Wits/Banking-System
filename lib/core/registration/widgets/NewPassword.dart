@@ -43,7 +43,7 @@ class PasswordInputState extends State<PasswordInput> {
             if (_hasInputError == false) {
               //check if password has errors
               _password = value; //assign password if no errors present
-              Data.p = value;
+              Data.password1 = value;
               Fluttertoast.showToast(
                   msg: _password,
                   toastLength: Toast.LENGTH_SHORT,
