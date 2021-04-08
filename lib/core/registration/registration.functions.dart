@@ -77,3 +77,9 @@ String giveError(){
   else{return ("Proceed to next page");}
 }
 
+// String apiURLclient = "";
+
+// Future insertClient() async {
+
+//     final response = await http.post(apiURL, body:{"date": today});
+// }
