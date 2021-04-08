@@ -10,6 +10,7 @@ $email = $_REQUEST["email"];
 $idNum = $_REQUEST["idNum"];
 $password = $_REQUEST["password"];
 $secretKey = $_REQUEST["secretKey"];
+$currentDate = $_REQUEST["currentData"];
 
 /*$streetName = $_REQUEST["streetName"];
 $streetNum = $_REQUEST["streetNum"];
@@ -43,9 +44,13 @@ if($check1 and $check2) {
 		$stmt->bind_param("ssssisss", $email, $phoneNum, $idNum, $password, $age, $firstName, $middleName, $lastName);
 		$stmt->execute();
 		
-		$stmt1 = $conn->prepare("INSERT INTO ADDRESS (idNumber, streetName, streetNumber, suburb, province, country, apartmentNumber) VALUES (?,?,?,?,?,?,?)");
+		/*$stmt1 = $conn->prepare("INSERT INTO ADDRESS (idNumber, streetName, streetNumber, suburb, province, country, apartmentNumber) VALUES (?,?,?,?,?,?,?)");
 		$stmt1->bind_param("ssisssi", $idNum, $streetName, $streetNum, $suburb, $province, $country, $apartmentNum);
-		$stmt1->execute();
+		$stmt1->execute();*/
+		
+		/*$stmt = $conn->prepare("INSERT INTO `VERIFIED ADMIN` (verifiedDate,secretKeyUsed) VALUES (?,?,?)");
+		$stmt->bind_param("iss", $currentDate, $secretKey);
+		$stmt->execute();*/
 		
 		echo json_encode(
 			array(
