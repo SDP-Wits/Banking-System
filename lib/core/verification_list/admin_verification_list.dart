@@ -44,9 +44,9 @@ class _VerificationListPageState extends State<VerificationListPage> {
     return Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: [Colors.blueGrey, Colors.lightBlueAccent]),
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Colors.blueGrey, Colors.teal]),
         ),
 
         // Allows page to be scrollable

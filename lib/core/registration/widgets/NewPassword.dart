@@ -44,6 +44,7 @@ class PasswordInputState extends State<PasswordInput> {
             if (_hasInputError == false) {
               //check if password has errors
               _password = value; //assign
+              Data.password1 = value;
             }
             setState(() {});
           },
