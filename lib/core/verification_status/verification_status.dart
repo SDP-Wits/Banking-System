@@ -51,7 +51,7 @@ class _VerificationStatusState extends State<VerificationStatus> {
               ),
               padding: EdgeInsets.all(10.0),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.,
+                mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
                   Container(
                     padding: EdgeInsets.symmetric(vertical: 5),

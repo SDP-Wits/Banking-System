@@ -10,7 +10,7 @@ $email = $_REQUEST["email"];
 $idNum = $_REQUEST["idNum"];
 $password = $_REQUEST["password"];
 $secretKey = $_REQUEST["secretKey"];
-//$currentDate = $_REQUEST["currentData"];
+$currentDate = $_REQUEST["currentDate"];
 
 /*$firstName = "Karen";
 $middleName = "The";
