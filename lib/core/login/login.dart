@@ -12,6 +12,7 @@ import 'widgets/login_password.dart';
 class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.blueAccent,
     ));
@@ -22,19 +23,26 @@ class LoginPage extends StatelessWidget {
             end: Alignment.bottomLeft,
             colors: [Colors.blueGrey, Colors.lightBlueAccent]),
       ),
-      child:
-          Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-        Row(children: <Widget>[
-          VerticalText(),
-          TextLogin(),
-        ]),
-        InputID(getIDController()),
-        PasswordInput(getPasswordController()),
-        ButtonLogin(() {
-          loginProcedure(context);
-        }),
-        FirstTime()
-      ]),
+      child: SingleChildScrollView(
+        child: Container(
+          height: size.height,
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Row(children: <Widget>[
+                  VerticalText(),
+                  TextLogin(),
+                ]),
+                InputID(getIDController()),
+                PasswordInput(getPasswordController()),
+                ButtonLogin(() {
+                  loginProcedure(context);
+                }),
+                FirstTime()
+              ]),
+        ),
+      ),
     );
   }
 }

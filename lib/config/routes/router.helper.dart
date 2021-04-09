@@ -37,5 +37,3 @@ Future<bool> onPop(BuildContext context) {
   }
   return Future.value(false);
 }
-
-

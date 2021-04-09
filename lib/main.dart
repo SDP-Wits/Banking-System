@@ -26,7 +26,6 @@ class MyApp extends StatelessWidget {
       ),
       onGenerateRoute: router.generateRoute,
       onUnknownRoute: router.unknownRoute,
-      // initialRoute: LoginRoute,
       home: WillPopScope(
         onWillPop: () => onPop(context),
         child: Scaffold(
