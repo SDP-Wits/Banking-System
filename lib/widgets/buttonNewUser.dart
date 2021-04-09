@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/number_symbols_data.dart';
 import '../constants/php_url.dart';
 import '../core/registration/registration.functions.dart';
 import '../utils/services/online_db.dart';
@@ -15,7 +16,8 @@ Future<String> clientRegisterOnline() async {
     "phoneNum",
     "email",
     "idNum",
-    "password"
+    "password",
+    "currentDate"
   ];
   final String arguments = argumentMaker(phpNames: phpNames, inputVariables: [
     Data.name,
@@ -25,7 +27,8 @@ Future<String> clientRegisterOnline() async {
     Data.phone,
     Data.email,
     Data.idnum,
-    Data.password1
+    Data.password1,
+    currentDate()
   ]);
 
   // print(urlPath + phpFileToUse + arguments);
@@ -38,7 +41,7 @@ Future<String> clientRegisterOnline() async {
     }
   }
 
-  return data["error"];
+  return data["details"];
 }
 
 Future<String> adminRegisterOnline() async {
@@ -78,7 +81,7 @@ Future<String> adminRegisterOnline() async {
     }
   }
 
-  return data["error"];
+  return data["details"];
 }
 
 class ButtonNewUser extends StatefulWidget {
@@ -121,9 +124,9 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
                     fontSize: 16.0);
               } else {
                 // call php for client
-                clientRegisterOnline();
+                String details = clientRegisterOnline().toString();
                 Fluttertoast.showToast(
-                    msg: "client sorted",
+                    msg: "client sorted: " + details,
                     toastLength: Toast.LENGTH_SHORT,
                     gravity: ToastGravity.CENTER,
                     timeInSecForIosWeb: 3,
@@ -144,9 +147,9 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
                     fontSize: 16.0);
               } else {
                 //call php for admin
-                adminRegisterOnline();
+                String details = adminRegisterOnline() as String;
                 Fluttertoast.showToast(
-                    msg: "admin sorted",
+                    msg: "admin sorted: " + details,
                     toastLength: Toast.LENGTH_SHORT,
                     gravity: ToastGravity.CENTER,
                     timeInSecForIosWeb: 3,
