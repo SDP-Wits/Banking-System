@@ -55,7 +55,7 @@ Route<dynamic> unknownRoute(RouteSettings settings) {
 }
 
 void goToLogin(BuildContext context) {
-  Navigator.popUntil(context, ModalRoute.withName("/login"));
+  Navigator.popUntil(context, ModalRoute.withName(LoginRoute));
 }
 
 void goToClientRegistration(BuildContext context) {

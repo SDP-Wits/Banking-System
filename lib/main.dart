@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:last_national_bank/constants/route_constants.dart';
 import 'package:last_national_bank/core/verification_status/verification_status.dart';
+import 'package:last_national_bank/utils/helpers/helper.dart';
 
 import 'config/routes/router.dart' as router;
 import 'config/routes/router.helper.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
       ),
       onGenerateRoute: router.generateRoute,
       onUnknownRoute: router.unknownRoute,
-      initialRoute: LoginRoute,
+      // initialRoute: LoginRoute,
       home: WillPopScope(
         onWillPop: () => onPop(context),
         child: Scaffold(
@@ -55,20 +56,6 @@ class _MyHomePageState extends State<MyHomePage> {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.blueAccent,
     ));
-    return VerificationStatus();
+    return LoginPage();
   }
-}
-
-void autoLogin(BuildContext context) {
-  LocalDatabaseHelper.instance.isUser().then((isUser) {
-    if (isUser) {
-      LocalDatabaseHelper.instance.getUserAndAddress().then((user) {
-        if (user!.isAdmin) {
-          router.goToAdminVerificationList(context);
-        } else {
-          router.goToAdminVerificationStatus(context);
-        }
-      });
-    }
-  });
 }

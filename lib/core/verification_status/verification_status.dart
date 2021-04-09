@@ -39,43 +39,40 @@ class _VerificationStatusState extends State<VerificationStatus> {
                   colors: [Colors.blueGrey, Colors.lightBlueAccent]),
             ),
           )
-        : SingleChildScrollView(
-            child: Container(
-              width: size.width,
-              height: size.height,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topRight,
-                    end: Alignment.bottomLeft,
-                    colors: [Colors.blueGrey, Colors.lightBlueAccent]),
-              ),
-              padding: EdgeInsets.all(10.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.symmetric(vertical: 5),
-                  ),
-                  HeadingBlocks("My Information", 34, 30),
-                  Container(
-                    padding: EdgeInsets.all(15),
-                  ),
-                  HeadingBlocks("Verification Status: Pending", 28, 20),
-                  DetailedBlocks(user!.firstName, "First Name"),
-                  (user!.middleName != null)
-                      ? DetailedBlocks(user!.middleName!, "Middle Name")
-                      : Container(),
-                  DetailedBlocks(user!.lastName, "Last Name"),
-                  DetailedBlocks(user!.email, "Email"),
-                  DetailedBlocks(user!.idNumber, "ID"),
-                  DetailedBlocks(user!.phoneNumber, "Phone Number"),
-                  DetailedBlocks(
-                      user!.address.streetNumber.toString() +
-                          user!.address.streetName,
-                      "Address"),
-                  DetailedBlocks(user!.address.suburb, "Suburb"),
-                ],
-              ),
+        : Container(
+            width: size.width,
+            height: size.height,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                  colors: [Colors.blueGrey, Colors.lightBlueAccent]),
+            ),
+            padding: EdgeInsets.all(10.0),
+            child: ListView(
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 5),
+                ),
+                HeadingBlocks("My Information", 34, 30),
+                Container(
+                  padding: EdgeInsets.all(15),
+                ),
+                HeadingBlocks("Verification Status: Pending", 28, 20),
+                DetailedBlocks(user!.firstName, "First Name"),
+                (user!.middleName != null)
+                    ? DetailedBlocks(user!.middleName!, "Middle Name")
+                    : Container(),
+                DetailedBlocks(user!.lastName, "Last Name"),
+                DetailedBlocks(user!.email, "Email"),
+                DetailedBlocks(user!.idNumber, "ID"),
+                DetailedBlocks(user!.phoneNumber, "Phone Number"),
+                DetailedBlocks(
+                    user!.address.streetNumber.toString() +
+                        user!.address.streetName,
+                    "Address"),
+                DetailedBlocks(user!.address.suburb, "Suburb"),
+              ],
             ),
           );
   }

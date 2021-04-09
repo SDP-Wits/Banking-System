@@ -11,81 +11,80 @@ class FirstTime extends StatefulWidget {
 class _FirstTimeState extends State<FirstTime> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 30, left: 30),
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 15),
+      // padding: EdgeInsets.all(15),
+      color: Colors.blueGrey,
       child: Container(
-        alignment: Alignment.topRight,
-        color: Colors.blueGrey,
-        height: 20,
-        child: Container(
-          // padding: EdgeInsets.all(15),
-          alignment: Alignment.center,
-          child: Row(
-            children: <Widget>[
-              Container(
-                // padding: EdgeInsets.all(15),
-                child: Text(
-                  'Your first time?',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.white70,
-                  ),
+        // padding: EdgeInsets.all(15),
+        alignment: Alignment.center,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.all(5),
+              // padding: EdgeInsets.all(15),
+              child: Text(
+                'Your first time?',
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Colors.white70,
                 ),
               ),
-              TextButton(
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      barrierDismissible: true,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Center(
-                            child: Text('Registration'),
-                          ),
-                          content: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              Expanded(
-                                child: Text(
-                                  "Are you registering as a client or an administartor?",
-                                  textAlign: TextAlign.start,
-                                ),
+            ),
+            TextButton(
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    barrierDismissible: true,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Center(
+                          child: Text('Registration'),
+                        ),
+                        content: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Expanded(
+                              child: Text(
+                                "Are you registering as a client or an administartor?",
+                                textAlign: TextAlign.start,
                               ),
-                            ],
-                          ),
-                          actions: <Widget>[
-                            FlatButton(
-                              child: Text('Client'),
-                              onPressed: () {
-                                Data.is_client = true;
-                                Navigator.pop(context);
-                                goToClientRegistration(context);
-                              },
-                            ),
-                            FlatButton(
-                              child: Text('Administrator'),
-                              onPressed: () {
-                                Data.is_client = false;
-                                Navigator.pop(context);
-                                goToAdminRegistration(context);
-                              },
                             ),
                           ],
-                        );
-                      });
-                },
-                child: Text(
-                  'Sign up',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.white,
-                  ),
-                  textAlign: TextAlign.right,
+                        ),
+                        actions: <Widget>[
+                          FlatButton(
+                            child: Text('Client'),
+                            onPressed: () {
+                              Data.is_client = true;
+                              Navigator.pop(context);
+                              goToClientRegistration(context);
+                            },
+                          ),
+                          FlatButton(
+                            child: Text('Administrator'),
+                            onPressed: () {
+                              Data.is_client = false;
+                              Navigator.pop(context);
+                              goToAdminRegistration(context);
+                            },
+                          ),
+                        ],
+                      );
+                    });
+              },
+              child: Text(
+                'Sign up',
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Colors.white,
                 ),
+                textAlign: TextAlign.right,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

@@ -22,7 +22,8 @@ class LoginPage extends StatelessWidget {
             end: Alignment.bottomLeft,
             colors: [Colors.blueGrey, Colors.lightBlueAccent]),
       ),
-      child: ListView(children: [
+      child:
+          Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
         Row(children: <Widget>[
           VerticalText(),
           TextLogin(),
@@ -32,7 +33,7 @@ class LoginPage extends StatelessWidget {
         ButtonLogin(() {
           loginProcedure(context);
         }),
-        FirstTime(),
+        FirstTime()
       ]),
     );
   }

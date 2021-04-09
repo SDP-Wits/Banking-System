@@ -23,7 +23,9 @@ class UserOld extends StatelessWidget {
             FlatButton(
               padding: EdgeInsets.all(0),
               onPressed: () {
-                goToLogin(context);
+                if (Navigator.canPop(context)) {
+                  Navigator.pop(context);
+                }
               },
               child: Text(
                 'Sign in',
