@@ -43,16 +43,7 @@ class PasswordInputState extends State<PasswordInput> {
             _hasInputError = hasInputErrors(value);
             if (_hasInputError == false) {
               //check if password has errors
-              _password = value; //assign password if no errors present
-              Data.password1 = value;
-              Fluttertoast.showToast(
-                  msg: _password,
-                  toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.CENTER,
-                  timeInSecForIosWeb: 3,
-                  backgroundColor: Colors.red,
-                  textColor: Colors.white,
-                  fontSize: 16.0);
+              _password = value; //assign
             }
             setState(() {});
           },
@@ -67,6 +58,9 @@ class PasswordInputState extends State<PasswordInput> {
             fillColor: Colors.transparent,
             hintText: 'Password',
             hintStyle: TextStyle(fontSize: 16.0, color: Colors.white),
+            helperText:
+                'Must contain: Minimum 1 Upper case, Minimum 1 lowercase, Minimum 1 Numeric Number, Minimum 1 Special Character',
+            helperStyle: TextStyle(fontSize: 12.0, color: Colors.white),
             icon: Icon(Icons.lock_rounded, color: Colors.white),
           ),
         ),

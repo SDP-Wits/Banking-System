@@ -4,6 +4,7 @@ import 'package:intl/number_symbols_data.dart';
 import '../constants/php_url.dart';
 import '../core/registration/registration.functions.dart';
 import '../utils/services/online_db.dart';
+import '../core/SHA-256_encryption.dart';
 
 Future<String> clientRegisterOnline() async {
   //Choosing php file based off whether the user is a client or admin
@@ -27,7 +28,7 @@ Future<String> clientRegisterOnline() async {
     Data.phone,
     Data.email,
     Data.idnum,
-    Data.password1,
+    encode(Data.password1),
     currentDate()
   ]);
 
@@ -67,7 +68,7 @@ Future<String> adminRegisterOnline() async {
     Data.phone,
     Data.email,
     Data.idnum,
-    Data.password1,
+    encode(Data.password1),
     Data.secretKey,
   ]);
 

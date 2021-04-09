@@ -52,7 +52,7 @@ class NewPhoneState extends State<NewPhone> {
             fillColor: Colors.transparent,
             hintText: 'Phone Number',
             hintStyle: TextStyle(fontSize: 16.0, color: Colors.white),
-            helperText: 'eg. 012 345 6789',
+            helperText: 'eg. 0123456789',
             helperStyle: TextStyle(fontSize: 12.0, color: Colors.white),
             icon: Icon(Icons.email_rounded, color: Colors.white),
           ),

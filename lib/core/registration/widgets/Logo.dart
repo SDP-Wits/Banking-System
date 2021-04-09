@@ -8,6 +8,6 @@ class Logo extends StatefulWidget {
 class LogoState extends State<Logo> {
   @override
   Widget build(BuildContext context) {
-    return Image.asset('logo.png');
+    return Image.asset('logo1.png');
   }
 }

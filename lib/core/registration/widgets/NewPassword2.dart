@@ -61,6 +61,9 @@ class PasswordInput2State extends State<PasswordInput2> {
             fillColor: Colors.transparent,
             hintText: 'Password confirmation',
             hintStyle: TextStyle(fontSize: 16.0, color: Colors.white),
+            helperText:
+                'Must contain: Minimum 1 Upper case, Minimum 1 lowercase, Minimum 1 Numeric Number, Minimum 1 Special Character',
+            helperStyle: TextStyle(fontSize: 12.0, color: Colors.white),
             icon: Icon(Icons.lock_rounded, color: Colors.white),
           ),
         ),
