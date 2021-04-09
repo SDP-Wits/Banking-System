@@ -38,7 +38,7 @@ if($check = mysqli_query($conn, $sql1)) {
 		
 		echo json_encode(
 			array(
-				array("status" => TRUE)
+				array("status" => TRUE, "details" => "Successful")
 			)
 		);
 	}
