@@ -59,7 +59,7 @@ Future<void> loginProcedure(BuildContext context) async {
       });
 
   String id = idController.text;
-  String password = passwordController.text;
+  String password = encode(passwordController.text);
 
   if (isAdmin) {
     //String encodedPassword = encode(password);
