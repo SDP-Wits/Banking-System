@@ -28,7 +28,7 @@ Future<String> clientRegisterOnline() async {
     Data.phone,
     Data.email,
     Data.idnum,
-    Data.password1,
+    encode(Data.password1).toString(),
     currentDate()
   ]);
 
@@ -68,7 +68,7 @@ Future<String> adminRegisterOnline() async {
     Data.phone,
     Data.email,
     Data.idnum,
-    Data.password1,
+    encode(Data.password1).toString(),
     Data.secretKey,
   ]);
 

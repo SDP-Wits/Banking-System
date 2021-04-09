@@ -49,6 +49,7 @@ class PasswordInput2State extends State<PasswordInput2> {
               _password2 = value;
               Data.password2 = value; //assign password if no errors present
             }
+            setState(() {});
           },
           style: TextStyle(
             color: Colors.white,
