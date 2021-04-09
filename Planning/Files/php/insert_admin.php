@@ -10,10 +10,20 @@ $email = $_REQUEST["email"];
 $idNum = $_REQUEST["idNum"];
 $password = $_REQUEST["password"];
 $secretKey = $_REQUEST["secretKey"];
-$currentDate = $_REQUEST["currentData"];
+//$currentDate = $_REQUEST["currentData"];
 
-/*$streetName = $_REQUEST["streetName"];
-$streetNum = $_REQUEST["streetNum"];
+/*$firstName = "Karen";
+$middleName = "The";
+$lastName = "First";
+$age = "30";
+$phoneNum = "0001112233";
+$email = "talk2themanager@karenz.com";
+$idNum = "1234567890987";
+$password = "managerz";
+$secretKey = "notSecretKey";
+$currentDate = "2018-06-13";*/
+
+/*$streetNum = $_REQUEST["streetNum"];
 $suburb = $_REQUEST["suburb"];
 $province = $_REQUEST["province"];
 $country = $_REQUEST["country"];
@@ -47,8 +57,8 @@ if($check1 and $check2) {
 		/*$stmt1 = $conn->prepare("INSERT INTO ADDRESS (idNumber, streetName, streetNumber, suburb, province, country, apartmentNumber) VALUES (?,?,?,?,?,?,?)");
 		$stmt1->bind_param("ssisssi", $idNum, $streetName, $streetNum, $suburb, $province, $country, $apartmentNum);
 		$stmt1->execute();*/
-		
-		/*$stmt = $conn->prepare("INSERT INTO `VERIFIED ADMIN` (verifiedDate,secretKeyUsed) VALUES (?,?,?)");
+                
+                /*$stmt = $conn->prepare("INSERT INTO `VERIFIED ADMIN` (adminID,verifiedDate,secretKeyUsed) VALUES (?,?,?)");
 		$stmt->bind_param("iss", $currentDate, $secretKey);
 		$stmt->execute();*/
 		

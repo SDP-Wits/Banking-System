@@ -1,7 +1,6 @@
 library bankingsystem.globals;
 
 import 'dart:core';
-import 'package:intl/intl.dart';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -89,9 +88,9 @@ String giveError() {
   }
 }
 
-String currentDate() {
+/*String currentDate() {
   var now = new DateTime.now();
   var formatter = new DateFormat('yyyy-MM-dd');
   String formattedDate = formatter.format(now);
   return formattedDate;
-}
+}*/

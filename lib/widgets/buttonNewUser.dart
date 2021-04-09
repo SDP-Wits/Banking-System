@@ -55,7 +55,6 @@ Future<String> adminRegisterOnline() async {
     "idNum",
     "password",
     "secretKey",
-    "currentDate"
   ];
   final String arguments = argumentMaker(phpNames: phpNames, inputVariables: [
     Data.name,
@@ -67,7 +66,6 @@ Future<String> adminRegisterOnline() async {
     Data.idnum,
     Data.password1,
     Data.secretKey,
-    currentDate()
   ]);
 
   // print(urlPath + phpFileToUse + arguments);
