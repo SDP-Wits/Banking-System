@@ -10,12 +10,28 @@ $email = $_REQUEST["email"];
 $idNum = $_REQUEST["idNum"];
 $password = $_REQUEST["password"];
 
-/*$streetName = $_REQUEST["streetName"];
+$streetName = $_REQUEST["streetName"];
 $streetNum = $_REQUEST["streetNum"];
 $suburb = $_REQUEST["suburb"];
 $province = $_REQUEST["province"];
 $country = $_REQUEST["country"];
-$apartmentNum = $_REQUEST["apartmentNum"];*/
+$apartmentNum = $_REQUEST["apartmentNum"];
+
+/*$firstName = "Sam";
+$middleName = "Falcon";
+$lastName = "Wilson";
+$age = "34";
+$phoneNum = "1113335557";
+$email = "falcon@avengers.com";
+$idNum = "2222233334444";
+$password = "Fly@1234";
+
+$streetName = "street";
+$streetNum = "12";
+$suburb = "sub urb";
+$province = "state";
+$country = "USA";
+$apartmentNum = "";*/
 
 $sql1 = "SELECT COUNT(*) AS RESULT FROM CLIENT WHERE idNumber = '$idNum'";
 
@@ -32,9 +48,9 @@ if($check = mysqli_query($conn, $sql1)) {
 		$stmt->bind_param("ssssisss", $email, $phoneNum, $idNum, $password, $age, $firstName, $middleName, $lastName);
 		$stmt->execute();
 		
-		/*$stmt1 = $conn->prepare("INSERT INTO ADDRESS (idNumber, streetName, streetNumber, suburb, province, country, apartmentNumber) VALUES (?,?,?,?,?,?,?)");
+		$stmt1 = $conn->prepare("INSERT INTO ADDRESS (idNumber, streetName, streetNumber, suburb, province, country, apartmentNumber) VALUES (?,?,?,?,?,?,?)");
 		$stmt1->bind_param("ssisssi", $idNum, $streetName, $streetNum, $suburb, $province, $country, $apartmentNum);
-		$stmt1->execute();*/
+		$stmt1->execute();
 		
 		echo json_encode(
 			array(

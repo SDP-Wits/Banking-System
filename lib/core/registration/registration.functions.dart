@@ -23,6 +23,7 @@ import 'package:last_national_bank/constants/php_url.dart';
 
 // var hash = encode(password);
 
+//shared data classes
 class Data {
   static String password1 = "";
   static String password2 = "";
@@ -37,6 +38,16 @@ class Data {
   static String secretKey = "";
 }
 
+class Address {
+  static String streetName = "West Street";
+  static String streetNumber = "15";
+  static String suburb = "Green";
+  static String province = "Gauteng";
+  static String country = "South Africa";
+  static String apartmentNumber = "";
+}
+
+// validation functions
 bool fullvalidation() {
   bool flag = true;
   if (Data.age <= 0) {

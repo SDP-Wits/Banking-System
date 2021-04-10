@@ -23,11 +23,12 @@ $password = "managerz1";
 $secretKey = "notSecretKey";
 $currentDate = "2018-06-13";*/
 
-/*$streetNum = $_REQUEST["streetNum"];
+$streetName = $_REQUEST["streetName"];
+$streetNum = $_REQUEST["streetNum"];
 $suburb = $_REQUEST["suburb"];
 $province = $_REQUEST["province"];
 $country = $_REQUEST["country"];
-$apartmentNum = $_REQUEST["apartmentNum"];*/
+$apartmentNum = $_REQUEST["apartmentNum"];
 
 $sql1 = "SELECT COUNT(*) AS RESULT FROM ADMIN WHERE idNumber = '$idNum'";
 $sql2 = "SELECT COUNT(*) AS RESULT FROM `SECRET KEY` WHERE secretKey = '$secretKey'";
@@ -54,15 +55,15 @@ if($check1 and $check2) {
 		$stmt->bind_param("ssssisss", $email, $phoneNum, $idNum, $password, $age, $firstName, $middleName, $lastName);
 		$stmt->execute();
 		
-		/*$stmt1 = $conn->prepare("INSERT INTO ADDRESS (idNumber, streetName, streetNumber, suburb, province, country, apartmentNumber) VALUES (?,?,?,?,?,?,?)");
+		$stmt1 = $conn->prepare("INSERT INTO ADDRESS (idNumber, streetName, streetNumber, suburb, province, country, apartmentNumber) VALUES (?,?,?,?,?,?,?)");
 		$stmt1->bind_param("ssisssi", $idNum, $streetName, $streetNum, $suburb, $province, $country, $apartmentNum);
-		$stmt1->execute();*/
+		$stmt1->execute();
 		
 		$sql3 = "SELECT adminID AS RESULT FROM ADMIN ORDER BY adminID DESC LIMIT 1";
 		$idCheck = mysqli_query($conn, $sql3);
 		$idResult = mysqli_fetch_array($idCheck);
                 
-                $stmt2 = $conn->prepare("INSERT INTO `VERIFIED ADMIN` (adminID,verifiedDate,secretKeyUsed) VALUES (?,?,?)");
+        $stmt2 = $conn->prepare("INSERT INTO `VERIFIED ADMIN` (adminID,verifiedDate,secretKeyUsed) VALUES (?,?,?)");
 		$stmt2->bind_param("iss",$idResult['RESULT'], $currentDate, $secretKey);
 		$stmt2->execute();
 		

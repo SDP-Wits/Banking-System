@@ -17,6 +17,12 @@ Future<String> clientRegisterOnline() async {
     "email",
     "idNum",
     "password",
+    "streetName",
+    "streetNum",
+    "suburb",
+    "province",
+    "country",
+    "apartmentNum"
   ];
   final String arguments = argumentMaker(phpNames: phpNames, inputVariables: [
     Data.name,
@@ -26,7 +32,13 @@ Future<String> clientRegisterOnline() async {
     Data.phone,
     Data.email,
     Data.idnum,
-    encode(Data.password1).toString()
+    encode(Data.password1).toString(),
+    Address.streetName,
+    Address.streetNumber,
+    Address.suburb,
+    Address.province,
+    Address.country,
+    Address.apartmentNumber
   ]);
 
   // print(urlPath + phpFileToUse + arguments);
@@ -58,7 +70,13 @@ Future<String> adminRegisterOnline() async {
     "idNum",
     "password",
     "secretKey",
-    "currentDate"
+    "currentDate",
+    "streetName",
+    "streetNum",
+    "suburb",
+    "province",
+    "country",
+    "apartmentNum"
   ];
   final String arguments = argumentMaker(phpNames: phpNames, inputVariables: [
     Data.name,
@@ -70,7 +88,13 @@ Future<String> adminRegisterOnline() async {
     Data.idnum,
     encode(Data.password1).toString(),
     Data.secretKey,
-    currentDate()
+    currentDate(),
+    Address.streetName,
+    Address.streetNumber,
+    Address.suburb,
+    Address.province,
+    Address.country,
+    Address.apartmentNumber
   ]);
 
   // print(urlPath + phpFileToUse + arguments);
@@ -151,9 +175,9 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
                     fontSize: 16.0);
               } else {
                 //call php for admin
-                adminRegisterOnline();
+                String response = adminRegisterOnline().toString();
                 Fluttertoast.showToast(
-                    msg: "admin sorted",
+                    msg: "admin sorted: " + response,
                     toastLength: Toast.LENGTH_SHORT,
                     gravity: ToastGravity.CENTER,
                     timeInSecForIosWeb: 3,
