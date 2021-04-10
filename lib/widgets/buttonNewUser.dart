@@ -36,10 +36,12 @@ Future<String> clientRegisterOnline() async {
   if (data.containsKey("status")) {
     if (!data["status"]) {
       return data["error"];
+    } else {
+      return data["details"];
     }
   }
 
-  return data["error"];
+  return data["details"];
 }
 
 Future<String> adminRegisterOnline() async {
@@ -78,10 +80,12 @@ Future<String> adminRegisterOnline() async {
   if (data.containsKey("status")) {
     if (!data["status"]) {
       return data["error"];
+    } else {
+      return data["details"];
     }
   }
 
-  return data["error"];
+  return data["details"];
 }
 
 class ButtonNewUser extends StatefulWidget {

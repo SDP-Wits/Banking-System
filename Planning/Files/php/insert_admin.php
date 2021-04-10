@@ -14,12 +14,12 @@ $currentDate = $_REQUEST["currentDate"];
 
 /*$firstName = "Karen";
 $middleName = "The";
-$lastName = "First";
-$age = "30";
-$phoneNum = "0001112233";
-$email = "talk2themanager@karenz.com";
-$idNum = "1234567890987";
-$password = "managerz";
+$lastName = "Second";
+$age = "28";
+$phoneNum = "0001112234";
+$email = "talk2themanager2@karenz.com";
+$idNum = "1234567890982";
+$password = "managerz1";
 $secretKey = "notSecretKey";
 $currentDate = "2018-06-13";*/
 
@@ -58,15 +58,13 @@ if($check1 and $check2) {
 		$stmt1->bind_param("ssisssi", $idNum, $streetName, $streetNum, $suburb, $province, $country, $apartmentNum);
 		$stmt1->execute();*/
 		
-		//WARNING: this part still doesn't work. Still working on it.
 		$sql3 = "SELECT adminID AS RESULT FROM ADMIN ORDER BY adminID DESC LIMIT 1";
-		$idcheck = mysqli_query($conn, $sql3);
+		$idCheck = mysqli_query($conn, $sql3);
 		$idResult = mysqli_fetch_array($idCheck);
-                $idFinal = (int) $idResult['RESULT'];
                 
-                $stmt = $conn->prepare("INSERT INTO `VERIFIED ADMIN` (adminID,verifiedDate,secretKeyUsed) VALUES (?,?,?)");
-		$stmt->bind_param("iss",$idFinal, $currentDate, $secretKey);
-		$stmt->execute();
+                $stmt2 = $conn->prepare("INSERT INTO `VERIFIED ADMIN` (adminID,verifiedDate,secretKeyUsed) VALUES (?,?,?)");
+		$stmt2->bind_param("iss",$idResult['RESULT'], $currentDate, $secretKey);
+		$stmt2->execute();
 		
 		echo json_encode(
 			array(
