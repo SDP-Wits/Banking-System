@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:intl/number_symbols_data.dart';
 import '../constants/php_url.dart';
 import '../core/registration/registration.functions.dart';
 import '../utils/services/online_db.dart';
@@ -18,7 +17,6 @@ Future<String> clientRegisterOnline() async {
     "email",
     "idNum",
     "password",
-    "currentDate"
   ];
   final String arguments = argumentMaker(phpNames: phpNames, inputVariables: [
     Data.name,
@@ -28,8 +26,7 @@ Future<String> clientRegisterOnline() async {
     Data.phone,
     Data.email,
     Data.idnum,
-    encode(Data.password1).toString(),
-    currentDate()
+    encode(Data.password1).toString()
   ]);
 
   // print(urlPath + phpFileToUse + arguments);
@@ -42,7 +39,7 @@ Future<String> clientRegisterOnline() async {
     }
   }
 
-  return data["details"];
+  return data["error"];
 }
 
 Future<String> adminRegisterOnline() async {
@@ -59,6 +56,7 @@ Future<String> adminRegisterOnline() async {
     "idNum",
     "password",
     "secretKey",
+    "currentDate"
   ];
   final String arguments = argumentMaker(phpNames: phpNames, inputVariables: [
     Data.name,
@@ -70,6 +68,7 @@ Future<String> adminRegisterOnline() async {
     Data.idnum,
     encode(Data.password1).toString(),
     Data.secretKey,
+    currentDate()
   ]);
 
   // print(urlPath + phpFileToUse + arguments);
@@ -82,7 +81,7 @@ Future<String> adminRegisterOnline() async {
     }
   }
 
-  return data["details"];
+  return data["error"];
 }
 
 class ButtonNewUser extends StatefulWidget {
@@ -125,9 +124,9 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
                     fontSize: 16.0);
               } else {
                 // call php for client
-                String details = clientRegisterOnline().toString();
+                clientRegisterOnline();
                 Fluttertoast.showToast(
-                    msg: "client sorted: " + details,
+                    msg: "client sorted",
                     toastLength: Toast.LENGTH_SHORT,
                     gravity: ToastGravity.CENTER,
                     timeInSecForIosWeb: 3,
@@ -148,9 +147,9 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
                     fontSize: 16.0);
               } else {
                 //call php for admin
-                String details = adminRegisterOnline() as String;
+                adminRegisterOnline();
                 Fluttertoast.showToast(
-                    msg: "admin sorted: " + details,
+                    msg: "admin sorted",
                     toastLength: Toast.LENGTH_SHORT,
                     gravity: ToastGravity.CENTER,
                     timeInSecForIosWeb: 3,

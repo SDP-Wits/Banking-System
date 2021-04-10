@@ -59,12 +59,13 @@ if($check1 and $check2) {
 		$stmt1->execute();*/
 		
 		//WARNING: this part still doesn't work. Still working on it.
-		$sql3 = "SELECT adminID AS RESULT FROM `ADMIN` ORDER BY adminID DESC LIMIT 1";
+		$sql3 = "SELECT adminID AS RESULT FROM ADMIN ORDER BY adminID DESC LIMIT 1";
 		$idcheck = mysqli_query($conn, $sql3);
 		$idResult = mysqli_fetch_array($idCheck);
+                $idFinal = (int) $idResult['RESULT'];
                 
-        $stmt = $conn->prepare("INSERT INTO `VERIFIED ADMIN` (adminID,verifiedDate,secretKeyUsed) VALUES (?,?,?)");
-		$stmt->bind_param("iss",$idResult['RESULT'], $currentDate, $secretKey);
+                $stmt = $conn->prepare("INSERT INTO `VERIFIED ADMIN` (adminID,verifiedDate,secretKeyUsed) VALUES (?,?,?)");
+		$stmt->bind_param("iss",$idFinal, $currentDate, $secretKey);
 		$stmt->execute();
 		
 		echo json_encode(
