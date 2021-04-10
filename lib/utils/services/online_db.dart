@@ -9,6 +9,7 @@ import '../../constants/php_url.dart';
 import 'local_db.dart';
 
 Future<List<Map<String, dynamic>>> getURLData(String url) async {
+  print(url);
   final Uri uri = Uri.parse(url);
 
   final httpResponse = await http.get(uri);

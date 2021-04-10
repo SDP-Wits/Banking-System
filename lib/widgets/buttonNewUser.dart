@@ -175,16 +175,16 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
                     fontSize: 16.0);
               } else {
                 //call php for admin
-                adminRegisterOnline();
-                //TOAST RESPONSE FROM adminRegisterOnline()
-                Fluttertoast.showToast(
-                    msg: "admin sorted",
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.CENTER,
-                    timeInSecForIosWeb: 3,
-                    backgroundColor: Colors.red,
-                    textColor: Colors.white,
-                    fontSize: 16.0);
+                adminRegisterOnline().then((value) {
+                  Fluttertoast.showToast(
+                      msg: "admin sorted" + value,
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.CENTER,
+                      timeInSecForIosWeb: 3,
+                      backgroundColor: Colors.red,
+                      textColor: Colors.white,
+                      fontSize: 16.0);
+                });
               }
             }
 

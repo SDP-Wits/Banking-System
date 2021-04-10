@@ -48,6 +48,9 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     autoLogin(context);
+    // LocalDatabaseHelper.instance
+    //     .selectAddress()
+    //     .then((value) => toastyPrint(value.toString()));
   }
 
   @override

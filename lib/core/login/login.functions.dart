@@ -18,7 +18,7 @@ TextEditingController getPasswordController() {
 }
 
 Future<void> loginProcedure(BuildContext context) async {
-  bool isAdmin = false;
+  bool isClientLogin = true;
   await showDialog(
       context: context,
       barrierDismissible: false,
@@ -43,14 +43,14 @@ Future<void> loginProcedure(BuildContext context) async {
             FlatButton(
               child: Text('Yes'),
               onPressed: () {
-                isAdmin = true;
+                isClientLogin = false;
                 Navigator.pop(context);
               },
             ),
             FlatButton(
               child: Text('No'),
               onPressed: () {
-                isAdmin = false;
+                isClientLogin = true;
                 Navigator.pop(context);
               },
             ),
@@ -61,22 +61,13 @@ Future<void> loginProcedure(BuildContext context) async {
   String id = idController.text;
   String password = encode(passwordController.text);
 
-  if (isAdmin) {
-    //String encodedPassword = encode(password);
-    String response = await userLoginOnline(id, password, !isAdmin);
-    Fluttertoast.showToast(msg: response);
+  String response = await userLoginOnline(id, password, isClientLogin);
+  Fluttertoast.showToast(msg: response);
 
-    if (response == dbSuccess) {
-      //Transfer admin to verification list page
+  if (response == dbSuccess) {
+    if (!isClientLogin) {
       goToAdminVerificationList(context);
-    }
-  } else {
-    //String encodedPassword = encode(password);
-    String response = await userLoginOnline(id, password, !isAdmin);
-    Fluttertoast.showToast(msg: response);
-
-    if (response == dbSuccess) {
-      //Transfer user to next page
+    } else {
       goToAdminVerificationStatus(context);
     }
   }

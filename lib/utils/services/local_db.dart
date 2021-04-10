@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:last_national_bank/utils/helpers/helper.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -68,6 +70,26 @@ class LocalDatabaseHelper {
   }
 
   // #endregion Set Up Code
+  Future<bool> deleteUser() async {
+    final String sql = "DELETE FROM USER";
+
+    await rawQuery(sql);
+
+    return !(await isUser());
+  }
+
+  Future<bool> deleteAddress() async {
+    final String sql = "DELETE FROM ADDRESS";
+
+    await rawQuery(sql);
+
+    return !(await isUser());
+  }
+
+  Future<void> deleteData() async {
+    await deleteAddress();
+    await deleteUser();
+  }
 
   // #region User
 
@@ -82,8 +104,6 @@ class LocalDatabaseHelper {
       String? middleName,
       String lastName,
       bool isAdmin) async {
-    await deleteData();
-
     final String sql =
         "INSERT INTO USER(userID, email, phoneNumber, idNumber, password, age, firstName, middleName, lastName, isAdmin)" +
             "VALUES($userID, ${doubleQuote(email)}, ${doubleQuote(phoneNumber)}, ${doubleQuote(idNumber)}, ${doubleQuote(password)}, $age, ${doubleQuote(firstName)},${(middleName == null) ? "null" : doubleQuote(middleName)},${doubleQuote(lastName)}, ${isAdmin ? 1 : 0})";
@@ -108,19 +128,11 @@ class LocalDatabaseHelper {
     return data.isNotEmpty;
   }
 
-  Future<bool> deleteUser() async {
-    final String sql = "DELETE FROM USER";
-
-    await rawQuery(sql);
-
-    return !(await isUser());
-  }
-
   Future<User?> getUserAndAddress() async {
     if (await isUser()) {
-      final String sql = "SELECT * FROM USER LEFT JOIN ADDRESS";
+      final String sqlUser = "SELECT * FROM USER LEFT JOIN ADDRESS";
 
-      Map data = (await rawQuery(sql))[0];
+      Map data = (await rawQuery(sqlUser))[0];
 
       return User(
           data["userID"],
@@ -149,7 +161,8 @@ class LocalDatabaseHelper {
   Future<String> addAddress(int streetNumber, String streetName, String suburb,
       String province, String country, int? apartmentNumber) async {
     final String sql =
-        "INSERT INTO ADDRESS(streetNumber, streetName, suburb, province, country, apartmentNumber) VALUES($streetNumber, ${doubleQuote(streetName)}, ${doubleQuote(suburb)},${doubleQuote(province)}, ${doubleQuote(country)}, ${(apartmentNumber == null) ? "null" : apartmentNumber})";
+        "INSERT INTO ADDRESS(streetNumber, streetName, suburb, province, country, apartmentNumber) VALUES($streetNumber, ${doubleQuote(streetName)}, ${doubleQuote(suburb)},${doubleQuote(province)}, ${doubleQuote(country)}, ${(apartmentNumber == null) ? null : apartmentNumber})";
+    // "CREATE TABLE ADDRESS(addressID INT AUTO INCREMENT PRIMARY KEY, streetNumber INTEGER NOT NULL, streetName TEXT NOT NULL, suburb TEXT NOT NULL, province TEXT NOT NULL, country TEXT NOT NULL, apartmentNumber INT)"
 
     try {
       List<Map> results = await rawQuery(sql);
@@ -171,13 +184,6 @@ class LocalDatabaseHelper {
     return data.isNotEmpty;
   }
 
-  Future<bool> deleteAddress() async {
-    final String sql = "DELETE FROM ADDRESS";
-
-    await rawQuery(sql);
-
-    return !(await isUser());
-  }
   // #endregion
 
   Future<String> addUserDetails(
@@ -199,6 +205,7 @@ class LocalDatabaseHelper {
       int? apartmentNumber) async {
     //Clearing up any old data
     await deleteData();
+
     //Adding user & address to the table
     String addressResponse = await addAddress(
         streetNumber, streetName, suburb, province, country, apartmentNumber);
@@ -215,20 +222,21 @@ class LocalDatabaseHelper {
     }
 
     if (userFlag) {
-      await deleteAddress();
+      await deleteData();
       return dbFailed;
     }
 
     if (userFlag) {
-      await deleteUser();
+      await deleteData();
       return dbFailed;
     }
 
     return dbSuccess;
   }
 
-  Future<void> deleteData() async {
-    await deleteAddress();
-    await deleteUser();
+  Future<Map> selectAddress() async {
+    final String sql = "SELECT * FROM ADDRESS";
+
+    return ((await rawQuery(sql))[0]);
   }
 }
