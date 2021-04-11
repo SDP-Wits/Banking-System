@@ -16,7 +16,7 @@ class _InputIDState extends State<InputID> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 50, left: 50, right: 50),
+      padding: const EdgeInsets.only(top: 30, left: 50, right: 50),
       child: Container(
         height: 60,
         width: MediaQuery.of(context).size.width,
@@ -29,15 +29,16 @@ class _InputIDState extends State<InputID> {
             color: Colors.white,
           ),
           decoration: InputDecoration(
-            focusedBorder: OutlineInputBorder(
+            /*focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.black26, width: 2.0),
             ),
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.black, width: 1.0),
-            ),
+            ),*/
             fillColor: Colors.lightBlueAccent,
             hintText: 'ID Number',
             hintStyle: TextStyle(fontSize: 16.0, color: Colors.white),
+            icon: Icon(Icons.account_box_rounded, color: Colors.white),
             labelStyle: TextStyle(
               color: Colors.white70,
             ),

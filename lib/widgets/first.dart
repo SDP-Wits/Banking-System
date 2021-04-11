@@ -14,15 +14,15 @@ class _FirstTimeState extends State<FirstTime> {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 15),
       // padding: EdgeInsets.all(15),
-      color: Colors.blueGrey,
+      //color: Colors.blueGrey,
       child: Container(
         // padding: EdgeInsets.all(15),
         alignment: Alignment.center,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
-              padding: EdgeInsets.all(5),
+              padding: EdgeInsets.all(0),
               // padding: EdgeInsets.all(15),
               child: Text(
                 'Your first time?',
