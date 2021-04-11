@@ -19,11 +19,10 @@ class _PasswordInputState extends State<PasswordInput> {
           ),
           obscureText: true,
           decoration: InputDecoration(
-            border: InputBorder.none,
-            labelText: 'Password',
-            labelStyle: TextStyle(
-              color: Colors.white70,
-            ),
+            fillColor: Colors.transparent,
+            hintText: 'Password',
+            hintStyle: TextStyle(fontSize: 16.0, color: Colors.white),
+            icon: Icon(Icons.lock_rounded, color: Colors.white),
           ),
         ),
       ),

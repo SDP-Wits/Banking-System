@@ -1,6 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.execution_empire.last_national_bank">
    <application
+        android:usesCleartextTraffic="true"
         android:label="banking_system_app"
         android:icon="@mipmap/ic_launcher">
         <activity
@@ -38,4 +39,5 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

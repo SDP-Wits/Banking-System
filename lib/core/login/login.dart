@@ -1,37 +1,52 @@
 import 'package:flutter/material.dart';
-import 'package:last_national_bank/widgets/button.dart';
-import 'package:last_national_bank/widgets/first.dart';
-import 'package:last_national_bank/widgets/inputEmail.dart';
-import 'package:last_national_bank/widgets/password.dart';
-import 'package:last_national_bank/widgets/textLogin.dart';
-import 'package:last_national_bank/widgets/verticalText.dart';
+import 'package:flutter/services.dart';
+
+import '../../widgets/button.dart';
+import '../../widgets/first.dart';
+import '../../widgets/textLogin.dart';
+import '../../widgets/verticalText.dart';
+import 'login.functions.dart';
+import 'widgets/login_id.dart';
+import 'widgets/login_password.dart';
+import 'package:last_national_bank/core/registration/widgets/Logo.dart';
 
 class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: [Colors.blueGrey, Colors.lightBlueAccent]),
-        ),
-        child: ListView(
-          children: <Widget>[
-            Column(
-              children: <Widget>[
-                Row(children: <Widget>[
-                  VerticalText(),
-                  TextLogin(),
-                ]),
-                InputEmail(),
-                PasswordInput(),
-                ButtonLogin(),
-                FirstTime(),
-              ],
-            ),
-          ],
+    final Size size = MediaQuery.of(context).size;
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.blueAccent,
+    ));
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Colors.blueGrey, Colors.teal]),
+      ),
+      child: SingleChildScrollView(
+        child: Container(
+          height: size.height,
+          child: Column(
+              //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              //mainAxisSize: MainAxisSize.max,
+              children: [
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Logo(),
+                      //VerticalText(),
+                      //TextLogin(),
+                    ]),
+                InputID(getIDController()),
+                PasswordInput(getPasswordController()),
+                ButtonLogin(() {
+                  loginProcedure(context);
+                }),
+                FirstTime()
+              ]),
         ),
       ),
     );

@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 
+import 'package:fluttertoast/fluttertoast.dart';
+import '../config/routes/router.dart';
+import '../core/verification_list/admin_verification_list.dart';
+import 'routeButton.dart';
+
 class ButtonLogin extends StatefulWidget {
+  final Function onTap;
+  ButtonLogin(this.onTap);
   @override
   _ButtonLoginState createState() => _ButtonLoginState();
 }
@@ -9,11 +16,13 @@ class _ButtonLoginState extends State<ButtonLogin> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 40, right: 50, left: 200),
+      padding: const EdgeInsets.only(
+        top: 40,
+      ),
       child: Container(
-        alignment: Alignment.bottomRight,
-        height: 50,
-        width: MediaQuery.of(context).size.width,
+        alignment: Alignment.center,
+        height: 40,
+        width: MediaQuery.of(context).size.width / 2,
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
@@ -30,21 +39,18 @@ class _ButtonLoginState extends State<ButtonLogin> {
           borderRadius: BorderRadius.circular(30),
         ),
         child: TextButton(
-          onPressed: () {},
+          onPressed: () {
+            this.widget.onTap();
+          },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                'OK',
+                'Login',
                 style: TextStyle(
                   color: Colors.lightBlueAccent,
                   fontSize: 14,
-                  fontWeight: FontWeight.w700,
                 ),
-              ),
-              Icon(
-                Icons.arrow_forward,
-                color: Colors.lightBlueAccent,
               ),
             ],
           ),
