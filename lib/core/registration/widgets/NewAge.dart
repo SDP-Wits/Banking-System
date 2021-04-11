@@ -11,20 +11,21 @@ class NewAgeState extends State<NewAge> {
   int _age = 0; //age variable
 
   //function to check for invalid age
-  bool hasInputError(int age){
-    if (age <= 0){
+  bool hasInputError(int age) {
+    if (age <= 0) {
       return true;
     }
     return false;
   }
-int returnAge(){
-  return _age;
-}
-  //assign age if no value present
-  void assignAge(int age){
-    if (hasInputError(age) == false){
-      _age = age;
 
+  int returnAge() {
+    return _age;
+  }
+
+  //assign age if no value present
+  void assignAge(int age) {
+    if (hasInputError(age) == false) {
+      _age = age;
     }
   }
 
@@ -36,16 +37,20 @@ int returnAge(){
         height: 60,
         width: MediaQuery.of(context).size.width,
         child: TextField(
-          onChanged: (value){
-            if (value == ""){         //if no value is enterred in age field, call error
+          onChanged: (value) {
+            if (value == "") {
+              //if no value is enterred in age field, call error
               _hasInputError = true;
-            }
-            else{                     //convert string to integer and check for invalid age
+            } else {
+              //convert string to integer and check for invalid age
               int age = int.parse(value);
               _hasInputError = hasInputError(age);
-              if (_hasInputError == false){
+              if (_hasInputError == false) {
                 assignAge(age);
                 Data.age = age;
+                setCheck(true);
+              } else {
+                setCheck(false);
               }
             }
             setState(() {});
@@ -54,10 +59,13 @@ int returnAge(){
             color: Colors.white,
           ),
           decoration: InputDecoration(
-            errorText: _hasInputError ? "Invalid Age": null, //display text if errors present
+            errorText: _hasInputError
+                ? "Invalid Age"
+                : null, //display text if errors present
             fillColor: Colors.transparent,
             hintText: 'Age',
             hintStyle: TextStyle(fontSize: 16.0, color: Colors.white),
+            icon: Icon(Icons.today_rounded, color: Colors.white),
           ),
         ),
       ),

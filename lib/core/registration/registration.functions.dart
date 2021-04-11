@@ -108,3 +108,13 @@ String currentDate() {
   String formattedDate = formatter.format(now);
   return formattedDate;
 }
+
+bool _finalCheck = true;
+
+void setCheck(bool check) {
+  _finalCheck = check;
+}
+
+bool getCheck() {
+  return _finalCheck;
+}

@@ -45,6 +45,9 @@ class NewNameState extends State<NewName> {
               //if no errors, assign name
               assignName(value);
               Data.name = value;
+              setCheck(true);
+            } else {
+              setCheck(false);
             }
             setState(() {});
           },
@@ -58,6 +61,7 @@ class NewNameState extends State<NewName> {
             fillColor: Colors.transparent,
             hintText: 'First Name',
             hintStyle: TextStyle(fontSize: 16.0, color: Colors.white),
+            icon: Icon(Icons.person, color: Colors.white),
           ),
         ),
       ),

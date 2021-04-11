@@ -45,6 +45,9 @@ class NewSurnameState extends State<NewSurname> {
               //if no errors, assign surname
               assignSurname(value);
               Data.surname = value;
+              setCheck(true);
+            } else {
+              setCheck(false);
             }
             setState(() {});
           },
@@ -58,6 +61,7 @@ class NewSurnameState extends State<NewSurname> {
             fillColor: Colors.transparent,
             hintText: 'Last Name',
             hintStyle: TextStyle(fontSize: 16.0, color: Colors.white),
+            icon: Icon(Icons.person, color: Colors.white),
           ),
         ),
       ),

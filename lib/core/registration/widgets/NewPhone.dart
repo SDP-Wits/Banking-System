@@ -39,6 +39,9 @@ class NewPhoneState extends State<NewPhone> {
               //check if phone number is valid
               _phone = value; //assign phone number if valid
               Data.phone = value;
+              setCheck(true);
+            } else {
+              setCheck(false);
             }
             setState(() {});
           },
@@ -54,7 +57,7 @@ class NewPhoneState extends State<NewPhone> {
             hintStyle: TextStyle(fontSize: 16.0, color: Colors.white),
             helperText: 'eg. 0123456789',
             helperStyle: TextStyle(fontSize: 12.0, color: Colors.white),
-            icon: Icon(Icons.email_rounded, color: Colors.white),
+            icon: Icon(Icons.local_phone_rounded, color: Colors.white),
           ),
         ),
       ),

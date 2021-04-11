@@ -50,6 +50,9 @@ class NewEmailState extends State<NewEmail> {
               //if no errors, assign assign email
               assignEmail(value);
               Data.email = value;
+              setCheck(true);
+            } else {
+              setCheck(false);
             }
             setState(() {});
           },
