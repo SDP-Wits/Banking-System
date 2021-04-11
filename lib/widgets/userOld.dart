@@ -8,10 +8,11 @@ class UserOld extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 30, left: 50),
       child: Container(
-        alignment: Alignment.topRight,
+        alignment: Alignment.center,
         //color: Colors.red,
         height: 20,
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
               'Already have an account?',

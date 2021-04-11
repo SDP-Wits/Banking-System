@@ -47,7 +47,10 @@ class PasswordInput2State extends State<PasswordInput2> {
             if (_hasInputError == false) {
               //check if password has errors
               _password2 = value;
-              Data.password2 = value; //assign password if no errors present
+              Data.password2 = value;
+              setCheck(true);
+            } else {
+              setCheck(false);
             }
             setState(() {});
           },

@@ -39,6 +39,9 @@ class NewIDnumState extends State<NewIDnum> {
               //check if id number is valid
               _idNum = value; //assign id number if valid
               Data.idnum = value;
+              setCheck(true);
+            } else {
+              setCheck(false);
             }
             setState(() {});
           },
@@ -52,6 +55,7 @@ class NewIDnumState extends State<NewIDnum> {
             fillColor: Colors.transparent,
             hintText: 'ID number',
             hintStyle: TextStyle(fontSize: 16.0, color: Colors.white),
+            icon: Icon(Icons.account_box_rounded, color: Colors.white),
           ),
         ),
       ),

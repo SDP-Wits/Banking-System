@@ -8,6 +8,7 @@ import '../../widgets/verticalText.dart';
 import 'login.functions.dart';
 import 'widgets/login_id.dart';
 import 'widgets/login_password.dart';
+import 'package:last_national_bank/core/registration/widgets/Logo.dart';
 
 class LoginPage extends StatelessWidget {
   @override
@@ -19,21 +20,26 @@ class LoginPage extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            colors: [Colors.blueGrey, Colors.lightBlueAccent]),
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Colors.blueGrey, Colors.teal]),
       ),
       child: SingleChildScrollView(
         child: Container(
           height: size.height,
           child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              mainAxisSize: MainAxisSize.max,
+              //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              //mainAxisSize: MainAxisSize.max,
               children: [
-                Row(children: <Widget>[
-                  VerticalText(),
-                  TextLogin(),
-                ]),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Logo(),
+                      //VerticalText(),
+                      //TextLogin(),
+                    ]),
                 InputID(getIDController()),
                 PasswordInput(getPasswordController()),
                 ButtonLogin(() {
