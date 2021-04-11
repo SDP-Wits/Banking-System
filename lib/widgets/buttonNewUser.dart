@@ -59,7 +59,6 @@ Future<String> clientRegisterOnline() async {
 Future<String> adminRegisterOnline() async {
   //Choosing php file based off whether the user is a client or admin
   String phpFileToUse = insert_admin;
-
   List<String> phpNames = [
     "firstName",
     "middleName",
@@ -201,17 +200,6 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
                 });
               }
             }
-
-            // Fluttertoast.showToast(
-            //     msg: giveError(),
-            //     toastLength: Toast.LENGTH_SHORT,
-            //     gravity: ToastGravity.CENTER,
-            //     timeInSecForIosWeb: 3,
-            //     backgroundColor: Colors.red,
-            //     textColor: Colors.white,
-            //     fontSize: 16.0);
-
-            //insertClient();
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
