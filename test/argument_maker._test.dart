@@ -7,6 +7,6 @@ void main() {
 
   test("Testing to see if argument maker works properly", () {
     expect(argumentMaker(phpNames: phpNames, inputVariables: inputVariables),
-        "?id=1234567891234;password=thisisahashpassword");
+        "?id=1234567891234&password=thisisahashpassword");
   });
 }
