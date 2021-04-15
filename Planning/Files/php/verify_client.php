@@ -17,11 +17,11 @@ $sql2 = "SELECT clientID AS ID FROM CLIENT WHERE idNumber = '$clientIdNum'";
 $adminCheck = mysqli_query($conn, $sql1);
 $clientCheck = mysqli_query($conn, $sql2);
 
-if($check1 and $check2) {
+if($adminCheck and $clientCheck) {
 	$check_admin = mysqli_fetch_array($adminCheck);
 	$check_client = mysqli_fetch_array($clientCheck);
 	
-	$stmt = $conn->prepare("INSERT INTO `VERIFIED CLIENT` (clientID,verifiedDate,adminID) VALUES (?,?,?)");
+	$stmt = $conn->prepare("INSERT INTO `VERIFIED CLIENT` (clientID,verifiedDate,verifiedBy) VALUES (?,?,?)");
 	$stmt->bind_param("isi",$check_client['ID'],$currentDate,$check_admin['ID']);
 	$stmt->execute();
 
