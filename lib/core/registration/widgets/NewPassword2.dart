@@ -9,22 +9,13 @@ class PasswordInput2 extends StatefulWidget {
 }
 
 class PasswordInput2State extends State<PasswordInput2> {
+  bool _isHidden = true;
   bool _hasInputError = false; //error control variable
   String _password2 = ""; //password variable
   // this is the first password from the first password input
 
   bool hasInputErrors(String passwordVal) {
     if (Data.password1 != passwordVal) {
-      // Fluttertoast.showToast(
-      //     msg: Data.p,
-      //     toastLength: Toast.LENGTH_SHORT,
-      //     gravity: ToastGravity.CENTER,
-      //     timeInSecForIosWeb: 3,
-      //     backgroundColor: Colors.red,
-      //     textColor: Colors.white,
-      //     fontSize: 16.0);
-
-      //check if password length is correct
       return true;
     }
     return false;
@@ -42,6 +33,7 @@ class PasswordInput2State extends State<PasswordInput2> {
         height: 60,
         width: MediaQuery.of(context).size.width,
         child: TextField(
+          obscureText: _isHidden,
           onChanged: (value) {
             _hasInputError = hasInputErrors(value);
             if (_hasInputError == false) {
@@ -57,7 +49,6 @@ class PasswordInput2State extends State<PasswordInput2> {
           style: TextStyle(
             color: Colors.white,
           ),
-          obscureText: true,
           decoration: InputDecoration(
             errorText: _hasInputError
                 ? "Passwords do not match"
@@ -65,10 +56,22 @@ class PasswordInput2State extends State<PasswordInput2> {
             fillColor: Colors.transparent,
             hintText: 'Password confirmation',
             hintStyle: TextStyle(fontSize: 16.0, color: Colors.white),
+            suffix: InkWell(
+              onTap: _togglePasswordView,
+              child: Icon(
+                _isHidden ? Icons.visibility : Icons.visibility_off,
+              ),
+            ),
             icon: Icon(Icons.lock_rounded, color: Colors.white),
           ),
         ),
       ),
     );
+  }
+
+  void _togglePasswordView() {
+    setState(() {
+      _isHidden = !_isHidden;
+    });
   }
 }

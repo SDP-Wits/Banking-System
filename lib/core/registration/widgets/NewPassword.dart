@@ -9,6 +9,7 @@ class PasswordInput extends StatefulWidget {
 }
 
 class PasswordInputState extends State<PasswordInput> {
+  bool _isHidden = true;
   bool _hasInputError = false; //error control variable
   String _password = ""; //password variable
   //String password2 = PasswordInput2State().returnpassword();
@@ -54,7 +55,7 @@ class PasswordInputState extends State<PasswordInput> {
           style: TextStyle(
             color: Colors.white,
           ),
-          obscureText: true,
+          obscureText: _isHidden,
           decoration: InputDecoration(
             errorText: _hasInputError
                 ? "Invalid Password"
@@ -62,10 +63,25 @@ class PasswordInputState extends State<PasswordInput> {
             fillColor: Colors.transparent,
             hintText: 'Password',
             hintStyle: TextStyle(fontSize: 16.0, color: Colors.white),
+            helperText:
+                'Password must contain Minimum 1 Upper case, Min 1 lowercase, Min 1 Numeric Number, Min 1 Special Character',
+            helperStyle: TextStyle(fontSize: 12.0, color: Colors.white),
+            suffix: InkWell(
+              onTap: _togglePasswordView,
+              child: Icon(
+                _isHidden ? Icons.visibility : Icons.visibility_off,
+              ),
+            ),
             icon: Icon(Icons.lock_rounded, color: Colors.white),
           ),
         ),
       ),
     );
+  }
+
+  void _togglePasswordView() {
+    setState(() {
+      _isHidden = !_isHidden;
+    });
   }
 }
