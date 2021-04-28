@@ -17,7 +17,7 @@ $province = $_REQUEST["province"];
 $country = $_REQUEST["country"];
 $apartmentNum = $_REQUEST["apartmentNum"];
 
-/*$firstName = "Sam";
+$firstName = "Sam";
 $middleName = "Falcon";
 $lastName = "Wilson";
 $age = "34";
@@ -31,7 +31,7 @@ $streetNum = "12";
 $suburb = "sub urb";
 $province = "state";
 $country = "USA";
-$apartmentNum = "";*/
+$apartmentNum = "";
 
 $sql1 = "SELECT COUNT(*) AS RESULT FROM CLIENT WHERE idNumber = '$idNum'";
 
@@ -40,7 +40,7 @@ if($check = mysqli_query($conn, $sql1)) {
     if($check_count['RESULT'] != '0'){
 		echo json_encode(
 			array(
-				array("status" => TRUE, "details" => "USER_EXISTS")
+				array("status" => FALSE, "details" => "User with ID number already exists")
 			)
 		);
     } else {

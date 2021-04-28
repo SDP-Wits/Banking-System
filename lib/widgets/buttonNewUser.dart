@@ -166,7 +166,7 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
                 }*/
                 clientRegisterOnline().then((value) {
                   Fluttertoast.showToast(
-                      msg: "admin sorted" + value,
+                      msg: "client sorted" + value,
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.CENTER,
                       timeInSecForIosWeb: 3,

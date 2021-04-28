@@ -41,13 +41,13 @@ if($check1 and $check2) {
     if($check_admin['RESULT'] != '0'){
 		echo json_encode(
 			array(
-				array("status" => TRUE, "details" => "USER_EXISTS")
+				array("status" => FALSE, "details" => "User with ID number already exists")
 			)
 		);
     } elseif ($check_secret_key['RESULT'] == '0') {
 		echo json_encode(
 			array(
-				array("status" => FALSE, "error" => "INVALID_KEY")
+				array("status" => FALSE, "error" => "Invalid Secret Key")
 			)
 		);
 	} else	{
