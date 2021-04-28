@@ -68,7 +68,7 @@ class NewEmailState extends State<NewEmail> {
             hintStyle: TextStyle(fontSize: 16.0, color: Colors.white),
             helperText: 'eg. JohnDoe@gmail.com',
             helperStyle: TextStyle(fontSize: 12.0, color: Colors.white),
-            icon: Icon(Icons.email_rounded, color: Colors.white),
+            prefixIcon: Icon(Icons.email_rounded, color: Colors.white),
           ),
         ),
       ),

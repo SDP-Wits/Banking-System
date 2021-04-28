@@ -65,7 +65,7 @@ class NewAgeState extends State<NewAge> {
             fillColor: Colors.transparent,
             hintText: 'Age',
             hintStyle: TextStyle(fontSize: 16.0, color: Colors.white),
-            icon: Icon(Icons.today_rounded, color: Colors.white),
+            prefixIcon: Icon(Icons.today_rounded, color: Colors.white),
           ),
         ),
       ),

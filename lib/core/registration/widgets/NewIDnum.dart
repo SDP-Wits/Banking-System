@@ -55,7 +55,7 @@ class NewIDnumState extends State<NewIDnum> {
             fillColor: Colors.transparent,
             hintText: 'ID number',
             hintStyle: TextStyle(fontSize: 16.0, color: Colors.white),
-            icon: Icon(Icons.account_box_rounded, color: Colors.white),
+            prefixIcon: Icon(Icons.account_box_rounded, color: Colors.white),
           ),
         ),
       ),
