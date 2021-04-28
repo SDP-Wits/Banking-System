@@ -47,7 +47,7 @@ if($check1 and $check2) {
     } elseif ($check_secret_key['RESULT'] == '0') {
 		echo json_encode(
 			array(
-				array("status" => FALSE, "error" => "Invalid Secret Key")
+				array("status" => FALSE, "details" => "Invalid Secret Key")
 			)
 		);
 	} else	{

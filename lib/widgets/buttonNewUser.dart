@@ -45,14 +45,6 @@ Future<String> clientRegisterOnline() async {
   Map data = (await getURLData(urlPath + phpFileToUse + arguments))[0];
 
   //If there is an error
-  if (data.containsKey("status")) {
-    if (!data["status"]) {
-      return data["error"];
-    } else {
-      return data["details"];
-    }
-  }
-
   return data["details"];
 }
 
@@ -100,13 +92,6 @@ Future<String> adminRegisterOnline() async {
   Map data = (await getURLData(urlPath + phpFileToUse + arguments))[0];
 
   //If there is an error
-  if (data.containsKey("status")) {
-    if (!data["status"]) {
-      return data["error"];
-    } else {
-      return data["details"];
-    }
-  }
   return data["details"];
 }
 
@@ -166,7 +151,7 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
                 }*/
                 clientRegisterOnline().then((value) {
                   Fluttertoast.showToast(
-                      msg: "client sorted" + value,
+                      msg: "client sorted: " + value,
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.CENTER,
                       timeInSecForIosWeb: 3,
@@ -190,7 +175,7 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
                 //call php for admin
                 adminRegisterOnline().then((value) {
                   Fluttertoast.showToast(
-                      msg: "admin sorted" + value,
+                      msg: "admin sorted: " + value,
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.CENTER,
                       timeInSecForIosWeb: 3,
