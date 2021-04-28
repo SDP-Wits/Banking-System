@@ -61,7 +61,7 @@ class NewSurnameState extends State<NewSurname> {
             fillColor: Colors.transparent,
             hintText: 'Last Name',
             hintStyle: TextStyle(fontSize: 16.0, color: Colors.white),
-            prefixIcon: Icon(Icons.person, color: Colors.white),
+            icon: Icon(Icons.person, color: Colors.white),
           ),
         ),
       ),

@@ -61,7 +61,7 @@ class NewNameState extends State<NewName> {
             fillColor: Colors.transparent,
             hintText: 'First Name',
             hintStyle: TextStyle(fontSize: 16.0, color: Colors.white),
-            prefixIcon: Icon(Icons.person, color: Colors.white),
+            icon: Icon(Icons.person, color: Colors.white),
           ),
         ),
       ),

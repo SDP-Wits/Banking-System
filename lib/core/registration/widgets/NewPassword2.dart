@@ -59,9 +59,10 @@ class PasswordInput2State extends State<PasswordInput2> {
             suffix: InkWell(
               onTap: _togglePasswordView,
               child: Icon(
-                _isHidden ? Icons.visibility_off : Icons.visibility,
+                _isHidden ? Icons.visibility : Icons.visibility_off,
               ),
             ),
+            icon: Icon(Icons.lock_rounded, color: Colors.white),
           ),
         ),
       ),

@@ -37,7 +37,7 @@ class PasswordInputState extends State<PasswordInput> {
     return Padding(
       padding: const EdgeInsets.only(top: 20, left: 50, right: 50),
       child: Container(
-        height: 90,
+        height: 60,
         width: MediaQuery.of(context).size.width,
         child: TextField(
           onChanged: (value) {
@@ -46,7 +46,6 @@ class PasswordInputState extends State<PasswordInput> {
               //check if password has errors
               _password = value; //assign
               Data.password1 = value;
-
               setCheck(true);
             } else {
               setCheck(false);
@@ -65,7 +64,7 @@ class PasswordInputState extends State<PasswordInput> {
             hintText: 'Password',
             hintStyle: TextStyle(fontSize: 16.0, color: Colors.white),
             helperText:
-                'Password must contain:\nMin 1 Upper case,\nMin 1 lowercase,\nMin 1 Number,\nMin 1 Special Character',
+                'Password must contain Minimum 1 Upper case, Min 1 lowercase, Min 1 Numeric Number, Min 1 Special Character',
             helperStyle: TextStyle(fontSize: 12.0, color: Colors.white),
             suffix: InkWell(
               onTap: _togglePasswordView,

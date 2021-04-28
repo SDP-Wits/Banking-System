@@ -43,25 +43,19 @@ class NewLocState extends State<NewLoc> {
     return Container(
       padding: const EdgeInsets.only(top: 20, left: 50, right: 50),
       child: Container(
-        height: 374,
+        height: 369,
         width: MediaQuery.of(context).size.width,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            RichText(
-              text: TextSpan(
-                children: [
-                  WidgetSpan(
-                    child: Icon(Icons.location_pin, color: Colors.white),
-                  ),
-                  TextSpan(
-                    text: "Address",
-                    style: TextStyle(fontSize: 16.0, color: Colors.white),
-                  ),
-                ],
-              ),
+            Text(
+              'Address',
+              textAlign: TextAlign.left,
+              style: TextStyle(fontSize: 16.0, color: Colors.white),
             ),
             TextField(
+              scrollPadding:
+                  const EdgeInsets.only(top: 30, left: 50, right: 50),
               onChanged: (value) {
                 _hasInputErrorAdd = hasInputErrorint(
                     value); //call validator to check for errors
@@ -85,6 +79,7 @@ class NewLocState extends State<NewLoc> {
                 fillColor: Colors.transparent,
                 hintText: 'Street Number',
                 hintStyle: TextStyle(fontSize: 16.0, color: Colors.white),
+                icon: Icon(Icons.location_pin, color: Colors.white),
               ),
             ),
             TextField(
@@ -112,6 +107,7 @@ class NewLocState extends State<NewLoc> {
                 fillColor: Colors.transparent,
                 hintText: 'Apartment number',
                 hintStyle: TextStyle(fontSize: 16.0, color: Colors.white),
+                icon: Icon(Icons.location_pin, color: Colors.white),
               ),
             ),
             TextField(
@@ -140,6 +136,7 @@ class NewLocState extends State<NewLoc> {
                 fillColor: Colors.transparent,
                 hintText: 'Street Name',
                 hintStyle: TextStyle(fontSize: 16.0, color: Colors.white),
+                icon: Icon(Icons.location_pin, color: Colors.white),
               ),
             ),
             TextField(
@@ -166,6 +163,7 @@ class NewLocState extends State<NewLoc> {
                 fillColor: Colors.transparent,
                 hintText: 'Suburb',
                 hintStyle: TextStyle(fontSize: 16.0, color: Colors.white),
+                icon: Icon(Icons.location_pin, color: Colors.white),
               ),
             ),
             TextField(
@@ -192,6 +190,7 @@ class NewLocState extends State<NewLoc> {
                 fillColor: Colors.transparent,
                 hintText: 'Province',
                 hintStyle: TextStyle(fontSize: 16.0, color: Colors.white),
+                icon: Icon(Icons.location_pin, color: Colors.white),
               ),
             ),
           ],
