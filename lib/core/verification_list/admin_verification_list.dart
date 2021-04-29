@@ -79,7 +79,8 @@ class _VerificationListPageState extends State<VerificationListPage> {
 
                       return Card(
                         color: Colors.transparent,
-                        elevation: 2,
+                        elevation:1,
+
                         // Space around item box
                         margin: EdgeInsets.symmetric(
                             vertical: 20.0, horizontal: 10),
@@ -89,13 +90,14 @@ class _VerificationListPageState extends State<VerificationListPage> {
                           onTap: () {},
 
                           child: Container(
+                            // color:Colors.transparent,
                             padding: EdgeInsets.all(15),
                             child: Text(
                               // names i sthe name of the example array used above
                               // Will need to find outy how to use array in
                               // verification.functions.dart here
                               textToUse,
-                              style: TextStyle(fontSize: fontSizeSmall),
+                              style: TextStyle(fontSize: fontSizeSmall, color:Colors.white),
                             ),
                           ),
                         ),

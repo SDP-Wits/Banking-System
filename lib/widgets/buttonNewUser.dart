@@ -130,7 +130,7 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
                     toastLength: Toast.LENGTH_SHORT,
                     gravity: ToastGravity.CENTER,
                     timeInSecForIosWeb: 3,
-                    backgroundColor: Colors.red,
+                    backgroundColor: Colors.teal,
                     textColor: Colors.white,
                     fontSize: 16.0);
               } else {
@@ -155,7 +155,7 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.CENTER,
                       timeInSecForIosWeb: 3,
-                      backgroundColor: Colors.red,
+                      backgroundColor: Colors.teal,
                       textColor: Colors.white,
                       fontSize: 16.0);
                 });
@@ -168,7 +168,7 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
                     toastLength: Toast.LENGTH_SHORT,
                     gravity: ToastGravity.CENTER,
                     timeInSecForIosWeb: 3,
-                    backgroundColor: Colors.red,
+                    backgroundColor: Colors.teal,
                     textColor: Colors.white,
                     fontSize: 16.0);
               } else {
@@ -179,7 +179,7 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.CENTER,
                       timeInSecForIosWeb: 3,
-                      backgroundColor: Colors.red,
+                      backgroundColor: Colors.teal,
                       textColor: Colors.white,
                       fontSize: 16.0);
                 });

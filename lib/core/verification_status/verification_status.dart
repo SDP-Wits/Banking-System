@@ -36,7 +36,7 @@ class _VerificationStatusState extends State<VerificationStatus> {
               gradient: LinearGradient(
                   begin: Alignment.topRight,
                   end: Alignment.bottomLeft,
-                  colors: [Colors.blueGrey, Colors.lightBlueAccent]),
+                  colors: [Colors.blueGrey, Colors.teal]),
             ),
           )
         : Container(
@@ -46,7 +46,7 @@ class _VerificationStatusState extends State<VerificationStatus> {
               gradient: LinearGradient(
                   begin: Alignment.topRight,
                   end: Alignment.bottomLeft,
-                  colors: [Colors.blueGrey, Colors.lightBlueAccent]),
+                  colors: [Colors.teal, Colors.blueGrey]),
             ),
             padding: EdgeInsets.all(10.0),
             child: ListView(
@@ -54,11 +54,11 @@ class _VerificationStatusState extends State<VerificationStatus> {
                 Container(
                   padding: EdgeInsets.symmetric(vertical: 5),
                 ),
-                HeadingBlocks("My Information", 34, 30),
+                HeadingBlocks1("My Information", 34, 30),
                 Container(
                   padding: EdgeInsets.all(15),
                 ),
-                HeadingBlocks("Verification Status: Pending", 28, 20),
+                HeadingBlocks("Verification Status: Pending", 22, 20),
                 DetailedBlocks(user!.firstName, "First Name"),
                 (user!.middleName != null)
                     ? DetailedBlocks(user!.middleName!, "Middle Name")
@@ -89,7 +89,7 @@ class HeadingBlocks extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(padding),
       decoration: BoxDecoration(
-        color: Colors.grey,
+        color: Colors.white,
         borderRadius: BorderRadius.circular(15),
       ),
       child: Text(
@@ -97,6 +97,44 @@ class HeadingBlocks extends StatelessWidget {
         textAlign: TextAlign.center,
         style: TextStyle(
           fontSize: fontSize,
+          color: Colors.teal,
+        ),
+      ),
+    );
+  }
+}
+
+class HeadingBlocks1 extends StatelessWidget {
+  final String text;
+  final double fontSize;
+  final double padding;
+  HeadingBlocks1(this.text, this.fontSize, this.padding);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(padding),
+      decoration: BoxDecoration(
+        color: Colors.transparent,
+        borderRadius: BorderRadius.circular(15),
+        // border: Border(
+        //   left: BorderSide(
+        //     color: Colors.white,
+        //     width: 1,
+        //   ),
+        //   bottom: BorderSide(
+        //     color: Colors.white,
+        //     width: 1,
+        //   ),
+        // ),
+        border: Border.all(color:Colors.white, width: 3),
+      ),
+      child: Text(
+        text,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: fontSize,
+          color: Colors.white,
         ),
       ),
     );
@@ -113,16 +151,28 @@ class DetailedBlocks extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width * 0.5,
       padding: EdgeInsets.all(15),
+      //padding: const EdgeInsets.only(top: 20, left: 50, right: 50),
       margin: EdgeInsets.all(15),
       decoration: BoxDecoration(
-        color: Colors.grey,
-        borderRadius: BorderRadius.circular(15),
+        color: Colors.transparent,
+        // borderRadius: BorderRadius.circular(15),
+        border: Border(
+          // left: BorderSide(
+          //   color: Colors.white,
+          //   width: 1,
+          // ),
+          bottom: BorderSide(
+            color: Colors.white,
+            width: 1,
+          ),
+        ),
       ),
       child: Text(
         property + ": " + text,
-        textAlign: TextAlign.center,
+        textAlign: TextAlign.left,
         style: TextStyle(
           fontSize: 16,
+          color: Colors.white
         ),
       ),
     );
