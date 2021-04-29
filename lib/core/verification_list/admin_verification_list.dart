@@ -79,18 +79,26 @@ class _VerificationListPageState extends State<VerificationListPage> {
 
                       return Card(
                         color: Colors.transparent,
-                        elevation:1,
+                        elevation:0.0000001,
+                        shadowColor: Colors.white60,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0)
+                        ),
+
 
                         // Space around item box
                         margin: EdgeInsets.symmetric(
                             vertical: 20.0, horizontal: 10),
 
+
                         child: InkWell(
                           // When user clicks on item box, sonmething happens:
+                          // customBorder: Border.all(color: Colors.white, width: 2),
                           onTap: () {},
 
                           child: Container(
                             // color:Colors.transparent,
+
                             padding: EdgeInsets.all(15),
                             child: Text(
                               // names i sthe name of the example array used above
