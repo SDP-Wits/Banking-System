@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:last_national_bank/constants/route_constants.dart';
+import 'package:last_national_bank/core/manual_testing/playground.dart';
 import 'package:last_national_bank/core/verification_status/verification_status.dart';
 import 'package:last_national_bank/utils/helpers/helper.dart';
 
@@ -58,6 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.blueAccent,
     ));
+    // return PlaygroundTest();
     return LoginPage();
   }
 }

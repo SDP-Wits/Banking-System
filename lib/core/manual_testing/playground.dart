@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:last_national_bank/utils/helpers/style.dart';
 
 import '../../classes/user.class.dart';
 import '../../constants/database_constants.dart';
@@ -12,53 +13,58 @@ class PlaygroundTest extends StatefulWidget {
 }
 
 class _PlaygroundTestState extends State<PlaygroundTest> {
-  String testID = "0123456789123";
-  String hashPassword =
-      "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb";
-  bool isClientLogin = false;
-  // ignore: avoid_init_to_null
-  User? user = null;
-
-  @override
-  void initState() {
-    super.initState();
-    userLoginOnline(testID, hashPassword, isClientLogin).then((statusString) {
-      toastyPrint("user login was $statusString");
-      if (statusString == dbSuccess) {
-        LocalDatabaseHelper.instance.getUserAndAddress().then((localUser) {
-          if (localUser != null) {
-            setState(() {
-              user = localUser;
-            });
-            toastyPrint("local User is not empty");
-          } else {
-            toastyPrint("local User is empty");
-          }
-        });
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return (user == null)
-        ? Container(
-            child: Center(
-              child: Text("USER IS NULLLLLLL!!!!"),
+    return Container(
+      decoration: BoxDecoration(
+        gradient: backgroundGradient,
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(
+            child: AccountCardInfo(),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class AccountCardInfo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 500,
+      height: 300,
+      decoration: BoxDecoration(
+        // gradient: LinearGradient(
+        //     begin: Alignment.centerLeft,
+        //     end: Alignment.centerRight,
+        //     colors: [
+        //       Colors.blueGrey[100]!,
+        //       Colors.blueGrey[50]!,
+        //       Colors.blueGrey[100]!
+        //     ]),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15),
+      ),
+      padding: EdgeInsets.all(15),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "VISA",
+            style: TextStyle(
+              color: Colors.teal,
+              fontSize: 48,
+              fontFamily: "arial",
+              fontStyle: FontStyle.italic,
+              fontWeight: FontWeight.bold,
             ),
-          )
-        : Container(
-            child: Column(
-              children: [
-                Text(user!.firstName),
-                Text(user!.middleName == null ? "" : user!.middleName!),
-                Text(user!.lastName),
-                Text(user!.age.toString()),
-                Text(user!.address.streetName),
-                Text(user!.email),
-                Text(user!.hashPassword),
-              ],
-            ),
-          );
+          ),
+        ],
+      ),
+    );
   }
 }

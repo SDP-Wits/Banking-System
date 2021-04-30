@@ -138,6 +138,25 @@ Future<List<Name>> getUnverifiedClienta() async {
   return names;
 }
 
+//TODO: Jared when you done with the php file
+// Future<String> verifyClient(int clientID, bool isAccepted) async {
+//   //TODO: Change to actual php variable names
+//   String arugments = argumentMaker(
+//       phpNames: ["id", "accepted"],
+//       inputVariables: [clientID.toString(), isAccepted ? "1" : "0"]);
+
+//   //TODO: Insert php file name here, pls add it to the php constants file
+//   Map data = await getURLData(urlPath + phpFileNameHere + arguments);
+  
+//   bool status = data["status"];
+
+//   if (status) {
+//     return dbSuccess;
+//   } else {
+//     return data["error"];
+//   }
+// }
+
 //Helper Functions
 
 String argumentMaker(
