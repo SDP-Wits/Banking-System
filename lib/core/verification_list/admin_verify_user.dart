@@ -1,28 +1,14 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp());
-}
 
-class MyApp extends StatelessWidget {
+
+class VerifyUser extends StatefulWidget {
+  // MyHomePage({key key, this.title}) : super(key:key);
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Test',
-      theme: ThemeData(
-        primarySwatch: Colors.blueGrey,
-      ),
-    );
-  }
+  _VerifyUserState createState() => _VerifyUserState();
 }
 
-class MyHomePage extends StatefulWidget {
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
+class _VerifyUserState extends State<VerifyUser> {
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +16,14 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: new PreferredSize(
         child: Container(
           padding: new EdgeInsets.only(
-            top: MediaQuery.of(context).padding.top
+              top: MediaQuery.of(context).padding.top
           ),
           child: new Padding(
             padding: const EdgeInsets.only(
-              left: 10.0,
-              right: 30.0,
-              top: 5.0,
-              bottom: 5.0
+                left: 10.0,
+                right: 30.0,
+                top: 5.0,
+                bottom: 5.0
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -45,9 +31,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 Text(
                   'Verify Customer',
                   style: new TextStyle(
-                    fontSize: 25.0,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white
+                      fontSize: 25.0,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white
                   ),
                 ),
                 IconButton(
@@ -64,65 +50,70 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           decoration: new BoxDecoration(
-            gradient : new LinearGradient(
-              colors: [
-                Colors.blueGrey,
-                Colors.teal
+              gradient : new LinearGradient(
+                  colors: [
+                    Colors.blueGrey,
+                    Colors.teal
+                  ]
+              ),
+              boxShadow: [
+                new BoxShadow(
+                  color: Colors.black,
+                  blurRadius: 20.0,
+                  spreadRadius: 1.0,
+                )
               ]
-            ),
-            boxShadow: [
-              new BoxShadow(
-                color: Colors.black,
-                blurRadius: 20.0,
-                spreadRadius: 1.0,
-              )
-            ]
           ),
         ),
         preferredSize: new Size(
-          MediaQuery.of(context).size.width,
-          150.0
+            MediaQuery.of(context).size.width,
+            150.0
         ),
       ),
 
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            colors: [Colors.blueGrey, Colors.teal]),
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: [Colors.blueGrey, Colors.teal]),
         ),
         padding: new EdgeInsets.only(
           top: 15.0,
           left: 15.0,
-          right: 15.0
+          right: 15.0,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
+
           children: <Widget>[
-            Icon(Icons.assignment_ind_rounded, color: Colors.black, size: 75),
+            Icon(Icons.assignment_ind_rounded, color: Colors.white, size: 75,),
             Text(
               'Customer Information',
               style: new TextStyle(
                 fontSize: 20.0,
                 fontWeight: FontWeight.w500,
+                color: Colors.white,
+
               ),
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  'First Name'
-                  
+                    'First Name : ',
+                    style: TextStyle(color: Colors.white)
                 ),
-                Text('Sheslin'),
+                Text('Sheslin', style: TextStyle(color: Colors.white)),
               ],
+
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                Text('Last Name'),
-                Text('Naidoo'),
+                Text('Last Name : ',style: TextStyle(color: Colors.white)),
+                Text('Naidoo',style: TextStyle(color: Colors.white)),
               ],
             ),
           ],
@@ -132,20 +123,20 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: (){
           Navigator.push(context, MaterialPageRoute<void>(
-                builder: (BuildContext context) {
-                  return Scaffold(
-                    appBar: AppBar(
-                      title: const Text('Confirmation'),
-                    ),
-                    body: const Center(
-                      child: Text(
-                        'Are you sure you would like to verify this client?',
-                        style: TextStyle(fontSize: 24),
-                      ),
-                    ),
-                  );
-                },
-              ));
+            builder: (BuildContext context) {
+              return Scaffold(
+                appBar: AppBar(
+                  title: const Text('Confirmation'),
+                ),
+                body: const Center(
+                  child: Text(
+                    'Are you sure you would like to verify this client?',
+                    style: TextStyle(fontSize: 24),
+                  ),
+                ),
+              );
+            },
+          ));
         },
         tooltip: 'Verify',
         child: Icon(Icons.app_registration),

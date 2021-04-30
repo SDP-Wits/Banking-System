@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:last_national_bank/config/routes/router.dart';
 
 import '../../classes/name.class.dart';
 import '../../utils/helpers/style.dart';
@@ -41,80 +42,140 @@ class _VerificationListPageState extends State<VerificationListPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [Colors.blueGrey, Colors.teal]),
-        ),
-
-        // Allows page to be scrollable
-        child: SingleChildScrollView(
-          padding: EdgeInsets.all(10.0),
-          child: ConstrainedBox(
-            //Use MediaQuery.of(context).size.height for max Height
-            constraints:
-                BoxConstraints(minHeight: MediaQuery.of(context).size.height),
-
-            child: Column(
-              children: <Widget>[
-                // Title/heading
-                Row(children: <Widget>[
-                  VerifyUsersTitle(),
-                ]),
-
-                // List
-                ListView.builder(
-                    shrinkWrap: true,
-                    physics: ScrollPhysics(),
-                    itemCount: names.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      String textToUse = "\t\t ${names[index].fName} ";
-                      if (names[index].mName != null) {
-                        textToUse += names[index].mName!;
-                        textToUse += " ";
-                      }
-                      textToUse += names[index].sName;
-
-                      return Card(
-                        color: Colors.transparent,
-                        elevation:1,
-                        // shadowColor: Colors.transparent,
-                        // shape: RoundedRectangleBorder(
-                        //   borderRadius: BorderRadius.circular(15.0),
-                        // ),
-
-
-                        // Space around item box
-                        // margin: EdgeInsets.symmetric(
-                        //     vertical: 20.0, horizontal: 10),
-
-
-                        child: InkWell(
-                          // When user clicks on item box, sonmething happens:
-                          // customBorder: Border.all(color: Colors.white, width: 2),
-                          onTap: () {},
-
-                          child: Container(
-                            // color:Colors.transparent,
-
-                            padding: EdgeInsets.all(15),
-                            child: Text(
-                              // names i sthe name of the example array used above
-                              // Will need to find outy how to use array in
-                              // verification.functions.dart here
-                              textToUse,
-                              style: TextStyle(fontSize: fontSizeSmall, color:Colors.white),
-                            ),
-                          ),
-                        ),
-                      );
-                    }),
-              ],
+    return Scaffold(
+        appBar: new PreferredSize(
+          child: Container(
+            padding: new EdgeInsets.only(
+                top: MediaQuery
+                    .of(context)
+                    .padding
+                    .top
+            ),
+            child: new Padding(
+              padding: const EdgeInsets.only(
+                  left: 10.0,
+                  right: 30.0,
+                  top: 5.0,
+                  bottom: 10.0
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    'Verify User',
+                    style: new TextStyle(
+                        fontSize: 30.0,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            decoration: new BoxDecoration(
+                gradient: new LinearGradient(
+                    colors: [
+                      Colors.blueGrey,
+                      Colors.teal
+                    ]
+                ),
+                boxShadow: [
+                  new BoxShadow(
+                    color: Colors.black,
+                    blurRadius: 20.0,
+                    spreadRadius: 1.0,
+                  )
+                ]
             ),
           ),
-        ));
+          preferredSize: new Size(
+              MediaQuery
+                  .of(context)
+                  .size
+                  .width,
+              150.0
+          ),
+        ),
+
+
+        body: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Colors.blueGrey, Colors.teal]),
+            ),
+
+            // Allows page to be scrollable
+            child: SingleChildScrollView(
+              padding: EdgeInsets.all(10.0),
+              child: ConstrainedBox(
+                //Use MediaQuery.of(context).size.height for max Height
+                constraints:
+                BoxConstraints(minHeight: MediaQuery
+                    .of(context)
+                    .size
+                    .height),
+
+                // child: Column(
+                //   children: <Widget>[
+                //     // Title/heading
+                //     Row(children: <Widget>[
+                //       VerifyUsersTitle(),
+                //     ]),
+
+                    // List
+                   child: ListView.builder(
+                        shrinkWrap: true,
+                        physics: ScrollPhysics(),
+                        itemCount: names.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          String textToUse = "\t\t ${names[index].fName} ";
+                          if (names[index].mName != null) {
+                            textToUse += names[index].mName!;
+                            textToUse += " ";
+                          }
+                          textToUse += names[index].sName;
+
+                          return Card(
+                            color: Colors.transparent,
+                            elevation: 1,
+                            // shadowColor: Colors.transparent,
+                            // shape: RoundedRectangleBorder(
+                            //   borderRadius: BorderRadius.circular(15.0),
+                            // ),
+
+
+                            // Space around item box
+                            // margin: EdgeInsets.symmetric(
+                            //     vertical: 20.0, horizontal: 10),
+
+
+                            child: InkWell(
+                              // When user clicks on item box, sonmething happens:
+                              // customBorder: Border.all(color: Colors.white, width: 2),
+                              onTap: () {goToAdminVerifyUsers(context);},
+
+                              child: Container(
+                                // color:Colors.transparent,
+
+                                padding: EdgeInsets.all(15),
+                                child: Text(
+                                  // names i sthe name of the example array used above
+                                  // Will need to find outy how to use array in
+                                  // verification.functions.dart here
+                                  textToUse,
+                                  style: TextStyle(fontSize: fontSizeSmall,
+                                      color: Colors.white),
+                                ),
+                              ),
+                            ),
+                          );
+                        }),
+                ),
+              ),
+            )
+    );
   }
 }
 //==================================================================

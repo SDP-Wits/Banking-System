@@ -5,3 +5,4 @@ const String AdminVerificationListRoute = "admin-verification-list";
 const String VerificationListRoute = "verification-list";
 const String VerificationStatusRoute = "verification-status";
 const String NewUserRoute = "new-user";
+const String AdminVerifyUser = "admin-verify-user";

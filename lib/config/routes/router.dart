@@ -8,6 +8,7 @@ import '../../core/registration/client_registration.dart';
 import '../../core/registration/newuser.page.dart';
 import '../../core/verification_list/admin_verification_list.dart';
 import '../../core/verification_status/verification_status.dart';
+import 'package:last_national_bank/core/verification_list/admin_verify_user.dart';
 import 'router.helper.dart';
 import 'undefined_page.dart';
 
@@ -34,6 +35,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case AdminVerificationListRoute:
       return MaterialRouteWrap(VerificationListPage());
 
+    case AdminVerifyUser :
+      return MaterialRouteWrap(VerifyUser());
     //If User, go to see your application status
     case VerificationStatusRoute:
       return MaterialRouteWrap(VerificationStatus());
@@ -69,7 +72,9 @@ void goToAdminRegistration(BuildContext context) {
 void goToAdminVerificationList(BuildContext context) {
   Navigator.pushNamed(context, AdminVerificationListRoute);
 }
-
+void goToAdminVerifyUsers(BuildContext context) {
+  Navigator.pushNamed(context, AdminVerifyUser);
+}
 void goToAdminVerificationStatus(BuildContext context) {
   Navigator.pushNamed(context, VerificationStatusRoute);
 }

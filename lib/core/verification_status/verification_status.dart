@@ -104,6 +104,7 @@ class HeadingBlocks extends StatelessWidget {
   }
 }
 
+
 class HeadingBlocks1 extends StatelessWidget {
   final String text;
   final double fontSize;
