@@ -123,7 +123,7 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
         child: TextButton(
           onPressed: () {
             if (Data.is_client) {
-              if (!getCheck()) {
+              if (getCheck() == false) {
                 // give error
                 Fluttertoast.showToast(
                     msg: "client error",
@@ -161,7 +161,7 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
                 });
               }
             } else {
-              if (!getCheck()) {
+              if (getCheck() == false) {
                 // give error
                 Fluttertoast.showToast(
                     msg: "admin error",

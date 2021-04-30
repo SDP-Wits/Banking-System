@@ -44,7 +44,7 @@ class Address {
   static String suburb = "Green";
   static String province = "Gauteng";
   static String country = "South Africa";
-  static String apartmentNumber = "";
+  static String apartmentNumber = "0";
 }
 
 // validation functions
@@ -109,7 +109,7 @@ String currentDate() {
   return formattedDate;
 }
 
-bool _finalCheck = true;
+bool _finalCheck = false;
 
 void setCheck(bool check) {
   _finalCheck = check;

@@ -37,7 +37,7 @@ class PasswordInputState extends State<PasswordInput> {
     return Padding(
       padding: const EdgeInsets.only(top: 20, left: 50, right: 50),
       child: Container(
-        height: 90,
+        height: 100,
         width: MediaQuery.of(context).size.width,
         child: TextField(
           onChanged: (value) {
@@ -46,7 +46,6 @@ class PasswordInputState extends State<PasswordInput> {
               //check if password has errors
               _password = value; //assign
               Data.password1 = value;
-
               setCheck(true);
             } else {
               setCheck(false);
@@ -70,10 +69,9 @@ class PasswordInputState extends State<PasswordInput> {
             suffix: InkWell(
               onTap: _togglePasswordView,
               child: Icon(
-                _isHidden ? Icons.visibility : Icons.visibility_off,
+                _isHidden ? Icons.visibility_off : Icons.visibility,
               ),
             ),
-            icon: Icon(Icons.lock_rounded, color: Colors.white),
           ),
         ),
       ),
