@@ -79,16 +79,16 @@ class _VerificationListPageState extends State<VerificationListPage> {
 
                       return Card(
                         color: Colors.transparent,
-                        elevation:0.0000001,
-                        shadowColor: Colors.white60,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0)
-                        ),
+                        elevation:1,
+                        // shadowColor: Colors.transparent,
+                        // shape: RoundedRectangleBorder(
+                        //   borderRadius: BorderRadius.circular(15.0),
+                        // ),
 
 
                         // Space around item box
-                        margin: EdgeInsets.symmetric(
-                            vertical: 20.0, horizontal: 10),
+                        // margin: EdgeInsets.symmetric(
+                        //     vertical: 20.0, horizontal: 10),
 
 
                         child: InkWell(
