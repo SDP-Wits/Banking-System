@@ -1,6 +1,9 @@
+//import 'dart:js';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:last_national_bank/classes/name.class.dart';
+import 'package:last_national_bank/classes/user.class.dart';
 import '../../constants/route_constants.dart';
 import '../../core/login/login.dart';
 import '../../core/registration/admin_registration.dart';
@@ -35,8 +38,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case AdminVerificationListRoute:
       return MaterialRouteWrap(VerificationListPage());
 
-    case AdminVerifyUser :
-      return MaterialRouteWrap(VerifyUser());
+    // case AdminVerifyUser :
+    //   return MaterialRouteWrap(VerifyUser());
     //If User, go to see your application status
     case VerificationStatusRoute:
       return MaterialRouteWrap(VerificationStatus());
@@ -72,8 +75,8 @@ void goToAdminRegistration(BuildContext context) {
 void goToAdminVerificationList(BuildContext context) {
   Navigator.pushNamed(context, AdminVerificationListRoute);
 }
-void goToAdminVerifyUsers(BuildContext context) {
-  Navigator.pushNamed(context, AdminVerifyUser);
+void goToAdminVerifyUsers(BuildContext context, {required Name names}) {
+  Navigator.pushNamed(context, AdminVerifyUser, arguments: names);
 }
 void goToAdminVerificationStatus(BuildContext context) {
   Navigator.pushNamed(context, VerificationStatusRoute);

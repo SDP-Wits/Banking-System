@@ -1,6 +1,9 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import "package:http/http.dart" as http;
+import 'package:last_national_bank/classes/thisUser.dart';
 
 import '../../classes/name.class.dart';
 import '../../classes/user.class.dart';
@@ -130,12 +133,49 @@ Future<List<Name>> getUnverifiedClienta() async {
       fName: map["firstName"],
       mName: (map["middleName"] == null) ? null : map["middleName"],
       sName: map["lastName"],
+      IDnum: map["idNumber"],
     );
 
     names.add(name);
   }
 
   return names;
+}
+
+// get clients details for admin to view
+
+Future<thisUser> getclientdets(String idNumber) async {
+  final String arguments = "?id=$idNumber";
+  final String url = urlPath + select_client_id + arguments;
+
+  final data = await getURLData(url);
+
+  List<thisUser> users = [];
+ for (var map in data) {
+    thisUser user = thisUser(
+      userID : int.parse(map["clientID"]),
+      firstName : map["firstName"],
+      middleName : (map["middleName"] == null) ? null : map["middleName"],
+      lastName :  map["lastName"],
+      age : int.parse(map["age"]),
+      phoneNumber : map["phoneNumber"],
+      email : map["email"],
+      idNumber : map["idNumber"],
+      address: ""
+    );
+    Fluttertoast.showToast(
+        msg: user.firstName,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 3,
+        backgroundColor: Colors.teal,
+        textColor: Colors.white,
+        fontSize: 16.0);
+     users.add(user);
+  }
+
+return users.elementAt(0);
+
 }
 
 //TODO: Jared when you done with the php file

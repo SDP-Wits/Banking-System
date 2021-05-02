@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:last_national_bank/config/routes/router.dart';
 
 import '../../classes/name.class.dart';
 import '../../utils/helpers/style.dart';
 import '../../utils/services/online_db.dart';
 import '../../widgets/verifyUsersTitle.dart';
+import 'package:last_national_bank/core/verification_list/admin_verify_user.dart';
 
 class VerificationListPage extends StatefulWidget {
   @override
@@ -154,7 +156,22 @@ class _VerificationListPageState extends State<VerificationListPage> {
                             child: InkWell(
                               // When user clicks on item box, sonmething happens:
                               // customBorder: Border.all(color: Colors.white, width: 2),
-                              onTap: () {goToAdminVerifyUsers(context);},
+                              onTap: () {
+                                // Navigator.push(context, MaterialPageRoute(builder: (context) => admin_verify_user(Name: names[index])) );
+                                // Fluttertoast.showToast(
+                                //     msg: names[index].IDnum,
+                                //     toastLength: Toast.LENGTH_SHORT,
+                                //     gravity: ToastGravity.CENTER,
+                                //     timeInSecForIosWeb: 3,
+                                //     backgroundColor: Colors.teal,
+                                //     textColor: Colors.white,
+                                //     fontSize: 16.0);
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => VerifyUser(names[index].IDnum),
+                                  ),
+                                );
+                                },
 
                               child: Container(
                                 // color:Colors.transparent,
