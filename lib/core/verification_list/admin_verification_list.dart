@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:last_national_bank/classes/thisUser.dart';
 import 'package:last_national_bank/config/routes/router.dart';
 
 import '../../classes/name.class.dart';

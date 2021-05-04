@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:last_national_bank/classes/name.class.dart';
@@ -6,27 +8,60 @@ import 'package:last_national_bank/utils/services/online_db.dart';
 
 
 class VerifyUser extends StatefulWidget {
-  final String IDnum;
+  final String IDnum ;
   const VerifyUser(this.IDnum);
   @override
   _VerifyUserState createState() => _VerifyUserState();
 }
 
 class _VerifyUserState extends State<VerifyUser> {
-late thisUser thisuser;
+// late thisUser thisuser;
+List<thisUser> thisuser = [];
 
-void initState() {
-    super.initState();
-    getclientdets(widget.IDnum).then((lstNames) {
-     thisuser = lstNames;
-     setState(() {});
-    });
-
-
-  }
+// Future<thisUser> getClient() async{
+//   return getclientdets(widget.IDnum);
+// }
+// Future<String> print() async{
+//   await Future.delayed(Duration(seconds: 2));
+//   return thisuser[0].firstName;
+// }
+  void initState(){
+  super.initState();
+  getclientdets(widget.IDnum).then((lstNames) {
+   thisuser = lstNames;
+   setState(() {});
+  });
+  // _thisuser = getClient();
+  // setState(() {});
+}
+  // @override
+  // Widget build(BuildContext context) {
+  //   return FutureBuilder<thisUser>(
+  //     future: getClient(),
+  //     builder: (ctx, snapshot) {
+  //       thisUser thisuser = snapshot.data! ;
+  //       switch (snapshot.connectionState) {
+  //         case ConnectionState.done:
+  //            return _buildpage(thisuser);
+  //         default:
+  //           return _buildLoadingScreen();
+  //       }
+  //     },
+  //   );
+  // }
   @override
   Widget build(BuildContext context) {
+    if (thisuser.isEmpty) {
+      getclientdets(widget.IDnum);
+      return _buildLoadingScreen();
+    } else {
+      return buildpage();
+    }
+  }
+
+  Widget buildpage() {
     // Name names = ModalRoute.of(context)!.settings.arguments as Name;
+    thisUser curruser = thisuser[0];
           return Scaffold(
             appBar: new PreferredSize(
               child: Container(
@@ -120,27 +155,16 @@ void initState() {
 
                     ),
                   ),
-                  Row(
 
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                          'First name : ',
-                          style: TextStyle(color: Colors.white)
-                      ),
-                      Text(thisuser.firstName,
-                          style: TextStyle(color: Colors.white)),
-                    ],
-
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Text('Last Name : ',
-                          style: TextStyle(color: Colors.white)),
-                      Text('Naidoo', style: TextStyle(color: Colors.white)),
-                    ],
-                  ),
+                  DetailedBlocks(curruser.firstName, "FirstName"),
+                    (curruser.middleName != null)
+                      ? DetailedBlocks(curruser.middleName!, "Middle Name")
+                      : Container(),
+                  DetailedBlocks(curruser.lastName, "LastName"),
+                  DetailedBlocks(curruser.email, "Email"),
+                  DetailedBlocks(curruser.idNumber, "ID"),
+                  DetailedBlocks(curruser.age.toString(), "Age"),
+                  DetailedBlocks(curruser.phoneNumber, "Phone Number"),
                 ],
               ),
             ),
@@ -168,4 +192,62 @@ void initState() {
             ),
           );
         }
+Widget _buildLoadingScreen() {
+  return Center(
+    child: Container(
+      // decoration: BoxDecoration(
+      //   gradient: LinearGradient(
+      //       begin: Alignment.topRight,
+      //       end: Alignment.bottomLeft,
+      //       colors: [Colors.blueGrey, Colors.teal]),
+      // ),
+      width: 50,
+      height: 50,
+      child: CircularProgressIndicator(),
+    ),
+  );
+}
+}
+class DetailedBlocks extends StatelessWidget {
+  final String property;
+  final String text;
+  DetailedBlocks(this.text, this.property);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: <Widget>[
+    Container(
+    width: MediaQuery.of(context).size.width * 0.8,
+    padding: EdgeInsets.all(15),
+    //padding: const EdgeInsets.only(top: 20, left: 50, right: 50),
+    margin: EdgeInsets.all(15),
+    decoration: BoxDecoration(
+    color: Colors.transparent,
+    // borderRadius: BorderRadius.circular(15),
+    border: Border(
+    // left: BorderSide(
+    //   color: Colors.white,
+    //   width: 1,
+    // ),
+    bottom: BorderSide(
+    color: Colors.white,
+    width: 1,
+    ),
+    ),
+    ),
+    child: Text(
+    property + ": " + text,
+    textAlign: TextAlign.left,
+    style: TextStyle(
+    fontSize: 16,
+    color: Colors.white
+    ),
+    ),
+    )
+      ],
+    );
+
+  }
 }

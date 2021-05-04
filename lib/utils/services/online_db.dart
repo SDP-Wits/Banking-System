@@ -144,7 +144,7 @@ Future<List<Name>> getUnverifiedClienta() async {
 
 // get clients details for admin to view
 
-Future<thisUser> getclientdets(String idNumber) async {
+Future<List<thisUser>> getclientdets(String idNumber) async {
   final String arguments = "?id=$idNumber";
   final String url = urlPath + select_client_id + arguments;
 
@@ -163,18 +163,9 @@ Future<thisUser> getclientdets(String idNumber) async {
       idNumber : map["idNumber"],
       address: ""
     );
-    Fluttertoast.showToast(
-        msg: user.firstName,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 3,
-        backgroundColor: Colors.teal,
-        textColor: Colors.white,
-        fontSize: 16.0);
      users.add(user);
   }
-
-return users.elementAt(0);
+return users;
 
 }
 
