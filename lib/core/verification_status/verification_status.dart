@@ -72,8 +72,13 @@ class _VerificationStatusState extends State<VerificationStatus> {
                         user!.address.streetName,
                     "Address"),
                 DetailedBlocks(user!.address.suburb, "Suburb"),
+                // (verificationstatus == true)
+                //     ? CreateAccButton(),
+                //    add the above line once verification status is retrieved
+                CreateAccButton(),
               ],
             ),
+
           );
   }
 }
@@ -174,6 +179,46 @@ class DetailedBlocks extends StatelessWidget {
         style: TextStyle(
           fontSize: 16,
           color: Colors.white
+        ),
+      ),
+    );
+  }
+}
+
+class CreateAccButton extends StatelessWidget{
+  CreateAccButton();
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(
+        top: 40,
+        bottom: 40,
+      ),
+      child: Container(
+        alignment: Alignment.center,
+        height: 60,
+        width: MediaQuery.of(context).size.width / 2,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(30),
+        ),
+        child: TextButton(
+          onPressed: () {
+          //  TODO
+          //  go to create account page
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                'Create Account',
+                style: TextStyle(
+                  color: Colors.teal,
+                  fontSize: 17,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
