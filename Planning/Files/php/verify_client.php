@@ -25,6 +25,13 @@ if($adminCheck and $clientCheck) {
 	$stmt->bind_param("isi",$check_client['ID'],$currentDate,$check_admin['ID']);
 	$stmt->execute();
 
+	//I added this code here to return status true so we know it was successful
+	echo json_encode(
+		array(
+			array("status" => TRUE)
+		)
+	);
+
 } else {
 	echo json_encode(
         array(

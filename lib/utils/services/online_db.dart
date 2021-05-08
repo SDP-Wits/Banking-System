@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import "package:http/http.dart" as http;
 import 'package:last_national_bank/classes/thisUser.dart';
+import 'package:last_national_bank/utils/helpers/helper.dart';
 
 import '../../classes/name.class.dart';
 import '../../classes/user.class.dart';
@@ -151,42 +152,39 @@ Future<List<thisUser>> getclientdets(String idNumber) async {
   final data = await getURLData(url);
 
   List<thisUser> users = [];
- for (var map in data) {
+  for (var map in data) {
     thisUser user = thisUser(
-      userID : int.parse(map["clientID"]),
-      firstName : map["firstName"],
-      middleName : (map["middleName"] == null) ? null : map["middleName"],
-      lastName :  map["lastName"],
-      age : int.parse(map["age"]),
-      phoneNumber : map["phoneNumber"],
-      email : map["email"],
-      idNumber : map["idNumber"],
-      address: ""
-    );
-     users.add(user);
+        userID: int.parse(map["clientID"]),
+        firstName: map["firstName"],
+        middleName: (map["middleName"] == null) ? null : map["middleName"],
+        lastName: map["lastName"],
+        age: int.parse(map["age"]),
+        phoneNumber: map["phoneNumber"],
+        email: map["email"],
+        idNumber: map["idNumber"],
+        address: "");
+    users.add(user);
   }
-return users;
-
+  return users;
 }
 
-//TODO: Jared when you done with the php file
-// Future<String> verifyClient(int clientID, bool isAccepted) async {
-//   //TODO: Change to actual php variable names
-//   String arugments = argumentMaker(
-//       phpNames: ["id", "accepted"],
-//       inputVariables: [clientID.toString(), isAccepted ? "1" : "0"]);
+Future<String> verifyClient(String clientIdNumber, String adminIdNumber) async {
+  String date = getDate();
 
-//   //TODO: Insert php file name here, pls add it to the php constants file
-//   Map data = await getURLData(urlPath + phpFileNameHere + arguments);
-  
-//   bool status = data["status"];
+  String arguments = argumentMaker(
+      phpNames: ["clientIdNum", "adminIdNum", "currentDate"],
+      inputVariables: [clientIdNumber, adminIdNumber, date]);
 
-//   if (status) {
-//     return dbSuccess;
-//   } else {
-//     return data["error"];
-//   }
-// }
+  Map data = (await getURLData(urlPath + verify_client + arguments))[0];
+
+  bool status = data["status"];
+
+  if (status) {
+    return dbSuccess;
+  } else {
+    return data["error"];
+  }
+}
 
 //Helper Functions
 

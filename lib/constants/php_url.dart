@@ -7,3 +7,4 @@ const String attempt_admin_login = "attempt_admin_login.php";
 const String insert_admin = "insert_admin.php";
 const String select_unverified_client_names =
     "select_unverified_client_names.php";
+const String verify_client = "verify_client.php";

@@ -21,3 +21,42 @@ void autoLogin(BuildContext context) {
     }
   });
 }
+
+String getDate() {
+  DateTime now = new DateTime.now();
+  DateTime date = new DateTime(now.year, now.month, now.day);
+
+  return date.toString().split(' ')[0];
+}
+
+String seperateCardNumber(String cardNumber) {
+  String ansString = "";
+
+  int length = cardNumber.length;
+  for (int i = 0; i < length; i++) {
+    if (i % 5 == 0 && i != 0) {
+      ansString += " ";
+    }
+    ansString += cardNumber[i];
+  }
+
+  return ansString;
+}
+
+String getNameDisplay(String firstName, String middleNames, String lastName) {
+  firstName = firstName.trim();
+  middleNames = middleNames.trim();
+  lastName = lastName.trim();
+
+  String ansString = firstName[0].toUpperCase() + '.';
+
+  if (middleNames != '') {
+    for (String middle in middleNames.split(' ')) {
+      ansString += middle[0].toUpperCase() + '.';
+    }
+  }
+
+  ansString += ' ' + lastName;
+
+  return ansString;
+}
