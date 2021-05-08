@@ -6,14 +6,14 @@ import 'package:last_national_bank/utils/helpers/helper.dart';
 import 'package:last_national_bank/utils/helpers/style.dart';
 
 class AccountCardInfo extends StatefulWidget {
-  String accountType = "Savings";
-  String accountNumber = "9650178189411487";
-  String firstName = "Arneev";
-  String middleNames = "Mohan Joker";
-  String lastName = "Singh";
-  String cardType = "VISA";
+  final String accountType;
+  final String accountNumber;
+  final String firstName;
+  final String middleNames;
+  final String lastName;
+  final String cardType;
 
-  int currAmount = 1200;
+  final int currAmount;
 
   AccountCardInfo(
       {required this.accountType,
