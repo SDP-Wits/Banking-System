@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import "package:http/http.dart" as http;
 import 'package:last_national_bank/classes/thisUser.dart';
+import 'package:last_national_bank/classes/accountDetails.dart';
 import 'package:last_national_bank/utils/helpers/helper.dart';
 
 import '../../classes/name.class.dart';
@@ -185,6 +186,28 @@ Future<String> verifyClient(String clientIdNumber, String adminIdNumber) async {
     return data["error"];
   }
 }
+
+// get client account details 
+
+Future<List<accountDetails>> getAccountDetails(String accNumber) async {
+  final String arguments = "?accNum=$accNumber";
+  final String url = urlPath + select_client_account + arguments;
+
+  final data = await getURLData(url);
+
+  List<accountDetails> accounts = [];
+  for (var map in data) {
+    accountDetails account = accountDetails(
+        accountNumber: map["accountNumber"],
+        accountTypeID: int.parse(map["accountTypeID"]),
+        currentBalance: map["currentBalance"],
+        createdDate: map["createdDate"]);
+    accounts.add(account);
+  }
+  return accounts;
+}
+
+
 
 //Helper Functions
 
