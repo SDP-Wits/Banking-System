@@ -189,8 +189,8 @@ Future<String> verifyClient(String clientIdNumber, String adminIdNumber) async {
 
 // get client account details 
 
-Future<List<accountDetails>> getAccountDetails(String accNumber) async {
-  final String arguments = "?accNum=$accNumber";
+Future<List<accountDetails>> getAccountDetails(String idNumber) async {
+  final String arguments = "?accNum=$idNumber";
   final String url = urlPath + select_client_account + arguments;
 
   final data = await getURLData(url);
@@ -199,9 +199,11 @@ Future<List<accountDetails>> getAccountDetails(String accNumber) async {
   for (var map in data) {
     accountDetails account = accountDetails(
         accountNumber: map["accountNumber"],
-        accountTypeID: int.parse(map["accountTypeID"]),
+        accountType: map["accountType"],
         currentBalance: map["currentBalance"],
-        createdDate: map["createdDate"]);
+        fName: map["firstName"],
+        mName: map["middleName"],
+        lName: map["lastName"]);
     accounts.add(account);
   }
   return accounts;

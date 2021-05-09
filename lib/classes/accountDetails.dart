@@ -2,14 +2,19 @@
 
 class accountDetails {
 final String accountNumber;
-final int accountTypeID;
+final String accountType;
 final double currentBalance;
-final DateTime createdDate;
+final String fName;
+final String mName;
+final String lName;
+
 
 accountDetails({
   required this.accountNumber,
-  required this.accountTypeID,
+  required this.accountType,
   required this.currentBalance,
-  required this.createdDate,
+  required this.fName,
+  required this.mName,
+  required this.lName,
 });
 }

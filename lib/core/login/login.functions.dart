@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:last_national_bank/classes/currID.dart';
 import 'package:last_national_bank/constants/database_constants.dart';
 import '../../config/routes/router.dart';
 import '../../utils/services/online_db.dart';
@@ -65,6 +66,7 @@ Future<void> loginProcedure(BuildContext context) async {
   Fluttertoast.showToast(msg: response);
 
   if (response == dbSuccess) {
+    currID.id = idController.text;
     if (!isClientLogin) {
       goToAdminVerificationList(context);
     } else {

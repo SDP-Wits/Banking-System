@@ -13,7 +13,7 @@ class AccountCardInfo extends StatefulWidget {
   final String lastName;
   final String cardType;
 
-  final int currAmount;
+  final double currAmount;
 
   AccountCardInfo(
       {required this.accountType,
