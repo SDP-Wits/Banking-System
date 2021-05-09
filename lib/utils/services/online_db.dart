@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import "package:http/http.dart" as http;
+import 'package:last_national_bank/classes/accountTypes.dart';
 import 'package:last_national_bank/classes/thisUser.dart';
 import 'package:last_national_bank/classes/accountDetails.dart';
 import 'package:last_national_bank/utils/helpers/helper.dart';
@@ -188,7 +189,7 @@ Future<String> verifyClient(String clientIdNumber, String adminIdNumber) async {
   }
 }
 
-// get client account details 
+// get client account details
 
 Future<List<accountDetails>> getAccountDetails(String idNumber) async {
   final String arguments = "?accNum=$idNumber";
@@ -210,8 +211,6 @@ Future<List<accountDetails>> getAccountDetails(String idNumber) async {
   return accounts;
 }
 
-
-
 //Helper Functions
 
 String argumentMaker(
@@ -228,4 +227,25 @@ String argumentMaker(
   }
 
   return argument;
+}
+
+// Get account options data
+Future<List<accountTypes>> getAccTypes() async {
+  String url = urlPath + select_account_types;
+
+  List<Map> accTypeDetails = await getURLData(url);
+
+  List<accountTypes> bankAccTypes = [];
+
+  for (int i = 0; i < accTypeDetails.length; ++i) {
+    String accType = accTypeDetails[i]["accountType"];
+    String accDescription = accTypeDetails[i]["accountDescription"];
+
+    accountTypes accOption =
+        accountTypes(accType: accType, accDescription: accDescription);
+
+    bankAccTypes.add(accOption);
+  }
+
+  return bankAccTypes;
 }
