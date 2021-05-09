@@ -85,7 +85,7 @@ List<thisUser> thisuser = [];
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(
-                        'Verify Client',
+                        'Client Verification',
                         style: new TextStyle(
                             fontSize: 25.0,
                             fontWeight: FontWeight.w500,
@@ -172,16 +172,21 @@ List<thisUser> thisuser = [];
                   DetailedBlocks(curruser.age.toString(), "Age"),
                   DetailedBlocks(curruser.phoneNumber, "Phone Number"),
 
+                  // Add two verification buttons next to each other
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
 
+                      // Accept Client
                       buttonVerifyClient(() {
-                        verifyClientProcedure(context, curruser.idNumber);
+                        // verification.functions.dart
+                        verificationProcedure(context, curruser.idNumber, true);
                       }),
 
+                      // Reject Client
                       buttonRejectClient(() {
-                        rejectClientProcedure(context);
+                        // verification.functions.dart
+                        verificationProcedure(context, curruser.idNumber, false);
                       }),
 
                     ]
