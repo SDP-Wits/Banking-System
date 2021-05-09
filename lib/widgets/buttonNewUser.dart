@@ -159,6 +159,9 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
                       textColor: Colors.white,
                       fontSize: 16.0);
                 });
+                if (Navigator.canPop(context)) {
+                  Navigator.pop(context);
+                }
               }
             } else {
               if (getCheck() == false) {
@@ -183,6 +186,9 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
                       textColor: Colors.white,
                       fontSize: 16.0);
                 });
+                if (Navigator.canPop(context)) {
+                  Navigator.pop(context);
+                }
               }
             }
           },
