@@ -1,11 +1,51 @@
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:last_national_bank/utils/services/online_db.dart';
+import 'package:last_national_bank/utils/services/local_db.dart';
+import '../../classes/user.class.dart';
+import '../../config/routes/router.dart';
 
+Future<void> verifyClientProcedure(BuildContext context, String clientIDNum) async {
 
-class VerificationListClass {
+  User? user;
 
-  String name; // name of the client
-  String id;  // client ID
+  LocalDatabaseHelper.instance.getUserAndAddress().then((currUser) {
+    user = currUser;
 
-  VerificationListClass({ required this.name, required this.id });
+    if (user == null){
 
-  // Add methods for taking data from database and adding to an array which should be passed to admin_verification_list.dart
+      Fluttertoast.showToast(
+        msg: "Unsuccessful",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 3,
+        backgroundColor: Colors.teal,
+        textColor: Colors.white,
+        fontSize: 16.0
+      );
+
+      return;
+
+    }
+    else{
+
+      String userIDNum = user!.idNumber;
+      verifyClient(clientIDNum, userIDNum);
+
+      Fluttertoast.showToast(
+          msg: "Successful",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 3,
+          backgroundColor: Colors.teal,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
+
+      goToAdminVerificationList(context);
+    }
+  });
+
 }
+
+Future<void> rejectClientProcedure(BuildContext context) async {}

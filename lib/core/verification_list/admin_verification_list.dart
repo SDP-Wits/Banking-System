@@ -65,7 +65,7 @@ class _VerificationListPageState extends State<VerificationListPage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    'Verify User',
+                    'Verify Client',
                     style: new TextStyle(
                         fontSize: 30.0,
                         fontWeight: FontWeight.w500,
