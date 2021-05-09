@@ -49,9 +49,9 @@ class _buttonVerifyClientState extends State<buttonVerifyClient> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                'Verify Client',
+                'Accept Client',
                 style: TextStyle(
-                  color: Colors.lightBlueAccent,
+                  color: Colors.teal,
                   fontSize: 14,
                 ),
               ),

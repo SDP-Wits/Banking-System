@@ -5,15 +5,22 @@ import 'package:last_national_bank/utils/services/local_db.dart';
 import '../../classes/user.class.dart';
 import '../../config/routes/router.dart';
 
-Future<void> verifyClientProcedure(BuildContext context, String clientIDNum) async {
+// When the Accept Client Button is clicked, add client to Verified-Clients
+// table and change status to Verified
+
+// When the Reject Client Button is clicked,  change status to Rejected
+
+Future<void> verificationProcedure(BuildContext context, String clientIDNum, bool accepted) async {
 
   User? user;
 
+  // Using getUserAndAddress() from Local DB to get current admin user's idNumber
   LocalDatabaseHelper.instance.getUserAndAddress().then((currUser) {
     user = currUser;
+    
+    if (user == null){        // Database error
 
-    if (user == null){
-
+      // Create 'Showmessage' 
       Fluttertoast.showToast(
         msg: "Unsuccessful",
         toastLength: Toast.LENGTH_SHORT,
@@ -27,11 +34,19 @@ Future<void> verifyClientProcedure(BuildContext context, String clientIDNum) asy
       return;
 
     }
-    else{
+    else{                   // Admin found in DB
 
       String userIDNum = user!.idNumber;
-      verifyClient(clientIDNum, userIDNum);
 
+      if (accepted){  // Accepted button clicked
+        verifyClient(clientIDNum, userIDNum, '1');    // 1 represents client is accepted
+      }
+      else{           // Rejected button clicked
+        verifyClient(clientIDNum, userIDNum, '0');    // 0 represents client is rejected
+      }
+      
+
+      // Create 'Showmessage' 
       Fluttertoast.showToast(
           msg: "Successful",
           toastLength: Toast.LENGTH_SHORT,
@@ -41,11 +56,11 @@ Future<void> verifyClientProcedure(BuildContext context, String clientIDNum) asy
           textColor: Colors.white,
           fontSize: 16.0
       );
-
-      goToAdminVerificationList(context);
+      
     }
+
+    goToAdminVerificationList(context);
+
   });
 
 }
-
-Future<void> rejectClientProcedure(BuildContext context) async {}
