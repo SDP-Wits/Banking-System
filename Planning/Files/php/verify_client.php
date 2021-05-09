@@ -4,7 +4,7 @@ include "./helpers/server_details.php";
 $clientIdNum = $_REQUEST["clientIdNum"];
 $adminIdNum = $_REQUEST["adminIdNum"];
 $currentDate = $_REQUEST["currentDate"];
-$status = $_REQUEST["status"]; // if 0 - reject, if 1 - accept
+$verificationStatus = $_REQUEST["verificationStatus"]; // if 0 - reject, if 1 - accept
 
 //test example
 /*$clientIdNum = '0369852147896';
@@ -23,9 +23,9 @@ if($adminCheck and $clientCheck) {
 	$check_admin = mysqli_fetch_array($adminCheck);
 	$check_client = mysqli_fetch_array($clientCheck);
 	
-        if ($status == '1') {
+        if ($verificationStatus == '1') {
                 //update status of client to "verified" in CLIENT table
-                $sql3 = "UPDATE CLIENT SET status = 'Verified' WHERE idNumber = '$clientIdNum'";
+                $sql3 = "UPDATE CLIENT SET verificationStatus = 'Verified' WHERE idNumber = '$clientIdNum'";
                 $acceptClient = mysqli_query($conn, $sql3);
                 
                 //insert entry into VERIFIED CLIENTS therefore updating client status to verified
@@ -41,7 +41,7 @@ if($adminCheck and $clientCheck) {
                 );
         } else {
                 //update status of client to "rejected" in CLIENT table
-                $sql4 = "UPDATE CLIENT SET status = 'Rejected' WHERE idNumber = '$clientIdNum'";
+                $sql4 = "UPDATE CLIENT SET verificationStatus = 'Rejected' WHERE idNumber = '$clientIdNum'";
                 $rejectClient = mysqli_query($conn, $sql4);
                 
                 echo json_encode(
