@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:last_national_bank/classes/currID.dart';
 import 'package:last_national_bank/constants/database_constants.dart';
+import 'package:last_national_bank/core/verification_status/verification_status.dart';
 import '../../config/routes/router.dart';
 import '../../utils/services/online_db.dart';
 import '../SHA-256_encryption.dart';

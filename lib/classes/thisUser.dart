@@ -10,6 +10,7 @@ final String phoneNumber;
 final String email;
 final String idNumber;
 final String address;
+final String status;
 
 thisUser({
   required this.userID,
@@ -21,5 +22,6 @@ thisUser({
   required this.email,
   required this.idNumber,
   required this.address,
+  required this.status,
 });
 }

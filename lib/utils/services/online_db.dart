@@ -163,7 +163,8 @@ Future<List<thisUser>> getclientdets(String idNumber) async {
         phoneNumber: map["phoneNumber"],
         email: map["email"],
         idNumber: map["idNumber"],
-        address: "");
+        address: "",
+        status: map["status"]);
     users.add(user);
   }
   return users;

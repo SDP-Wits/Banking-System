@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:last_national_bank/classes/thisUser.dart';
 import 'package:last_national_bank/classes/user.class.dart';
 import 'package:last_national_bank/config/routes/router.dart';
 import 'package:last_national_bank/utils/helpers/style.dart';
 import 'package:last_national_bank/utils/services/local_db.dart';
+import 'package:last_national_bank/utils/services/online_db.dart';
 
 class VerificationStatus extends StatefulWidget {
   @override
@@ -11,12 +13,14 @@ class VerificationStatus extends StatefulWidget {
 
 class _VerificationStatusState extends State<VerificationStatus> {
   User? user = null;
+  List<thisUser>? me = null;
   @override
   void initState() {
     super.initState();
     LocalDatabaseHelper.instance.getUserAndAddress().then((currUser) {
       setState(() {
         user = currUser;
+        me = getclientdets(user!.idNumber) as List<thisUser>;
       });
       if (user == null) {
         LocalDatabaseHelper.instance.deleteData();
@@ -58,7 +62,8 @@ class _VerificationStatusState extends State<VerificationStatus> {
                 Container(
                   padding: EdgeInsets.all(15),
                 ),
-                HeadingBlocks("Verification Status: Pending", 22, 20),
+
+                HeadingBlocks("Verification Status: "+ me![0].status, 22, 20),
                 DetailedBlocks(user!.firstName, "First Name"),
                 (user!.middleName != null)
                     ? DetailedBlocks(user!.middleName!, "Middle Name")
