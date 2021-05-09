@@ -5,6 +5,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:last_national_bank/classes/name.class.dart';
 import 'package:last_national_bank/classes/thisUser.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
+import '../../widgets/buttonVerifyClient.dart';
+import '../../widgets/buttonRejectClient.dart';
+import 'verification.functions.dart';
 
 
 class VerifyUser extends StatefulWidget {
@@ -82,7 +85,7 @@ List<thisUser> thisuser = [];
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(
-                        'Verify Customer',
+                        'Verify Client',
                         style: new TextStyle(
                             fontSize: 25.0,
                             fontWeight: FontWeight.w500,
@@ -135,6 +138,9 @@ List<thisUser> thisuser = [];
                     end: Alignment.bottomLeft,
                     colors: [Colors.blueGrey, Colors.teal]),
               ),
+
+              // Allows page to be scrollable
+            child: SingleChildScrollView(
               padding: new EdgeInsets.only(
                 top: 15.0,
                 left: 15.0,
@@ -147,7 +153,7 @@ List<thisUser> thisuser = [];
                   Icon(Icons.assignment_ind_rounded, color: Colors.white,
                     size: 75,),
                   Text(
-                    'Customer Information',
+                    'Client Information',
                     style: new TextStyle(
                       fontSize: 20.0,
                       fontWeight: FontWeight.w500,
@@ -165,11 +171,29 @@ List<thisUser> thisuser = [];
                   DetailedBlocks(curruser.idNumber, "ID"),
                   DetailedBlocks(curruser.age.toString(), "Age"),
                   DetailedBlocks(curruser.phoneNumber, "Phone Number"),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+
+                      buttonVerifyClient(() {
+                        verifyClientProcedure(context, curruser.idNumber);
+                      }),
+
+                      buttonRejectClient(() {
+                        rejectClientProcedure(context);
+                      }),
+
+                    ]
+                  )
+                  
+
                 ],
               ),
             ),
+          ),
 
-            floatingActionButton: FloatingActionButton(
+          /*  floatingActionButton: FloatingActionButton(
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute<void>(
                   builder: (BuildContext context) {
@@ -189,7 +213,9 @@ List<thisUser> thisuser = [];
               },
               tooltip: 'Verify',
               child: Icon(Icons.app_registration),
-            ),
+            ),*/
+
+
           );
         }
 Widget _buildLoadingScreen() {
