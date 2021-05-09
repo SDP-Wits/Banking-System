@@ -163,19 +163,18 @@ Future<List<thisUser>> getclientdets(String idNumber) async {
         phoneNumber: map["phoneNumber"],
         email: map["email"],
         idNumber: map["idNumber"],
-        address: "",
-        status: map["status"]);
+        address: "");
     users.add(user);
   }
   return users;
 }
 
-Future<String> verifyClient(String clientIdNumber, String adminIdNumber) async {
+Future<String> verifyClient(String clientIdNumber, String adminIdNumber, String clientStatus) async {
   String date = getDate();
 
   String arguments = argumentMaker(
-      phpNames: ["clientIdNum", "adminIdNum", "currentDate"],
-      inputVariables: [clientIdNumber, adminIdNumber, date]);
+      phpNames: ["clientIdNum", "adminIdNum", "currentDate", "verificationStatus"],
+      inputVariables: [clientIdNumber, adminIdNumber, date, clientStatus]);
 
   Map data = (await getURLData(urlPath + verify_client + arguments))[0];
 
@@ -184,14 +183,14 @@ Future<String> verifyClient(String clientIdNumber, String adminIdNumber) async {
   if (status) {
     return dbSuccess;
   } else {
-    return data["error"];
+    return dbFailed;
   }
 }
 
 // get client account details 
 
-Future<List<accountDetails>> getAccountDetails(String idNumber) async {
-  final String arguments = "?accNum=$idNumber";
+Future<List<accountDetails>> getAccountDetails(String accNumber) async {
+  final String arguments = "?accNum=$accNumber";
   final String url = urlPath + select_client_account + arguments;
 
   final data = await getURLData(url);
@@ -200,11 +199,9 @@ Future<List<accountDetails>> getAccountDetails(String idNumber) async {
   for (var map in data) {
     accountDetails account = accountDetails(
         accountNumber: map["accountNumber"],
-        accountType: map["accountType"],
+        accountTypeID: int.parse(map["accountTypeID"]),
         currentBalance: map["currentBalance"],
-        fName: map["firstName"],
-        mName: map["middleName"],
-        lName: map["lastName"]);
+        createdDate: map["createdDate"]);
     accounts.add(account);
   }
   return accounts;
