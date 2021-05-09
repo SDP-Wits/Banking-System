@@ -51,7 +51,7 @@ class _buttonVerifyClientState extends State<buttonVerifyClient> {
               Text(
                 'Verify Client',
                 style: TextStyle(
-                  color: Colors.lightBlueAccent,
+                  color: Colors.teal,
                   fontSize: 14,
                 ),
               ),

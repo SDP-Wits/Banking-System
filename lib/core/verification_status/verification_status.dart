@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:last_national_bank/classes/thisUser.dart';
 import 'package:last_national_bank/classes/user.class.dart';
 import 'package:last_national_bank/config/routes/router.dart';
@@ -12,15 +13,16 @@ class VerificationStatus extends StatefulWidget {
 }
 
 class _VerificationStatusState extends State<VerificationStatus> {
-  User? user = null;
-  List<thisUser>? me = null;
+  User? user ;
+  List<thisUser>? me ;
   @override
   void initState() {
     super.initState();
     LocalDatabaseHelper.instance.getUserAndAddress().then((currUser) {
       setState(() {
         user = currUser;
-        me = getclientdets(user!.idNumber) as List<thisUser>;
+
+        // me = getclientdets(user!.idNumber) as List<thisUser>;
       });
       if (user == null) {
         LocalDatabaseHelper.instance.deleteData();
@@ -63,7 +65,7 @@ class _VerificationStatusState extends State<VerificationStatus> {
                   padding: EdgeInsets.all(15),
                 ),
 
-                HeadingBlocks("Verification Status: "+ me![0].status, 22, 20),
+                HeadingBlocks("Verification Status: ", 22, 20),
                 DetailedBlocks(user!.firstName, "First Name"),
                 (user!.middleName != null)
                     ? DetailedBlocks(user!.middleName!, "Middle Name")
