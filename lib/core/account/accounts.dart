@@ -19,17 +19,11 @@ class _AccountsState extends State<Accounts> {
   User? user;
 
   //TODO: Change once you got the data from db
-  String accountType = "Cheque";
-  String accountNumber = seperateCardNumber("1478944153785494");
-  String firstName = "Arneev";
-  String middleNames = "Mohan Joker";
-  String lastName = "Singh";
 
   String cardType = "VISA"; // There is no field in the db for this
   //There shouldn't be one coz it only applies to transactions account
   //So we can sort that out in the future, but for now hardcode it
 
-  int currAmount = 420;
 
   List<accountDetails> acc = [];
 
