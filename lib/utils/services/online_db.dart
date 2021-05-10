@@ -220,7 +220,6 @@ Future<List<accountDetails>> getAccountDetails(String accNumber) async {
 
   bool status = (data[0])["status"];
 
-  if (status == false){
     return [];
   }
 
