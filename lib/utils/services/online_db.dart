@@ -224,9 +224,13 @@ Future<List<accountTypes>> getAccountTypes() async {
   for (int i = 0; i < accTypeDetails.length; ++i) {
     String accType = accTypeDetails[i]["accountType"];
     String accDescription = accTypeDetails[i]["accountDescription"];
+    int accTypeId = accTypeDetails[i]["accountTypeID"];
 
-    accountTypes accOption =
-        accountTypes(accType: accType, accDescription: accDescription);
+    accountTypes accOption = accountTypes(
+      accType: accType,
+      accDescription: accDescription,
+      accountTypeId: accTypeId,
+    );
 
     bankAccTypes.add(accOption);
   }
@@ -235,11 +239,15 @@ Future<List<accountTypes>> getAccountTypes() async {
 }
 
 //Create a client's account
-Future<String> createAccount(String clientID, String accountType) async {
+Future<String> createAccount(String clientIdNumber, int accountTypeID) async {
   final String date = getDate();
 
   List<String> phpNames = ["clientIdNum", "accountType", "currentDate"];
-  List<String> inputVariables = [clientID, accountType, date];
+  List<String> inputVariables = [
+    clientIdNumber,
+    accountTypeID.toString(),
+    date
+  ];
 
   String arguments =
       argumentMaker(phpNames: phpNames, inputVariables: inputVariables);
@@ -287,6 +295,8 @@ Future<List<accountDetails>> getAccountDetails(String idNumber) async {
 
   return accounts;
 }
+
+//Getting account description from account id
 
 //Helper Functions
 String argumentMaker(

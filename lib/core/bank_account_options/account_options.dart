@@ -21,11 +21,12 @@ class BankAccountOptions extends StatefulWidget {
 }
 
 class _BankAccountOptionsState extends State<BankAccountOptions> {
-  var accountTypeList = [];
-  var descriptionList = [];
+  List<String> accountTypeList = [];
+  List<String> descriptionList = [];
+  List<int> accountTypeIdList = [];
 
   //Auto generating just to make sure it ain't a problem
-  var accNumbersList = [];
+  List<String> accNumbersList = [];
 
   @override
   void initState() {
@@ -33,15 +34,18 @@ class _BankAccountOptionsState extends State<BankAccountOptions> {
 
     getAccountTypes().then((value) {
       for (int i = 0; i < value.length; ++i) {
-        var accType = value[i].accType;
-        var accDescription = value[i].accDescription;
+        String accType = value[i].accType;
+        String accDescription = value[i].accDescription;
+        int accTypeId = value[i].accountTypeId;
 
+        accountTypeIdList = [...accountTypeIdList, accTypeId];
         accountTypeList = [...accountTypeList, accType];
         descriptionList = [...descriptionList, accDescription];
         accNumbersList = [...accNumbersList, "**** **** **** 95${i}0"];
       }
 
       setState(() {
+        accountTypeIdList = [...accountTypeIdList];
         accountTypeList = [...accountTypeList];
         descriptionList = [...descriptionList];
         accNumbersList = [...accNumbersList];
@@ -66,7 +70,7 @@ class _BankAccountOptionsState extends State<BankAccountOptions> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Bank account options",
+          "Bank Account Options",
           style: TextStyle(color: Colors.black),
         ),
         elevation: 5,
@@ -78,7 +82,8 @@ class _BankAccountOptionsState extends State<BankAccountOptions> {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    ShowDialogFunc(context, accountTypeList[index]);
+                    ShowDialogFunc(context, accountTypeIdList[index],
+                        accountTypeList[index]);
                   },
                   child: Card(
                       color: colorsList[index],
@@ -121,7 +126,7 @@ class _BankAccountOptionsState extends State<BankAccountOptions> {
   }
 }
 
-ShowDialogFunc(context, accType) {
+ShowDialogFunc(BuildContext context, int accTypeId, String accType) {
   return showDialog(
       context: context,
       builder: (context) {
@@ -145,9 +150,8 @@ ShowDialogFunc(context, accType) {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
-                      FlatButton(
+                      TextButton(
                           onPressed: () {
-                            print("yes Button Success");
                             User? user;
 
                             // Using getUserAndAddress() from Local DB to get current admin user's idNumber
@@ -156,8 +160,8 @@ ShowDialogFunc(context, accType) {
                                 .then((currUser) async {
                               user = currUser;
 
-                              String response =
-                                  await createAccount(user!.idNumber, accType);
+                              String response = await createAccount(
+                                  user!.idNumber, accTypeId);
 
                               if (response == dbSuccess) {
                                 // Create 'Showmessage'
@@ -185,9 +189,10 @@ ShowDialogFunc(context, accType) {
                             });
                           },
                           child: Text("Yes")),
-                      FlatButton(
+                      TextButton(
                           onPressed: () {
-                            print("no Button Success");
+                            print("Cancelled account creation");
+                            Fluttertoast.showToast(msg: "Cancelled");
                           },
                           child: Text("No")),
                     ],
@@ -199,7 +204,6 @@ ShowDialogFunc(context, accType) {
         );
       });
 }
-
 
 Widget _buildLoadingScreen() {
   return Center(
