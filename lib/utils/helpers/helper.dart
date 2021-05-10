@@ -39,7 +39,7 @@ String seperateCardNumber(String cardNumber) {
 
   int length = cardNumber.length;
   for (int i = 0; i < length; i++) {
-    if (i % 5 == 0 && i != 0) {
+    if (i % 4 == 0 && i != 0) {
       ansString += " ";
     }
     ansString += cardNumber[i];
