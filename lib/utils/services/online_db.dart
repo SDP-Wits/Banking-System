@@ -210,8 +210,8 @@ Future<String> verifyClient(String clientIdNumber, String adminIdNumber, String 
 //   }
 //   return accounts;
 // }
-Future<List<accountDetails>> getAccountDetails(String accNumber) async {
-  final String arguments = "?idNum=$accNumber";
+Future<List<accountDetails>> getAccountDetails(String idNumber) async {
+  final String arguments = "?idNum=$idNumber";
   final String url = urlPath + select_client_account + arguments;
 
   final data = await getURLData(url);
