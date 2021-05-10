@@ -219,8 +219,7 @@ class CreateAccButton extends StatelessWidget{
         ),
         child: TextButton(
           onPressed: () {
-          //  TODO
-          //  go to create account page
+            goToCreateAcc(context);
           },
           
           child: Row(

@@ -40,6 +40,9 @@ class _AccountsState extends State<Accounts> {
 
     getAccountDetails(currID.id).then((account) {
       acc = account;
+      if (acc.isEmpty) {
+        Navigator.pop(context);
+      }
       setState(() {});
     });
   }
@@ -50,7 +53,7 @@ class _AccountsState extends State<Accounts> {
     final Size size = MediaQuery.of(context).size;
     final double verticalPadding = 45;
     //TODO: Change this to 'user != null'
-    return (user == null)
+    return (acc.isNotEmpty)
         ? Container(
             width: size.width,
             height: size.height,
