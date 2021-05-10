@@ -36,6 +36,17 @@ class _AccountsState extends State<Accounts> {
           acc = account;
         });
       });
+      if (acc.isEmpty) {
+        Fluttertoast.showToast(
+            msg: "Account Does Not Exist" ,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 3,
+            backgroundColor: Colors.teal,
+            textColor: Colors.white,
+            fontSize: 16.0);
+        Navigator.pop(context);
+      }
     });
   }
 

@@ -157,7 +157,7 @@ Future<List<thisUser>> getclientdets(String idNumber) async {
   for (var map in data) {
     if (map.containsKey("status")) {
       if (!map["status"]) {
-        continue;
+        return [];
       }
     }
 
