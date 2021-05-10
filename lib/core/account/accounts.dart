@@ -62,7 +62,7 @@ class _AccountsState extends State<Accounts> {
     final Size size = MediaQuery.of(context).size;
     final double verticalPadding = 45;
 
-    return (acc.isEmpty)
+    return (acc.isNotEmpty)
         ? Container(
             width: size.width,
             height: size.height,

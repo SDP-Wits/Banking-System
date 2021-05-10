@@ -119,9 +119,7 @@ class _BankAccountOptionsState extends State<BankAccountOptions> {
                       )),
                 );
               })
-          : Container(
-              child: Text("Page loading"),
-            ),
+          : _buildLoadingScreen(),
     );
   }
 }
@@ -206,4 +204,21 @@ ShowDialogFunc(context, accType) {
           ),
         );
       });
+}
+
+
+Widget _buildLoadingScreen() {
+  return Center(
+    child: Container(
+      // decoration: BoxDecoration(
+      //   gradient: LinearGradient(
+      //       begin: Alignment.topRight,
+      //       end: Alignment.bottomLeft,
+      //       colors: [Colors.blueGrey, Colors.teal]),
+      // ),
+      width: 50,
+      height: 50,
+      child: CircularProgressIndicator(),
+    ),
+  );
 }
