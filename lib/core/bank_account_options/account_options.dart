@@ -3,8 +3,6 @@ import 'package:last_national_bank/classes/accountTypes.dart';
 
 import '../../utils/services/online_db.dart';
 
-void main() => runApp(AccountOptionsScreen());
-
 /// This is the main application widget.
 class AccountOptionsScreen extends StatelessWidget {
   @override
@@ -142,6 +140,21 @@ ShowDialogFunc(context, accType) {
                   Text("Are you sure you want to create a  " +
                       accType +
                       "  account?"),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: <Widget>[
+                      FlatButton(
+                          onPressed: () {
+                            print("yes Button Success");
+                          },
+                          child: Text("Yes")),
+                      FlatButton(
+                          onPressed: () {
+                            print("no Button Success");
+                          },
+                          child: Text("No")),
+                    ],
+                  )
                 ],
               ),
             ),
