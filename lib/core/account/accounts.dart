@@ -58,6 +58,7 @@ class _AccountsState extends State<Accounts> {
   }
 
   Widget buildPage() {
+    accountDetails account = acc[0];
     final Size size = MediaQuery.of(context).size;
     final double verticalPadding = 45;
 
@@ -83,18 +84,14 @@ class _AccountsState extends State<Accounts> {
                 Padding(
                   padding: EdgeInsets.only(top: verticalPadding),
                 ),
-                ListView.builder(
-                    itemCount: acc.length,
-                    itemBuilder: (context, index) {
-                      return AccountCardInfo(
-                          accountType: acc[index].accountType,
-                          accountNumber: acc[index].accountNumber,
-                          firstName: acc[index].fName,
-                          middleNames: acc[index].mName,
-                          lastName: acc[index].lName,
-                          cardType: cardType,
-                          currAmount: acc[index].currentBalance);
-                    })
+                AccountCardInfo(
+                    accountType: account.accountType,
+                    accountNumber: account.accountNumber,
+                    firstName: account.fName,
+                    middleNames: account.mName,
+                    lastName: account.lName,
+                    cardType: cardType,
+                    currAmount: account.currentBalance)
               ],
             ),
           )
