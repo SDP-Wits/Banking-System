@@ -45,14 +45,15 @@ class _BankAccountOptionsState extends State<BankAccountOptions> {
     "**** **** **** 4862",
     "**** **** **** 7913",
     "**** **** **** 0258",
-    "**** **** **** 0258"
+    "**** **** **** 9510"
   ];
 
   //fix this
   var colorsList = [
     Colors.blueAccent[200],
     Colors.blueGrey[200],
-    Colors.teal[400]
+    Colors.teal[400],
+    Colors.deepPurple[700]
   ];
 
   @override
