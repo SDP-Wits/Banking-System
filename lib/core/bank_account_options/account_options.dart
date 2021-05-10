@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:last_national_bank/classes/accountTypes.dart';
+import 'package:last_national_bank/classes/user.class.dart';
+import 'package:last_national_bank/config/routes/router.dart';
+import 'package:last_national_bank/constants/database_constants.dart';
 import 'package:last_national_bank/utils/helpers/helper.dart';
+import 'package:last_national_bank/utils/services/local_db.dart';
 
 import '../../utils/services/online_db.dart';
 
@@ -148,6 +153,44 @@ ShowDialogFunc(context, accType) {
                       FlatButton(
                           onPressed: () {
                             print("yes Button Success");
+                            User? user;
+
+                            // Using getUserAndAddress() from Local DB to get current admin user's idNumber
+                            LocalDatabaseHelper.instance.getUserAndAddress().then((currUser) async {
+                              user = currUser;
+
+                              String response = await createAccount(user!.idNumber, accType);
+
+                              if (response == dbSuccess) {
+
+                                // Create 'Showmessage' 
+                                Fluttertoast.showToast(
+                                  msg: "Succesful",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.CENTER,
+                                  timeInSecForIosWeb: 3,
+                                  backgroundColor: Colors.teal,
+                                  textColor: Colors.white,
+                                  fontSize: 16.0
+                                );
+
+                                goToAdminVerificationStatus(context);
+                              }
+                              else {
+
+                                // Create 'Showmessage' 
+                                Fluttertoast.showToast(
+                                  msg: response,
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.CENTER,
+                                  timeInSecForIosWeb: 3,
+                                  backgroundColor: Colors.teal,
+                                  textColor: Colors.white,
+                                  fontSize: 16.0
+                                );
+                              }
+                            });
+
                           },
                           child: Text("Yes")),
                       FlatButton(

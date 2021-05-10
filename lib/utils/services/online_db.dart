@@ -226,11 +226,11 @@ Future<List<accountTypes>> getAccTypes() async {
   return bankAccTypes;
 }
 
-Future<String> createAccount(int clientID, String accountType) async {
+Future<String> createAccount(String clientID, String accountType) async {
   String date = getDate();
 
   List<String> phpNames = ["clientIdNum", "accountType", "currentDate"];
-  List<String> inputVariables = [clientID.toString(), accountType, date];
+  List<String> inputVariables = [clientID, accountType, date];
 
   String arguments =
       argumentMaker(phpNames: phpNames, inputVariables: inputVariables);
@@ -269,27 +269,32 @@ Future<List<accountDetails>> getAccountDetails(String idNumber) async {
   final String arguments = "?idNum=$idNumber";
   final String url = urlPath + select_client_account + arguments;
 
-  final data = await getURLData(url);
+  final List<Map> data = await getURLData(url);
 
   List<accountDetails> accounts = [];
 
-  bool status = (data[0])["status"];
+  if (data[0].containsKey("status")){  // Contain a key 
 
-  if (status == false) {
-    return [];
+    bool status = (data[0])["status"];
+
+    if (status == false) {
+      return [];
+    }
   }
 
   for (var map in data) {
     accountDetails account = accountDetails(
         accountNumber: map["accountNumber"],
         accountType: map["accountType"],
-        currentBalance: map["currentBalance"],
+        currentBalance: double.parse(map["currentBalance"].toString()),
         fName: map["firstName"],
         mName: map["middleName"],
         lName: map["lastName"]);
     accounts.add(account);
   }
+
   return accounts;
+  
 }
 
 //Helper Functions
