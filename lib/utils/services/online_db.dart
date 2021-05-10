@@ -215,25 +215,28 @@ Future<List<accountDetails>> getAccountDetails(String idNumber) async {
   final String url = urlPath + select_client_account + arguments;
 
   final data = await getURLData(url);
-
   List<accountDetails> accounts = [];
 
-  bool status = (data[0])["status"];
+  if (data[0].containsKey("status")){
+  bool status = (data[0])["status"] as bool;
 
-    return [];
+  if (!status){
+  return [];
   }
-
+  }
 
   for (var map in data) {
-    accountDetails account = accountDetails(
-        accountNumber: map["accountNumber"],
-        accountType: map["accountType"],
-        currentBalance: map["currentBalance"],
-        fName: map["firstName"],
-        mName: map["middleName"],
-        lName: map["lastName"]);
-    accounts.add(account);
-  }
+      accountDetails account = accountDetails(
+          accountNumber: map["accountNumber"],
+          accountType: map["accountType"],
+          currentBalance: double.parse(map["currentBalance"]),
+          fName: map["firstName"],
+          mName: map["middleName"],
+          lName: map["lastName"]);
+      accounts.add(account);
+    }
+
+
   return accounts;
 }
 

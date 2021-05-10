@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:last_national_bank/classes/accountDetails.dart';
 import 'package:last_national_bank/classes/currID.dart';
 import 'package:last_national_bank/classes/user.class.dart';
@@ -41,6 +42,14 @@ class _AccountsState extends State<Accounts> {
 
       });
       if (acc.isEmpty) {
+        Fluttertoast.showToast(
+            msg: "Account Does Not Exist" ,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 3,
+            backgroundColor: Colors.teal,
+            textColor: Colors.white,
+            fontSize: 16.0);
         Navigator.pop(context);
       }
     });
@@ -49,7 +58,7 @@ class _AccountsState extends State<Accounts> {
   @override
   Widget build(BuildContext context) {
     if (acc.isEmpty) {
-      getclientdets(currID.id);
+      getAccountDetails(currID.id);
       return _buildLoadingScreen();
     } else {
       return buildPage();
