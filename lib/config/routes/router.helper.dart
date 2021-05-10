@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:last_national_bank/constants/route_constants.dart';
+
+import '../../constants/route_constants.dart';
 
 Route<dynamic> MaterialRouteWrap(Widget widget) {
   return MaterialPageRoute(

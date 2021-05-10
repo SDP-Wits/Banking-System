@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class UndefinedPage extends StatelessWidget {
-  //TODO: Testing
   final String name;
 
   UndefinedPage({required this.name});

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:last_national_bank/core/account/accounts.dart';
-import 'package:last_national_bank/core/account/widgets/card_info.dart';
-import 'package:last_national_bank/utils/helpers/helper.dart';
-import 'package:last_national_bank/utils/helpers/style.dart';
+
+import '../account/accounts.dart';
 
 class PlaygroundTest extends StatefulWidget {
   @override

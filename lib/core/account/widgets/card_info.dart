@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:last_national_bank/utils/helpers/helper.dart';
-import 'package:last_national_bank/utils/helpers/style.dart';
+import '../../../utils/helpers/helper.dart';
+import '../../../utils/helpers/style.dart';
 
 class AccountCardInfo extends StatefulWidget {
   final String accountType;

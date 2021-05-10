@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:last_national_bank/constants/route_constants.dart';
-import 'package:last_national_bank/core/manual_testing/playground.dart';
-import 'package:last_national_bank/core/verification_status/verification_status.dart';
-import 'package:last_national_bank/utils/helpers/helper.dart';
 
 import 'config/routes/router.dart' as router;
 import 'config/routes/router.helper.dart';
 import 'constants/app_constants.dart';
 import 'core/login/login.dart';
-import 'core/verification_list/admin_verification_list.dart';
-import 'utils/services/local_db.dart';
+import 'utils/helpers/helper.dart';
 
 void main() {
   runApp(MyApp());

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../config/routes/router.dart';
-
 class UserOld extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

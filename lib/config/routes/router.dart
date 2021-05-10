@@ -3,9 +3,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:last_national_bank/classes/name.class.dart';
-import 'package:last_national_bank/classes/user.class.dart';
 import 'package:last_national_bank/core/account/accounts.dart';
 import 'package:last_national_bank/core/bank_account_options/account_options.dart';
+
 import '../../constants/route_constants.dart';
 import '../../core/login/login.dart';
 import '../../core/registration/admin_registration.dart';
@@ -13,11 +13,8 @@ import '../../core/registration/client_registration.dart';
 import '../../core/registration/newuser.page.dart';
 import '../../core/verification_list/admin_verification_list.dart';
 import '../../core/verification_status/verification_status.dart';
-import 'package:last_national_bank/core/verification_list/admin_verify_user.dart';
 import 'router.helper.dart';
 import 'undefined_page.dart';
-
-//TODO: Testing
 
 //When the app changes route names, make this specific widget
 Route<dynamic> generateRoute(RouteSettings settings) {
@@ -83,9 +80,11 @@ void goToAdminRegistration(BuildContext context) {
 void goToAdminVerificationList(BuildContext context) {
   Navigator.pushNamed(context, AdminVerificationListRoute);
 }
+
 void goToAdminVerifyUsers(BuildContext context, {required Name names}) {
   Navigator.pushNamed(context, AdminVerifyUser, arguments: names);
 }
+
 void goToAdminVerificationStatus(BuildContext context) {
   Navigator.pushNamed(context, VerificationStatusRoute);
 }
@@ -94,11 +93,10 @@ void goToNewUser(BuildContext context) {
   Navigator.pushNamed(context, NewUserRoute);
 }
 
-void goToCreateAcc(BuildContext context) {
+void goToCreateAccount(BuildContext context) {
   Navigator.pushNamed(context, CreateAccount);
 }
 
-void goToViewAcc(BuildContext context) {
+void goToViewAccount(BuildContext context) {
   Navigator.pushNamed(context, ViewAccount);
 }
-

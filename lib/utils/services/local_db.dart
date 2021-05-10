@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:last_national_bank/utils/helpers/helper.dart';
+import '../helpers/helper.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -70,6 +70,8 @@ class LocalDatabaseHelper {
   }
 
   // #endregion Set Up Code
+
+  //Delete the User inside the User Table
   Future<bool> deleteUser() async {
     final String sql = "DELETE FROM USER";
 
@@ -78,6 +80,7 @@ class LocalDatabaseHelper {
     return !(await isUser());
   }
 
+  //Delete the User's Address inside the Address Table
   Future<bool> deleteAddress() async {
     final String sql = "DELETE FROM ADDRESS";
 
@@ -86,6 +89,7 @@ class LocalDatabaseHelper {
     return !(await isUser());
   }
 
+  //Deletes the User's address and user data
   Future<void> deleteData() async {
     await deleteAddress();
     await deleteUser();
@@ -93,6 +97,7 @@ class LocalDatabaseHelper {
 
   // #region User
 
+  //Add User to Local DB
   Future<String> addUser(
       int userID,
       String email,
@@ -120,6 +125,7 @@ class LocalDatabaseHelper {
     }
   }
 
+  //Checks to see if the local DB contains a user
   Future<bool> isUser() async {
     final String sql = "SELECT * FROM USER";
 
@@ -128,6 +134,7 @@ class LocalDatabaseHelper {
     return data.isNotEmpty;
   }
 
+  //Gives back a User object, with address information
   Future<User?> getUserAndAddress() async {
     if (await isUser()) {
       final String sqlUser = "SELECT * FROM USER LEFT JOIN ADDRESS";
@@ -158,11 +165,12 @@ class LocalDatabaseHelper {
   // #endregion
 
   // #region Address
+
+  //Adds Address
   Future<String> addAddress(int streetNumber, String streetName, String suburb,
       String province, String country, int? apartmentNumber) async {
     final String sql =
         "INSERT INTO ADDRESS(streetNumber, streetName, suburb, province, country, apartmentNumber) VALUES($streetNumber, ${doubleQuote(streetName)}, ${doubleQuote(suburb)},${doubleQuote(province)}, ${doubleQuote(country)}, ${(apartmentNumber == null) ? null : apartmentNumber})";
-    // "CREATE TABLE ADDRESS(addressID INT AUTO INCREMENT PRIMARY KEY, streetNumber INTEGER NOT NULL, streetName TEXT NOT NULL, suburb TEXT NOT NULL, province TEXT NOT NULL, country TEXT NOT NULL, apartmentNumber INT)"
 
     try {
       List<Map> results = await rawQuery(sql);
@@ -176,6 +184,7 @@ class LocalDatabaseHelper {
     }
   }
 
+  //Checks to see if there is an Address
   Future<bool> isAddress() async {
     final String sql = "SELECT * FROM ADDRESS";
 
@@ -186,6 +195,7 @@ class LocalDatabaseHelper {
 
   // #endregion
 
+  //Adds User & Address to Database one time
   Future<String> addUserDetails(
       int userID,
       String email,
@@ -234,6 +244,7 @@ class LocalDatabaseHelper {
     return dbSuccess;
   }
 
+  //Get the address of the user
   Future<Map> selectAddress() async {
     final String sql = "SELECT * FROM ADDRESS";
 

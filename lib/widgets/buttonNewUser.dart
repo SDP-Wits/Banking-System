@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
 import '../constants/php_url.dart';
+import '../core/SHA-256_encryption.dart';
 import '../core/registration/registration.functions.dart';
 import '../utils/services/online_db.dart';
-import '../core/SHA-256_encryption.dart';
 
 Future<String> clientRegisterOnline() async {
   //Choosing php file based off whether the user is a client or admin

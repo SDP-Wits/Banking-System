@@ -3,12 +3,10 @@ import 'package:flutter/services.dart';
 
 import '../../widgets/button.dart';
 import '../../widgets/first.dart';
-import '../../widgets/textLogin.dart';
-import '../../widgets/verticalText.dart';
+import '../registration/widgets/Logo.dart';
 import 'login.functions.dart';
 import 'widgets/login_id.dart';
 import 'widgets/login_password.dart';
-import 'package:last_national_bank/core/registration/widgets/Logo.dart';
 
 class LoginPage extends StatelessWidget {
   @override

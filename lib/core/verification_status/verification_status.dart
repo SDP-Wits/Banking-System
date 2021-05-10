@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:last_national_bank/classes/currID.dart';
-import 'package:last_national_bank/classes/thisUser.dart';
-import 'package:last_national_bank/classes/user.class.dart';
-import 'package:last_national_bank/config/routes/router.dart';
-import 'package:last_national_bank/utils/helpers/style.dart';
-import 'package:last_national_bank/utils/services/local_db.dart';
-import 'package:last_national_bank/utils/services/online_db.dart';
+
+import '../../classes/thisUser.dart';
+import '../../classes/user.class.dart';
+import '../../config/routes/router.dart';
+import '../../utils/services/local_db.dart';
+import '../../utils/services/online_db.dart';
 
 class VerificationStatus extends StatefulWidget {
   @override
@@ -25,7 +23,7 @@ class _VerificationStatusState extends State<VerificationStatus> {
       setState(() {
         user = currUser;
       });
-      getclientdets(user!.idNumber).then((stat) {
+      getClientDetails(user!.idNumber).then((stat) {
         setState(() {
           me = stat;
         });
@@ -224,7 +222,7 @@ class CreateAccButton extends StatelessWidget {
             child: Container(
               child: TextButton(
                 onPressed: () {
-                  goToCreateAcc(context);
+                  goToCreateAccount(context);
                 },
                 child: Text(
                   'Create Account',
@@ -250,7 +248,7 @@ class CreateAccButton extends StatelessWidget {
             child: Container(
               child: TextButton(
                 onPressed: () {
-                  goToViewAcc(context);
+                  goToViewAccount(context);
                 },
                 child: Text(
                   'View Account',

@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:fluttertoast/fluttertoast.dart';
-import '../config/routes/router.dart';
-import '../core/verification_list/admin_verification_list.dart';
-import 'routeButton.dart';
-
 class buttonVerifyClient extends StatefulWidget {
   final Function onTap;
   buttonVerifyClient(this.onTap);

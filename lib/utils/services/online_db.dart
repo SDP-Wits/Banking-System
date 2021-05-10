@@ -1,19 +1,18 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import "package:http/http.dart" as http;
-import 'package:last_national_bank/classes/accountTypes.dart';
-import 'package:last_national_bank/classes/thisUser.dart';
-import 'package:last_national_bank/classes/accountDetails.dart';
-import 'package:last_national_bank/utils/helpers/helper.dart';
 
+import '../../classes/accountDetails.dart';
+import '../../classes/accountTypes.dart';
 import '../../classes/name.class.dart';
+import '../../classes/thisUser.dart';
 import '../../classes/user.class.dart';
 import '../../constants/database_constants.dart';
 import '../../constants/php_url.dart';
+import '../helpers/helper.dart';
 import 'local_db.dart';
 
+//Give in a url, get back a List of Maps (List of Rows) from PHP File
 Future<List<Map<String, dynamic>>> getURLData(String url) async {
   print(url);
   final Uri uri = Uri.parse(url);
@@ -39,7 +38,7 @@ Future<List<Map<String, dynamic>>> getURLData(String url) async {
 }
 
 //TODO: Tests
-//
+//Log the user in, based off whether they are a client or not
 Future<String> userLoginOnline(
     String idNumber, String hashPassword, bool isClientLogin) async {
   //Choosing php file based off whether the user is a client or admin
@@ -63,8 +62,6 @@ Future<String> userLoginOnline(
   //If there isn't an error, then we should add User to local DB
   //then we should return dbSuccess
 
-  //TODO: check out how null values get returned from the database
-  //i.e. the apartmentNumber
   print("null value in sql is: ");
   print(data["apartmentNumber"]);
   bool isAdmin = !isClientLogin;
@@ -87,8 +84,6 @@ Future<String> userLoginOnline(
     int.parse(data["apartmentNumber"]),
   );
 
-  //TODO: Chech how the user data is looking like
-
   return await LocalDatabaseHelper.instance.addUserDetails(
       user.userID,
       user.email,
@@ -108,7 +103,7 @@ Future<String> userLoginOnline(
       user.address.apartmentNumber);
 }
 
-//TODO: insert_admin
+//Admin Registering online
 Future<String> adminRegisterOnline(String idNumber, String hashPassword) async {
   final String arguments = "?id=$idNumber;password=$hashPassword";
   Map data = (await getURLData(urlPath + insert_admin + arguments))[0];
@@ -122,13 +117,18 @@ Future<String> adminRegisterOnline(String idNumber, String hashPassword) async {
   }
 }
 
-//TODO: insert_client
-
-//TODO: select_unverified_clients
-Future<List<Name>> getUnverifiedClienta() async {
+//Getting list of all unverified clients
+Future<List<Name>> getUnverifiedClients() async {
   final String url = urlPath + select_unverified_client_names;
 
-  final data = await getURLData(url);
+  final List<Map> data = await getURLData(url);
+
+  if (data[0].containsKey("status")) {
+    if (!data[0]["status"]) {
+      print("There are no unverified clients");
+      return [];
+    }
+  }
 
   List<Name> names = [];
   for (var map in data) {
@@ -146,21 +146,21 @@ Future<List<Name>> getUnverifiedClienta() async {
 }
 
 // get clients details for admin to view
-
-Future<List<thisUser>> getclientdets(String idNumber) async {
+Future<List<thisUser>> getClientDetails(String idNumber) async {
   final String arguments = "?id=$idNumber";
   final String url = urlPath + select_client_id + arguments;
 
-  List<Map> data = (await getURLData(url));
+  final List<Map> data = (await getURLData(url));
+
+  if (data[0].containsKey("status")) {
+    if (!data[0]["status"]) {
+      print("There are no unverified clients");
+      return [];
+    }
+  }
 
   List<thisUser> users = [];
   for (var map in data) {
-    if (map.containsKey("status")) {
-      if (!map["status"]) {
-        return [];
-      }
-    }
-
     thisUser user = thisUser(
         userID: int.parse(map["clientID"]),
         firstName: map["firstName"],
@@ -178,6 +178,7 @@ Future<List<thisUser>> getclientdets(String idNumber) async {
   return users;
 }
 
+//Verify an unverified client
 Future<String> verifyClient(
     String clientIdNumber, String adminIdNumber, String clientStatus) async {
   String date = getDate();
@@ -206,10 +207,17 @@ Future<String> verifyClient(
 }
 
 // Get account options data
-Future<List<accountTypes>> getAccTypes() async {
-  String url = urlPath + select_account_types;
+Future<List<accountTypes>> getAccountTypes() async {
+  final String url = urlPath + select_account_types;
 
-  List<Map> accTypeDetails = await getURLData(url);
+  final List<Map> accTypeDetails = await getURLData(url);
+
+  if (accTypeDetails[0].containsKey("status")) {
+    if (!accTypeDetails[0]["status"]) {
+      print("There are no account options");
+      return [];
+    }
+  }
 
   List<accountTypes> bankAccTypes = [];
 
@@ -226,8 +234,9 @@ Future<List<accountTypes>> getAccTypes() async {
   return bankAccTypes;
 }
 
+//Create a client's account
 Future<String> createAccount(String clientID, String accountType) async {
-  String date = getDate();
+  final String date = getDate();
 
   List<String> phpNames = ["clientIdNum", "accountType", "currentDate"];
   List<String> inputVariables = [clientID, accountType, date];
@@ -237,7 +246,7 @@ Future<String> createAccount(String clientID, String accountType) async {
 
   final String url = urlPath + insert_new_account + arguments;
 
-  Map data = (await getURLData(url))[0];
+  final Map data = (await getURLData(url))[0];
 
   if (data["status"]) {
     return dbSuccess;
@@ -246,25 +255,7 @@ Future<String> createAccount(String clientID, String accountType) async {
   return "Failed to create an account";
 }
 
-// get client account details
-
-// Future<List<accountDetails>> getAccountDetails(String accNumber) async {
-//   final String arguments = "?accNum=$accNumber";
-//   final String url = urlPath + select_client_account + arguments;
-//
-//   final data = await getURLData(url);
-//
-//   List<accountDetails> accounts = [];
-//   for (var map in data) {
-//     accountDetails account = accountDetails(
-//         accountNumber: map["accountNumber"],
-//         accountTypeID: int.parse(map["accountTypeID"]),
-//         currentBalance: map["currentBalance"],
-//         createdDate: map["createdDate"]);
-//     accounts.add(account);
-//   }
-//   return accounts;
-// }
+//Get all the details for all the user's accounts
 Future<List<accountDetails>> getAccountDetails(String idNumber) async {
   final String arguments = "?idNum=$idNumber";
   final String url = urlPath + select_client_account + arguments;
@@ -273,7 +264,8 @@ Future<List<accountDetails>> getAccountDetails(String idNumber) async {
 
   List<accountDetails> accounts = [];
 
-  if (data[0].containsKey("status")){  // Contain a key 
+  if (data[0].containsKey("status")) {
+    // Contain a key
 
     bool status = (data[0])["status"];
 
@@ -294,11 +286,9 @@ Future<List<accountDetails>> getAccountDetails(String idNumber) async {
   }
 
   return accounts;
-  
 }
 
 //Helper Functions
-
 String argumentMaker(
     {required List<String> phpNames, required List<String> inputVariables}) {
   String argument = "?";

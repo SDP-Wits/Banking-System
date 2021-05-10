@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:last_national_bank/classes/accountTypes.dart';
-import 'package:last_national_bank/classes/user.class.dart';
-import 'package:last_national_bank/config/routes/router.dart';
-import 'package:last_national_bank/constants/database_constants.dart';
-import 'package:last_national_bank/utils/helpers/helper.dart';
-import 'package:last_national_bank/utils/services/local_db.dart';
 
+import '../../classes/user.class.dart';
+import '../../config/routes/router.dart';
+import '../../constants/database_constants.dart';
+import '../../utils/services/local_db.dart';
 import '../../utils/services/online_db.dart';
 
 /// This is the main application widget.
@@ -33,7 +31,7 @@ class _BankAccountOptionsState extends State<BankAccountOptions> {
   void initState() {
     super.initState();
 
-    getAccTypes().then((value) {
+    getAccountTypes().then((value) {
       for (int i = 0; i < value.length; ++i) {
         var accType = value[i].accType;
         var accDescription = value[i].accDescription;
@@ -47,8 +45,7 @@ class _BankAccountOptionsState extends State<BankAccountOptions> {
         accountTypeList = [...accountTypeList];
         descriptionList = [...descriptionList];
         accNumbersList = [...accNumbersList];
-
-        });
+      });
     });
   }
 
@@ -156,41 +153,38 @@ ShowDialogFunc(context, accType) {
                             User? user;
 
                             // Using getUserAndAddress() from Local DB to get current admin user's idNumber
-                            LocalDatabaseHelper.instance.getUserAndAddress().then((currUser) async {
+                            LocalDatabaseHelper.instance
+                                .getUserAndAddress()
+                                .then((currUser) async {
                               user = currUser;
 
-                              String response = await createAccount(user!.idNumber, accType);
+                              String response =
+                                  await createAccount(user!.idNumber, accType);
 
                               if (response == dbSuccess) {
-
-                                // Create 'Showmessage' 
+                                // Create 'Showmessage'
                                 Fluttertoast.showToast(
-                                  msg: "Succesful",
-                                  toastLength: Toast.LENGTH_SHORT,
-                                  gravity: ToastGravity.CENTER,
-                                  timeInSecForIosWeb: 3,
-                                  backgroundColor: Colors.teal,
-                                  textColor: Colors.white,
-                                  fontSize: 16.0
-                                );
+                                    msg: "Succesful",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.CENTER,
+                                    timeInSecForIosWeb: 3,
+                                    backgroundColor: Colors.teal,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0);
 
                                 goToAdminVerificationStatus(context);
-                              }
-                              else {
-
-                                // Create 'Showmessage' 
+                              } else {
+                                // Create 'Showmessage'
                                 Fluttertoast.showToast(
-                                  msg: response,
-                                  toastLength: Toast.LENGTH_SHORT,
-                                  gravity: ToastGravity.CENTER,
-                                  timeInSecForIosWeb: 3,
-                                  backgroundColor: Colors.teal,
-                                  textColor: Colors.white,
-                                  fontSize: 16.0
-                                );
+                                    msg: response,
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.CENTER,
+                                    timeInSecForIosWeb: 3,
+                                    backgroundColor: Colors.teal,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0);
                               }
                             });
-
                           },
                           child: Text("Yes")),
                       FlatButton(

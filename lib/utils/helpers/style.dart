@@ -13,9 +13,10 @@ final double fontSizeSmall = 20.0;
 final Color primaryCol = Colors.black;
 final Color secondaryCol = Colors.red;
 
-final String fontMont = "Montserrat";
+final String fontMont = "Montserrat"; //Montserrat Font
 
 var backgroundGradient = LinearGradient(
+    //Gradient we use for page background
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
     colors: [Colors.blueGrey, Colors.teal]);

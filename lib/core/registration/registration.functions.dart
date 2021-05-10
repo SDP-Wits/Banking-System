@@ -1,12 +1,8 @@
 library bankingsystem.globals;
 
 import 'dart:core';
-import 'package:intl/intl.dart';
 
-import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:http/http.dart' as http;
-import 'package:last_national_bank/constants/php_url.dart';
+import 'package:intl/intl.dart';
 
 // bool registerAdmin(String idNumber) {
 //   return true;

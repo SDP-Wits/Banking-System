@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:last_national_bank/config/routes/router.dart' as router;
-import 'package:last_national_bank/utils/services/local_db.dart';
 
+import '../../config/routes/router.dart' as router;
+import '../services/local_db.dart';
+
+//Print and toast at once :)
 void toastyPrint(String string) {
   Fluttertoast.showToast(msg: string);
   print(string);
 }
 
+//Checks if the user is already logged in (if they in local DB)
 void autoLogin(BuildContext context) {
   LocalDatabaseHelper.instance.isUser().then((isUser) {
     if (isUser) {
@@ -22,6 +25,7 @@ void autoLogin(BuildContext context) {
   });
 }
 
+//Gets the current date in the format, YYYY-MM-DD
 String getDate() {
   DateTime now = new DateTime.now();
   DateTime date = new DateTime(now.year, now.month, now.day);
@@ -29,6 +33,7 @@ String getDate() {
   return date.toString().split(' ')[0];
 }
 
+//Takes in a card number and adds spaces to it
 String seperateCardNumber(String cardNumber) {
   String ansString = "";
 
@@ -43,6 +48,8 @@ String seperateCardNumber(String cardNumber) {
   return ansString;
 }
 
+//Takes in full name and makes initals for first and middles names
+//eg. Arneev Mohan Joker Singh -> A.M.J. Singh
 String getNameDisplay(String firstName, String middleNames, String lastName) {
   firstName = firstName.trim();
   middleNames = middleNames.trim();

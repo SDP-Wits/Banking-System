@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:last_national_bank/classes/currID.dart';
-import 'package:last_national_bank/constants/database_constants.dart';
-import 'package:last_national_bank/core/verification_status/verification_status.dart';
-import 'package:last_national_bank/utils/services/local_db.dart';
+
+import '../../classes/currID.dart';
 import '../../config/routes/router.dart';
+import '../../constants/database_constants.dart';
 import '../../utils/services/online_db.dart';
 import '../SHA-256_encryption.dart';
 
@@ -77,7 +76,7 @@ Future<void> loginProcedure(BuildContext context) async {
       //   if (accountDetails.isEmpty) {
       //     goToAdminVerificationStatus(context);
       //   } else {
-      //     goToViewAcc(context);
+      //     goToViewAccount(context);
       //   }
       // });
     }
