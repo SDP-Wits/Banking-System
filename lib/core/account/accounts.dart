@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:last_national_bank/classes/accountDetails.dart';
 import 'package:last_national_bank/classes/currID.dart';
 import 'package:last_national_bank/classes/user.class.dart';
@@ -18,51 +19,38 @@ class Accounts extends StatefulWidget {
 class _AccountsState extends State<Accounts> {
   User? user;
 
-  //TODO: Change once you got the data from db
-
   String cardType = "VISA"; // There is no field in the db for this
   //There shouldn't be one coz it only applies to transactions account
   //So we can sort that out in the future, but for now hardcode it
 
-
   List<accountDetails> acc = [];
-
 
   @override
   void initState() {
     super.initState();
 
-    getAccountDetails(currID.id).then((account) {
-
-
-      setState(() {
-        acc = account;
-        // ignore: unnecessary_null_comparison
-
+    LocalDatabaseHelper.instance.getUserAndAddress().then((userDB) {
+      getAccountDetails(userDB!.idNumber).then((account) {
+        setState(() {
+          user = userDB;
+          acc = account;
+        });
       });
-      if (acc.isEmpty) {
-        Navigator.pop(context);
-      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (acc.isEmpty) {
-      getclientdets(currID.id);
-      return _buildLoadingScreen();
-    } else {
-      return buildPage();
-    }
+    //Moved loading building page inside the build page
+    return buildPage();
   }
-
 
   Widget buildPage() {
     accountDetails account = acc[0];
     final Size size = MediaQuery.of(context).size;
     final double verticalPadding = 45;
-    //TODO: Change this to 'user != null'
-    return (acc.isNotEmpty)
+
+    return (acc.isEmpty)
         ? Container(
             width: size.width,
             height: size.height,
@@ -95,7 +83,7 @@ class _AccountsState extends State<Accounts> {
               ],
             ),
           )
-        : Container();
+        : _buildLoadingScreen();
   }
 }
 

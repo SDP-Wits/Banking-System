@@ -21,7 +21,7 @@ Future<List<Map<String, dynamic>>> getURLData(String url) async {
   final httpResponse = await http.get(uri);
 
   if (httpResponse.statusCode == 200) {
-    // print("response from json is " + httpResponse.body);
+    print("response from json is " + httpResponse.body);
     final jsonOutput = json.decode(httpResponse.body);
 
     List<Map<String, dynamic>> map = [];
@@ -151,10 +151,16 @@ Future<List<thisUser>> getclientdets(String idNumber) async {
   final String arguments = "?id=$idNumber";
   final String url = urlPath + select_client_id + arguments;
 
-  final data = await getURLData(url);
+  List<Map> data = (await getURLData(url));
 
   List<thisUser> users = [];
   for (var map in data) {
+    if (map.containsKey("status")) {
+      if (!map["status"]) {
+        continue;
+      }
+    }
+
     thisUser user = thisUser(
         userID: int.parse(map["clientID"]),
         firstName: map["firstName"],
@@ -164,7 +170,6 @@ Future<List<thisUser>> getclientdets(String idNumber) async {
         phoneNumber: map["phoneNumber"],
         email: map["email"],
         idNumber: map["idNumber"],
-
         address: "",
         status: map["verificationStatus"]);
 
@@ -173,12 +178,21 @@ Future<List<thisUser>> getclientdets(String idNumber) async {
   return users;
 }
 
-Future<String> verifyClient(String clientIdNumber, String adminIdNumber, String clientStatus) async {
+Future<String> verifyClient(
+    String clientIdNumber, String adminIdNumber, String clientStatus) async {
   String date = getDate();
 
-  String arguments = argumentMaker(
-      phpNames: ["clientIdNum", "adminIdNum", "currentDate", "verificationStatus"],
-      inputVariables: [clientIdNumber, adminIdNumber, date, clientStatus]);
+  String arguments = argumentMaker(phpNames: [
+    "clientIdNum",
+    "adminIdNum",
+    "currentDate",
+    "verificationStatus"
+  ], inputVariables: [
+    clientIdNumber,
+    adminIdNumber,
+    date,
+    clientStatus
+  ]);
 
   Map data = (await getURLData(urlPath + verify_client + arguments))[0];
 
@@ -189,6 +203,47 @@ Future<String> verifyClient(String clientIdNumber, String adminIdNumber, String 
   } else {
     return dbFailed;
   }
+}
+
+// Get account options data
+Future<List<accountTypes>> getAccTypes() async {
+  String url = urlPath + select_account_types;
+
+  List<Map> accTypeDetails = await getURLData(url);
+
+  List<accountTypes> bankAccTypes = [];
+
+  for (int i = 0; i < accTypeDetails.length; ++i) {
+    String accType = accTypeDetails[i]["accountType"];
+    String accDescription = accTypeDetails[i]["accountDescription"];
+
+    accountTypes accOption =
+        accountTypes(accType: accType, accDescription: accDescription);
+
+    bankAccTypes.add(accOption);
+  }
+
+  return bankAccTypes;
+}
+
+Future<String> createAccount(int clientID, String accountType) async {
+  String date = getDate();
+
+  List<String> phpNames = ["clientIdNum", "accountType", "currentDate"];
+  List<String> inputVariables = [clientID.toString(), accountType, date];
+
+  String arguments =
+      argumentMaker(phpNames: phpNames, inputVariables: inputVariables);
+
+  final String url = urlPath + insert_new_account + arguments;
+
+  Map data = (await getURLData(url))[0];
+
+  if (data["status"]) {
+    return dbSuccess;
+  }
+
+  return "Failed to create an account";
 }
 
 // get client account details
@@ -220,10 +275,9 @@ Future<List<accountDetails>> getAccountDetails(String idNumber) async {
 
   bool status = (data[0])["status"];
 
-  if (status == false){
+  if (status == false) {
     return [];
   }
-
 
   for (var map in data) {
     accountDetails account = accountDetails(
@@ -254,25 +308,4 @@ String argumentMaker(
   }
 
   return argument;
-}
-
-// Get account options data
-Future<List<accountTypes>> getAccTypes() async {
-  String url = urlPath + select_account_types;
-
-  List<Map> accTypeDetails = await getURLData(url);
-
-  List<accountTypes> bankAccTypes = [];
-
-  for (int i = 0; i < accTypeDetails.length; ++i) {
-    String accType = accTypeDetails[i]["accountType"];
-    String accDescription = accTypeDetails[i]["accountDescription"];
-
-    accountTypes accOption =
-        accountTypes(accType: accType, accDescription: accDescription);
-
-    bankAccTypes.add(accOption);
-  }
-
-  return bankAccTypes;
 }

@@ -10,3 +10,4 @@ const String select_unverified_client_names =
 const String verify_client = "verify_client.php";
 const String select_client_account = "select_client_account.php";
 const String select_account_types = "select_account_types.php";
+const String insert_new_account = "insert_new_account.php";

@@ -14,20 +14,21 @@ class VerificationStatus extends StatefulWidget {
 }
 
 class _VerificationStatusState extends State<VerificationStatus> {
-  User? user ;
-  List<thisUser>? me;
+  User? user;
+  List<thisUser>? me = null;
+
   @override
   void initState() {
     super.initState();
-    getclientdets(currID.id).then((stat) {
-      setState(() {
-        me = stat;
-      });
-    });
-    LocalDatabaseHelper.instance.getUserAndAddress().then((currUser) {
 
+    LocalDatabaseHelper.instance.getUserAndAddress().then((currUser) {
       setState(() {
         user = currUser;
+      });
+      getclientdets(user!.idNumber).then((stat) {
+        setState(() {
+          me = stat;
+        });
       });
       if (user == null) {
         LocalDatabaseHelper.instance.deleteData();
@@ -39,7 +40,6 @@ class _VerificationStatusState extends State<VerificationStatus> {
   @override
   Widget build(BuildContext context) {
     if (me == null) {
-      getclientdets(currID.id);
       return _buildLoadingScreen();
     } else {
       return buildPage();
@@ -95,13 +95,10 @@ class _VerificationStatusState extends State<VerificationStatus> {
                 // if (me![0].status == "Verified"){
                 //   CreateAccButton();
                 // }
-                (me![0].status=="Verified")
-                    ? CreateAccButton()
-                    : Container(),
-              // CreateAccButton()
+                (me![0].status == "Verified") ? CreateAccButton() : Container(),
+                // CreateAccButton()
               ],
             ),
-
           );
   }
 }
@@ -132,7 +129,6 @@ class HeadingBlocks extends StatelessWidget {
   }
 }
 
-
 class HeadingBlocks1 extends StatelessWidget {
   final String text;
   final double fontSize;
@@ -156,7 +152,7 @@ class HeadingBlocks1 extends StatelessWidget {
         //     width: 1,
         //   ),
         // ),
-        border: Border.all(color:Colors.white, width: 3),
+        border: Border.all(color: Colors.white, width: 3),
       ),
       child: Text(
         text,
@@ -199,18 +195,15 @@ class DetailedBlocks extends StatelessWidget {
       child: Text(
         property + ": " + text,
         textAlign: TextAlign.left,
-        style: TextStyle(
-          fontSize: 16,
-          color: Colors.white
-        ),
+        style: TextStyle(fontSize: 16, color: Colors.white),
       ),
     );
   }
 }
 
-class CreateAccButton extends StatelessWidget{
+class CreateAccButton extends StatelessWidget {
   CreateAccButton();
-  
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -234,7 +227,6 @@ class CreateAccButton extends StatelessWidget{
                   onPressed: () {
                     goToCreateAcc(context);
                   },
-
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -251,7 +243,9 @@ class CreateAccButton extends StatelessWidget{
               ],
             ),
           ),
-          SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.02,
+          ),
           Container(
             alignment: Alignment.center,
             height: 60,
@@ -266,7 +260,6 @@ class CreateAccButton extends StatelessWidget{
                   onPressed: () {
                     goToViewAcc(context);
                   },
-
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -304,4 +297,3 @@ Widget _buildLoadingScreen() {
     ),
   );
 }
-

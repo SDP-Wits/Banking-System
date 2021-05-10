@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:last_national_bank/classes/accountTypes.dart';
+import 'package:last_national_bank/utils/helpers/helper.dart';
 
 import '../../utils/services/online_db.dart';
 
@@ -20,33 +21,33 @@ class _BankAccountOptionsState extends State<BankAccountOptions> {
   var accountTypeList = [];
   var descriptionList = [];
 
+  //Auto generating just to make sure it ain't a problem
+  var accNumbersList = [];
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
-    Future<List<accountTypes>> bankAccountOptions = getAccTypes();
-
-    bankAccountOptions.then((value) {
+    getAccTypes().then((value) {
       for (int i = 0; i < value.length; ++i) {
         var accType = value[i].accType;
         var accDescription = value[i].accDescription;
 
-        accountTypeList.add(accType);
-        descriptionList.add(accDescription);
+        accountTypeList = [...accountTypeList, accType];
+        descriptionList = [...descriptionList, accDescription];
+        accNumbersList = [...accNumbersList, "**** **** **** 95${i}0"];
       }
-      setState(() {});
+
+      setState(() {
+        accountTypeList = [...accountTypeList];
+        descriptionList = [...descriptionList];
+        accNumbersList = [...accNumbersList];
+
+        });
     });
   }
 
   //fix this
-
-  var accNumbersList = [
-    "**** **** **** 4862",
-    "**** **** **** 7913",
-    "**** **** **** 0258",
-    "**** **** **** 9510"
-  ];
 
   //fix this
   var colorsList = [
@@ -69,7 +70,7 @@ class _BankAccountOptionsState extends State<BankAccountOptions> {
         elevation: 5,
         backgroundColor: Colors.white,
       ),
-      body: (accountTypeList.isEmpty)
+      body: (accountTypeList.isNotEmpty)
           ? ListView.builder(
               itemCount: accountTypeList.length,
               itemBuilder: (context, index) {
