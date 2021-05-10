@@ -38,6 +38,15 @@ class _VerificationStatusState extends State<VerificationStatus> {
 
   @override
   Widget build(BuildContext context) {
+    if (me == null) {
+      getclientdets(currID.id);
+      return _buildLoadingScreen();
+    } else {
+      return buildPage();
+    }
+  }
+
+  Widget buildPage() {
     final Size size = MediaQuery.of(context).size;
     return (user == null)
         ? Container(
@@ -209,33 +218,90 @@ class CreateAccButton extends StatelessWidget{
         top: 40,
         bottom: 40,
       ),
-      child: Container(
-        alignment: Alignment.center,
-        height: 60,
-        width: MediaQuery.of(context).size.width / 2,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(30),
-        ),
-        child: TextButton(
-          onPressed: () {
-            goToCreateAcc(context);
-          },
-          
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                'Create Account',
-                style: TextStyle(
-                  color: Colors.teal,
-                  fontSize: 17,
+      child: Row(
+        children: [
+          Container(
+            alignment: Alignment.center,
+            height: 60,
+            width: MediaQuery.of(context).size.width / 2.2,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(30),
+            ),
+            child: Row(
+              children: [
+                TextButton(
+                  onPressed: () {
+                    goToCreateAcc(context);
+                  },
+
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        'Create Account',
+                        style: TextStyle(
+                          color: Colors.teal,
+                          fontSize: 17,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
+          SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
+          Container(
+            alignment: Alignment.center,
+            height: 60,
+            width: MediaQuery.of(context).size.width / 2.2,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(30),
+            ),
+            child: Row(
+              children: [
+                TextButton(
+                  onPressed: () {
+                    goToViewAcc(context);
+                  },
+
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        'View Account',
+                        style: TextStyle(
+                          color: Colors.teal,
+                          fontSize: 17,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
 }
+
+Widget _buildLoadingScreen() {
+  return Center(
+    child: Container(
+      // decoration: BoxDecoration(
+      //   gradient: LinearGradient(
+      //       begin: Alignment.topRight,
+      //       end: Alignment.bottomLeft,
+      //       colors: [Colors.blueGrey, Colors.teal]),
+      // ),
+      width: 50,
+      height: 50,
+      child: CircularProgressIndicator(),
+    ),
+  );
+}
+

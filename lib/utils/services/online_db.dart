@@ -217,6 +217,14 @@ Future<List<accountDetails>> getAccountDetails(String accNumber) async {
   final data = await getURLData(url);
 
   List<accountDetails> accounts = [];
+
+  bool status = (data[0])["status"];
+
+  if (status == false){
+    return [];
+  }
+
+
   for (var map in data) {
     accountDetails account = accountDetails(
         accountNumber: map["accountNumber"],

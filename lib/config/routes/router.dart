@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:last_national_bank/classes/name.class.dart';
 import 'package:last_national_bank/classes/user.class.dart';
+import 'package:last_national_bank/core/account/accounts.dart';
 import 'package:last_national_bank/core/bank_account_options/account_options.dart';
 import '../../constants/route_constants.dart';
 import '../../core/login/login.dart';
@@ -51,6 +52,9 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case CreateAccount:
       return MaterialRouteWrap(BankAccountOptions());
 
+    case ViewAccount:
+      return MaterialRouteWrap(Accounts());
+
     //If page to go to is unknown, go to default home page, i.e. Login Page
     default:
       return MaterialRouteWrap(LoginPage());
@@ -93,3 +97,8 @@ void goToNewUser(BuildContext context) {
 void goToCreateAcc(BuildContext context) {
   Navigator.pushNamed(context, CreateAccount);
 }
+
+void goToViewAcc(BuildContext context) {
+  Navigator.pushNamed(context, ViewAccount);
+}
+
