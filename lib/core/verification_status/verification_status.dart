@@ -221,26 +221,19 @@ class CreateAccButton extends StatelessWidget {
               color: Colors.white,
               borderRadius: BorderRadius.circular(30),
             ),
-            child: Row(
-              children: [
-                TextButton(
-                  onPressed: () {
-                    goToCreateAcc(context);
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        'Create Account',
-                        style: TextStyle(
-                          color: Colors.teal,
-                          fontSize: 17,
-                        ),
-                      ),
-                    ],
+            child: Container(
+              child: TextButton(
+                onPressed: () {
+                  goToCreateAcc(context);
+                },
+                child: Text(
+                  'Create Account',
+                  style: TextStyle(
+                    color: Colors.teal,
+                    fontSize: 17,
                   ),
                 ),
-              ],
+              ),
             ),
           ),
           SizedBox(
@@ -254,26 +247,19 @@ class CreateAccButton extends StatelessWidget {
               color: Colors.white,
               borderRadius: BorderRadius.circular(30),
             ),
-            child: Row(
-              children: [
-                TextButton(
-                  onPressed: () {
-                    goToViewAcc(context);
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        'View Account',
-                        style: TextStyle(
-                          color: Colors.teal,
-                          fontSize: 17,
-                        ),
-                      ),
-                    ],
+            child: Container(
+              child: TextButton(
+                onPressed: () {
+                  goToViewAcc(context);
+                },
+                child: Text(
+                  'View Account',
+                  style: TextStyle(
+                    color: Colors.teal,
+                    fontSize: 17,
                   ),
                 ),
-              ],
+              ),
             ),
           ),
         ],
