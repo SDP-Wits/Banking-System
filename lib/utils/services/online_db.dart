@@ -224,7 +224,7 @@ Future<List<accountTypes>> getAccountTypes() async {
   for (int i = 0; i < accTypeDetails.length; ++i) {
     String accType = accTypeDetails[i]["accountType"];
     String accDescription = accTypeDetails[i]["accountDescription"];
-    int accTypeId = accTypeDetails[i]["accountTypeID"];
+    int accTypeId = int.parse(accTypeDetails[i]["accountTypeID"].toString());
 
     accountTypes accOption = accountTypes(
       accType: accType,
