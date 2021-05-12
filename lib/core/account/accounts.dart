@@ -82,13 +82,15 @@ class _AccountsState extends State<Accounts> {
                   padding: EdgeInsets.only(top: verticalPadding),
                 ),
                 AccountCardInfo(
-                    accountType: account.accountType,
-                    accountNumber: account.accountNumber,
-                    firstName: account.fName,
-                    middleNames: account.mName,
-                    lastName: account.lName,
-                    cardType: cardType,
-                    currAmount: account.currentBalance)
+                  accountType: account.accountType,
+                  accountNumber: account.accountNumber,
+                  firstName: account.fName,
+                  middleNames: account.mName,
+                  lastName: account.lName,
+                  cardType: cardType,
+                  currAmount: account.currentBalance,
+                  accountTypeId: account.accountTypeId,
+                )
               ],
             ),
           )

@@ -5,6 +5,7 @@ class accountDetails {
   final String fName;
   final String mName;
   final String lName;
+  final int accountTypeId;
 
   accountDetails({
     required this.accountNumber,
@@ -13,5 +14,6 @@ class accountDetails {
     required this.fName,
     required this.mName,
     required this.lName,
+    required this.accountTypeId,
   });
 }

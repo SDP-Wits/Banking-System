@@ -2,6 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:last_national_bank/classes/accountDetails.dart';
+import 'package:last_national_bank/constants/app_constants.dart';
+import 'package:last_national_bank/core/account/accounts.functions.dart';
 import '../../../utils/helpers/helper.dart';
 import '../../../utils/helpers/style.dart';
 
@@ -12,6 +15,7 @@ class AccountCardInfo extends StatefulWidget {
   final String middleNames;
   final String lastName;
   final String cardType;
+  final int accountTypeId;
 
   final double currAmount;
 
@@ -22,13 +26,15 @@ class AccountCardInfo extends StatefulWidget {
       required this.middleNames,
       required this.lastName,
       required this.cardType,
-      required this.currAmount});
+      required this.currAmount,
+      required this.accountTypeId});
 
   @override
   _AccountCardInfoState createState() => _AccountCardInfoState();
 }
 
 class _AccountCardInfoState extends State<AccountCardInfo> {
+  bool didSwipe = false;
   bool isFront = true;
   double angle = 0.0;
 
@@ -40,7 +46,27 @@ class _AccountCardInfoState extends State<AccountCardInfo> {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return GestureDetector(
+      onHorizontalDragUpdate: (DragUpdateDetails details) {
+        if (details.delta.dx > swipeSensitivty && !didSwipe) {
+          didSwipe = true;
+          onSwipe(
+              context: context,
+              accountDetail: accountDetails(
+                  accountNumber: this.widget.accountNumber,
+                  accountType: this.widget.accountType,
+                  currentBalance: this.widget.currAmount,
+                  fName: this.widget.firstName,
+                  mName: this.widget.middleNames,
+                  lName: this.widget.lastName,
+                  accountTypeId: this.widget.accountTypeId));
+
+          Future.delayed(Duration(seconds: 1)).then((_) {
+            didSwipe = false;
+          });
+        }
+      },
       onTap: _flip,
       child: TweenAnimationBuilder(
         tween: Tween<double>(begin: 0, end: angle),

@@ -52,6 +52,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case ViewAccount:
       return MaterialRouteWrap(Accounts());
 
+    case SpecificAccount:
+      //TODO: CHANGE THIS BASED OFF WIDGET NAME - Arneev
+      //return MaterialRouteWrap(SpecificAccountWdiget);
+
     //If page to go to is unknown, go to default home page, i.e. Login Page
     default:
       return MaterialRouteWrap(LoginPage());
@@ -99,4 +103,9 @@ void goToCreateAccount(BuildContext context) {
 
 void goToViewAccount(BuildContext context) {
   Navigator.pushNamed(context, ViewAccount);
+}
+
+void goToSpecificAccount(BuildContext context){
+  //TODO: CHANGE THIS BASED OFF WIDGET NAME - Arneev
+  //Navigator.pushNamed(context, SpecificAccountWidgget);
 }

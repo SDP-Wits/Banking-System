@@ -3,7 +3,7 @@ include "./helpers/server_details.php";
 
 $idNum = $_REQUEST['idNum'];
 
-$sql = "SELECT CLIENT.firstName,CLIENT.middleName,CLIENT.lastName,`ACCOUNT TYPE`.accountType,ACCOUNT.accountNumber,ACCOUNT.currentBalance
+$sql = "SELECT CLIENT.firstName,CLIENT.middleName,CLIENT.lastName,`ACCOUNT TYPE`.accountType,`ACCOUNT TYPE`.accountTypeID,ACCOUNT.accountNumber,ACCOUNT.currentBalance
 FROM ACCOUNT
 INNER JOIN `CLIENT-ACCOUNT`ON ACCOUNT.accountNumber=`CLIENT-ACCOUNT`.accountNumber
 INNER JOIN CLIENT ON CLIENT.clientID=`CLIENT-ACCOUNT`.clientID

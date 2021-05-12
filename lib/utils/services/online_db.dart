@@ -289,7 +289,8 @@ Future<List<accountDetails>> getAccountDetails(String idNumber) async {
         currentBalance: double.parse(map["currentBalance"].toString()),
         fName: map["firstName"],
         mName: map["middleName"],
-        lName: map["lastName"]);
+        lName: map["lastName"],
+        accountTypeId: int.parse(map['accountTypeID'].toString()));
     accounts.add(account);
   }
 
