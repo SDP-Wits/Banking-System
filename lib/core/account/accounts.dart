@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:last_national_bank/config/routes/router.dart';
 
 import '../../classes/accountDetails.dart';
 import '../../classes/user.class.dart';
@@ -21,6 +22,7 @@ class _AccountsState extends State<Accounts> {
   //So we can sort that out in the future, but for now hardcode it
 
   List<accountDetails> acc = [];
+  int uniqueAccountTypes = 999;
 
   @override
   void initState() {
@@ -28,22 +30,29 @@ class _AccountsState extends State<Accounts> {
 
     LocalDatabaseHelper.instance.getUserAndAddress().then((userDB) {
       getAccountDetails(userDB!.idNumber).then((account) {
+        //TODO: Arneev - Get unique number of accounts from http request
+        //getUniqueAccounts().then((val){
+        //
+        //uniqueAccountTypes = getFromVal(val);
+
         setState(() {
           user = userDB;
           acc = account;
-
-          if (acc.isEmpty) {
-            Fluttertoast.showToast(
-                msg: "Account Does Not Exist",
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.CENTER,
-                timeInSecForIosWeb: 3,
-                backgroundColor: Colors.teal,
-                textColor: Colors.white,
-                fontSize: 16.0);
-            Navigator.pop(context);
-          }
         });
+
+        if (acc.isEmpty) {
+          Fluttertoast.showToast(
+              msg: "Account Does Not Exist",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 3,
+              backgroundColor: Colors.teal,
+              textColor: Colors.white,
+              fontSize: 16.0);
+          Navigator.pop(context);
+        }
+        //
+        //}) End of future getting unique account types
       });
     });
   }
@@ -55,46 +64,82 @@ class _AccountsState extends State<Accounts> {
   }
 
   Widget buildPage() {
-    accountDetails account = acc[0];
     final Size size = MediaQuery.of(context).size;
     final double verticalPadding = 45;
 
-    return (acc.isNotEmpty)
-        ? Container(
-            width: size.width,
-            height: size.height,
-            decoration: BoxDecoration(
-              gradient: backgroundGradient,
+    if ((acc.isNotEmpty)) {
+      return Container(
+        width: size.width,
+        height: size.height,
+        decoration: BoxDecoration(
+          gradient: backgroundGradient,
+        ),
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(top: verticalPadding),
             ),
-            child: Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(top: verticalPadding),
-                ),
-                Text(
-                  'Accounts',
-                  style: new TextStyle(
-                      fontSize: 30.0,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.white),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: verticalPadding),
-                ),
-                AccountCardInfo(
-                  accountType: account.accountType,
-                  accountNumber: account.accountNumber,
-                  firstName: account.fName,
-                  middleNames: account.mName,
-                  lastName: account.lName,
-                  cardType: cardType,
-                  currAmount: account.currentBalance,
-                  accountTypeId: account.accountTypeId,
-                )
-              ],
+            Text(
+              'Accounts',
+              style: new TextStyle(
+                  fontSize: 30.0,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white),
             ),
-          )
-        : _buildLoadingScreen();
+            Padding(
+              padding: EdgeInsets.only(top: verticalPadding),
+            ),
+            Expanded(
+              child: SizedBox(
+                width: size.width * 0.9,
+                child: ListView.builder(
+                    padding: EdgeInsets.symmetric(vertical: 15),
+                    itemCount: acc.length,
+                    itemBuilder: (BuildContext context, int itemCount) {
+                      return AccountCardInfo(
+                        accountType: acc[0].accountType,
+                        accountNumber: acc[0].accountNumber,
+                        firstName: acc[0].fName,
+                        middleNames: acc[0].mName,
+                        lastName: acc[0].lName,
+                        cardType: cardType,
+                        currAmount: acc[0].currentBalance,
+                        accountTypeId: acc[0].accountTypeId,
+                      );
+                    }),
+              ),
+            ),
+            (acc.length < uniqueAccountTypes)
+                ? Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16.0, vertical: 16.0),
+                        child: FloatingActionButton(
+                            backgroundColor: Colors.white,
+                            child: Text(
+                              '+',
+                              style: TextStyle(
+                                color: Colors.teal,
+                                fontSize: 36,
+                                fontFamily: fontMont,
+                              ),
+                            ),
+                            onPressed: () {
+                              goToCreateAccount(context);
+                            }),
+                      ),
+                    ],
+                  )
+                : Container(width: 0, height: 0)
+          ],
+        ),
+      );
+    } else {
+      return _buildLoadingScreen();
+    }
   }
 }
 
