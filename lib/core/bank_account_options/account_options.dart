@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
+import 'package:last_national_bank/widgets/navigation.dart';
 
 import '../../classes/user.class.dart';
 import '../../config/routes/router.dart';

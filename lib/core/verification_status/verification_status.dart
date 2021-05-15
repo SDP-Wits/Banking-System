@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:last_national_bank/widgets/navigation.dart';
 
 import '../../classes/thisUser.dart';
 import '../../classes/user.class.dart';
@@ -14,6 +15,7 @@ class VerificationStatus extends StatefulWidget {
 class _VerificationStatusState extends State<VerificationStatus> {
   User? user;
   List<thisUser>? me = null;
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -47,56 +49,87 @@ class _VerificationStatusState extends State<VerificationStatus> {
   Widget buildPage() {
     final Size size = MediaQuery.of(context).size;
     return (user == null)
-        ? Container(
-            width: size.width,
-            height: size.height,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topRight,
-                  end: Alignment.bottomLeft,
-                  colors: [Colors.blueGrey, Colors.teal]),
-            ),
+        ? Scaffold(
+            drawer: Navigation(clientName: user!.firstName, clientSurname: user!.lastName),
+            
+            body: Container(
+              width: size.width,
+              height: size.height,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topRight,
+                    end: Alignment.bottomLeft,
+                    colors: [Colors.blueGrey, Colors.teal]),
+              ),
+
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: IconButton(
+                  icon: Icon(Icons.menu, color: Colors.white), onPressed: () { 
+                    _scaffoldKey.currentState!.openDrawer();
+                  },
+                ),
+              ),
+            
+            
+
+            )
           )
-        : Container(
-            width: size.width,
-            height: size.height,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topRight,
-                  end: Alignment.bottomLeft,
-                  colors: [Colors.teal, Colors.blueGrey]),
-            ),
-            padding: EdgeInsets.all(10.0),
-            child: ListView(
-              children: <Widget>[
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: 5),
-                ),
-                HeadingBlocks1("My Information", 34, 30),
-                Container(
-                  padding: EdgeInsets.all(15),
-                ),
-                HeadingBlocks("Verification Status: " + me![0].status, 22, 20),
-                DetailedBlocks(user!.firstName, "First Name"),
-                (user!.middleName != null)
-                    ? DetailedBlocks(user!.middleName!, "Middle Name")
-                    : Container(),
-                DetailedBlocks(user!.lastName, "Last Name"),
-                DetailedBlocks(user!.email, "Email"),
-                DetailedBlocks(user!.idNumber, "ID"),
-                DetailedBlocks(user!.phoneNumber, "Phone Number"),
-                DetailedBlocks(
-                    user!.address.streetNumber.toString() +
-                        user!.address.streetName,
-                    "Address"),
-                DetailedBlocks(user!.address.suburb, "Suburb"),
-                // if (me![0].status == "Verified"){
-                //   CreateAccButton();
-                // }
-                (me![0].status == "Verified") ? CreateAccButton() : Container(),
-                // CreateAccButton()
-              ],
-            ),
+        : Scaffold(
+          key: _scaffoldKey,
+            drawer: Navigation(clientName: user!.firstName, clientSurname: user!.lastName),
+            body: Container(
+              width: size.width,
+              height: size.height,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topRight,
+                    end: Alignment.bottomLeft,
+                    colors: [Colors.teal, Colors.blueGrey]),
+              ),
+              padding: EdgeInsets.all(10.0),
+              child: ListView(
+                children: <Widget>[
+                  
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: IconButton(
+                      icon: Icon(Icons.menu, color: Colors.white), onPressed: () { 
+                        _scaffoldKey.currentState!.openDrawer();
+                      },
+                   ),
+                  ),
+                  
+
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 5),
+                  ),
+                  HeadingBlocks1("My Information", 34, 30),
+                  Container(
+                    padding: EdgeInsets.all(15),
+                  ),
+                  HeadingBlocks("Verification Status: " + me![0].status, 22, 20),
+                  DetailedBlocks(user!.firstName, "First Name"),
+                  (user!.middleName != null)
+                      ? DetailedBlocks(user!.middleName!, "Middle Name")
+                      : Container(),
+                  DetailedBlocks(user!.lastName, "Last Name"),
+                  DetailedBlocks(user!.email, "Email"),
+                  DetailedBlocks(user!.idNumber, "ID"),
+                  DetailedBlocks(user!.phoneNumber, "Phone Number"),
+                  DetailedBlocks(
+                      user!.address.streetNumber.toString() +
+                          user!.address.streetName,
+                      "Address"),
+                  DetailedBlocks(user!.address.suburb, "Suburb"),
+                  // if (me![0].status == "Verified"){
+                  //   CreateAccButton();
+                  // }
+                  (me![0].status == "Verified") ? CreateAccButton() : Container(),
+                  // CreateAccButton()
+                ],
+              ),
+            )
           );
   }
 }
