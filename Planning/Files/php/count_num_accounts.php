@@ -1,7 +1,7 @@
 <?php
 include "./helpers/server_details.php";
 
-$sql = "SELECT COUNT(*) FROM `ACCOUNT TYPE`";
+$sql = "SELECT COUNT(*) AS NumAccountTypes FROM `ACCOUNT TYPE`";
 
 $result = mysqli_query($conn,$sql);
 
