@@ -145,6 +145,21 @@ Future<List<Name>> getUnverifiedClients() async {
   return names;
 }
 
+Future<int> getNumberOfAccounts() async {
+  final String url = urlPath + count_num_accountTypes;
+
+  final List<Map> data = (await getURLData(url));
+
+  if (data[0].containsKey("status")) {
+    if (!data[0]["status"]) {
+      print("There are no account types");
+      return 0;
+    }
+  }
+
+  return int.parse(data[0]["NumAccountTypes"].toString());
+}
+
 // get clients details for admin to view
 Future<List<thisUser>> getClientDetails(String idNumber) async {
   final String arguments = "?id=$idNumber";
