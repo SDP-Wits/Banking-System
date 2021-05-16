@@ -31,29 +31,25 @@ class _AccountsState extends State<Accounts> {
 
     LocalDatabaseHelper.instance.getUserAndAddress().then((userDB) {
       getAccountDetails(userDB!.idNumber).then((account) {
-        //TODO: Arneev - Get unique number of accounts from http request
-        //getUniqueAccounts().then((val){
-        //
-        //uniqueAccountTypes = getFromVal(val);
+        getNumberOfAccounts().then((numberAccounts) {
+          setState(() {
+            uniqueAccountTypes = numberAccounts;
+            user = userDB;
+            acc = account;
+          });
 
-        setState(() {
-          user = userDB;
-          acc = account;
-        });
-
-        if (acc.isEmpty) {
-          Fluttertoast.showToast(
-              msg: "Account Does Not Exist",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.CENTER,
-              timeInSecForIosWeb: 3,
-              backgroundColor: Colors.teal,
-              textColor: Colors.white,
-              fontSize: 16.0);
-          Navigator.pop(context);
-        }
-        //
-        //}) End of future getting unique account types
+          if (acc.isEmpty) {
+            Fluttertoast.showToast(
+                msg: "Account Does Not Exist",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 3,
+                backgroundColor: Colors.teal,
+                textColor: Colors.white,
+                fontSize: 16.0);
+            Navigator.pop(context);
+          }
+        }); //End of future getting unique account types
       });
     });
   }
@@ -70,28 +66,27 @@ class _AccountsState extends State<Accounts> {
     GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     if ((acc.isNotEmpty)) {
-        return Scaffold(
-          key: _scaffoldKey,
-          drawer: Navigation(clientName: user!.firstName, clientSurname: user!.lastName),
-          
-          body: Container(
-            width: size.width,
-            height: size.height,
+      return Scaffold(
+        key: _scaffoldKey,
+        drawer: Navigation(
+            clientName: user!.firstName, clientSurname: user!.lastName),
+        body: SingleChildScrollView(
+          physics: ScrollPhysics(),
+          child: Container(
             decoration: BoxDecoration(
               gradient: backgroundGradient,
             ),
             child: Column(
               children: [
-
                 Align(
                   alignment: Alignment.topLeft,
                   child: IconButton(
-                    icon: Icon(Icons.menu, color: Colors.white), onPressed: () { 
+                    icon: Icon(Icons.menu, color: Colors.white),
+                    onPressed: () {
                       _scaffoldKey.currentState!.openDrawer();
                     },
                   ),
                 ),
-
                 Padding(
                   padding: EdgeInsets.only(top: verticalPadding),
                 ),
@@ -102,28 +97,28 @@ class _AccountsState extends State<Accounts> {
                       fontWeight: FontWeight.w500,
                       color: Colors.white),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(top: verticalPadding),
-                ),
-                Expanded(
-                  child: SizedBox(
-                    width: size.width * 0.9,
-                    child: ListView.builder(
-                        padding: EdgeInsets.symmetric(vertical: 15),
-                        itemCount: acc.length,
-                        itemBuilder: (BuildContext context, int itemCount) {
-                          return AccountCardInfo(
-                            accountType: acc[0].accountType,
-                            accountNumber: acc[0].accountNumber,
-                            firstName: acc[0].fName,
-                            middleNames: acc[0].mName,
-                            lastName: acc[0].lName,
+                SizedBox(
+                  width: size.width * 0.9,
+                  child: ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      padding: EdgeInsets.symmetric(vertical: 15),
+                      itemCount: acc.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 24.0),
+                          child: AccountCardInfo(
+                            accountType: acc[index].accountType,
+                            accountNumber: acc[index].accountNumber,
+                            firstName: acc[index].fName,
+                            middleNames: acc[index].mName,
+                            lastName: acc[index].lName,
                             cardType: cardType,
-                            currAmount: acc[0].currentBalance,
-                            accountTypeId: acc[0].accountTypeId,
-                          );
-                        }),
-                  ),
+                            currAmount: acc[index].currentBalance,
+                            accountTypeId: acc[index].accountTypeId,
+                          ),
+                        );
+                      }),
                 ),
                 (acc.length < uniqueAccountTypes)
                     ? Row(
@@ -152,8 +147,9 @@ class _AccountsState extends State<Accounts> {
                     : Container(width: 0, height: 0)
               ],
             ),
-          )
-        );
+          ),
+        ),
+      );
     } else {
       return _buildLoadingScreen();
     }
