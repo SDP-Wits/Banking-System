@@ -34,10 +34,11 @@ $stmt2->execute();
 $sql1 = "SELECT accountType AS accName FROM `ACCOUNT TYPE` WHERE accountTypeID = '$accountType'";
 $accCheck = mysqli_query($conn, $sql1);
 $accResult = mysqli_fetch_array($accCheck);
+$desc = "Created a ".$accResult['accName'];
 
 //Update LOG table as well
 $stmt3 = $conn->prepare("INSERT INTO LOG (description, clientID) VALUES (?,?)");
-$stmt3->bind_param("si",$accResult['accName'],$idResult['ID']);
+$stmt3->bind_param("si",$desc,$idResult['ID']);
 $stmt3->execute();
 
 echo json_encode(
