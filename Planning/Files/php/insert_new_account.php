@@ -6,9 +6,9 @@ $accountType = $_REQUEST["accountType"];
 $currentDate = $_REQUEST["currentDate"];
 
 //Testing example
-/*$clientIdNum = "2020200202000";
-$accountType = "3";
-$currentDate = "1999-03-05";*/
+/*$clientIdNum = "0011447788552";
+$accountType = "5";
+$currentDate = "2021-05-11";*/
 
 //Creating an account number and randomised balance - TEMPORARILY!
 $randomPart = mt_rand(10000,99999); //Gets a random integer value between 10000 and 99999
@@ -29,6 +29,16 @@ $idResult = mysqli_fetch_array($idCheck);
 $stmt2 = $conn->prepare("INSERT INTO `CLIENT-ACCOUNT` (clientID, accountNumber) VALUES (?,?)");
 $stmt2->bind_param("is",$idResult['ID'],$accountNumber);
 $stmt2->execute();
+
+//Obtaining name of account type for log description
+$sql1 = "SELECT accountType AS accName FROM `ACCOUNT TYPE` WHERE accountTypeID = '$accountType'";
+$accCheck = mysqli_query($conn, $sql1);
+$accResult = mysqli_fetch_array($accCheck);
+
+//Update LOG table as well
+$stmt3 = $conn->prepare("INSERT INTO LOG (description, clientID) VALUES (?,?)");
+$stmt3->bind_param("si",$accResult['accName'],$idResult['ID']);
+$stmt3->execute();
 
 echo json_encode(
 	array(
