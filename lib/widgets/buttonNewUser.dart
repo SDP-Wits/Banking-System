@@ -127,7 +127,7 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
               if (getCheck() == false) {
                 // give error
                 Fluttertoast.showToast(
-                    msg: "client error",
+                    msg: "Error with details",
                     toastLength: Toast.LENGTH_SHORT,
                     gravity: ToastGravity.CENTER,
                     timeInSecForIosWeb: 3,
@@ -152,7 +152,7 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
                 }*/
                 clientRegisterOnline().then((value) {
                   Fluttertoast.showToast(
-                      msg: "client sorted: " + value,
+                      msg: "" + value,
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.CENTER,
                       timeInSecForIosWeb: 3,
@@ -168,7 +168,7 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
               if (getCheck() == false) {
                 // give error
                 Fluttertoast.showToast(
-                    msg: "admin error",
+                    msg: "Error with details",
                     toastLength: Toast.LENGTH_SHORT,
                     gravity: ToastGravity.CENTER,
                     timeInSecForIosWeb: 3,
@@ -179,7 +179,7 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
                 //call php for admin
                 adminRegisterOnline().then((value) {
                   Fluttertoast.showToast(
-                      msg: "admin sorted: " + value,
+                      msg: "" + value,
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.CENTER,
                       timeInSecForIosWeb: 3,

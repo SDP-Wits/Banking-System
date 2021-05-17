@@ -119,6 +119,7 @@ class _VerificationStatusState extends State<VerificationStatus> {
                   DetailedBlocks(user!.phoneNumber, "Phone Number"),
                   DetailedBlocks(
                       user!.address.streetNumber.toString() +
+                          " " +
                           user!.address.streetName,
                       "Address"),
                   DetailedBlocks(user!.address.suburb, "Suburb"),
