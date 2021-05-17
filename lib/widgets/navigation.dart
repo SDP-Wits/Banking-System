@@ -121,6 +121,7 @@ class Navigation extends StatelessWidget {
               onTap: () {
                 //
                 Navigator.pop(context);
+                goToTimeline(context);
               },
             ),
 

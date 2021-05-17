@@ -13,6 +13,7 @@ import '../../core/registration/client_registration.dart';
 import '../../core/registration/newuser.page.dart';
 import '../../core/verification_list/admin_verification_list.dart';
 import '../../core/verification_status/verification_status.dart';
+import '../../core/timeline/timeline.dart';
 import 'router.helper.dart';
 import 'undefined_page.dart';
 
@@ -56,13 +57,16 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       //TODO: CHANGE THIS BASED OFF WIDGET NAME - Arneev
       //return MaterialRouteWrap(SpecificAccountWdiget);
 
+    case TimelineRoute:
+      return MaterialRouteWrap(TimelinePage());
+
     //If page to go to is unknown, go to default home page, i.e. Login Page
     default:
       return MaterialRouteWrap(LoginPage());
   }
 }
 
-//When the app recevies an unknown route name, do this
+//When the app receives an unknown route name, do this
 Route<dynamic> unknownRoute(RouteSettings settings) {
   return MaterialRouteWrap(
     UndefinedPage(name: settings.name!),
@@ -108,4 +112,8 @@ void goToViewAccount(BuildContext context) {
 void goToSpecificAccount(BuildContext context){
   //TODO: CHANGE THIS BASED OFF WIDGET NAME - Arneev
   //Navigator.pushNamed(context, SpecificAccountWidgget);
+}
+
+void goToTimeline(BuildContext context){
+  Navigator.pushNamed(context, TimelineRoute);
 }
