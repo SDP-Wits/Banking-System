@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import "package:http/http.dart" as http;
+import 'package:last_national_bank/classes/specificAccount.dart';
 
 import '../../classes/accountDetails.dart';
 import '../../classes/accountTypes.dart';
@@ -313,6 +314,42 @@ Future<List<accountDetails>> getAccountDetails(String idNumber) async {
 }
 
 //Getting account description from account id
+
+//Getting specific account details
+Future<List<specificAccount>> getSpecificAccount(String accNum) async{
+  final String arguments = "?accNum=$accNum";
+  final String url = urlPath + select_specific_account + arguments;
+
+  final List<Map> data = (await getURLData(url));
+
+  if (data[0].containsKey("status")) {
+    if (!data[0]["status"]) {
+      print("There are no unverified clients");
+      return [];
+    }
+  }
+
+  List<specificAccount> specAccounts = [];
+  for (var map in data){
+    specificAccount specAccount = specificAccount(
+      accountNumber: map["accountNumber"],
+      accountTypeId: int.parse(map["accountTypeID"]),
+      accountType: map["accountType"],
+      accountDescription: map["accountDescription"],
+      transactionID: map["transactionID"],
+      customerName: map["customerName"],
+      timeStamp: map["timeStamp"],
+      amount: map["amount"],
+      accountFrom: map["accountFrom"],
+      accountTo: map["accountTo"],
+      referenceName: map["referenceName"],
+      referenceNumber: map["referenceNumber"],
+    );
+    specAccounts.add(specAccount);
+  }
+
+  return specAccounts;
+}
 
 //Helper Functions
 String argumentMaker(
