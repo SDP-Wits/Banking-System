@@ -1,12 +1,14 @@
+import 'dart:ffi';
+
 class specificAccount{
     final String accountNumber;
-    final String accountTypeId;
+    final int accountTypeId;
     final String accountType;
     final String accountDescription;
-    final String transactionID;
+    final int transactionID;
     final String customerName;
     final String timeStamp;
-    final String amount;
+    final double amount;
     final String accountFrom;
     final String accountTo;
     final String referenceName;
