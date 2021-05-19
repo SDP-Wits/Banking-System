@@ -17,29 +17,35 @@ class DrawerCode extends StatelessWidget {
   }
 }
 
+// Navigation and Drawer used interchangeably in comments
 
 class Navigation extends StatelessWidget {
   String clientName, clientSurname;
 
+  // Name and Surname needed to display in drawer header
   Navigation({required this.clientName, required this.clientSurname});
+
 
   @override
   Widget build(BuildContext context) {
+
     return Drawer(
+
       // Add a ListView to the drawer. This ensures the user can scroll
-      // through the options in the drawer if there isn't enough vertical
-      // space to fit everything.
+      // through the options in the drawer.
       child: ListView(
-          // Important: Remove any padding from the ListView.
-          //padding: EdgeInsets.zero,
+        
           children: <Widget>[
             Container(
               height: 250,
+
+              // Drawer Header: Close icon, Image, Name & Surname
               child: DrawerHeader(
-                
+                                
                 decoration: BoxDecoration(
+                  // Colour of header:
                   gradient: backgroundGradient,
-                  
+                  // Image logo:
                   image: new DecorationImage(
                     image: AssetImage("assets/logo1.png"),
                     alignment: Alignment.topCenter,
@@ -47,104 +53,139 @@ class Navigation extends StatelessWidget {
 
                 ),
                 
+                // Column: Close icon, Client name
                 child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+
                 children: [
           
+
+                  // Close icon
                   Align(
                     alignment: Alignment.topRight,
+
                     child: IconButton(
                       icon: Icon(
                         Icons.close,
                         color: Colors.white,
                       ),
+
+                      // When icon is clicked, close navigation
                       onPressed: () {
                         Navigator.pop(context);
                       },
+
                     ),
+
                   ),
 
-                  Padding( padding: const EdgeInsets.only(top: 140, left: 10),
-                      child: Text(
-                        clientName + ' ' + clientSurname,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 25,
-                            fontFamily: fontMont,
-                          ),
-                      ),
+                  // Client name & surname
+                  Padding( 
+                    padding: const EdgeInsets.only(top: 140, left: 10),
+
+                    child: Text(
+                      clientName + ' ' + clientSurname,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 25,
+                          fontFamily: fontMont,
+                        ),
+                    ),
+
                   ),
-                ]),
-              )
+
+                ]
+              ),
+            )
+          ),
+
+          // Now add all the options in the drawer as ListTiles
+
+          // My Profile
+          ListTile(
+
+            leading: Icon(iconFamily.user),
+            
+            title: Text('My Profile', 
+              style: TextStyle(
+                fontSize: 18,
+                fontFamily: fontMont,
+              ),
             ),
 
-            ListTile(
-              leading: Icon(iconFamily.user),
-              title: Text('My Profile', 
-                style: TextStyle(
-                  fontSize: 18,
-                  fontFamily: fontMont,
-                ),
-              ),
+            // When tile is clicked, do..
+            onTap: () {
+              Navigator.pop(context);
+              goToAdminVerificationStatus(context);
+            },
+          ),
 
-              onTap: () {
-                Navigator.pop(context);
-                goToAdminVerificationStatus(context);
-              },
+          // View Accounts
+          ListTile(
+            
+            leading: Icon(iconFamily.account_balance),
+            
+            title: Text('View Accounts', 
+              style: TextStyle(
+                fontSize: 18,
+                fontFamily: fontMont,
+              ),
             ),
 
-            ListTile(
-              leading: Icon(iconFamily.account_balance),
-              title: Text('View Accounts', 
-                style: TextStyle(
-                  fontSize: 18,
-                  fontFamily: fontMont,
-                ),
-              ),
-
-              onTap: () {
-                Navigator.pop(context);
-                goToViewAccount(context);
+            // When tile is clicked, do..
+            onTap: () {
+              Navigator.pop(context);
+              goToViewAccount(context);
                 
-              },
-            ),
+            },
+          ),
 
-            ListTile(
-              leading: Icon(iconFamily.history),
-              title: Text('History/Timeline', 
-                style: TextStyle(
-                  fontSize: 18,
-                  fontFamily: fontMont,
-                ),
+          // History/Timeline
+          ListTile(
+              
+            leading: Icon(iconFamily.history),
+              
+            title: Text('History/Timeline', 
+              style: TextStyle(
+                fontSize: 18,
+                fontFamily: fontMont,
               ),
-
-              onTap: () {
-                //
-                Navigator.pop(context);
-                goToTimeline(context);
-              },
             ),
 
+            // When tile is clicked, do..
+            onTap: () {
+              Navigator.pop(context);
+              goToTimeline(context);
+            },
+          ),
+
+          // Transfers & Payments
             ListTile(
+
               leading: Icon(iconFamily.payment),
-              title: Text('Make Payment', 
+              
+              title: Text('Transfers & Payments', 
                 style: TextStyle(
                   fontSize: 18,
                   fontFamily: fontMont,
                 ),
               ),
 
+              // When tile is clicked, do..
               onTap: () {
-                //
                 Navigator.pop(context);
+                goToSelectPayment(context);
               },
             ),
 
+            // Logout
             Align(
               alignment: Alignment.bottomCenter,  // Doesn't work idk :(
 
               child: ListTile(              
+                
                 leading: Icon(iconFamily.logout),
+                
                 title: Text('Log Out', 
                   style: TextStyle(
                     fontSize: 18,
@@ -152,12 +193,14 @@ class Navigation extends StatelessWidget {
                   ),
                 ),
 
+                // When tile is clicked, do..
                 onTap: () {
                   //
                   Navigator.pop(context);
                 },
               )
             ),
+            
           ],
         ),
     );

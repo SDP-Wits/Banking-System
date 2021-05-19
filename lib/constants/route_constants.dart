@@ -10,4 +10,5 @@ const String CreateAccount = "create-account";
 const String ViewAccount = "view-account";
 const String SpecificAccount = "specific-account";
 const String TimelineRoute = "timeline";
+const String SelectPayment = "select-payment";
 //TODO: CHANGE THIS BASED OFF WIDGET NAME - Arneev

@@ -11,4 +11,5 @@ class iconFamily {
   static const IconData history = IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData payment = IconData(0xe803, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData logout = IconData(0xe804, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData money_bill_wave = IconData(0xf53a, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:last_national_bank/classes/name.class.dart';
 import 'package:last_national_bank/core/account/accounts.dart';
 import 'package:last_national_bank/core/bank_account_options/account_options.dart';
+import 'package:last_national_bank/core/select_payment/select_payment.dart';
 
 import '../../constants/route_constants.dart';
 import '../../core/login/login.dart';
@@ -59,6 +60,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
 
     case TimelineRoute:
       return MaterialRouteWrap(TimelinePage());
+
+    case SelectPayment:
+      return MaterialRouteWrap(SelectPaymentPage());
+      
 
     //If page to go to is unknown, go to default home page, i.e. Login Page
     default:
@@ -116,4 +121,8 @@ void goToSpecificAccount(BuildContext context){
 
 void goToTimeline(BuildContext context){
   Navigator.pushNamed(context, TimelineRoute);
+}
+
+void goToSelectPayment(BuildContext context){
+  Navigator.pushNamed(context, SelectPayment);
 }
