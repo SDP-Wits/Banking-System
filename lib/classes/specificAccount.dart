@@ -1,6 +1,7 @@
 class specificAccount{
     final String accountNumber;
     final int accountTypeId;
+    final double currentBalance;
     final String accountType;
     final String accountDescription;
     final int transactionID;
@@ -15,6 +16,7 @@ class specificAccount{
     specificAccount({
         required this.accountNumber,
         required this.accountTypeId,
+        required this.currentBalance,
         required this.accountType,
         required this.accountDescription,
         required this.transactionID,

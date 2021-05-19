@@ -3,7 +3,7 @@ include "./helpers/server_details.php";
 
 $accNum = $_REQUEST['accNum'];
 
-$sql = "SELECT ACCOUNT.accountNumber,ACCOUNT.accountTypeID,`ACCOUNT TYPE`.accountType,`ACCOUNT TYPE`.accountDescription,TRANSACTION.*
+$sql = "SELECT ACCOUNT.accountNumber,ACCOUNT.accountTypeID, ACCOUNT.currentBalance, `ACCOUNT TYPE`.accountType,`ACCOUNT TYPE`.accountDescription,TRANSACTION.*
 FROM ACCOUNT
 INNER JOIN `ACCOUNT TYPE` ON `ACCOUNT TYPE`.accountTypeID=ACCOUNT.AccountTypeID
 INNER JOIN TRANSACTION ON TRANSACTION.accountFrom = ACCOUNT.accountNumber OR TRANSACTION.accountTo = ACCOUNT.accountNumber
