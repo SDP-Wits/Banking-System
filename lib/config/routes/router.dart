@@ -2,10 +2,12 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:last_national_bank/classes/accountDetails.dart';
 import 'package:last_national_bank/classes/name.class.dart';
 import 'package:last_national_bank/core/account/accounts.dart';
 import 'package:last_national_bank/core/bank_account_options/account_options.dart';
 import 'package:last_national_bank/core/select_payment/select_payment.dart';
+import 'package:last_national_bank/core/specific_account/specific_bank_account.dart';
 
 import '../../constants/route_constants.dart';
 import '../../core/login/login.dart';
@@ -55,8 +57,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialRouteWrap(Accounts());
 
     case SpecificAccount:
-      //TODO: CHANGE THIS BASED OFF WIDGET NAME - Arneev
-      //return MaterialRouteWrap(SpecificAccountWdiget);
+      final args = settings.arguments as accountDetails;
+      return MaterialRouteWrap(SpecificAccountPage(acc: args,));
 
     case TimelineRoute:
       return MaterialRouteWrap(TimelinePage());
@@ -114,9 +116,8 @@ void goToViewAccount(BuildContext context) {
   Navigator.pushNamed(context, ViewAccount);
 }
 
-void goToSpecificAccount(BuildContext context){
-  //TODO: CHANGE THIS BASED OFF WIDGET NAME - Arneev
-  //Navigator.pushNamed(context, SpecificAccountWidgget);
+void goToSpecificAccount({ required BuildContext context, required accountDetails acc}){
+  Navigator.pushNamed(context, SpecificAccount, arguments: acc);
 }
 
 void goToTimeline(BuildContext context){

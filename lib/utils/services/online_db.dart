@@ -337,6 +337,7 @@ Future<List<specificAccount>> getSpecificAccount(String accNum) async{
     specificAccount specAccount = specificAccount(
       accountNumber: map["accountNumber"],
       accountTypeId: int.parse(map["accountTypeID"]),
+      currentBalance: double.parse(map["currentBalance"]),
       accountType: map["accountType"],
       accountDescription: map["accountDescription"],
       transactionID: int.parse(map["transactionID"]),

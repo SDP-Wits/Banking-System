@@ -7,6 +7,5 @@ void onSwipe(
     {required BuildContext context, required accountDetails accountDetail}) {
   //TODO: Arneev - Make sure to sort out going to specific account
   //Do cool animation when transitioning from pages
-  // goToSpecificAccount(context);
-  toastyPrint("We swiped bois");
+  goToSpecificAccount(context: context, acc: accountDetail);
 }
