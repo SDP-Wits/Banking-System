@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:last_national_bank/utils/services/local_db.dart';
 import 'package:last_national_bank/widgets/navigation.dart';
-//import 'package:last_national_bank/utils/services/online_db.dart';
+import 'package:last_national_bank/utils/services/online_db.dart';
 import '../../classes/log.dart';
 import '../../classes/user.class.dart';
 
@@ -13,28 +14,40 @@ class TimelinePage extends StatefulWidget {
 
 class _TimelineListPageState extends State<TimelinePage> {
   User? user;
-  List<Log> logs = [Log(timeStamp: "2012-01-40", logDescription: "Test 1"),
-  Log(timeStamp: "2048-02-19", logDescription: "Test 2")];
-
+ List<Log>? logs = null;
   @override
   void initState() {
     super.initState();
-    //TODO sheslin http request here
-    /*getUnverifiedClients().then((lstNames) {
-      names = lstNames;
-      setState(() {});
-    });*/
-
-    //Getting user details for navigation drawer
     LocalDatabaseHelper.instance.getUserAndAddress().then((userDB) {
       setState(() {
         user = userDB;
+
+      });
+      getLogs(user!.userID.toString()).then((logsIn) {
+
+        setState(() {
+          logs = logsIn;
+        });
       });
     });
+
+
+    //TODO sheslin http request here
+
+
   }
 
   @override
   Widget build(BuildContext context) {
+    if (logs == null) {
+      return _buildLoadingScreen();
+    } else {
+      return buildPage();
+    }
+  }
+
+  Widget buildPage() {
+
     return Scaffold(
         drawer: Navigation(
             clientName: user!.firstName, clientSurname: user!.lastName),
@@ -81,7 +94,7 @@ class _TimelineListPageState extends State<TimelinePage> {
 
           // Allows page to be scrollable
           child: SingleChildScrollView(
-            //padding: EdgeInsets.all(2.0),
+            // padding: EdgeInsets.all(2.0),
             child: ConstrainedBox(
               //Use MediaQuery.of(context).size.height for max Height
               constraints:
@@ -94,31 +107,64 @@ class _TimelineListPageState extends State<TimelinePage> {
               child: ListView.builder(
                   shrinkWrap: true,
                   physics: ScrollPhysics(),
-                  itemCount: logs.length,
+                  itemCount: logs!.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return Column(
-                      children: [
-                        ListTile(
-                          title: Text(
-                            logs[index].timeStamp,
-                            style: TextStyle(fontSize: 12, color: Colors.blueGrey)),
-                          subtitle: Text(
-                            logs[index].logDescription,
-                            style: TextStyle(fontSize: 16)),
-                          tileColor: Colors.white,
-                        ),
-                        const Divider(
-                          color: Colors.black26,
-                          height: 0,
-                          thickness: 1,
-                          indent: 0,
-                          endIndent: 0,
-                        ),
-                      ],
-                    );
+                    if (logs!.length == 0){
+                      return Column(
+                        children: [
+                          ListTile(
+                            title: Text(
+                                "",
+                                style: TextStyle(fontSize: 12, color: Colors.blueGrey)),
+                            subtitle: Text(
+                                "No Recent Activity",
+                                style: TextStyle(fontSize: 16)),
+                            tileColor: Colors.white,
+                          ),
+                        ],
+                      );
+                    }
+                    else{
+                      return Column(
+                        children: [
+                          ListTile(
+                            title: Text(
+                                logs![index].timeStamp.split(" ")[0],
+                                style: TextStyle(fontSize: 12, color: Colors.blueGrey)),
+                            subtitle: Text(
+                                logs![index].logDescription,
+                                style: TextStyle(fontSize: 16)),
+                            tileColor: Colors.white,
+                          ),
+                          const Divider(
+                            color: Colors.black26,
+                            height: 0,
+                            thickness: 1,
+                            indent: 0,
+                            endIndent: 0,
+                          ),
+                        ],
+                      );
+                    }
+
                   }),
             ),
           ),
         ));
   }
+}
+Widget _buildLoadingScreen() {
+  return Center(
+    child: Container(
+      // decoration: BoxDecoration(
+      //   gradient: LinearGradient(
+      //       begin: Alignment.topRight,
+      //       end: Alignment.bottomLeft,
+      //       colors: [Colors.blueGrey, Colors.teal]),
+      // ),
+      width: 50,
+      height: 50,
+      child: CircularProgressIndicator(),
+    ),
+  );
 }

@@ -1,6 +1,9 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import "package:http/http.dart" as http;
+import 'package:last_national_bank/classes/log.dart';
 import 'package:last_national_bank/classes/specificAccount.dart';
 
 import '../../classes/accountDetails.dart';
@@ -366,4 +369,31 @@ String argumentMaker(
   }
 
   return argument;
+}
+
+Future<List<Log>> getLogs(String clientID) async {
+  final String arguments = "?clientID=$clientID";
+  final String url = urlPath + select_client_log + arguments;
+
+  final List<Map> data = (await getURLData(url));
+  // if (data[0].containsKey("status")) {
+  //   if (!data[0]["status"]) {
+  //     print("There are no logs");
+  //     return [];
+  //   }
+  // }
+if (data.isEmpty){
+  return [];
+}
+  List<Log> logs = [];
+  for (var map in data) {
+    Log log = Log(
+        logDescription: map["description"],
+        timeStamp: map["timeStamp"].toString(),
+
+        );
+    logs.add(log);
+  }
+
+  return logs;
 }
