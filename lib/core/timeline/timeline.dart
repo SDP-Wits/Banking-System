@@ -107,7 +107,9 @@ class _TimelineListPageState extends State<TimelinePage> {
               child: ListView.builder(
                   shrinkWrap: true,
                   physics: ScrollPhysics(),
-                  itemCount: logs!.length,
+
+
+                  itemCount: (logs!.length ==0) ? 1 :logs!.length ,
                   itemBuilder: (BuildContext context, int index) {
                     if (logs!.length == 0){
                       return Column(
