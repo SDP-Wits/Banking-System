@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class specificAccount{
     final String accountNumber;
     final int accountTypeId;
