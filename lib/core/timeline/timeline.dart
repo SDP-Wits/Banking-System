@@ -105,12 +105,10 @@ class _TimelineListPageState extends State<TimelinePage> {
                   itemBuilder: (BuildContext context, int index) {
                     if (logs!.length == 0){
                       return Column(
+                          //crossAxisAlignment: CrossAxisAlignment.center
                         children: [
                           ListTile(
                             title: Text(
-                                "",
-                                style: TextStyle(fontSize: 12, color: Colors.blueGrey)),
-                            subtitle: Text(
                                 "No Recent Activity",
                                 style: TextStyle(fontSize: 16)),
                             tileColor: Colors.white,
