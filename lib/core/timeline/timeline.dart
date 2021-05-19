@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:last_national_bank/utils/services/local_db.dart';
 import 'package:last_national_bank/widgets/navigation.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
@@ -14,7 +13,8 @@ class TimelinePage extends StatefulWidget {
 
 class _TimelineListPageState extends State<TimelinePage> {
   User? user;
- List<Log>? logs = null;
+  List<Log>? logs;
+
   @override
   void initState() {
     super.initState();
@@ -30,11 +30,6 @@ class _TimelineListPageState extends State<TimelinePage> {
         });
       });
     });
-
-
-    //TODO sheslin http request here
-
-
   }
 
   @override
@@ -47,7 +42,6 @@ class _TimelineListPageState extends State<TimelinePage> {
   }
 
   Widget buildPage() {
-
     return Scaffold(
         drawer: Navigation(
             clientName: user!.firstName, clientSurname: user!.lastName),
@@ -107,9 +101,7 @@ class _TimelineListPageState extends State<TimelinePage> {
               child: ListView.builder(
                   shrinkWrap: true,
                   physics: ScrollPhysics(),
-
-
-                  itemCount: (logs!.length ==0) ? 1 :logs!.length ,
+                  itemCount: (logs!.length ==0) ? 1 : logs!.length,
                   itemBuilder: (BuildContext context, int index) {
                     if (logs!.length == 0){
                       return Column(
