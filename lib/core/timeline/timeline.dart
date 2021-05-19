@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:last_national_bank/utils/services/local_db.dart';
+import 'package:last_national_bank/widgets/navigation.dart';
 //import 'package:last_national_bank/utils/services/online_db.dart';
 import '../../classes/log.dart';
+import '../../classes/user.class.dart';
+
 
 class TimelinePage extends StatefulWidget {
   @override
@@ -8,6 +12,7 @@ class TimelinePage extends StatefulWidget {
 }
 
 class _TimelineListPageState extends State<TimelinePage> {
+  User? user;
   List<Log> logs = [Log(timeStamp: "2012-01-40", logDescription: "Test 1"),
   Log(timeStamp: "2048-02-19", logDescription: "Test 2")];
 
@@ -19,11 +24,20 @@ class _TimelineListPageState extends State<TimelinePage> {
       names = lstNames;
       setState(() {});
     });*/
+
+    //Getting user details for navigation drawer
+    LocalDatabaseHelper.instance.getUserAndAddress().then((userDB) {
+      setState(() {
+        user = userDB;
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        drawer: Navigation(
+            clientName: user!.firstName, clientSurname: user!.lastName),
         appBar: new PreferredSize(
           child: Container(
             padding:
