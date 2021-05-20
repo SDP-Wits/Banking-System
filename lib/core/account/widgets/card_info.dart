@@ -16,6 +16,7 @@ class AccountCardInfo extends StatefulWidget {
   final String lastName;
   final String cardType;
   final int accountTypeId;
+  final bool canSwipe;
 
   final double currAmount;
 
@@ -27,7 +28,8 @@ class AccountCardInfo extends StatefulWidget {
       required this.lastName,
       required this.cardType,
       required this.currAmount,
-      required this.accountTypeId});
+      required this.accountTypeId,
+      required this.canSwipe});
 
   @override
   _AccountCardInfoState createState() => _AccountCardInfoState();
@@ -49,7 +51,7 @@ class _AccountCardInfoState extends State<AccountCardInfo> {
     final Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onHorizontalDragUpdate: (DragUpdateDetails details) {
-        if (details.delta.dx > swipeSensitivty && !didSwipe) {
+        if (details.delta.dx > swipeSensitivty && !didSwipe && this.widget.canSwipe) {
           didSwipe = true;
           onSwipe(
               context: context,

@@ -116,6 +116,7 @@ class _AccountsState extends State<Accounts> {
                             cardType: cardType,
                             currAmount: acc[index].currentBalance,
                             accountTypeId: acc[index].accountTypeId,
+                            canSwipe: true,
                           ),
                         );
                       }),
