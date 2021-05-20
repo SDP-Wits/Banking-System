@@ -70,12 +70,12 @@ class _AccountsState extends State<Accounts> {
         key: _scaffoldKey,
         drawer: Navigation(
             clientName: user!.firstName, clientSurname: user!.lastName),
-        body: SingleChildScrollView(
-          physics: ScrollPhysics(),
-          child: Container(
-            decoration: BoxDecoration(
-              gradient: backgroundGradient,
-            ),
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: backgroundGradient,
+          ),
+          child: SingleChildScrollView(
+            physics: ScrollPhysics(),
             child: Column(
               children: [
                 Align(
