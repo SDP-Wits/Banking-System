@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:last_national_bank/classes/specificAccount.dart';
 import 'package:last_national_bank/utils/services/local_db.dart';
 import 'package:last_national_bank/widgets/navigation.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
@@ -13,7 +14,7 @@ class TimelinePage extends StatefulWidget {
 
 class _TimelineListPageState extends State<TimelinePage> {
   User? user;
-  List<Log>? logs;
+  List<specificAccount>? logs;
 
   @override
   void initState() {
@@ -23,7 +24,7 @@ class _TimelineListPageState extends State<TimelinePage> {
         user = userDB;
 
       });
-      getLogs(user!.userID.toString()).then((logsIn) {
+      getSpecificAccount('84444410904').then((logsIn) {
 
         setState(() {
           logs = logsIn;
@@ -124,7 +125,7 @@ class _TimelineListPageState extends State<TimelinePage> {
                                 logs![index].timeStamp.split(" ")[0],
                                 style: TextStyle(fontSize: 12, color: Colors.blueGrey)),
                             subtitle: Text(
-                                logs![index].logDescription,
+                                logs![index].referenceNumber,
                                 style: TextStyle(fontSize: 16)),
                             tileColor: Colors.white,
                           ),
