@@ -56,7 +56,7 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
       setState(() {
         user = userDB;
       });
-      getSpecificAccount('84444410904').then((logsIn) {
+      getSpecificAccount(user!.userID.toString()).then((logsIn) {
         setState(() {
           logs = logsIn;
         });
