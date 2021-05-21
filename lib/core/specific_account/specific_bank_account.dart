@@ -201,13 +201,32 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
 
                       // Display transactions if there are any
                       else {
-                        return ListTile(
-                          title: Text(logs![index].timeStamp.split(" ")[0],
+                        return Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              Text(logs![index].timeStamp.split(" ")[0],
                               style:
                                   TextStyle(fontSize: 15, color: Colors.black)),
-                          subtitle: Text(logs![index].referenceNumber,
-                              style:
-                                  TextStyle(fontSize: 18, color: Colors.white)),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(logs![index].referenceNumber,
+                                    style:
+                                        TextStyle(fontSize: 18, color: Colors.white)),
+                                  Text('R' + logs![index].amount.toString(),
+                                    style:
+                                        TextStyle(fontSize: 18, color: Colors.white)),
+                                ],
+                              )
+                            ],
+                          ),
+                          // title: Text(logs![index].timeStamp.split(" ")[0],
+                          //     style:
+                          //         TextStyle(fontSize: 15, color: Colors.black)),
+                          // subtitle: Text(logs![index].referenceNumber,
+                          //     style:
+                          //         TextStyle(fontSize: 18, color: Colors.white)),
                         );
                       }
                     }),
