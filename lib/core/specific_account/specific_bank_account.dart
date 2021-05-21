@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:last_national_bank/classes/accountDetails.dart';
 import 'package:last_national_bank/classes/log.dart';
+import 'package:last_national_bank/classes/specificAccount.dart';
 import 'package:last_national_bank/classes/user.class.dart';
 import 'package:last_national_bank/config/routes/router.dart';
 import 'package:last_national_bank/constants/app_constants.dart';
@@ -26,7 +27,7 @@ class SpecificAccountPage extends StatefulWidget {
 class _SpecificAccountPageState extends State<SpecificAccountPage>
     with TickerProviderStateMixin {
   User? user;
-  List<Log>? logs = null;
+  List<specificAccount>? logs = null;
 
   //Variables for transaction history pull up
   double radiusSize = 30.0;
@@ -55,7 +56,7 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
       setState(() {
         user = userDB;
       });
-      getLogs(user!.userID.toString()).then((logsIn) {
+      getSpecificAccount('84444410904').then((logsIn) {
         setState(() {
           logs = logsIn;
         });
@@ -204,7 +205,7 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
                           title: Text(logs![index].timeStamp.split(" ")[0],
                               style:
                                   TextStyle(fontSize: 15, color: Colors.black)),
-                          subtitle: Text(logs![index].logDescription,
+                          subtitle: Text(logs![index].referenceNumber,
                               style:
                                   TextStyle(fontSize: 18, color: Colors.white)),
                         );
