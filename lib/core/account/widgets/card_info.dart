@@ -49,9 +49,13 @@ class _AccountCardInfoState extends State<AccountCardInfo> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+
+    //Detects if the user swiped left or right
     return GestureDetector(
       onHorizontalDragUpdate: (DragUpdateDetails details) {
-        if (details.delta.dx > swipeSensitivty && !didSwipe && this.widget.canSwipe) {
+        if (details.delta.dx > swipeSensitivty &&
+            !didSwipe &&
+            this.widget.canSwipe) {
           didSwipe = true;
           onSwipe(
               context: context,
@@ -69,7 +73,9 @@ class _AccountCardInfoState extends State<AccountCardInfo> {
           });
         }
       },
+      //When the card is tapped upon
       onTap: _flip,
+      //This will run an animation of the card flipping
       child: TweenAnimationBuilder(
         tween: Tween<double>(begin: 0, end: angle),
         duration: Duration(milliseconds: 750),
@@ -80,6 +86,8 @@ class _AccountCardInfoState extends State<AccountCardInfo> {
             isFront = true;
           }
 
+          //This will change the appearance of the widget, in this case
+          //it will rotate the card
           return Transform(
             alignment: Alignment.center,
             transform: Matrix4.identity()

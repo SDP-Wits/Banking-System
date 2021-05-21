@@ -28,9 +28,11 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
   User? user;
   List<Log>? logs = null;
 
+  //Variables for transaction history pull up
   double radiusSize = 30.0;
   bool swipedUp = false;
 
+  //Animation controllers and animation for drawer going up and down
   AnimationController? animationController;
   Animation? yOffsetAnimation;
 
@@ -38,6 +40,7 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
   void initState() {
     super.initState();
 
+    //Intialization of animation controller and animation
     animationController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 300),
@@ -47,6 +50,7 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
       setState(() {});
     });
 
+    //Gets transaction history log
     LocalDatabaseHelper.instance.getUserAndAddress().then((userDB) {
       setState(() {
         user = userDB;
@@ -61,6 +65,7 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
 
   @override
   void dispose() {
+    //Dispose of animationController from RAM once done with it
     animationController!.dispose();
     super.dispose();
   }
@@ -77,12 +82,15 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
 
   Widget buildPage(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+
+    //Setting the transaction history list animation variable
     yOffsetAnimation = Tween<double>(begin: size.height * 0.5, end: 0).animate(
         CurvedAnimation(
             parent: animationController!, curve: Curves.easeInCubic));
 
     return Stack(
       children: <Widget>[
+        //Detects if the user moved their finger up or down (swiped up or down)
         GestureDetector(
           onVerticalDragUpdate: (DragUpdateDetails updateDetails) {
             if (updateDetails.delta.dy < -swipeSensitivty && !swipedUp) {
@@ -150,7 +158,11 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
           ),
         ),
 
-        // Makes the thingy that comes up when dragged
+        // Makes the transaction history come up when dragged up
+
+        //This widgets allows to offset the transaction history
+        //at start it will be offseted all the way to the bottom of the
+        //page
         Transform(
           alignment: Alignment.center,
           transform: Matrix4.identity()

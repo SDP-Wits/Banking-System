@@ -57,15 +57,18 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialRouteWrap(Accounts());
 
     case SpecificAccount:
+      //Whatever arguments that get passed will be converted into the
+      //accountDetails object
       final args = settings.arguments as accountDetails;
-      return MaterialRouteWrap(SpecificAccountPage(acc: args,));
+      return MaterialRouteWrap(SpecificAccountPage(
+        acc: args,
+      ));
 
     case TimelineRoute:
       return MaterialRouteWrap(TimelinePage());
 
     case SelectPayment:
       return MaterialRouteWrap(SelectPaymentPage());
-      
 
     //If page to go to is unknown, go to default home page, i.e. Login Page
     default:
@@ -116,14 +119,15 @@ void goToViewAccount(BuildContext context) {
   Navigator.pushNamed(context, ViewAccount);
 }
 
-void goToSpecificAccount({ required BuildContext context, required accountDetails acc}){
+void goToSpecificAccount(
+    {required BuildContext context, required accountDetails acc}) {
   Navigator.pushNamed(context, SpecificAccount, arguments: acc);
 }
 
-void goToTimeline(BuildContext context){
+void goToTimeline(BuildContext context) {
   Navigator.pushNamed(context, TimelineRoute);
 }
 
-void goToSelectPayment(BuildContext context){
+void goToSelectPayment(BuildContext context) {
   Navigator.pushNamed(context, SelectPayment);
 }

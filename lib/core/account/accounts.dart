@@ -22,6 +22,7 @@ class _AccountsState extends State<Accounts> {
   //There shouldn't be one coz it only applies to transactions account
   //So we can sort that out in the future, but for now hardcode it
 
+  //Intializing unique account details
   List<accountDetails> acc = [];
   int uniqueAccountTypes = 999;
 
@@ -29,6 +30,7 @@ class _AccountsState extends State<Accounts> {
   void initState() {
     super.initState();
 
+    //Getting unique account details
     LocalDatabaseHelper.instance.getUserAndAddress().then((userDB) {
       getAccountDetails(userDB!.idNumber).then((account) {
         getNumberOfAccounts().then((numberAccounts) {
@@ -65,6 +67,7 @@ class _AccountsState extends State<Accounts> {
     final double verticalPadding = 45;
     GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
+    //Only show if account is not empty
     if ((acc.isNotEmpty)) {
       return Scaffold(
         key: _scaffoldKey,
@@ -140,8 +143,9 @@ class _AccountsState extends State<Accounts> {
                                   ),
                                 ),
                                 onPressed: () {
-                                  //goToCreateAccount(context);
-                                  //goToSpecificAccount(context, acc: acc[])
+                                  //When floating action button is pressed
+                                  //this will go to 'create account' page
+                                  goToCreateAccount(context);
                                 }),
                           ),
                         ],
