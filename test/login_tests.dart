@@ -1,4 +1,4 @@
-/*import "package:test/test.dart";
+import "package:test/test.dart";
 import 'package:last_national_bank/core/login/login.functions.dart';
 
 void main(){
@@ -73,4 +73,3 @@ void main(){
   });
 
 }
-*/
