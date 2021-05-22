@@ -38,7 +38,7 @@ void main(){
 
     //randomly checking a specific index to make sure it returns the right data
     Random random = new Random();
-    int i = random.nextInt(5);
+    int i = random.nextInt(4);
 
     var expected = bankAccTypes[i].accDescription;
 
