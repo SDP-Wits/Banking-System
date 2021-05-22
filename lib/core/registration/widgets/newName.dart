@@ -11,17 +11,9 @@ class NewNameState extends State<NewName> {
   bool _hasInputError = false; //input error control variable
   String _name = ""; //name variable
 
-  //function to check for invalid name
-  bool hasInputError(String name) {
-    if (name.length == 0) {
-      return true;
-    }
-    return false;
-  }
-
-  //function to assign name
+   //function to assign name
   void assignName(String name) {
-    if (hasInputError(name) == false) {
+    if (hasInputErrorName(name) == false) {
       _name = name;
     }
   }
@@ -40,7 +32,7 @@ class NewNameState extends State<NewName> {
         child: TextField(
           onChanged: (value) {
             _hasInputError =
-                hasInputError(value); //call validator to check for errors
+                hasInputErrorName(value); //call validator to check for errors
             if (_hasInputError == false) {
               //if no errors, assign name
               assignName(value);
@@ -67,4 +59,12 @@ class NewNameState extends State<NewName> {
       ),
     );
   }
+}
+
+//function to check for invalid name
+bool hasInputErrorName(String name) {
+  if (name.length == 0) {
+    return true;
+  }
+  return false;
 }

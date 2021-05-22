@@ -11,21 +11,13 @@ class NewSurnameState extends State<NewSurname> {
   bool _hasInputError = false; //input error control variable
   String _surname = ""; //surname variable
 
-  //function to check for invalid name
-  bool hasInputError(String surname) {
-    if (surname.length == 0) {
-      return true;
-    }
-    return false;
-  }
-
   String returnSurName() {
     return _surname;
   }
 
   //function to assign name
   void assignSurname(String surname) {
-    if (hasInputError(surname) == false) {
+    if (hasInputErrorSurname(surname) == false) {
       _surname = surname;
     }
   }
@@ -40,7 +32,7 @@ class NewSurnameState extends State<NewSurname> {
         child: TextField(
           onChanged: (value) {
             _hasInputError =
-                hasInputError(value); //call validator to check for errors
+                hasInputErrorSurname(value); //call validator to check for errors
             if (_hasInputError == false) {
               //if no errors, assign surname
               assignSurname(value);
@@ -67,4 +59,12 @@ class NewSurnameState extends State<NewSurname> {
       ),
     );
   }
+}
+
+//function to check for invalid name
+bool hasInputErrorSurname(String surname) {
+  if (surname.length == 0) {
+    return true;
+  }
+  return false;
 }

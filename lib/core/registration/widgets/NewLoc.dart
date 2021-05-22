@@ -20,24 +20,6 @@ class NewLocState extends State<NewLoc> {
   String _prov = "";
   String _apart = "";*/
 
-  //function to check for invalid name
-  bool hasInputError(String loc) {
-    if (loc.length == 0) {
-      return true;
-    }
-    return false;
-  }
-
-  /*String returnloc() {
-    return _loc;
-  }*/
-
-  bool hasInputErrorint(String idNum) {
-    bool hasLetters = double.tryParse(idNum) !=
-        null; //checks if id number contains any letters
-    return !hasLetters;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -63,7 +45,7 @@ class NewLocState extends State<NewLoc> {
             ),
             TextField(
               onChanged: (value) {
-                _hasInputErrorAdd = hasInputErrorint(
+                _hasInputErrorAdd = hasInputErrorInt(
                     value); //call validator to check for errors
                 if (_hasInputErrorAdd == false) {
                   //if no errors, assign location
@@ -91,7 +73,7 @@ class NewLocState extends State<NewLoc> {
               scrollPadding:
                   const EdgeInsets.only(top: 30, left: 50, right: 50),
               onChanged: (value) {
-                _hasInputErrorApart = hasInputErrorint(
+                _hasInputErrorApart = hasInputErrorInt(
                     value); //call validator to check for errors
                 if (_hasInputErrorApart == false) {
                   //if no errors, assign location
@@ -119,7 +101,7 @@ class NewLocState extends State<NewLoc> {
                   const EdgeInsets.only(top: 30, left: 50, right: 50),
               onChanged: (value) {
                 _hasInputErrorName =
-                    hasInputError(value); //call validator to check for errors
+                    hasInputErrorLoc(value); //call validator to check for errors
                 if (_hasInputErrorName == false) {
                   //if no errors, assign location
                   //_loc = value;
@@ -147,7 +129,7 @@ class NewLocState extends State<NewLoc> {
                   const EdgeInsets.only(top: 30, left: 50, right: 50),
               onChanged: (value) {
                 _hasInputErrorSub =
-                    hasInputError(value); //call validator to check for errors
+                    hasInputErrorLoc(value); //call validator to check for errors
                 if (_hasInputErrorSub == false) {
                   //if no errors, assign location
                   //_loc = value;
@@ -173,7 +155,7 @@ class NewLocState extends State<NewLoc> {
                   const EdgeInsets.only(top: 30, left: 50, right: 50),
               onChanged: (value) {
                 _hasInputErrorProv =
-                    hasInputError(value); //call validator to check for errors
+                    hasInputErrorLoc(value); //call validator to check for errors
                 if (_hasInputErrorProv == false) {
                   //if no errors, assign location
                   //_loc = value;
@@ -199,4 +181,22 @@ class NewLocState extends State<NewLoc> {
       ),
     );
   }
+}
+
+//function to check for invalid name
+bool hasInputErrorLoc(String loc) {
+  if (loc.length == 0) {
+    return true;
+  }
+  return false;
+}
+
+/*String returnloc() {
+    return _loc;
+  }*/
+
+bool hasInputErrorInt(String Num) {
+  bool hasLetters = double.tryParse(Num) !=
+      null; //checks if id number contains any letters
+  return !hasLetters;
 }

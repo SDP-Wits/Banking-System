@@ -11,26 +11,13 @@ class NewEmailState extends State<NewEmail> {
   bool _hasInputError = false; //error control variable
   String _email = ""; //email variable
 
-  //function to check if email is invalid
-  bool hasInputError(String email) {
-    if (email.length == 0) {
-      return true;
-    } else if (email.length > 0) {
-      //Regular expression to check if email contains all necessary email components (@, .com, etc.)
-      return !RegExp(
-              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-          .hasMatch(email);
-    }
-    return false;
-  }
-
   String returnEmail() {
     return _email;
   }
 
   //assign email if no errors present
   void assignEmail(String email) {
-    if (hasInputError(email) == false) {
+    if (hasInputErrorEmail(email) == false) {
       _email = email;
     }
   }
@@ -45,7 +32,7 @@ class NewEmailState extends State<NewEmail> {
         child: TextField(
           onChanged: (value) {
             _hasInputError =
-                hasInputError(value); //call validator to check for errors
+                hasInputErrorEmail(value); //call validator to check for errors
             if (_hasInputError == false) {
               //if no errors, assign assign email
               assignEmail(value);
@@ -74,4 +61,17 @@ class NewEmailState extends State<NewEmail> {
       ),
     );
   }
+}
+
+//function to check if email is invalid
+bool hasInputErrorEmail(String email) {
+  if (email.length == 0) {
+    return true;
+  } else if (email.length > 0) {
+    //Regular expression to check if email contains all necessary email components (@, .com, etc.)
+    return !RegExp(
+        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(email);
+  }
+  return false;
 }

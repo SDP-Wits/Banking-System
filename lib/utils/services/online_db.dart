@@ -108,6 +108,8 @@ Future<String> userLoginOnline(
 }
 
 //Admin Registering online
+//no implementations found so im commnting it out for now
+/*
 Future<String> adminRegisterOnline(String idNumber, String hashPassword) async {
   final String arguments = "?id=$idNumber;password=$hashPassword";
   Map data = (await getURLData(urlPath + insert_admin + arguments))[0];
@@ -120,6 +122,7 @@ Future<String> adminRegisterOnline(String idNumber, String hashPassword) async {
     return data["error"];
   }
 }
+*/
 
 //Getting list of all unverified clients
 Future<List<Name>> getUnverifiedClients() async {

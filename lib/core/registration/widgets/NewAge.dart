@@ -11,21 +11,13 @@ class NewAgeState extends State<NewAge> {
   bool _hasInputError = false; //error control variable
   int _age = 0; //age variable
 
-  //function to check for invalid age
-  bool hasInputError(int age) {
-    if (age <= 0) {
-      return true;
-    }
-    return false;
-  }
-
   int returnAge() {
     return _age;
   }
 
   //assign age if no value present
   void assignAge(int age) {
-    if (hasInputError(age) == false) {
+    if (hasInputErrorAge(age) == false) {
       _age = age;
     }
   }
@@ -45,7 +37,7 @@ class NewAgeState extends State<NewAge> {
             } else {
               //convert string to integer and check for invalid age
               int age = int.parse(value);
-              _hasInputError = hasInputError(age);
+              _hasInputError = hasInputErrorAge(age);
               if (_hasInputError == false) {
                 assignAge(age);
                 Data.age = age;
@@ -72,4 +64,12 @@ class NewAgeState extends State<NewAge> {
       ),
     );
   }
+}
+
+//function to check for invalid age
+bool hasInputErrorAge(int age) {
+  if (age <= 12) {
+    return true;
+  }
+  return false;
 }

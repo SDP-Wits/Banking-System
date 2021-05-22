@@ -11,13 +11,6 @@ class _SecretKeyState extends State<SecretKey> {
   @override
   String key = "";
   bool _haserrors = false;
-  bool hasInputErrors(String skey) {
-    if (skey.length == 0) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 
   Widget build(BuildContext context) {
     return Padding(
@@ -27,8 +20,8 @@ class _SecretKeyState extends State<SecretKey> {
         width: MediaQuery.of(context).size.width,
         child: TextField(
           onChanged: (value) {
-            _haserrors = hasInputErrors(value);
-            if (hasInputErrors(value) == false) {
+            _haserrors = hasInputErrorsSecret(value);
+            if (hasInputErrorsSecret(value) == false) {
               //check if password has errors
               key = value;
               Data.secretKey = value; //assign password if no errors present
@@ -51,5 +44,13 @@ class _SecretKeyState extends State<SecretKey> {
         ),
       ),
     );
+  }
+}
+
+bool hasInputErrorsSecret(String skey) {
+  if (skey.length == 0) {
+    return true;
+  } else {
+    return false;
   }
 }

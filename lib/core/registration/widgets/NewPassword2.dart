@@ -13,13 +13,6 @@ class PasswordInput2State extends State<PasswordInput2> {
   String _password2 = ""; //password variable
   // this is the first password from the first password input
 
-  bool hasInputErrors(String passwordVal) {
-    if (Data.password1 != passwordVal) {
-      return true;
-    }
-    return false;
-  }
-
   String returnpassword2() {
     return _password2;
   }
@@ -34,7 +27,7 @@ class PasswordInput2State extends State<PasswordInput2> {
         child: TextField(
           obscureText: _isHidden,
           onChanged: (value) {
-            _hasInputError = hasInputErrors(value);
+            _hasInputError = hasInputErrorsPassword2(value);
             if (_hasInputError == false) {
               //check if password has errors
               _password2 = value;
@@ -72,4 +65,11 @@ class PasswordInput2State extends State<PasswordInput2> {
       _isHidden = !_isHidden;
     });
   }
+}
+
+bool hasInputErrorsPassword2(String passwordVal) {
+  if (Data.password1 != passwordVal) {
+    return true;
+  }
+  return false;
 }
