@@ -42,6 +42,8 @@ Future<List<Map<String, dynamic>>> getURLData(String url) async {
 }
 
 //TODO: Tests
+
+//Manually tested
 //Log the user in, based off whether they are a client or not
 Future<String> userLoginOnline(
     String idNumber, String hashPassword, bool isClientLogin) async {
@@ -124,6 +126,7 @@ Future<String> adminRegisterOnline(String idNumber, String hashPassword) async {
 }
 */
 
+//Manually tested
 //Getting list of all unverified clients
 Future<List<Name>> getUnverifiedClients() async {
   final String url = urlPath + select_unverified_client_names;
@@ -152,6 +155,7 @@ Future<List<Name>> getUnverifiedClients() async {
   return names;
 }
 
+//Manually tested
 Future<int> getNumberOfAccounts() async {
   final String url = urlPath + count_num_accountTypes;
 
@@ -167,6 +171,7 @@ Future<int> getNumberOfAccounts() async {
   return int.parse(data[0]["NumAccountTypes"].toString());
 }
 
+//Manually tested
 // get clients details for admin to view
 Future<List<thisUser>> getClientDetails(String idNumber) async {
   final String arguments = "?id=$idNumber";
@@ -200,6 +205,7 @@ Future<List<thisUser>> getClientDetails(String idNumber) async {
   return users;
 }
 
+//Manually tested
 //Verify an unverified client
 Future<String> verifyClient(
     String clientIdNumber, String adminIdNumber, String clientStatus) async {
@@ -260,6 +266,7 @@ Future<List<accountTypes>> getAccountTypes() async {
   return bankAccTypes;
 }
 
+//Manually tested
 //Create a client's account
 Future<String> createAccount(String clientIdNumber, int accountTypeID) async {
   final String date = getDate();
@@ -285,6 +292,7 @@ Future<String> createAccount(String clientIdNumber, int accountTypeID) async {
   return "Failed to create an account";
 }
 
+//Manually tested
 //Get all the details for all the user's accounts
 Future<List<accountDetails>> getAccountDetails(String idNumber) async {
   final String arguments = "?idNum=$idNumber";
@@ -321,6 +329,7 @@ Future<List<accountDetails>> getAccountDetails(String idNumber) async {
 
 //Getting account description from account id
 
+//Manually tested
 //Getting specific account details
 Future<List<specificAccount>> getSpecificAccount(String accNum) async{
   final String arguments = "?accNum=$accNum";
@@ -358,6 +367,7 @@ Future<List<specificAccount>> getSpecificAccount(String accNum) async{
   return specAccounts;
 }
 
+//Manually tested
 //Helper Functions
 String argumentMaker(
     {required List<String> phpNames, required List<String> inputVariables}) {
@@ -375,6 +385,7 @@ String argumentMaker(
   return argument;
 }
 
+//Manually tested
 Future<List<Log>> getLogs(String clientID) async {
   final String arguments = "?clientID=$clientID";
   final String url = urlPath + select_client_log + arguments;
