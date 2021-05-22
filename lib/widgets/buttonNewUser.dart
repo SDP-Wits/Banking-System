@@ -6,6 +6,7 @@ import '../core/SHA-256_encryption.dart';
 import '../core/registration/registration.functions.dart';
 import '../utils/services/online_db.dart';
 
+//Manually tested
 Future<String> clientRegisterOnline() async {
   //Choosing php file based off whether the user is a client or admin
   String phpFileToUse = insert_client;
@@ -49,6 +50,7 @@ Future<String> clientRegisterOnline() async {
   return data["details"];
 }
 
+//Manually tested
 Future<String> adminRegisterOnline() async {
   //Choosing php file based off whether the user is a client or admin
   String phpFileToUse = insert_admin;
