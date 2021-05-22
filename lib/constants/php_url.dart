@@ -14,4 +14,5 @@ const String insert_new_account = "insert_new_account.php";
 const String count_num_accountTypes = "count_num_accounts.php";
 const String select_specific_account = "select_specific_account.php";
 const String select_client_log = "select_client_log.php";
-
+const String select_client_unique_accounts =
+    "select_client_unique_accounts.php";
