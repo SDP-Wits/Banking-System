@@ -50,8 +50,8 @@ class _VerificationStatusState extends State<VerificationStatus> {
     final Size size = MediaQuery.of(context).size;
     return (user == null)
         ? Scaffold(
-            drawer: Navigation(clientName: user!.firstName, clientSurname: user!.lastName),
-            
+            drawer: Navigation(
+                clientName: user!.firstName, clientSurname: user!.lastName),
             body: Container(
               width: size.width,
               height: size.height,
@@ -61,23 +61,20 @@ class _VerificationStatusState extends State<VerificationStatus> {
                     end: Alignment.bottomLeft,
                     colors: [Colors.blueGrey, Colors.teal]),
               ),
-
               child: Align(
                 alignment: Alignment.topLeft,
                 child: IconButton(
-                  icon: Icon(Icons.menu, color: Colors.white), onPressed: () { 
+                  icon: Icon(Icons.menu, color: Colors.white),
+                  onPressed: () {
                     _scaffoldKey.currentState!.openDrawer();
                   },
                 ),
               ),
-            
-            
-
-            )
-          )
+            ))
         : Scaffold(
-          key: _scaffoldKey,
-            drawer: Navigation(clientName: user!.firstName, clientSurname: user!.lastName),
+            key: _scaffoldKey,
+            drawer: Navigation(
+                clientName: user!.firstName, clientSurname: user!.lastName),
             body: Container(
               width: size.width,
               height: size.height,
@@ -90,16 +87,15 @@ class _VerificationStatusState extends State<VerificationStatus> {
               padding: EdgeInsets.all(10.0),
               child: ListView(
                 children: <Widget>[
-                  
                   Align(
                     alignment: Alignment.topLeft,
                     child: IconButton(
-                      icon: Icon(Icons.menu, color: Colors.white), onPressed: () { 
+                      icon: Icon(Icons.menu, color: Colors.white),
+                      onPressed: () {
                         _scaffoldKey.currentState!.openDrawer();
                       },
-                   ),
+                    ),
                   ),
-                  
 
                   Container(
                     padding: EdgeInsets.symmetric(vertical: 5),
@@ -108,7 +104,8 @@ class _VerificationStatusState extends State<VerificationStatus> {
                   Container(
                     padding: EdgeInsets.all(15),
                   ),
-                  HeadingBlocks("Verification Status: " + me![0].status, 22, 20),
+                  HeadingBlocks(
+                      "Verification Status: " + me![0].status, 22, 20),
                   DetailedBlocks(user!.firstName, "First Name"),
                   (user!.middleName != null)
                       ? DetailedBlocks(user!.middleName!, "Middle Name")
@@ -126,12 +123,13 @@ class _VerificationStatusState extends State<VerificationStatus> {
                   // if (me![0].status == "Verified"){
                   //   CreateAccButton();
                   // }
-                  (me![0].status == "Verified") ? CreateAccButton() : Container(),
+                  (me![0].status == "Verified")
+                      ? CreateAccButton()
+                      : Container(),
                   // CreateAccButton()
                 ],
               ),
-            )
-          );
+            ));
   }
 }
 
@@ -253,20 +251,6 @@ class CreateAccButton extends StatelessWidget {
               color: Colors.white,
               borderRadius: BorderRadius.circular(30),
             ),
-            child: Container(
-              child: TextButton(
-                onPressed: () {
-                  goToCreateAccount(context);
-                },
-                child: Text(
-                  'Create Account',
-                  style: TextStyle(
-                    color: Colors.teal,
-                    fontSize: 17,
-                  ),
-                ),
-              ),
-            ),
           ),
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.02,
@@ -278,20 +262,6 @@ class CreateAccButton extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(30),
-            ),
-            child: Container(
-              child: TextButton(
-                onPressed: () {
-                  goToViewAccount(context);
-                },
-                child: Text(
-                  'View Account',
-                  style: TextStyle(
-                    color: Colors.teal,
-                    fontSize: 17,
-                  ),
-                ),
-              ),
             ),
           ),
         ],
