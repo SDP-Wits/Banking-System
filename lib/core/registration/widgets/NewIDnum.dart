@@ -11,16 +11,6 @@ class NewIDnumState extends State<NewIDnum> {
   bool _hasInputError = false; //error control variable
   String _idNum = ""; //id number variable
 
-  bool hasInputError(String idNum) {
-    if (idNum.length != 13) {
-      //checks if id num is of length 13
-      return true;
-    }
-    bool hasLetters = double.tryParse(idNum) !=
-        null; //checks if id number contains any letters
-    return !hasLetters;
-  }
-
   String returnID() {
     return _idNum;
   }
@@ -34,7 +24,7 @@ class NewIDnumState extends State<NewIDnum> {
         width: MediaQuery.of(context).size.width,
         child: TextField(
           onChanged: (value) {
-            _hasInputError = hasInputError(value);
+            _hasInputError = hasInputErrorId(value);
             if (_hasInputError == false) {
               //check if id number is valid
               _idNum = value; //assign id number if valid
@@ -61,4 +51,14 @@ class NewIDnumState extends State<NewIDnum> {
       ),
     );
   }
+}
+
+bool hasInputErrorId(String idNum) {
+  if (idNum.length != 13) {
+    //checks if id num is of length 13
+    return true;
+  }
+  bool hasLetters = double.tryParse(idNum) !=
+      null; //checks if id number contains any letters
+  return !hasLetters;
 }

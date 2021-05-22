@@ -12,20 +12,6 @@ class PasswordInputState extends State<PasswordInput> {
   bool _hasInputError = false; //error control variable
   String _password = ""; //password variable
   //String password2 = PasswordInput2State().returnpassword();
-  bool hasInputErrors(String password) {
-    if (password.length < 8 || password.length > 20) {
-      //check if password length is correct
-      return true;
-    }
-    if (password.length >= 8 && password.length <= 20) {
-      //check if password contains uppercase, lowercase letters, number, special characters
-      String pattern =
-          r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
-      RegExp regExp = new RegExp(pattern);
-      return !regExp.hasMatch(password);
-    }
-    return false;
-  }
 
   String getPassword() {
     return _password;
@@ -40,7 +26,7 @@ class PasswordInputState extends State<PasswordInput> {
         width: MediaQuery.of(context).size.width,
         child: TextField(
           onChanged: (value) {
-            _hasInputError = hasInputErrors(value);
+            _hasInputError = hasInputErrorsPassword1(value);
             if (_hasInputError == false) {
               //check if password has errors
               _password = value; //assign
@@ -82,4 +68,19 @@ class PasswordInputState extends State<PasswordInput> {
       _isHidden = !_isHidden;
     });
   }
+}
+
+bool hasInputErrorsPassword1(String password) {
+  if (password.length < 8 || password.length > 20) {
+    //check if password length is correct
+    return true;
+  }
+  if (password.length >= 8 && password.length <= 20) {
+    //check if password contains uppercase, lowercase letters, number, special characters
+    String pattern =
+        r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+    RegExp regExp = new RegExp(pattern);
+    return !regExp.hasMatch(password);
+  }
+  return false;
 }

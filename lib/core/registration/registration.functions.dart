@@ -46,7 +46,7 @@ class Address {
 // validation functions
 bool fullvalidation() {
   bool flag = true;
-  if (Data.age <= 0) {
+  if (Data.age <= 12) {
     flag = false;
   }
   if (Data.email.length <= 0) {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:last_national_bank/classes/accountDetails.dart';
 import 'package:last_national_bank/classes/log.dart';
+import 'package:last_national_bank/classes/specificAccount.dart';
 import 'package:last_national_bank/classes/user.class.dart';
 import 'package:last_national_bank/config/routes/router.dart';
 import 'package:last_national_bank/constants/app_constants.dart';
@@ -26,7 +27,7 @@ class SpecificAccountPage extends StatefulWidget {
 class _SpecificAccountPageState extends State<SpecificAccountPage>
     with TickerProviderStateMixin {
   User? user;
-  List<Log>? logs = null;
+  List<specificAccount>? logs = null;
 
   //Variables for transaction history pull up
   double radiusSize = 30.0;
@@ -55,7 +56,7 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
       setState(() {
         user = userDB;
       });
-      getLogs(user!.userID.toString()).then((logsIn) {
+      getSpecificAccount(user!.userID.toString()).then((logsIn) {
         setState(() {
           logs = logsIn;
         });
@@ -200,13 +201,32 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
 
                       // Display transactions if there are any
                       else {
-                        return ListTile(
-                          title: Text(logs![index].timeStamp.split(" ")[0],
+                        return Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              Text(logs![index].timeStamp.split(" ")[0],
                               style:
                                   TextStyle(fontSize: 15, color: Colors.black)),
-                          subtitle: Text(logs![index].logDescription,
-                              style:
-                                  TextStyle(fontSize: 18, color: Colors.white)),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(logs![index].referenceNumber,
+                                    style:
+                                        TextStyle(fontSize: 18, color: Colors.white)),
+                                  Text('R' + logs![index].amount.toString(),
+                                    style:
+                                        TextStyle(fontSize: 18, color: Colors.white)),
+                                ],
+                              )
+                            ],
+                          ),
+                          // title: Text(logs![index].timeStamp.split(" ")[0],
+                          //     style:
+                          //         TextStyle(fontSize: 15, color: Colors.black)),
+                          // subtitle: Text(logs![index].referenceNumber,
+                          //     style:
+                          //         TextStyle(fontSize: 18, color: Colors.white)),
                         );
                       }
                     }),
