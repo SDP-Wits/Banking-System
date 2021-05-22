@@ -100,20 +100,6 @@ class _AccountsState extends State<Accounts> {
                       fontWeight: FontWeight.w500,
                       color: Colors.white),
                 ),
-                // Spacing
-                Padding(
-                  padding: EdgeInsets.only(top: 20),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Text(
-                    "Please swipe right to view that account's transaction history.",
-                    style: new TextStyle(
-                        fontSize: 20.0,
-                        color: Colors.white,
-                        fontFamily: fontMont),
-                  ),
-                ),
                 SizedBox(
                   width: size.width * 0.9,
                   child: ListView.builder(
