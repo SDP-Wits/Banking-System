@@ -96,7 +96,6 @@ class _VerificationStatusState extends State<VerificationStatus> {
                       },
                     ),
                   ),
-
                   Container(
                     padding: EdgeInsets.symmetric(vertical: 5),
                   ),
@@ -120,13 +119,6 @@ class _VerificationStatusState extends State<VerificationStatus> {
                           user!.address.streetName,
                       "Address"),
                   DetailedBlocks(user!.address.suburb, "Suburb"),
-                  // if (me![0].status == "Verified"){
-                  //   CreateAccButton();
-                  // }
-                  (me![0].status == "Verified")
-                      ? CreateAccButton()
-                      : Container(),
-                  // CreateAccButton()
                 ],
               ),
             ));
@@ -226,45 +218,6 @@ class DetailedBlocks extends StatelessWidget {
         property + ": " + text,
         textAlign: TextAlign.left,
         style: TextStyle(fontSize: 16, color: Colors.white),
-      ),
-    );
-  }
-}
-
-class CreateAccButton extends StatelessWidget {
-  CreateAccButton();
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        top: 40,
-        bottom: 40,
-      ),
-      child: Row(
-        children: [
-          Container(
-            alignment: Alignment.center,
-            height: 60,
-            width: MediaQuery.of(context).size.width / 2.2,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(30),
-            ),
-          ),
-          SizedBox(
-            width: MediaQuery.of(context).size.width * 0.02,
-          ),
-          Container(
-            alignment: Alignment.center,
-            height: 60,
-            width: MediaQuery.of(context).size.width / 2.2,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(30),
-            ),
-          ),
-        ],
       ),
     );
   }
