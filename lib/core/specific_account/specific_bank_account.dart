@@ -56,7 +56,7 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
       setState(() {
         user = userDB;
       });
-      getSpecificAccount(user!.userID.toString()).then((logsIn) {
+      getSpecificAccount(this.widget.acc.accountNumber).then((logsIn) {
         setState(() {
           logs = logsIn;
         });
@@ -104,6 +104,7 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
               animationController!.animateBack(0);
             }
           },
+
           child: Positioned(
             top: 0,
             bottom: 150,
@@ -111,49 +112,72 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
             right: 0,
             child: Container(
               child: Column(children: [
-                // Spacing
-                Padding(
-                  padding: EdgeInsets.only(top: 50),
-                ),
 
-                // Heading
+                // Floating back button
                 Align(
-                  alignment: Alignment.topCenter,
-                  child: Text(
-                    'Account Type',
-                    style: new TextStyle(
-                        fontSize: 30.0,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.teal),
+                  alignment: Alignment(-0.95, -0.8),
+
+                  child: Container(
+                    width: 50,
+                    height: 50,
+                    
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      
+                      child: FloatingActionButton(                      
+                        backgroundColor: Colors.white,
+                        
+                        child: Icon(
+                          Icons.arrow_back,
+                          color: Colors.black,
+                          size: 20,
+                        ),
+                        
+                        onPressed: () {
+                          //When floating action button is pressed
+                          //this will go to 'accounts' page
+                          goToViewAccount(context);
+                        }
+                      ),
+                    ),
                   ),
                 ),
+                
 
                 // Spacing
                 Padding(
-                  padding: EdgeInsets.only(top: 50),
+                  padding: EdgeInsets.only(top: 20),
                 ),
 
                 // Card
-                AccountCardInfo(
-                  accountType: this.widget.acc.accountType,
-                  accountNumber: this.widget.acc.accountNumber,
-                  firstName: this.widget.acc.fName,
-                  middleNames: this.widget.acc.mName,
-                  lastName: this.widget.acc.lName,
-                  cardType: "VISA",
-                  currAmount: this.widget.acc.currentBalance,
-                  accountTypeId: this.widget.acc.accountTypeId,
-                  canSwipe: false,
+                Align(
+                  alignment: Alignment.topCenter,
+
+                  child: AccountCardInfo(
+                    accountType: this.widget.acc.accountType,
+                    accountNumber: this.widget.acc.accountNumber,
+                    firstName: this.widget.acc.fName,
+                    middleNames: this.widget.acc.mName,
+                    lastName: this.widget.acc.lName,
+                    cardType: "VISA",
+                    currAmount: this.widget.acc.currentBalance,
+                    accountTypeId: this.widget.acc.accountTypeId,
+                    canSwipe: false,
+                  ),
+
                 ),
+                
                 Spacer(),
+
                 Padding(
-                  padding: EdgeInsets.only(bottom: size.height * 0.1, top: 15),
+                  padding: EdgeInsets.only(bottom: size.height * 0.2, top: 15),
                   child: Icon(
                     Icons.arrow_upward,
                     color: Colors.teal,
                     size: 36.0,
                   ),
                 ),
+
               ]),
             ),
           ),
@@ -168,10 +192,12 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
           alignment: Alignment.center,
           transform: Matrix4.identity()
             ..setEntry(1, 3, yOffsetAnimation!.value),
+
           child: DraggableScrollableSheet(
-            initialChildSize: 0.4, // Size when page loads
-            minChildSize: 0.4, // Minimum size allowed
-            maxChildSize: 0.8, // Maximum size allowed
+            
+            initialChildSize: 0.62, // Size when page loads
+            minChildSize: 0.5, // Minimum size allowed
+            maxChildSize: 0.99, // Maximum size allowed
 
             builder: (BuildContext context, ScrollController scrollController) {
               return Container(
@@ -190,45 +216,87 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
                     itemBuilder: (BuildContext context, int index) {
                       // If there are no transactions, then display message in place
                       if (logs!.length == 0) {
-                        return ListTile(
-                          title: Text("",
-                              style:
-                                  TextStyle(fontSize: 15, color: Colors.white)),
-                          subtitle: Text("No Recent Activity",
-                              style: TextStyle(fontSize: 16)),
+                        return Column(
+                          children: [
+
+                            // Function is at the bottom
+                            heading(),     
+
+                            ListTile(
+                              title: Text(
+                                "No Recent Activity",
+                                style: TextStyle(fontSize: 15, color: Colors.white)
+                              ),
+                            ),
+
+                          ],
                         );
                       }
 
                       // Display transactions if there are any
                       else {
-                        return Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
-                              Text(logs![index].timeStamp.split(" ")[0],
-                              style:
-                                  TextStyle(fontSize: 15, color: Colors.black)),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: <Widget>[
-                                  Text(logs![index].referenceNumber,
-                                    style:
-                                        TextStyle(fontSize: 18, color: Colors.white)),
-                                  Text('R' + logs![index].amount.toString(),
-                                    style:
-                                        TextStyle(fontSize: 18, color: Colors.white)),
+                        return Column(
+                          children: [
+
+                            // Function is at the bottom
+                            heading(),
+
+                            // Tile with all information of transaction
+                            ListTile(
+                              // LisTiles usually only have two lines but make isThreeLine true to add more
+                              isThreeLine: true,
+
+                              title: Align(
+                                alignment: Alignment.centerLeft,
+
+                                // Date
+                                child: Text(
+                                    logs![index].timeStamp.split(" ")[0],
+                                    style: TextStyle(fontSize: 20, color: Colors.white)
+                                ),
+                              ),
+
+                              // isThree lines requires all other lines to be in a column
+                              subtitle: Column(
+                                children: [
+                                  
+                                  // Reference number
+                                  Align(
+                                    alignment: Alignment.bottomLeft,
+                                    
+                                    child: Text(
+                                      'Reference Number: ' + logs![index].referenceNumber,
+                                      style: TextStyle(fontSize: 15, color: Colors.black)
+                                    ),
+                                  ),
+                                  
+                                  // Amount
+                                  Align(
+                                    alignment: Alignment.bottomRight,
+                                      
+                                    child: Text(
+                                      'R' + logs![index].amount.toString(),
+                                      style: TextStyle(fontSize: 15, color: Colors.black)
+                                    ),
+                                  ),                                
+
                                 ],
                               )
-                            ],
-                          ),
-                          // title: Text(logs![index].timeStamp.split(" ")[0],
-                          //     style:
-                          //         TextStyle(fontSize: 15, color: Colors.black)),
-                          // subtitle: Text(logs![index].referenceNumber,
-                          //     style:
-                          //         TextStyle(fontSize: 18, color: Colors.white)),
+                            ),
+
+                            // Create black dividing line
+                            const Divider(
+                              color: Colors.black26,
+                              height: 0,
+                              thickness: 1,
+                              indent: 0,
+                              endIndent: 0,
+                            ),
+                          ],
                         );
+                        
                       }
+
                     }),
               );
             },
@@ -238,6 +306,60 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
     );
   }
 }
+
+// heading is the title: "Account Transaction History" 
+// and the floting button to add a new transaction
+// I created this because of the long code which is used twice
+class heading extends StatelessWidget {
+  
+  @override
+  Widget build(BuildContext context) {
+    
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      
+      children: [
+
+        // Title
+        Text(
+          'Account Transaction History',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontFamily: fontMont,
+          ),
+        ),
+
+        // Floating + button
+        Container(
+          width: 50,
+          height: 50,
+          
+          child: FloatingActionButton(
+            
+            backgroundColor: Colors.white,
+            
+            child: Text(
+              '+',
+              style: TextStyle(
+                color: Colors.teal,
+                fontSize: 20,
+                fontFamily: fontMont,
+              ),
+            ),
+            
+            onPressed: () {
+              //When floating action button is pressed
+              //this will go to 'select payment method' page
+              goToSelectPayment(context);
+            }
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 
 // Loading screen
 Widget _buildLoadingScreen() {

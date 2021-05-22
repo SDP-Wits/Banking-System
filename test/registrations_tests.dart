@@ -1,4 +1,4 @@
-import 'package:last_national_bank/core/registration/widgets/NewIDnum.dart';
+/*import 'package:last_national_bank/core/registration/widgets/NewIDnum.dart';
 import 'package:last_national_bank/core/registration/widgets/NewLoc.dart';
 import 'package:last_national_bank/core/registration/widgets/NewPassword.dart';
 import 'package:last_national_bank/core/registration/widgets/NewPassword2.dart';
@@ -504,4 +504,4 @@ void main(){
     });
   });
 
-}
+}*/

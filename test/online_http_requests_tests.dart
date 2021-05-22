@@ -1,4 +1,4 @@
-import "package:test/test.dart";
+/*import "package:test/test.dart";
 import 'dart:async';
 import 'package:last_national_bank/utils/services/online_db.dart';
 import 'package:last_national_bank/widgets/buttonNewUser.dart';
@@ -29,4 +29,4 @@ import 'package:last_national_bank/core/registration/registration.functions.dart
 //     expect(actual, expected);
 //   });
 //
-// }
+// }*/
