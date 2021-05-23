@@ -49,7 +49,6 @@ class _AccountsState extends State<Accounts> {
                 backgroundColor: Colors.teal,
                 textColor: Colors.white,
                 fontSize: 16.0);
-            Navigator.pop(context);
           }
         }); //End of future getting unique account types
       });
@@ -139,31 +138,7 @@ class _AccountsState extends State<Accounts> {
                       }),
                 ),
                 (acc.length < uniqueAccountTypes)
-                    ? Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 16.0, vertical: 16.0),
-                            child: FloatingActionButton(
-                                backgroundColor: Colors.white,
-                                child: Text(
-                                  '+',
-                                  style: TextStyle(
-                                    color: Colors.teal,
-                                    fontSize: 36,
-                                    fontFamily: fontMont,
-                                  ),
-                                ),
-                                onPressed: () {
-                                  //When floating action button is pressed
-                                  //this will go to 'create account' page
-                                  goToCreateAccount(context);
-                                }),
-                          ),
-                        ],
-                      )
+                    ? floatingCreateAccount(context)
                     : Container(width: 0, height: 0)
               ],
             ),
@@ -171,23 +146,53 @@ class _AccountsState extends State<Accounts> {
         ),
       );
     } else {
-      return _buildLoadingScreen();
+      return _noAccount(context);
     }
   }
 }
 
-Widget _buildLoadingScreen() {
-  return Center(
-    child: Container(
-      // decoration: BoxDecoration(
-      //   gradient: LinearGradient(
-      //       begin: Alignment.topRight,
-      //       end: Alignment.bottomLeft,
-      //       colors: [Colors.blueGrey, Colors.teal]),
-      // ),
-      width: 50,
-      height: 50,
-      child: CircularProgressIndicator(),
-    ),
+Widget floatingCreateAccount(BuildContext context) {
+  return Row(
+    mainAxisSize: MainAxisSize.max,
+    mainAxisAlignment: MainAxisAlignment.end,
+    children: [
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+        child: FloatingActionButton(
+            backgroundColor: Colors.white,
+            child: Text(
+              '+',
+              style: TextStyle(
+                color: Colors.teal,
+                fontSize: 36,
+                fontFamily: fontMont,
+              ),
+            ),
+            onPressed: () {
+              //When floating action button is pressed
+              //this will go to 'create account' page
+              goToCreateAccount(context);
+            }),
+      ),
+    ],
+  );
+}
+
+Widget _noAccount(BuildContext context) {
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    children: [
+      Center(
+        child: Text(
+          "No Accounts here...",
+          style: TextStyle(
+            fontFamily: fontMont,
+            fontSize: 40,
+            color: Colors.teal,
+          ),
+        ),
+      ),
+      floatingCreateAccount(context)
+    ],
   );
 }

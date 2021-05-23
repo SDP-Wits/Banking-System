@@ -84,8 +84,6 @@ class _BankAccountOptionsState extends State<BankAccountOptions> {
                 return GestureDetector(
                     onTap: () async {
                       if (existingAccountTypes.contains(index + 1)) {
-                        onPressed:
-                        null;
                         Fluttertoast.showToast(
                             msg:
                                 "An account of this type already exists. Restriction: Only one of each type of account allowed.",
@@ -94,10 +92,8 @@ class _BankAccountOptionsState extends State<BankAccountOptions> {
                             timeInSecForIosWeb: 3,
                             fontSize: 16.0);
                       } else {
-                        _asyncConfirmDialog(
-                            context,
-                            accountTypeIdList[index],
-                            accountTypeList[index]);
+                        await _asyncConfirmDialog(context,
+                            accountTypeIdList[index], accountTypeList[index]);
                       }
                     },
                     child: Card(
@@ -230,10 +226,9 @@ ShowDialogFunc(BuildContext context, int accTypeId, String accType) {
       });
 }
 
-enum ConfirmAction { Cancel, Accept }
-void _asyncConfirmDialog(
+Future<void> _asyncConfirmDialog(
     BuildContext context, int accTypeId, String accType) async {
-    showDialog<ConfirmAction>(
+  return showDialog<void>(
     context: context,
     barrierDismissible: false, // user must tap button for close dialog!
     builder: (BuildContext context) {
