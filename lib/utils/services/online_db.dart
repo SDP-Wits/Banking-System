@@ -266,6 +266,30 @@ Future<List<accountTypes>> getAccountTypes() async {
   return bankAccTypes;
 }
 
+// Check which accounts exist for specific user
+Future<List<int>> getExistingAccountTypes() async {
+  final String url = urlPath + select_client_unique_accounts;
+
+  final List<Map> existingAccTypes = await getURLData(url);
+
+  if (existingAccTypes[0].containsKey("status")) {
+    if (!existingAccTypes[0]["status"]) {
+      print("There are no exisiting accounts for this user");
+      return [];
+    }
+  }
+
+  List<int> existingAccTypeID = [];
+
+  for (int i = 0; i < existingAccTypes.length; ++i) {
+    int accTypeId = int.parse(existingAccTypes[i]["accountTypeID"].toString());
+
+    existingAccTypeID.add(accTypeId);
+  }
+
+  return existingAccTypeID;
+}
+
 //Manually tested
 //Create a client's account
 Future<String> createAccount(String clientIdNumber, int accountTypeID) async {
@@ -331,7 +355,7 @@ Future<List<accountDetails>> getAccountDetails(String idNumber) async {
 
 //Manually tested
 //Getting specific account details
-Future<List<specificAccount>> getSpecificAccount(String accNum) async{
+Future<List<specificAccount>> getSpecificAccount(String accNum) async {
   final String arguments = "?accNum=$accNum";
   final String url = urlPath + select_specific_account + arguments;
 
@@ -345,7 +369,7 @@ Future<List<specificAccount>> getSpecificAccount(String accNum) async{
   }
 
   List<specificAccount> specAccounts = [];
-  for (var map in data){
+  for (var map in data) {
     specificAccount specAccount = specificAccount(
       accountNumber: map["accountNumber"],
       accountTypeId: int.parse(map["accountTypeID"]),
@@ -397,16 +421,15 @@ Future<List<Log>> getLogs(String clientID) async {
   //     return [];
   //   }
   // }
-if (data.isEmpty){
-  return [];
-}
+  if (data.isEmpty) {
+    return [];
+  }
   List<Log> logs = [];
   for (var map in data) {
     Log log = Log(
-        logDescription: map["description"],
-        timeStamp: map["timeStamp"].toString(),
-
-        );
+      logDescription: map["description"],
+      timeStamp: map["timeStamp"].toString(),
+    );
     logs.add(log);
   }
 
