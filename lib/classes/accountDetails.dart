@@ -7,6 +7,7 @@ class accountDetails {
   final String lName;
   final int accountTypeId;
 
+  // coverage:ignore-line
   accountDetails({
     required this.accountNumber,
     required this.accountType,
