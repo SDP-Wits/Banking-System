@@ -19,11 +19,7 @@ TextEditingController getIDController() {
 TextEditingController getPasswordController() {
   return passwordController;
 }
-// coverage:ignore-end
 
-// coverage:ignore-start
-// coverage:ignore-start
-// coverage:ignore-start
 Future<void> loginProcedure(BuildContext context) async {
   bool isClientLogin = true;
   await showDialog(
@@ -78,9 +74,8 @@ Future<void> loginProcedure(BuildContext context) async {
     } else {
       goToAdminVerificationStatus(context);
     }
-  }// coverage:ignore-end
-}// coverage:ignore-end
-// coverage:ignore-end
+  }
+}
 
 //Helper Functions
 
@@ -108,3 +103,4 @@ bool hasInputErrorID(String idNum) {
       double.tryParse(idNum) != null; //checks if id number contains any letters
   return !hasLetters;
 }
+// coverage:ignore-end
