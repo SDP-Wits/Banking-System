@@ -1,4 +1,3 @@
-// # nocov
 library bankingsystem.globals;
 
 import 'dart:core';
