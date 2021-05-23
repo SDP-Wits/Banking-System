@@ -98,6 +98,7 @@ String giveError() {
 
 // date
 
+// coverage:ignore-start
 String currentDate() {
   var now = new DateTime.now();
   var formatter = new DateFormat('yyyy-MM-dd');
@@ -114,3 +115,4 @@ void setCheck(bool check) {
 bool getCheck() {
   return _finalCheck;
 }
+// coverage:ignore-end

@@ -6,8 +6,8 @@ import '../../config/routes/router.dart';
 import '../../constants/database_constants.dart';
 import '../../utils/services/online_db.dart';
 import '../SHA-256_encryption.dart';
-
 // coverage:ignore-start
+
 final TextEditingController idController = TextEditingController(text: "");
 final TextEditingController passwordController =
     TextEditingController(text: "");
@@ -22,7 +22,6 @@ TextEditingController getPasswordController() {
 
 Future<void> loginProcedure(BuildContext context) async {
   bool isClientLogin = true;
-  // coverage:ignore-start
   await showDialog(
       context: context,
       barrierDismissible: false,
@@ -61,7 +60,6 @@ Future<void> loginProcedure(BuildContext context) async {
           ],
         );
       });
-  // coverage:ignore-end
 
   String id = idController.text;
   String password = encode(passwordController.text);
@@ -85,7 +83,6 @@ Future<void> loginProcedure(BuildContext context) async {
     }
   }
 }
-
 // coverage:ignore-end
 
 //Helper Functions

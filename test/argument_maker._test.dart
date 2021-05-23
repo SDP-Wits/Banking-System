@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:last_national_bank/core/SHA-256_encryption.dart';
+import 'package:last_national_bank/core/registration/widgets/NewSurname.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
 import 'package:last_national_bank/core/registration/widgets/NewIDnum.dart';
 import 'package:last_national_bank/core/registration/widgets/NewLoc.dart';
@@ -69,6 +70,20 @@ void main() {
       var expected = false;
 
       var actual = fullvalidation();
+
+      expect(actual, expected);
+    });
+
+    test('Test to see if hasInputError in surname work', () {
+      bool expected = true;
+      bool actual = hasInputErrorSurname("");
+
+      expect(actual, expected);
+    });
+
+    test('Test to see if hasInputError in surname work', () {
+      bool expected = false;
+      bool actual = hasInputErrorSurname("someFancyPassword");
 
       expect(actual, expected);
     });

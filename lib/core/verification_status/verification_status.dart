@@ -1,3 +1,4 @@
+// coverage:ignore-start
 import 'package:flutter/material.dart';
 import '../../widgets/navigation.dart';
 
@@ -238,3 +239,4 @@ Widget _buildLoadingScreen() {
     ),
   );
 }
+// coverage:ignore-end
