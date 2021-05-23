@@ -14,13 +14,14 @@ void toastyPrint(String string) {
 
 //Checks if the user is already logged in (if they in local DB)
 void autoLogin(BuildContext context) {
+  //coverage:ignore-line
   LocalDatabaseHelper.instance.isUser().then((isUser) {
     if (isUser) {
-      LocalDatabaseHelper.instance.getUserAndAddress().then((user) {
+      LocalDatabaseHelper.instance.getUserAndAddress().then((user) {//coverage:ignore-line
         if (user!.isAdmin) {
-          router.goToAdminVerificationList(context);
+          router.goToAdminVerificationList(context); //coverage:ignore-line
         } else {
-          router.goToAdminVerificationStatus(context);
+          router.goToAdminVerificationStatus(context); //coverage:ignore-line
         }
       });
     }

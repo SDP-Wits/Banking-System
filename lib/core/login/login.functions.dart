@@ -1,3 +1,4 @@
+//coverage:ignore-start
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -6,7 +7,6 @@ import '../../config/routes/router.dart';
 import '../../constants/database_constants.dart';
 import '../../utils/services/online_db.dart';
 import '../SHA-256_encryption.dart';
-// coverage:ignore-start
 
 final TextEditingController idController = TextEditingController(text: "");
 final TextEditingController passwordController =
@@ -19,7 +19,9 @@ TextEditingController getIDController() {
 TextEditingController getPasswordController() {
   return passwordController;
 }
+// coverage:ignore-end
 
+// coverage:ignore-start
 Future<void> loginProcedure(BuildContext context) async {
   bool isClientLogin = true;
   await showDialog(

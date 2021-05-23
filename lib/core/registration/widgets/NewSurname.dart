@@ -23,6 +23,7 @@ class NewSurnameState extends State<NewSurname> {
     }
   }
 
+  // coverage:ignore-start
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -60,7 +61,7 @@ class NewSurnameState extends State<NewSurname> {
       ),
     );
   }
-}
+} // coverage:ignore-end
 // coverage:ignore-end
 
 //function to check for invalid name
