@@ -1,3 +1,4 @@
+// coverage:ignore-start
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../../utils/services/online_db.dart';
@@ -64,7 +65,6 @@ class _BankAccountOptionsState extends State<BankAccountOptions> {
     });
   }
 
-  // coverage:ignore-start
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width * 0.6;
@@ -153,9 +153,7 @@ class _BankAccountOptionsState extends State<BankAccountOptions> {
     );
   }
 }
-// coverage:ignore-end
 
-// coverage:ignore-start
 Future<void> _asyncConfirmDialog(
     BuildContext context, int accTypeId, String accType) async {
   return showDialog<void>(

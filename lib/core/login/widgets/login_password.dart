@@ -1,3 +1,4 @@
+// coverage:ignore-start
 import 'package:flutter/material.dart';
 
 import '../login.functions.dart';
@@ -46,3 +47,4 @@ class PasswordInputState extends State<PasswordInput> {
     );
   }
 }
+// coverage:ignore-end

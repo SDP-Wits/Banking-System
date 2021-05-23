@@ -1,3 +1,4 @@
+// coverage:ignore-start
 import 'package:flutter/material.dart';
 
 import '../login.functions.dart';
@@ -48,3 +49,4 @@ class _InputIDState extends State<InputID> {
     );
   }
 }
+// coverage:ignore-end

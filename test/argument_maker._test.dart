@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:last_national_bank/core/SHA-256_encryption.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
 import 'package:last_national_bank/core/registration/widgets/NewIDnum.dart';
 import 'package:last_national_bank/core/registration/widgets/NewLoc.dart';
@@ -30,237 +31,237 @@ void main() {
   });
 
   group('testing registration page fullvalidation in registran.functions.dart',
-          () {
-        //setting values that are valid
-        test('test to check validation works', () {
-          Data.password1 = "password";
-          Data.password2 = "password";
-          Data.name = "Tristan Declan";
-          Data.surname = "Bookhan";
-          Data.email = "tristanbookhan@gmail.com";
-          Data.idnum = "0123456789101";
-          Data.loc = "62 Pine Road";
-          Data.phone = "0123456789";
-          Data.age = 21;
+      () {
+    //setting values that are valid
+    test('test to check validation works', () {
+      Data.password1 = "password";
+      Data.password2 = "password";
+      Data.name = "Tristan Declan";
+      Data.surname = "Bookhan";
+      Data.email = "tristanbookhan@gmail.com";
+      Data.idnum = "0123456789101";
+      Data.loc = "62 Pine Road";
+      Data.phone = "0123456789";
+      Data.age = 21;
 
-          var expected = true;
+      var expected = true;
 
-          var actual = fullvalidation();
+      var actual = fullvalidation();
 
-          expect(actual, expected);
-        });
+      expect(actual, expected);
+    });
 
-        //testing for invalid data
+    //testing for invalid data
 
-        //invalid passwords
+    //invalid passwords
 
-        test('test to check for non-matching passwords', () {
-          Data.password1 = "passwor";
-          Data.password2 = "password";
-          Data.name = "Tristan Declan";
-          Data.surname = "Bookhan";
-          Data.email = "tristanbookhan@gmail.com";
-          Data.idnum = "0123456789101";
-          Data.loc = "62 Pine Road";
-          Data.phone = "0123456789";
-          Data.age = 21;
+    test('test to check for non-matching passwords', () {
+      Data.password1 = "passwor";
+      Data.password2 = "password";
+      Data.name = "Tristan Declan";
+      Data.surname = "Bookhan";
+      Data.email = "tristanbookhan@gmail.com";
+      Data.idnum = "0123456789101";
+      Data.loc = "62 Pine Road";
+      Data.phone = "0123456789";
+      Data.age = 21;
 
-          var expected = false;
+      var expected = false;
 
-          var actual = fullvalidation();
+      var actual = fullvalidation();
 
-          expect(actual, expected);
-        });
+      expect(actual, expected);
+    });
 
-        //invalid name
-        test('test to check for valid name', () {
-          Data.password1 = "password";
-          Data.password2 = "password";
-          Data.name = "";
-          Data.surname = "Bookhan";
-          Data.email = "tristanbookhan@gmail.com";
-          Data.idnum = "0123456789101";
-          Data.loc = "62 Pine Road";
-          Data.phone = "0123456789";
-          Data.age = 21;
+    //invalid name
+    test('test to check for valid name', () {
+      Data.password1 = "password";
+      Data.password2 = "password";
+      Data.name = "";
+      Data.surname = "Bookhan";
+      Data.email = "tristanbookhan@gmail.com";
+      Data.idnum = "0123456789101";
+      Data.loc = "62 Pine Road";
+      Data.phone = "0123456789";
+      Data.age = 21;
 
-          var expected = false;
+      var expected = false;
 
-          var actual = fullvalidation();
+      var actual = fullvalidation();
 
-          expect(actual, expected);
-        });
+      expect(actual, expected);
+    });
 
-        //invalid surname
-        test('test to check validation works', () {
-          Data.password1 = "password";
-          Data.password2 = "password";
-          Data.name = "Tristan Declan";
-          Data.surname = "";
-          Data.email = "tristanbookhan@gmail.com";
-          Data.idnum = "0123456789101";
-          Data.loc = "62 Pine Road";
-          Data.phone = "0123456789";
-          Data.age = 21;
+    //invalid surname
+    test('test to check validation works', () {
+      Data.password1 = "password";
+      Data.password2 = "password";
+      Data.name = "Tristan Declan";
+      Data.surname = "";
+      Data.email = "tristanbookhan@gmail.com";
+      Data.idnum = "0123456789101";
+      Data.loc = "62 Pine Road";
+      Data.phone = "0123456789";
+      Data.age = 21;
 
-          var expected = false;
+      var expected = false;
 
-          var actual = fullvalidation();
+      var actual = fullvalidation();
 
-          expect(actual, expected);
-        });
+      expect(actual, expected);
+    });
 
-        //invalid email
-        test('test to check for invalid email', () {
-          Data.password1 = "password";
-          Data.password2 = "password";
-          Data.name = "Tristan Declan";
-          Data.surname = "Bookhan";
-          Data.email = "tristanbookhangmailcom";
-          Data.idnum = "0123456789101";
-          Data.loc = "62 Pine Road";
-          Data.phone = "0123456789";
-          Data.age = 21;
+    //invalid email
+    test('test to check for invalid email', () {
+      Data.password1 = "password";
+      Data.password2 = "password";
+      Data.name = "Tristan Declan";
+      Data.surname = "Bookhan";
+      Data.email = "tristanbookhangmailcom";
+      Data.idnum = "0123456789101";
+      Data.loc = "62 Pine Road";
+      Data.phone = "0123456789";
+      Data.age = 21;
 
-          var expected = false;
+      var expected = false;
 
-          var actual = fullvalidation();
+      var actual = fullvalidation();
 
-          expect(actual, expected);
-        });
+      expect(actual, expected);
+    });
 
-        //invalid id number
-        test('test to check for invalid ID number', () {
-          Data.password1 = "password";
-          Data.password2 = "password";
-          Data.name = "Tristan Declan";
-          Data.surname = "Bookhan";
-          Data.email = "tristanbookhan@gmail.com";
-          Data.idnum = "";
-          Data.loc = "62 Pine Road";
-          Data.phone = "0123456789";
-          Data.age = 21;
+    //invalid id number
+    test('test to check for invalid ID number', () {
+      Data.password1 = "password";
+      Data.password2 = "password";
+      Data.name = "Tristan Declan";
+      Data.surname = "Bookhan";
+      Data.email = "tristanbookhan@gmail.com";
+      Data.idnum = "";
+      Data.loc = "62 Pine Road";
+      Data.phone = "0123456789";
+      Data.age = 21;
 
-          var expected = false;
+      var expected = false;
 
-          var actual = fullvalidation();
+      var actual = fullvalidation();
 
-          expect(actual, expected);
-        });
+      expect(actual, expected);
+    });
 
-        //invalid location
-        test('test to check for invalid location', () {
-          Data.password1 = "password";
-          Data.password2 = "password";
-          Data.name = "Tristan Declan";
-          Data.surname = "Bookhan";
-          Data.email = "tristanbookhan@gmail.com";
-          Data.idnum = "0123456789101";
-          Data.loc = "";
-          Data.phone = "0123456789";
-          Data.age = 21;
+    //invalid location
+    test('test to check for invalid location', () {
+      Data.password1 = "password";
+      Data.password2 = "password";
+      Data.name = "Tristan Declan";
+      Data.surname = "Bookhan";
+      Data.email = "tristanbookhan@gmail.com";
+      Data.idnum = "0123456789101";
+      Data.loc = "";
+      Data.phone = "0123456789";
+      Data.age = 21;
 
-          var expected = false;
+      var expected = false;
 
-          var actual = fullvalidation();
+      var actual = fullvalidation();
 
-          expect(actual, expected);
-        });
+      expect(actual, expected);
+    });
 
-        //invalid phone number
-        test('test to check for invalid phone number', () {
-          Data.password1 = "password";
-          Data.password2 = "password";
-          Data.name = "Tristan Declan";
-          Data.surname = "Bookhan";
-          Data.email = "tristanbookhan@gmail.com";
-          Data.idnum = "0123456789101";
-          Data.loc = "62 Pine Road";
-          Data.phone = "";
-          Data.age = 21;
+    //invalid phone number
+    test('test to check for invalid phone number', () {
+      Data.password1 = "password";
+      Data.password2 = "password";
+      Data.name = "Tristan Declan";
+      Data.surname = "Bookhan";
+      Data.email = "tristanbookhan@gmail.com";
+      Data.idnum = "0123456789101";
+      Data.loc = "62 Pine Road";
+      Data.phone = "";
+      Data.age = 21;
 
-          var expected = false;
+      var expected = false;
 
-          var actual = fullvalidation();
+      var actual = fullvalidation();
 
-          expect(actual, expected);
-        });
+      expect(actual, expected);
+    });
 
-        //invalid age negative
-        test('test to check for valid age', () {
-          Data.password1 = "password";
-          Data.password2 = "password";
-          Data.name = "Tristan Declan";
-          Data.surname = "Bookhan";
-          Data.email = "tristanbookhan@gmail.com";
-          Data.idnum = "0123456789101";
-          Data.loc = "62 Pine Road";
-          Data.phone = "0123456789";
-          Data.age = -1;
+    //invalid age negative
+    test('test to check for valid age', () {
+      Data.password1 = "password";
+      Data.password2 = "password";
+      Data.name = "Tristan Declan";
+      Data.surname = "Bookhan";
+      Data.email = "tristanbookhan@gmail.com";
+      Data.idnum = "0123456789101";
+      Data.loc = "62 Pine Road";
+      Data.phone = "0123456789";
+      Data.age = -1;
 
-          var expected = false;
+      var expected = false;
 
-          var actual = fullvalidation();
+      var actual = fullvalidation();
 
-          expect(actual, expected);
-        });
+      expect(actual, expected);
+    });
 
-        //invalid age <12>
-        test('test to check for valid age', () {
-          Data.password1 = "password";
-          Data.password2 = "password";
-          Data.name = "Tristan Declan";
-          Data.surname = "Bookhan";
-          Data.email = "tristanbookhan@gmail.com";
-          Data.idnum = "0123456789101";
-          Data.loc = "62 Pine Road";
-          Data.phone = "0123456789";
-          Data.age = 6;
+    //invalid age <12>
+    test('test to check for valid age', () {
+      Data.password1 = "password";
+      Data.password2 = "password";
+      Data.name = "Tristan Declan";
+      Data.surname = "Bookhan";
+      Data.email = "tristanbookhan@gmail.com";
+      Data.idnum = "0123456789101";
+      Data.loc = "62 Pine Road";
+      Data.phone = "0123456789";
+      Data.age = 6;
 
-          var expected = false;
+      var expected = false;
 
-          var actual = fullvalidation();
+      var actual = fullvalidation();
 
-          expect(actual, expected);
-        });
+      expect(actual, expected);
+    });
 
-        //testing giveError function
-        //valid
-        test('test to check for valid data', () {
-          Data.password1 = "password";
-          Data.password2 = "password";
-          Data.name = "Tristan Declan";
-          Data.surname = "Bookhan";
-          Data.email = "tristanbookhan@gmail.com";
-          Data.idnum = "0123456789101";
-          Data.loc = "62 Pine Road";
-          Data.phone = "0123456789";
-          Data.age = 21;
-          var expected = "Proceed to next page";
+    //testing giveError function
+    //valid
+    test('test to check for valid data', () {
+      Data.password1 = "password";
+      Data.password2 = "password";
+      Data.name = "Tristan Declan";
+      Data.surname = "Bookhan";
+      Data.email = "tristanbookhan@gmail.com";
+      Data.idnum = "0123456789101";
+      Data.loc = "62 Pine Road";
+      Data.phone = "0123456789";
+      Data.age = 21;
+      var expected = "Proceed to next page";
 
-          var actual = giveError();
+      var actual = giveError();
 
-          expect(actual, expected);
-        });
-        //invalid
-        test('test to check for invalid data', () {
-          Data.password1 = "password";
-          Data.password2 = "password";
-          Data.name = "Tristan Declan";
-          Data.surname = "Bookhan";
-          Data.email = "tristanbookhan@gmail.com";
-          Data.idnum = "012345678910";
-          Data.loc = "62 Pine Road";
-          Data.phone = "0123456789";
-          Data.age = 21;
+      expect(actual, expected);
+    });
+    //invalid
+    test('test to check for invalid data', () {
+      Data.password1 = "password";
+      Data.password2 = "password";
+      Data.name = "Tristan Declan";
+      Data.surname = "Bookhan";
+      Data.email = "tristanbookhan@gmail.com";
+      Data.idnum = "012345678910";
+      Data.loc = "62 Pine Road";
+      Data.phone = "0123456789";
+      Data.age = 21;
 
-          var expected = "Some Fields Have Errors";
+      var expected = "Some Fields Have Errors";
 
-          var actual = giveError();
+      var actual = giveError();
 
-          expect(actual, expected);
-        });
-      });
+      expect(actual, expected);
+    });
+  });
 
   group('testing validator for newage.dart', () {
     //valid
@@ -517,89 +518,99 @@ void main() {
     expect(seperateCardNumber(cardNumberUnspaced), cardNumberSpaced);
   });
 
-  test('test to check for null string',(){
+  test('test to check for null string', () {
     var expected = "null";
 
     var actual = doubleQuote(null);
 
-    expect(actual,expected);
+    expect(actual, expected);
   });
   //invalid
-  test('test to check for non null string',(){
+  test('test to check for non null string', () {
     var expected = '"Hello"';
 
     var actual = doubleQuote("Hello");
 
-    expect(actual,expected);
+    expect(actual, expected);
   });
 
-  group('testing validator for login.functions.dart',(){
+  group('testing validator for login.functions.dart', () {
     //valid
-    test('test to check for valid ID number',(){
+    test('test to check for valid ID number', () {
       var expected = false;
 
       var actual = hasInputErrorID("0123456789101");
 
-      expect(actual,expected);
+      expect(actual, expected);
     });
     //invalid
-    test('test to check for invalid ID number with out enough numbers',(){
+    test('test to check for invalid ID number with out enough numbers', () {
       var expected = true;
 
       var actual = hasInputErrorID("012345678910");
 
-      expect(actual,expected);
+      expect(actual, expected);
     });
     //invalid
-    test('test to check for invalid ID number with a letter',(){
+    test('test to check for invalid ID number with a letter', () {
       var expected = true;
 
       var actual = hasInputErrorID("012345678910a");
 
-      expect(actual,expected);
+      expect(actual, expected);
+    });
+
+    //encryption
+    test('test to check for successful hashing', () {
+      String expected =
+          "c23d874b10104bf157fef0fe71991615d99a8823d1eee7f8ab0dd30e953dd6df";
+
+      String actual = encode("Joker@123");
+
+      expect(actual, expected);
     });
   });
 
-  group('testing password validator',(){
+  group('testing password validator', () {
     //valid
-    test('test to check for valid password',(){
+    test('test to check for valid password', () {
       var expected = false;
 
       var actual = hasInputErrorsPassword("John@123");
 
-      expect(actual,expected);
+      expect(actual, expected);
     });
     //invalid no uppercase
-    test('test to check for invalid name without uppercase',(){
+    test('test to check for invalid name without uppercase', () {
       var expected = true;
 
       var actual = hasInputErrorsPassword("john@123");
 
-      expect(actual,expected);
+      expect(actual, expected);
     });
     //invalid no lowercase
-    test('test to check for invalid name without lowercase',(){
+    test('test to check for invalid name without lowercase', () {
       var expected = true;
 
       var actual = hasInputErrorsPassword("JOHN@123");
 
-      expect(actual,expected);
+      expect(actual, expected);
     });
     //invalid no number
-    test('test to check for invalid name without numbers',(){
+    test('test to check for invalid name without numbers', () {
       var expected = true;
 
       var actual = hasInputErrorsPassword("John@");
 
-      expect(actual,expected);
+      expect(actual, expected);
     });
     //invalid no special character
-    test('test to check for invalid name without special character',(){
+    test('test to check for invalid name without special character', () {
       var expected = true;
 
       var actual = hasInputErrorsPassword("John123");
 
-      expect(actual,expected);
+      expect(actual, expected);
     });
   });
 
@@ -609,19 +620,22 @@ void main() {
     List<accountTypes> bankAccTypes = [];
     accountTypes accOption = accountTypes(
       accType: "Savings Account",
-      accDescription: "This offers you a basic banking service with which you can make purchases and withdrawals.",
+      accDescription:
+          "This offers you a basic banking service with which you can make purchases and withdrawals.",
       accountTypeId: 1,
     );
     bankAccTypes.add(accOption);
     accOption = accountTypes(
       accType: "Current Account",
-      accDescription: "Get easy access to your money for day-to-day expenses. You get different types of cards depending on your income bracket.",
+      accDescription:
+          "Get easy access to your money for day-to-day expenses. You get different types of cards depending on your income bracket.",
       accountTypeId: 2,
     );
     bankAccTypes.add(accOption);
     accOption = accountTypes(
       accType: "Fixed Deposit Account",
-      accDescription: "A savings account that you can only access when giving a certain amount of days notice. Earn more interest the longer you save.",
+      accDescription:
+          "A savings account that you can only access when giving a certain amount of days notice. Earn more interest the longer you save.",
       accountTypeId: 3,
     );
     bankAccTypes.add(accOption);
@@ -652,7 +666,6 @@ void main() {
 
   test(
       "Checking if Name Displayer works",
-          () =>
+      () =>
           expect(getNameDisplay(firstName, middleNames, lastName), ansString));
-
 }

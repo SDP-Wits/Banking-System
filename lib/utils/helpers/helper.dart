@@ -4,6 +4,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import '../../config/routes/router.dart' as router;
 import '../services/local_db.dart';
 
+// coverage:ignore-start
+
 //Print and toast at once :)
 void toastyPrint(String string) {
   Fluttertoast.showToast(msg: string);
@@ -32,6 +34,8 @@ String getDate() {
 
   return date.toString().split(' ')[0];
 }
+
+// coverage:ignore-end
 
 //Takes in a card number and adds spaces to it
 String seperateCardNumber(String cardNumber) {

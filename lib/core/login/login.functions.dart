@@ -7,6 +7,7 @@ import '../../constants/database_constants.dart';
 import '../../utils/services/online_db.dart';
 import '../SHA-256_encryption.dart';
 
+// coverage:ignore-start
 final TextEditingController idController = TextEditingController(text: "");
 final TextEditingController passwordController =
     TextEditingController(text: "");
@@ -85,12 +86,10 @@ Future<void> loginProcedure(BuildContext context) async {
   }
 }
 
-String hash(String string) {
-  return string;
-}
+// coverage:ignore-end
 
 //Helper Functions
-//
+
 bool hasInputErrorsPassword(String password) {
   if (password.length < 8 || password.length > 20) {
     //check if password length is correct
