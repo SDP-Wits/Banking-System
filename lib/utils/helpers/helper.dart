@@ -14,18 +14,19 @@ void toastyPrint(String string) {
 
 //Checks if the user is already logged in (if they in local DB)
 void autoLogin(BuildContext context) {
-  //coverage:ignore-line
+  // coverage:ignore-start
   LocalDatabaseHelper.instance.isUser().then((isUser) {
     if (isUser) {
-      LocalDatabaseHelper.instance.getUserAndAddress().then((user) {//coverage:ignore-line
+      LocalDatabaseHelper.instance.getUserAndAddress().then((user) {
         if (user!.isAdmin) {
-          router.goToAdminVerificationList(context); //coverage:ignore-line
+          router.goToAdminVerificationList(context);
         } else {
-          router.goToAdminVerificationStatus(context); //coverage:ignore-line
+          router.goToAdminVerificationStatus(context);
         }
       });
     }
   });
+  // coverage:ignore-end
 }
 
 //Gets the current date in the format, YYYY-MM-DD
