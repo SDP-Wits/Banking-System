@@ -168,6 +168,13 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
                 Spacer(),
 
                 Padding(
+                  padding: EdgeInsets.only(left: 15, right: 15),
+                  
+                  // Function is at the bottom
+                  child: heading(), 
+                ),
+
+                Padding(
                   padding: EdgeInsets.only(bottom: size.height * 0.2, top: 15),
                   
                   child: Icon(
@@ -176,6 +183,8 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
                     size: 36.0,
                   ),
                 ),
+
+                  
 
               ]),
             ),
@@ -193,9 +202,9 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
             ..setEntry(1, 3, yOffsetAnimation!.value),
           
           child: DraggableScrollableSheet(
-            initialChildSize: 0.62, // Size when page loads
-            minChildSize: 0.5, // Minimum size allowed
-            maxChildSize: 0.99, // Maximum size allowed
+            initialChildSize: 0.2, // Size when page loads
+            minChildSize: 0.2, // Minimum size allowed
+            maxChildSize: 0.8, // Maximum size allowed
 
             builder: (BuildContext context, ScrollController scrollController) {
               return Container(
@@ -205,7 +214,9 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
                     color: Colors.teal,
                     borderRadius: BorderRadius.only(
                         topRight: Radius.circular(radiusSize),
-                        topLeft: Radius.circular(radiusSize))),
+                        topLeft: Radius.circular(radiusSize)
+                    ),                    
+                ),
 
                 // The list of transactions
                 child: ListView.builder(
@@ -216,9 +227,6 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
                       if (logs!.length == 0) {
                         return Column(
                           children: [
-
-                            // Function is at the bottom
-                            heading(),     
 
                             ListTile(
                               title: Text(
@@ -235,9 +243,6 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
                       else {
                         return Column(
                           children: [
-
-                            // Function is at the bottom
-                            heading(),
 
                             // Tile with all information of transaction
                             ListTile(
@@ -323,7 +328,7 @@ class heading extends StatelessWidget {
         Text(
           'Account Transaction History',
           style: TextStyle(
-            color: Colors.white,
+            color: Colors.teal,
             fontSize: 20,
             fontFamily: fontMont,
           ),
@@ -336,12 +341,12 @@ class heading extends StatelessWidget {
           
           child: FloatingActionButton(
             
-            backgroundColor: Colors.white,
+            backgroundColor: Colors.teal,
             
             child: Text(
               '+',
               style: TextStyle(
-                color: Colors.teal,
+                color: Colors.white,
                 fontSize: 20,
                 fontFamily: fontMont,
               ),
