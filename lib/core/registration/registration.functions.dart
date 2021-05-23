@@ -1,4 +1,3 @@
-# no_covr
 library bankingsystem.globals;
 
 import 'dart:core';

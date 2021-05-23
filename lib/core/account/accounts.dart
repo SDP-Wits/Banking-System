@@ -111,6 +111,7 @@ class _AccountsState extends State<Accounts> {
                         fontSize: 20.0,
                         color: Colors.white,
                         fontFamily: fontMont),
+                    textAlign: TextAlign.center,
                   ),
                 ),
                 SizedBox(
@@ -180,15 +181,19 @@ Widget floatingCreateAccount(BuildContext context) {
 
 Widget _noAccount(BuildContext context) {
   return Column(
-    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
       Center(
-        child: Text(
-          "No Accounts here...",
-          style: TextStyle(
-            fontFamily: fontMont,
-            fontSize: 40,
-            color: Colors.teal,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 90.0),
+          child: Text(
+            "No Accounts here...",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: fontMont,
+              fontSize: 40,
+              color: Colors.teal,
+            ),
           ),
         ),
       ),
