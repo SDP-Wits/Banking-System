@@ -94,7 +94,7 @@ class _BankAccountOptionsState extends State<BankAccountOptions> {
                             timeInSecForIosWeb: 3,
                             fontSize: 16.0);
                       } else {
-                        final ConfirmAction action = await _asyncConfirmDialog(
+                        _asyncConfirmDialog(
                             context,
                             accountTypeIdList[index],
                             accountTypeList[index]);
@@ -109,7 +109,7 @@ class _BankAccountOptionsState extends State<BankAccountOptions> {
                             end: Alignment.bottomCenter,
                             colors: [
                               Colors.teal,
-                              Colors.teal[800],
+                              Colors.teal[800]!,
                             ],
                           )),
                           child: Row(
@@ -231,9 +231,9 @@ ShowDialogFunc(BuildContext context, int accTypeId, String accType) {
 }
 
 enum ConfirmAction { Cancel, Accept }
-Future<ConfirmAction> _asyncConfirmDialog(
+void _asyncConfirmDialog(
     BuildContext context, int accTypeId, String accType) async {
-  return showDialog<ConfirmAction>(
+    showDialog<ConfirmAction>(
     context: context,
     barrierDismissible: false, // user must tap button for close dialog!
     builder: (BuildContext context) {
