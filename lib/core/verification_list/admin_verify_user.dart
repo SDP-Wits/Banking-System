@@ -1,3 +1,4 @@
+// coverage:ignore-start
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -250,3 +251,5 @@ class DetailedBlocks extends StatelessWidget {
     );
   }
 }
+
+// coverage:ignore-end

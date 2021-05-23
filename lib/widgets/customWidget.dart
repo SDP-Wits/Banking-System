@@ -1,7 +1,7 @@
 //We will have custom widgets that we make here,
 //for example we will make a button
 //that matches our theme here and then we will reuse it
-
+// coverage:ignore-start
 import 'package:flutter/material.dart';
 
 import '../utils/helpers/style.dart';
@@ -38,3 +38,4 @@ class CustomText extends StatelessWidget {
     );
   }
 }
+// coverage:ignore-end

@@ -1,3 +1,5 @@
+// coverage:ignore-start
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:last_national_bank/config/routes/router.dart';
@@ -220,3 +222,4 @@ Widget _noAccount(BuildContext context) {
     ],
   );
 }
+// coverage:ignore-end

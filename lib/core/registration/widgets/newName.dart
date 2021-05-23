@@ -1,3 +1,4 @@
+// coverage:ignore-start
 import 'package:flutter/material.dart';
 
 import '../registration.functions.dart';
@@ -11,7 +12,7 @@ class NewNameState extends State<NewName> {
   bool _hasInputError = false; //input error control variable
   String _name = ""; //name variable
 
-   //function to assign name
+  //function to assign name
   void assignName(String name) {
     if (hasInputErrorName(name) == false) {
       _name = name;
@@ -68,3 +69,4 @@ bool hasInputErrorName(String name) {
   }
   return false;
 }
+// coverage:ignore-end

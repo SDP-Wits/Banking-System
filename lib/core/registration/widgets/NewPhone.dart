@@ -1,3 +1,4 @@
+// coverage:ignore-start
 import 'package:flutter/material.dart';
 
 import '../registration.functions.dart';
@@ -64,3 +65,4 @@ bool hasInputErrorPhone(String phone) {
       null; //checks if phone number contains any letters
   return !hasLetters;
 }
+// coverage:ignore-end

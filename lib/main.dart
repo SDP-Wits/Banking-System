@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:last_national_bank/core/specific_account/specific_bank_account.dart';
+import 'core/specific_account/specific_bank_account.dart';
 
 import 'config/routes/router.dart' as router;
 import 'config/routes/router.helper.dart';
@@ -8,6 +8,7 @@ import 'constants/app_constants.dart';
 import 'core/login/login.dart';
 import 'utils/helpers/helper.dart';
 
+// coverage:ignore-start
 void main() {
   runApp(MyApp());
 }
@@ -58,3 +59,4 @@ class _MyHomePageState extends State<MyHomePage> {
     //return HomePage();
   }
 }
+// coverage:ignore-end

@@ -1,3 +1,4 @@
+// coverage:ignore-start
 import 'package:flutter/material.dart';
 
 import '../registration.functions.dart';
@@ -84,3 +85,4 @@ bool hasInputErrorsPassword1(String password) {
   }
   return false;
 }
+// coverage:ignore-end

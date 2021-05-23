@@ -1,3 +1,5 @@
+// coverage:ignore-start
+
 const String AdminRegistrationRoute = "admin-registration";
 const String ClientRegistrationRoute = "client-registration";
 const String LoginRoute = "login";
@@ -11,4 +13,5 @@ const String ViewAccount = "view-account";
 const String SpecificAccount = "specific-account";
 const String TimelineRoute = "timeline";
 const String SelectPayment = "select-payment";
-//TODO: CHANGE THIS BASED OFF WIDGET NAME - Arneev
+
+// coverage:ignore-end

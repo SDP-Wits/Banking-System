@@ -1,3 +1,5 @@
+// coverage:ignore-start
+
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -289,3 +291,4 @@ class _CardLayout extends StatelessWidget {
     );
   }
 }
+// coverage:ignore-end

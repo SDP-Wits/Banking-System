@@ -1,3 +1,4 @@
+// coverage:ignore-start
 import 'package:flutter/material.dart';
 import 'package:last_national_bank/classes/user.class.dart';
 import 'package:last_national_bank/config/routes/router.dart';
@@ -22,12 +23,13 @@ class _SelectPaymentPageState extends State<SelectPaymentPage> {
 
     LocalDatabaseHelper.instance.getUserAndAddress().then((userDB) {
       getAccountDetails(userDB!.idNumber).then((account) {
-          setState(() {
+        setState(
+          () {
             user = userDB;
-          },);
+          },
+        );
       });
     });
-          
   }
 
   // Use loading page instead of red error screen
@@ -39,7 +41,7 @@ class _SelectPaymentPageState extends State<SelectPaymentPage> {
       return buildPage(context);
     }
   }
-  
+
   Widget buildPage(BuildContext context) {
     // TODO: implement build
 
@@ -47,92 +49,84 @@ class _SelectPaymentPageState extends State<SelectPaymentPage> {
     GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     return Scaffold(
-
       // Set navigation:
       key: _scaffoldKey,
-      drawer: Navigation(clientName: user!.firstName, clientSurname: user!.lastName),
+      drawer: Navigation(
+          clientName: user!.firstName, clientSurname: user!.lastName),
 
       body: Container(
-
         // Decorate background
         decoration: BoxDecoration(
           gradient: backgroundGradient,
         ),
 
         // Column: Three lines icon, Heading, Two buttons
-        child: Column(
-          children: [
-              
-            // Open navigation icon (three lines icon)
-            Align(
-              alignment: Alignment.topLeft,
-
-              child: IconButton(
-                icon: Icon(Icons.menu, color: Colors.white),
-                // When the icon is clicked, open the navigation/drawer
-                onPressed: () {
-                  _scaffoldKey.currentState!.openDrawer();
-                },
-              ),
-
+        child: Column(children: [
+          // Open navigation icon (three lines icon)
+          Align(
+            alignment: Alignment.topLeft,
+            child: IconButton(
+              icon: Icon(Icons.menu, color: Colors.white),
+              // When the icon is clicked, open the navigation/drawer
+              onPressed: () {
+                _scaffoldKey.currentState!.openDrawer();
+              },
             ),
+          ),
 
-            // Spacing
-            Padding(
-              padding: EdgeInsets.only(top: 20),
-            ),
+          // Spacing
+          Padding(
+            padding: EdgeInsets.only(top: 20),
+          ),
 
-            // Heading
-            Text(
-              'Select Form of Payment:',
-              style: new TextStyle(
+          // Heading
+          Text(
+            'Select Form of Payment:',
+            style: new TextStyle(
                 fontSize: 30.0,
                 fontWeight: FontWeight.w500,
-                  color: Colors.white
-              ),
-            ),
-              
-            // Spacing
-            Padding(
-              padding: EdgeInsets.only(top: 20),
-            ),
+                color: Colors.white),
+          ),
 
-            // First button
-            paymentButton(
-              // Pass parameters:
+          // Spacing
+          Padding(
+            padding: EdgeInsets.only(top: 20),
+          ),
 
-              // When buton is clicked, do..
-              onTap: (){
-                //goToAdminVerificationList(context);
-              },
-              buttonTitle: "Trasfers", 
-              buttonDescription: "Transfer funds betweeen your own accounts.",
-              buttonIcon: iconFamily.payment,
-            ),
+          // First button
+          paymentButton(
+            // Pass parameters:
 
-            // Spacing
-            Padding(
-              padding: EdgeInsets.only(top: 20),
-            ),
+            // When buton is clicked, do..
+            onTap: () {
+              //goToAdminVerificationList(context);
+            },
+            buttonTitle: "Trasfers",
+            buttonDescription: "Transfer funds betweeen your own accounts.",
+            buttonIcon: iconFamily.payment,
+          ),
 
-            // Second button
-            paymentButton(
-              // Pass parameters:
+          // Spacing
+          Padding(
+            padding: EdgeInsets.only(top: 20),
+          ),
 
-              // When buton is clicked, do..
-              onTap: (){
-                //goToAdminVerificationList(context);
-              },
-              buttonTitle: "Payments", 
-              buttonDescription: "Make payments to other client's bank accounts.",
-              buttonIcon: iconFamily.user,
-            ),
-          ]
-        ),
+          // Second button
+          paymentButton(
+            // Pass parameters:
+
+            // When buton is clicked, do..
+            onTap: () {
+              //goToAdminVerificationList(context);
+            },
+            buttonTitle: "Payments",
+            buttonDescription: "Make payments to other client's bank accounts.",
+            buttonIcon: iconFamily.user,
+          ),
+        ]),
       ),
     );
   }
-
 }
 
 // Loading screen
@@ -146,3 +140,4 @@ Widget _buildLoadingScreen() {
   );
 }
 
+// coverage:ignore-end

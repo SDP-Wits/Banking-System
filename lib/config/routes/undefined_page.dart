@@ -1,3 +1,4 @@
+// coverage:ignore-start
 import 'package:flutter/material.dart';
 
 class UndefinedPage extends StatelessWidget {
@@ -14,3 +15,4 @@ class UndefinedPage extends StatelessWidget {
     );
   }
 }
+// coverage:ignore-end

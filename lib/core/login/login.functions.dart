@@ -21,6 +21,7 @@ TextEditingController getPasswordController() {
 
 Future<void> loginProcedure(BuildContext context) async {
   bool isClientLogin = true;
+  // coverage:ignore-start
   await showDialog(
       context: context,
       barrierDismissible: false,
@@ -59,6 +60,7 @@ Future<void> loginProcedure(BuildContext context) async {
           ],
         );
       });
+  // coverage:ignore-end
 
   String id = idController.text;
   String password = encode(passwordController.text);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// coverage:ignore-start
 class TextNew extends StatefulWidget {
   @override
   _TextNewState createState() => _TextNewState();
@@ -34,3 +35,4 @@ class _TextNewState extends State<TextNew> {
     );
   }
 }
+// coverage:ignore-end

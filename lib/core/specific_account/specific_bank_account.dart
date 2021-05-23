@@ -1,3 +1,4 @@
+// coverage:ignore-start
 import 'package:flutter/material.dart';
 import 'package:last_national_bank/classes/accountDetails.dart';
 import 'package:last_national_bank/classes/log.dart';
@@ -104,7 +105,6 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
               animationController!.animateBack(0);
             }
           },
-
           child: Positioned(
             top: 0,
             bottom: 150,
@@ -112,33 +112,26 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
             right: 0,
             child: Container(
               child: Column(children: [
-                
                 // Floating back button
                 Align(
                   alignment: Alignment(-0.95, -0.8),
-
                   child: Container(
                     width: 50,
                     height: 50,
-                    
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
-                      
-                      child: FloatingActionButton(                      
-                        backgroundColor: Colors.white,
-                        
-                        child: Icon(
-                          Icons.arrow_back,
-                          color: Colors.black,
-                          size: 20,
-                        ),
-                        
-                        onPressed: () {
-                          //When floating action button is pressed
-                          //this will go to 'accounts' page
-                          goToViewAccount(context);
-                        }
-                      ),
+                      child: FloatingActionButton(
+                          backgroundColor: Colors.white,
+                          child: Icon(
+                            Icons.arrow_back,
+                            color: Colors.black,
+                            size: 20,
+                          ),
+                          onPressed: () {
+                            //When floating action button is pressed
+                            //this will go to 'accounts' page
+                            goToViewAccount(context);
+                          }),
                     ),
                   ),
                 ),
@@ -151,7 +144,6 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
                 // Card
                 Align(
                   alignment: Alignment.topCenter,
-
                   child: AccountCardInfo(
                     accountType: this.widget.acc.accountType,
                     accountNumber: this.widget.acc.accountNumber,
@@ -169,14 +161,12 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
 
                 Padding(
                   padding: EdgeInsets.only(bottom: size.height * 0.2, top: 15),
-                  
                   child: Icon(
                     Icons.arrow_upward,
                     color: Colors.teal,
                     size: 36.0,
                   ),
                 ),
-
               ]),
             ),
           ),
@@ -191,7 +181,6 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
           alignment: Alignment.center,
           transform: Matrix4.identity()
             ..setEntry(1, 3, yOffsetAnimation!.value),
-          
           child: DraggableScrollableSheet(
             initialChildSize: 0.62, // Size when page loads
             minChildSize: 0.5, // Minimum size allowed
@@ -216,17 +205,14 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
                       if (logs!.length == 0) {
                         return Column(
                           children: [
-
                             // Function is at the bottom
-                            heading(),     
+                            heading(),
 
                             ListTile(
-                              title: Text(
-                                "No Recent Activity",
-                                style: TextStyle(fontSize: 15, color: Colors.white)
-                              ),
+                              title: Text("No Recent Activity",
+                                  style: TextStyle(
+                                      fontSize: 15, color: Colors.white)),
                             ),
-
                           ],
                         );
                       }
@@ -235,7 +221,6 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
                       else {
                         return Column(
                           children: [
-
                             // Function is at the bottom
                             heading(),
 
@@ -250,33 +235,31 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
                                 // Date
                                 child: Text(
                                     logs![index].timeStamp.split(" ")[0],
-                                    style: TextStyle(fontSize: 20, color: Colors.white)
-                                ),
+                                    style: TextStyle(
+                                        fontSize: 20, color: Colors.white)),
                               ),
 
                               // isThree lines requires all other lines to be in a column
                               subtitle: Column(
                                 children: [
-                                  
                                   // Reference number
                                   Align(
                                     alignment: Alignment.bottomLeft,
-                                    
                                     child: Text(
-                                      'Reference Number: ' + logs![index].referenceNumber,
-                                      style: TextStyle(fontSize: 15, color: Colors.black)
-                                    ),
+                                        'Reference Number: ' +
+                                            logs![index].referenceNumber,
+                                        style: TextStyle(
+                                            fontSize: 15, color: Colors.black)),
                                   ),
-                                  
+
                                   // Amount
                                   Align(
                                     alignment: Alignment.bottomRight,
-                                      
                                     child: Text(
-                                      'R' + logs![index].amount.toString(),
-                                      style: TextStyle(fontSize: 15, color: Colors.black)
-                                    ),
-                                  ),   
+                                        'R' + logs![index].amount.toString(),
+                                        style: TextStyle(
+                                            fontSize: 15, color: Colors.black)),
+                                  ),
 
                                   // Create black dividing line
                                   const Divider(
@@ -285,17 +268,13 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
                                     thickness: 1,
                                     indent: 0,
                                     endIndent: 0,
-                                  ),                             
-
+                                  ),
                                 ],
                               ),
-
                             ),
                           ],
                         );
                       }
-
-
                     }),
               );
             },
@@ -306,19 +285,15 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
   }
 }
 
-// heading is the title: "Account Transaction History" 
+// heading is the title: "Account Transaction History"
 // and the floting button to add a new transaction
 // I created this because of the long code which is used twice
 class heading extends StatelessWidget {
-  
   @override
   Widget build(BuildContext context) {
-    
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      
       children: [
-
         // Title
         Text(
           'Account Transaction History',
@@ -333,26 +308,21 @@ class heading extends StatelessWidget {
         Container(
           width: 50,
           height: 50,
-          
           child: FloatingActionButton(
-            
-            backgroundColor: Colors.white,
-            
-            child: Text(
-              '+',
-              style: TextStyle(
-                color: Colors.teal,
-                fontSize: 20,
-                fontFamily: fontMont,
+              backgroundColor: Colors.white,
+              child: Text(
+                '+',
+                style: TextStyle(
+                  color: Colors.teal,
+                  fontSize: 20,
+                  fontFamily: fontMont,
+                ),
               ),
-            ),
-            
-            onPressed: () {
-              //When floating action button is pressed
-              //this will go to 'select payment method' page
-              goToSelectPayment(context);
-            }
-          ),
+              onPressed: () {
+                //When floating action button is pressed
+                //this will go to 'select payment method' page
+                goToSelectPayment(context);
+              }),
         ),
       ],
     );
@@ -369,3 +339,4 @@ Widget _buildLoadingScreen() {
     ),
   );
 }
+// coverage:ignore-end

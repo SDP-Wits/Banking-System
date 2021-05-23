@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:last_national_bank/widgets/navigation.dart';
+import '../../widgets/navigation.dart';
 
 import '../../classes/thisUser.dart';
 import '../../classes/user.class.dart';

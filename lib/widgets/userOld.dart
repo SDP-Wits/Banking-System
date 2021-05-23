@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// coverage:ignore-start
 class UserOld extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -41,3 +42,5 @@ class UserOld extends StatelessWidget {
     );
   }
 }
+
+// coverage:ignore-end

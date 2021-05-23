@@ -1,5 +1,4 @@
-//import 'dart:js';
-
+// coverage:ignore-start
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:last_national_bank/classes/accountDetails.dart';
@@ -131,3 +130,4 @@ void goToTimeline(BuildContext context) {
 void goToSelectPayment(BuildContext context) {
   Navigator.pushNamed(context, SelectPayment);
 }
+// coverage:ignore-end

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+// coverage:ignore-start
 import '../core/registration/registration.functions.dart';
 
 class SecretKey extends StatefulWidget {
@@ -46,6 +46,7 @@ class _SecretKeyState extends State<SecretKey> {
     );
   }
 }
+// coverage:ignore-end
 
 bool hasInputErrorsSecret(String skey) {
   if (skey.length == 0) {

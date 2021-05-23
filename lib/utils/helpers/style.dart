@@ -1,3 +1,4 @@
+// coverage:ignore-start
 import 'package:flutter/material.dart';
 
 final String fontDefault = "";
@@ -20,3 +21,4 @@ var backgroundGradient = LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
     colors: [Colors.blueGrey, Colors.teal]);
+// coverage:ignore-end

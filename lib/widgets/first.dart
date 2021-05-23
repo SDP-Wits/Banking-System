@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+// coverage:ignore-start
 import '../config/routes/router.dart';
 import '../core/registration/registration.functions.dart';
 
@@ -90,3 +90,4 @@ class _FirstTimeState extends State<FirstTime> {
     );
   }
 }
+// coverage:ignore-end

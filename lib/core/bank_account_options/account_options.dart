@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:last_national_bank/utils/services/online_db.dart';
-import 'package:last_national_bank/widgets/navigation.dart';
+import '../../utils/services/online_db.dart';
+import '../../widgets/navigation.dart';
 
 import '../../classes/user.class.dart';
 import '../../config/routes/router.dart';
@@ -64,6 +64,7 @@ class _BankAccountOptionsState extends State<BankAccountOptions> {
     });
   }
 
+  // coverage:ignore-start
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width * 0.6;
@@ -152,7 +153,9 @@ class _BankAccountOptionsState extends State<BankAccountOptions> {
     );
   }
 }
+// coverage:ignore-end
 
+// coverage:ignore-start
 Future<void> _asyncConfirmDialog(
     BuildContext context, int accTypeId, String accType) async {
   return showDialog<void>(
@@ -233,3 +236,4 @@ Widget _buildLoadingScreen() {
     ),
   );
 }
+// coverage:ignore-end

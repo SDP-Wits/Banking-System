@@ -1,3 +1,4 @@
+// coverage:ignore-start
 import 'package:flutter/material.dart';
 import 'package:last_national_bank/utils/helpers/style.dart';
 import 'package:last_national_bank/utils/services/local_db.dart';
@@ -158,3 +159,4 @@ Widget _buildLoadingScreen() {
     ),
   );
 }
+// coverage:ignore-end

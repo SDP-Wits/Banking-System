@@ -1,3 +1,4 @@
+// coverage:ignore-start
 import 'package:flutter/material.dart';
 
 import '../registration.functions.dart';
@@ -31,8 +32,8 @@ class NewSurnameState extends State<NewSurname> {
         width: MediaQuery.of(context).size.width,
         child: TextField(
           onChanged: (value) {
-            _hasInputError =
-                hasInputErrorSurname(value); //call validator to check for errors
+            _hasInputError = hasInputErrorSurname(
+                value); //call validator to check for errors
             if (_hasInputError == false) {
               //if no errors, assign surname
               assignSurname(value);
@@ -60,6 +61,7 @@ class NewSurnameState extends State<NewSurname> {
     );
   }
 }
+// coverage:ignore-end
 
 //function to check for invalid name
 bool hasInputErrorSurname(String surname) {

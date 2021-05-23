@@ -1,3 +1,4 @@
+// coverage:ignore-start
 import 'package:flutter/material.dart';
 
 import '../registration.functions.dart';
@@ -73,3 +74,4 @@ bool hasInputErrorAge(int age) {
   }
   return false;
 }
+// coverage:ignore-end

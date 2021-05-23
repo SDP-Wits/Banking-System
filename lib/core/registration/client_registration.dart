@@ -1,3 +1,4 @@
+// coverage:ignore-start
 import 'package:flutter/material.dart';
 
 import '../../widgets/buttonNewUser.dart';
@@ -56,6 +57,8 @@ class _ClientRegistrationPageState extends State<ClientRegistrationPage> {
     );
   }
 }
+
+// coverage:ignore-end
 
 /*import 'package:flutter/material.dart';
 import 'package:last_national_bank/config/routes/router.dart';

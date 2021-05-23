@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+// coverage:ignore-start
 class ButtonLogin extends StatefulWidget {
   final Function onTap;
   ButtonLogin(this.onTap);
@@ -54,3 +54,4 @@ class _ButtonLoginState extends State<ButtonLogin> {
     );
   }
 }
+// coverage:ignore-end

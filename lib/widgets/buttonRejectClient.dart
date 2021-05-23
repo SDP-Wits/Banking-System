@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
+// coverage:ignore-start
 class buttonRejectClient extends StatefulWidget {
   final Function onTap;
   buttonRejectClient(this.onTap);
   @override
   _buttonRejectClientState createState() => _buttonRejectClientState();
 }
-
 
 class _buttonRejectClientState extends State<buttonRejectClient> {
   @override
@@ -57,3 +57,4 @@ class _buttonRejectClientState extends State<buttonRejectClient> {
     );
   }
 }
+// coverage:ignore-end

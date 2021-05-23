@@ -1,3 +1,4 @@
+// coverage:ignore-start
 import 'package:flutter/material.dart';
 
 class Logo extends StatefulWidget {
@@ -11,3 +12,5 @@ class LogoState extends State<Logo> {
     return Image.asset('logo1.png');
   }
 }
+
+// coverage:ignore-end

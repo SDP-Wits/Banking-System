@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+// coverage:ignore-start
 class buttonVerifyClient extends StatefulWidget {
   final Function onTap;
   buttonVerifyClient(this.onTap);
@@ -57,3 +57,4 @@ class _buttonVerifyClientState extends State<buttonVerifyClient> {
     );
   }
 }
+// coverage:ignore-end

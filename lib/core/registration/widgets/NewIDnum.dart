@@ -1,3 +1,4 @@
+// coverage:ignore-start
 import 'package:flutter/material.dart';
 
 import '../registration.functions.dart';
@@ -58,7 +59,8 @@ bool hasInputErrorId(String idNum) {
     //checks if id num is of length 13
     return true;
   }
-  bool hasLetters = double.tryParse(idNum) !=
-      null; //checks if id number contains any letters
+  bool hasLetters =
+      double.tryParse(idNum) != null; //checks if id number contains any letters
   return !hasLetters;
 }
+// coverage:ignore-end
