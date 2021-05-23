@@ -95,7 +95,9 @@ class _BankAccountOptionsState extends State<BankAccountOptions> {
                             fontSize: 16.0);
                       } else {
                         final ConfirmAction action = await _asyncConfirmDialog(
-                            context, accountTypeList[index]);
+                            context,
+                            accountTypeIdList[index],
+                            accountTypeList[index]);
                       }
                     },
                     child: Card(
@@ -229,7 +231,8 @@ ShowDialogFunc(BuildContext context, int accTypeId, String accType) {
 }
 
 enum ConfirmAction { Cancel, Accept }
-Future<ConfirmAction> _asyncConfirmDialog(BuildContext context, accType) async {
+Future<ConfirmAction> _asyncConfirmDialog(
+    BuildContext context, int accTypeId, String accType) async {
   return showDialog<ConfirmAction>(
     context: context,
     barrierDismissible: false, // user must tap button for close dialog!
@@ -242,13 +245,48 @@ Future<ConfirmAction> _asyncConfirmDialog(BuildContext context, accType) async {
           FlatButton(
             child: const Text('Cancel'),
             onPressed: () {
-              print("cancel Button Success");
+              print("Cancelled account creation");
+              Fluttertoast.showToast(msg: "Cancelled");
             },
           ),
           FlatButton(
             child: const Text('Confirm'),
             onPressed: () {
-              print("confirm Button Success");
+              User? user;
+
+              // Using getUserAndAddress() from Local DB to get current admin user's idNumber
+              LocalDatabaseHelper.instance
+                  .getUserAndAddress()
+                  .then((currUser) async {
+                user = currUser;
+
+                String response =
+                    await createAccount(user!.idNumber, accTypeId);
+
+                if (response == dbSuccess) {
+                  // Create 'Showmessage'
+                  Fluttertoast.showToast(
+                      msg: "Succesful",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.CENTER,
+                      timeInSecForIosWeb: 3,
+                      backgroundColor: Colors.teal,
+                      textColor: Colors.white,
+                      fontSize: 16.0);
+
+                  goToAdminVerificationStatus(context);
+                } else {
+                  // Create 'Showmessage'
+                  Fluttertoast.showToast(
+                      msg: response,
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.CENTER,
+                      timeInSecForIosWeb: 3,
+                      backgroundColor: Colors.teal,
+                      textColor: Colors.white,
+                      fontSize: 16.0);
+                }
+              });
             },
           )
         ],
