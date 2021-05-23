@@ -77,7 +77,7 @@ Future<void> loginProcedure(BuildContext context) async {
   }
 }
 
-//Helper Functions
+// coverage:ignore-end
 
 bool hasInputErrorsPassword(String password) {
   if (password.length < 8 || password.length > 20) {
@@ -103,4 +103,3 @@ bool hasInputErrorID(String idNum) {
       double.tryParse(idNum) != null; //checks if id number contains any letters
   return !hasLetters;
 }
-// coverage:ignore-end
