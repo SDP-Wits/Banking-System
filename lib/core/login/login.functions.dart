@@ -19,9 +19,7 @@ TextEditingController getIDController() {
 TextEditingController getPasswordController() {
   return passwordController;
 }
-// coverage:ignore-end
 
-// coverage:ignore-start
 Future<void> loginProcedure(BuildContext context) async {
   bool isClientLogin = true;
   await showDialog(
@@ -85,7 +83,7 @@ Future<void> loginProcedure(BuildContext context) async {
     }
   }
 }
-// coverage:ignore-end
+//coverage:ignore-start
 
 //Helper Functions
 

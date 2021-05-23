@@ -98,8 +98,8 @@ String giveError() {
 
 // date
 
-// coverage:ignore-start
-String currentDate() {
+
+String currentDate() {// coverage:ignore-start
   var now = new DateTime.now();
   var formatter = new DateFormat('yyyy-MM-dd');
   String formattedDate = formatter.format(now);
