@@ -25,6 +25,7 @@ class _AccountsState extends State<Accounts> {
   //Intializing unique account details
   List<accountDetails> acc = [];
   int uniqueAccountTypes = 999;
+  bool finishedGetData = false;
 
   @override
   void initState() {
@@ -49,6 +50,9 @@ class _AccountsState extends State<Accounts> {
                 backgroundColor: Colors.teal,
                 textColor: Colors.white,
                 fontSize: 16.0);
+            setState(() {
+              finishedGetData = true;
+            });
           }
         }); //End of future getting unique account types
       });
@@ -73,6 +77,8 @@ class _AccountsState extends State<Accounts> {
         drawer: Navigation(
             clientName: user!.firstName, clientSurname: user!.lastName),
         body: Container(
+          width: size.width,
+          height: size.height,
           decoration: BoxDecoration(
             gradient: backgroundGradient,
           ),
@@ -146,10 +152,23 @@ class _AccountsState extends State<Accounts> {
           ),
         ),
       );
-    } else {
+    } else if (finishedGetData) {
       return _noAccount(context);
+    } else {
+      return _buildLoadingScreen();
     }
   }
+}
+
+// Loading screen
+Widget _buildLoadingScreen() {
+  return Center(
+    child: Container(
+      width: 50,
+      height: 50,
+      child: CircularProgressIndicator(),
+    ),
+  );
 }
 
 Widget floatingCreateAccount(BuildContext context) {

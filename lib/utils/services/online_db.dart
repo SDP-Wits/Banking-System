@@ -267,8 +267,11 @@ Future<List<accountTypes>> getAccountTypes() async {
 }
 
 // Check which accounts exist for specific user
-Future<List<int>> getExistingAccountTypes() async {
-  final String url = urlPath + select_client_unique_accounts;
+Future<List<int>> getExistingAccountTypes(int clientID) async {
+  final String args = argumentMaker(
+      phpNames: ["clientID"], inputVariables: [clientID.toString()]);
+
+  final String url = urlPath + select_client_unique_accounts + args;
 
   final List<Map> existingAccTypes = await getURLData(url);
 

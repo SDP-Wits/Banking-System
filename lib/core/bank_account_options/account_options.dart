@@ -54,11 +54,13 @@ class _BankAccountOptionsState extends State<BankAccountOptions> {
     });
 
     // get IDs of existing account types for specific user
-    getExistingAccountTypes().then((value) {
-      for (int i = 0; i < value.length; ++i) {
-        int eID = value[i];
-        existingAccountTypes = [...existingAccountTypes, eID];
-      }
+    LocalDatabaseHelper.instance.getUserAndAddress().then((user) {
+      getExistingAccountTypes(user!.userID).then((value) {
+        for (int i = 0; i < value.length; ++i) {
+          int eID = value[i];
+          existingAccountTypes = [...existingAccountTypes, eID];
+        }
+      });
     });
   }
 
@@ -90,7 +92,7 @@ class _BankAccountOptionsState extends State<BankAccountOptions> {
                         Fluttertoast.showToast(
                             msg:
                                 "An account of this type already exists. Restriction: Only one of each type of account allowed.",
-                            toastLength: Toast.LENGTH_SHORT,
+                            toastLength: Toast.LENGTH_LONG,
                             gravity: ToastGravity.CENTER,
                             timeInSecForIosWeb: 3,
                             fontSize: 16.0);
@@ -167,6 +169,7 @@ Future<void> _asyncConfirmDialog(
             onPressed: () {
               print("Cancelled account creation");
               Fluttertoast.showToast(msg: "Cancelled");
+              Navigator.pop(context);
             },
           ),
           FlatButton(
@@ -194,7 +197,7 @@ Future<void> _asyncConfirmDialog(
                       textColor: Colors.white,
                       fontSize: 16.0);
 
-                  goToAdminVerificationStatus(context);
+                  goToViewAccount(context);
                 } else {
                   // Create 'Showmessage'
                   Fluttertoast.showToast(
