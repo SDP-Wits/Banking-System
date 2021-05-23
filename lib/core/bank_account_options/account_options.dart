@@ -26,9 +26,9 @@ class _BankAccountOptionsState extends State<BankAccountOptions> {
   List<String> accountTypeList = [];
   List<String> descriptionList = [];
   List<int> accountTypeIdList = [];
+  List<int> existingAccountTypes = [];
 
-  //Auto generating just to make sure it ain't a problem
-  List<String> accNumbersList = [];
+//  List<String> accNumbersList = [];
 
   @override
   void initState() {
@@ -43,31 +43,30 @@ class _BankAccountOptionsState extends State<BankAccountOptions> {
         accountTypeIdList = [...accountTypeIdList, accTypeId];
         accountTypeList = [...accountTypeList, accType];
         descriptionList = [...descriptionList, accDescription];
-        accNumbersList = [...accNumbersList, "**** **** **** 95${i}0"];
+//        accNumbersList = [...accNumbersList, "**** **** **** 95${i}0"];
       }
 
       setState(() {
         accountTypeIdList = [...accountTypeIdList];
         accountTypeList = [...accountTypeList];
         descriptionList = [...descriptionList];
-        accNumbersList = [...accNumbersList];
+//        accNumbersList = [...accNumbersList];
       });
     });
+
+    getExistingAccountTypes().then((value) {
+      for (int i = 0; i < value.length; ++i) {
+        int eID = value[i];
+        existingAccountTypes = [...existingAccountTypes, eID];
+      }
+    });
   }
-
-  //fix this
-
-  //fix this
-  var colorsList = [
-    Colors.blueAccent[200],
-    Colors.blueGrey[200],
-    Colors.teal[400],
-    Colors.deepPurple[700]
-  ];
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width * 0.6;
+
+    existingAccountTypes.sort();
 
     return Scaffold(
       appBar: AppBar(
@@ -83,45 +82,67 @@ class _BankAccountOptionsState extends State<BankAccountOptions> {
               itemCount: accountTypeList.length,
               itemBuilder: (context, index) {
                 return GestureDetector(
-                  onTap: () {
-                    ShowDialogFunc(context, accountTypeIdList[index],
-                        accountTypeList[index]);
-                  },
-                  child: Card(
-                      color: colorsList[index],
-                      child: Row(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  accountTypeList[index],
-                                  style: TextStyle(
-                                      fontSize: 25,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Container(
-                                  width: width,
-                                  child: Text(
-                                    accNumbersList[index],
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.white60,
+                    onTap: () async {
+                      if (existingAccountTypes.contains(index + 1)) {
+                        onPressed:
+                        null;
+                        Fluttertoast.showToast(
+                            msg:
+                                "An account of this type already exists. Restriction: Only one of each type of account allowed.",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.CENTER,
+                            timeInSecForIosWeb: 3,
+                            fontSize: 16.0);
+                      } else {
+                        final ConfirmAction action = await _asyncConfirmDialog(
+                            context, accountTypeList[index]);
+                      }
+                    },
+                    child: Card(
+                      child: Container(
+                          margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Colors.teal,
+                              Colors.teal[800],
+                            ],
+                          )),
+                          child: Row(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Text(
+                                      accountTypeList[index],
+                                      style: TextStyle(
+                                          fontSize: 25,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
                                     ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          )
-                        ],
-                      )),
-                );
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Container(
+                                      width: width,
+                                      child: Text(
+                                        descriptionList[index],
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          color: Colors.white60,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          )),
+                    ));
               })
           : _buildLoadingScreen(),
     );
@@ -205,6 +226,35 @@ ShowDialogFunc(BuildContext context, int accTypeId, String accType) {
           ),
         );
       });
+}
+
+enum ConfirmAction { Cancel, Accept }
+Future<ConfirmAction> _asyncConfirmDialog(BuildContext context, accType) async {
+  return showDialog<ConfirmAction>(
+    context: context,
+    barrierDismissible: false, // user must tap button for close dialog!
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Confirm account creation'),
+        content: Text(
+            "Are you sure you want to create a  " + accType + "  account?"),
+        actions: <Widget>[
+          FlatButton(
+            child: const Text('Cancel'),
+            onPressed: () {
+              print("cancel Button Success");
+            },
+          ),
+          FlatButton(
+            child: const Text('Confirm'),
+            onPressed: () {
+              print("confirm Button Success");
+            },
+          )
+        ],
+      );
+    },
+  );
 }
 
 Widget _buildLoadingScreen() {
