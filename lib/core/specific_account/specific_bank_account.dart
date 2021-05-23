@@ -160,6 +160,13 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
                 Spacer(),
 
                 Padding(
+                  padding: EdgeInsets.only(left: 15, right: 15),
+
+                  // Function is at the bottom
+                  child: heading(),
+                ),
+
+                Padding(
                   padding: EdgeInsets.only(bottom: size.height * 0.2, top: 15),
                   child: Icon(
                     Icons.arrow_upward,
@@ -182,19 +189,20 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
           transform: Matrix4.identity()
             ..setEntry(1, 3, yOffsetAnimation!.value),
           child: DraggableScrollableSheet(
-            initialChildSize: 0.62, // Size when page loads
-            minChildSize: 0.5, // Minimum size allowed
-            maxChildSize: 0.99, // Maximum size allowed
+            initialChildSize: 0.2, // Size when page loads
+            minChildSize: 0.2, // Minimum size allowed
+            maxChildSize: 0.8, // Maximum size allowed
 
             builder: (BuildContext context, ScrollController scrollController) {
               return Container(
                 padding: EdgeInsets.all(10.0),
 
                 decoration: BoxDecoration(
-                    color: Colors.teal,
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(radiusSize),
-                        topLeft: Radius.circular(radiusSize))),
+                  color: Colors.teal,
+                  borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(radiusSize),
+                      topLeft: Radius.circular(radiusSize)),
+                ),
 
                 // The list of transactions
                 child: ListView.builder(
@@ -205,9 +213,6 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
                       if (logs!.length == 0) {
                         return Column(
                           children: [
-                            // Function is at the bottom
-                            heading(),
-
                             ListTile(
                               title: Text("No Recent Activity",
                                   style: TextStyle(
@@ -221,9 +226,6 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
                       else {
                         return Column(
                           children: [
-                            // Function is at the bottom
-                            heading(),
-
                             // Tile with all information of transaction
                             ListTile(
                               // LisTiles usually only have two lines but make isThreeLine true to add more
@@ -298,7 +300,7 @@ class heading extends StatelessWidget {
         Text(
           'Account Transaction History',
           style: TextStyle(
-            color: Colors.white,
+            color: Colors.teal,
             fontSize: 20,
             fontFamily: fontMont,
           ),
@@ -309,21 +311,22 @@ class heading extends StatelessWidget {
           width: 50,
           height: 50,
           child: FloatingActionButton(
-              backgroundColor: Colors.white,
-              child: Text(
-                '+',
-                style: TextStyle(
-                  color: Colors.teal,
-                  fontSize: 20,
-                  fontFamily: fontMont,
-                ),
+            onPressed: () {
+              //When floating action button is pressed
+              //this will go to 'select payment method' page
+              goToSelectPayment(context);
+            },
+            backgroundColor: Colors.teal,
+            child: Text(
+              '+',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontFamily: fontMont,
               ),
-              onPressed: () {
-                //When floating action button is pressed
-                //this will go to 'select payment method' page
-                goToSelectPayment(context);
-              }),
-        ),
+            ),
+          ),
+        )
       ],
     );
   }
