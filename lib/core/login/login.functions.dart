@@ -1,4 +1,3 @@
-//coverage:ignore-start
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -8,6 +7,7 @@ import '../../constants/database_constants.dart';
 import '../../utils/services/online_db.dart';
 import '../SHA-256_encryption.dart';
 
+//coverage:ignore-start
 final TextEditingController idController = TextEditingController(text: "");
 final TextEditingController passwordController =
     TextEditingController(text: "");
@@ -83,7 +83,7 @@ Future<void> loginProcedure(BuildContext context) async {
     }
   }
 }
-//coverage:ignore-start
+//coverage:ignore-end
 
 //Helper Functions
 
