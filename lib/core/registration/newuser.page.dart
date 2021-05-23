@@ -1,3 +1,4 @@
+// # nocov start
 // TODO:turn this page into selector for admin or customer registration
 
 import 'package:flutter/material.dart';
@@ -56,3 +57,5 @@ class _NewUserState extends State<NewUser> {
     );
   }
 }
+
+// # nocov end
