@@ -63,10 +63,3 @@ class NewNameState extends State<NewName> {
 }
 
 // coverage:ignore-end
-//function to check for invalid name
-bool hasInputErrorName(String name) {
-  if (name.length == 0) {
-    return true;
-  }
-  return false;
-}

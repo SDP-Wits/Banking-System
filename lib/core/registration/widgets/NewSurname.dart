@@ -63,10 +63,3 @@ class NewSurnameState extends State<NewSurname> {
 }
 
 // coverage:ignore-end
-//function to check for invalid name
-bool hasInputErrorSurname(String surname) {
-  if (surname.length == 0) {
-    return true;
-  }
-  return false;
-}

@@ -69,9 +69,3 @@ class PasswordInput2State extends State<PasswordInput2> {
 }
 
 // coverage:ignore-end
-bool hasInputErrorsPassword2(String passwordVal) {
-  if (Data.password1 != passwordVal) {
-    return true;
-  }
-  return false;
-}

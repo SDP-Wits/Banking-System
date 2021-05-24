@@ -65,15 +65,3 @@ class NewEmailState extends State<NewEmail> {
 }
 // coverage:ignore-end
 
-//function to check if email is invalid
-bool hasInputErrorEmail(String email) {
-  if (email.length == 0) {
-    return true;
-  } else if (email.length > 0) {
-    //Regular expression to check if email contains all necessary email components (@, .com, etc.)
-    return !RegExp(
-            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-        .hasMatch(email);
-  }
-  return false;
-}

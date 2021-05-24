@@ -68,10 +68,3 @@ class NewAgeState extends State<NewAge> {
 }
 
 // coverage:ignore-end
-//function to check for invalid age
-bool hasInputErrorAge(int age) {
-  if (age <= 12) {
-    return true;
-  }
-  return false;
-}
