@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import "package:http/http.dart" as http;
+import 'package:last_national_bank/utils/helpers/ignore_helper.dart';
 
 import '../../classes/accountDetails.dart';
 import '../../classes/accountTypes.dart';
