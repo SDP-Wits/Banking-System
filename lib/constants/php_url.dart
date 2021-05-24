@@ -1,3 +1,4 @@
+// coverage:ignore-start
 const String urlPath = "http://execution-empire.c1.biz/php/";
 
 const String select_client_id = "select_client_id.php";
@@ -16,3 +17,5 @@ const String select_specific_account = "select_specific_account.php";
 const String select_client_log = "select_client_log.php";
 const String select_client_unique_accounts =
     "select_client_unique_accounts.php";
+
+// coverage:ignore-end

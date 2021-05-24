@@ -1,3 +1,4 @@
+// coverage:ignore-start
 import 'package:flutter/material.dart';
 
 import '../../constants/route_constants.dart';
@@ -38,3 +39,4 @@ Future<bool> onPop(BuildContext context) {
   }
   return Future.value(false);
 }
+// coverage:ignore-end

@@ -1,6 +1,8 @@
+// coverage:ignore-start
 import 'package:flutter/material.dart';
 
 import '../login.functions.dart';
+import '../login.helpers.dart';
 
 class PasswordInput extends StatefulWidget {
   @override
@@ -46,3 +48,4 @@ class PasswordInputState extends State<PasswordInput> {
     );
   }
 }
+// coverage:ignore-end

@@ -1,3 +1,4 @@
+// coverage:ignore-start
 class Address {
   int streetNumber;
   String streetName;
@@ -14,3 +15,4 @@ class Address {
       required this.country,
       this.apartmentNumber});
 }
+// coverage:ignore-end

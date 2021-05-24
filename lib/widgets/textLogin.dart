@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// coverage:ignore-start
 class TextLogin extends StatefulWidget {
   @override
   _TextLoginState createState() => _TextLoginState();
@@ -34,3 +35,4 @@ class _TextLoginState extends State<TextLogin> {
     );
   }
 }
+// coverage:ignore-end

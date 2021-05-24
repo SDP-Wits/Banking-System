@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:last_national_bank/classes/accountDetails.dart';
-import 'package:last_national_bank/config/routes/router.dart';
-import 'package:last_national_bank/utils/helpers/helper.dart';
+import '../../classes/accountDetails.dart';
+import '../../config/routes/router.dart';
+import '../../utils/helpers/helper.dart';
 
+// coverage:ignore-start
 void onSwipe(
     {required BuildContext context, required accountDetails accountDetail}) {
   goToSpecificAccount(context: context, acc: accountDetail);
 }
+// coverage:ignore-end

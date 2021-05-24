@@ -1,3 +1,4 @@
+// coverage:ignore-start
 import 'package:flutter/material.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
 
@@ -166,6 +167,8 @@ class _VerificationListPageState extends State<VerificationListPage> {
         ));
   }
 }
+
+// coverage:ignore-end
 //==================================================================
 
 //@override

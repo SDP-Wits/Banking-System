@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// coverage:ignore-start
 class PasswordInput extends StatefulWidget {
   @override
   _PasswordInputState createState() => _PasswordInputState();
@@ -29,3 +30,4 @@ class _PasswordInputState extends State<PasswordInput> {
     );
   }
 }
+// coverage:ignore-end

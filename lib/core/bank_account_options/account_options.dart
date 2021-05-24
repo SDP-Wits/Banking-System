@@ -1,7 +1,8 @@
+// coverage:ignore-start
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:last_national_bank/utils/services/online_db.dart';
-import 'package:last_national_bank/widgets/navigation.dart';
+import '../../utils/services/online_db.dart';
+import '../../widgets/navigation.dart';
 
 import '../../classes/user.class.dart';
 import '../../config/routes/router.dart';
@@ -34,6 +35,7 @@ class _BankAccountOptionsState extends State<BankAccountOptions> {
   void initState() {
     super.initState();
 
+    //get data, extract and put it into lists to use later on
     getAccountTypes().then((value) {
       for (int i = 0; i < value.length; ++i) {
         String accType = value[i].accType;
@@ -43,22 +45,23 @@ class _BankAccountOptionsState extends State<BankAccountOptions> {
         accountTypeIdList = [...accountTypeIdList, accTypeId];
         accountTypeList = [...accountTypeList, accType];
         descriptionList = [...descriptionList, accDescription];
-//        accNumbersList = [...accNumbersList, "**** **** **** 95${i}0"];
       }
 
       setState(() {
         accountTypeIdList = [...accountTypeIdList];
         accountTypeList = [...accountTypeList];
         descriptionList = [...descriptionList];
-//        accNumbersList = [...accNumbersList];
       });
     });
 
-    getExistingAccountTypes().then((value) {
-      for (int i = 0; i < value.length; ++i) {
-        int eID = value[i];
-        existingAccountTypes = [...existingAccountTypes, eID];
-      }
+    // get IDs of existing account types for specific user
+    LocalDatabaseHelper.instance.getUserAndAddress().then((user) {
+      getExistingAccountTypes(user!.userID).then((value) {
+        for (int i = 0; i < value.length; ++i) {
+          int eID = value[i];
+          existingAccountTypes = [...existingAccountTypes, eID];
+        }
+      });
     });
   }
 
@@ -83,15 +86,19 @@ class _BankAccountOptionsState extends State<BankAccountOptions> {
               itemBuilder: (context, index) {
                 return GestureDetector(
                     onTap: () async {
-                      if (existingAccountTypes.contains(index + 1)) {
+                      //check if account type id exists in existing account type list
+                      if (existingAccountTypes
+                          .contains(accountTypeIdList[index])) {
+                        // display toast to restrict user
                         Fluttertoast.showToast(
                             msg:
                                 "An account of this type already exists. Restriction: Only one of each type of account allowed.",
-                            toastLength: Toast.LENGTH_SHORT,
+                            toastLength: Toast.LENGTH_LONG,
                             gravity: ToastGravity.CENTER,
                             timeInSecForIosWeb: 3,
                             fontSize: 16.0);
                       } else {
+                        // confirm creation of selected account
                         await _asyncConfirmDialog(context,
                             accountTypeIdList[index], accountTypeList[index]);
                       }
@@ -147,85 +154,6 @@ class _BankAccountOptionsState extends State<BankAccountOptions> {
   }
 }
 
-ShowDialogFunc(BuildContext context, int accTypeId, String accType) {
-  return showDialog(
-      context: context,
-      builder: (context) {
-        return Center(
-          child: Material(
-            type: MaterialType.transparency,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.white,
-              ),
-              padding: EdgeInsets.all(15),
-              width: MediaQuery.of(context).size.width * 0.8,
-              height: 200,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Text("Are you sure you want to create a  " +
-                      accType +
-                      "  account?"),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      TextButton(
-                          onPressed: () {
-                            User? user;
-
-                            // Using getUserAndAddress() from Local DB to get current admin user's idNumber
-                            LocalDatabaseHelper.instance
-                                .getUserAndAddress()
-                                .then((currUser) async {
-                              user = currUser;
-
-                              String response = await createAccount(
-                                  user!.idNumber, accTypeId);
-
-                              if (response == dbSuccess) {
-                                // Create 'Showmessage'
-                                Fluttertoast.showToast(
-                                    msg: "Succesful",
-                                    toastLength: Toast.LENGTH_SHORT,
-                                    gravity: ToastGravity.CENTER,
-                                    timeInSecForIosWeb: 3,
-                                    backgroundColor: Colors.teal,
-                                    textColor: Colors.white,
-                                    fontSize: 16.0);
-
-                                goToAdminVerificationStatus(context);
-                              } else {
-                                // Create 'Showmessage'
-                                Fluttertoast.showToast(
-                                    msg: response,
-                                    toastLength: Toast.LENGTH_SHORT,
-                                    gravity: ToastGravity.CENTER,
-                                    timeInSecForIosWeb: 3,
-                                    backgroundColor: Colors.teal,
-                                    textColor: Colors.white,
-                                    fontSize: 16.0);
-                              }
-                            });
-                          },
-                          child: Text("Yes")),
-                      TextButton(
-                          onPressed: () {
-                            print("Cancelled account creation");
-                            Fluttertoast.showToast(msg: "Cancelled");
-                          },
-                          child: Text("No")),
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ),
-        );
-      });
-}
-
 Future<void> _asyncConfirmDialog(
     BuildContext context, int accTypeId, String accType) async {
   return showDialog<void>(
@@ -242,6 +170,7 @@ Future<void> _asyncConfirmDialog(
             onPressed: () {
               print("Cancelled account creation");
               Fluttertoast.showToast(msg: "Cancelled");
+              Navigator.pop(context);
             },
           ),
           FlatButton(
@@ -269,7 +198,7 @@ Future<void> _asyncConfirmDialog(
                       textColor: Colors.white,
                       fontSize: 16.0);
 
-                  goToAdminVerificationStatus(context);
+                  goToViewAccount(context);
                 } else {
                   // Create 'Showmessage'
                   Fluttertoast.showToast(
@@ -305,3 +234,4 @@ Widget _buildLoadingScreen() {
     ),
   );
 }
+// coverage:ignore-end

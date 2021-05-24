@@ -1,3 +1,4 @@
+// coverage:ignore-start
 import 'package:flutter/material.dart';
 
 import '../account/accounts.dart';
@@ -42,3 +43,5 @@ class _PlaygroundTestState extends State<PlaygroundTest> {
     return Accounts();
   }
 }
+
+// coverage:ignore-end

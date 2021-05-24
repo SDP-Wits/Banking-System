@@ -1,3 +1,4 @@
+// coverage:ignore-start
 import 'package:flutter/material.dart';
 
 import '../registration.functions.dart';
@@ -67,9 +68,4 @@ class PasswordInput2State extends State<PasswordInput2> {
   }
 }
 
-bool hasInputErrorsPassword2(String passwordVal) {
-  if (Data.password1 != passwordVal) {
-    return true;
-  }
-  return false;
-}
+// coverage:ignore-end

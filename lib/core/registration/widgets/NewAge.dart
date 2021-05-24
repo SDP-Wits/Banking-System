@@ -1,3 +1,4 @@
+// coverage:ignore-start
 import 'package:flutter/material.dart';
 
 import '../registration.functions.dart';
@@ -66,10 +67,4 @@ class NewAgeState extends State<NewAge> {
   }
 }
 
-//function to check for invalid age
-bool hasInputErrorAge(int age) {
-  if (age <= 12) {
-    return true;
-  }
-  return false;
-}
+// coverage:ignore-end

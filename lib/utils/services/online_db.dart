@@ -1,14 +1,13 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import "package:http/http.dart" as http;
-import 'package:last_national_bank/classes/log.dart';
-import 'package:last_national_bank/classes/specificAccount.dart';
+import 'package:last_national_bank/utils/helpers/ignore_helper.dart';
 
 import '../../classes/accountDetails.dart';
 import '../../classes/accountTypes.dart';
+import '../../classes/log.dart';
 import '../../classes/name.class.dart';
+import '../../classes/specificAccount.dart';
 import '../../classes/thisUser.dart';
 import '../../classes/user.class.dart';
 import '../../constants/database_constants.dart';
@@ -267,8 +266,11 @@ Future<List<accountTypes>> getAccountTypes() async {
 }
 
 // Check which accounts exist for specific user
-Future<List<int>> getExistingAccountTypes() async {
-  final String url = urlPath + select_client_unique_accounts;
+Future<List<int>> getExistingAccountTypes(int clientID) async {
+  final String args = argumentMaker(
+      phpNames: ["clientID"], inputVariables: [clientID.toString()]);
+
+  final String url = urlPath + select_client_unique_accounts + args;
 
   final List<Map> existingAccTypes = await getURLData(url);
 

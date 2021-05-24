@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// coverage:ignore-start
 class VerifyUsersTitle extends StatefulWidget {
   @override
   VerifyUsersTitleState createState() => VerifyUsersTitleState();
@@ -14,7 +15,6 @@ class VerifyUsersTitleState extends State<VerifyUsersTitle> {
           quarterTurns: 0,
           child: Text(
             'Verify Users',
-
             style: TextStyle(
               color: Colors.white,
               fontSize: 38,
@@ -24,3 +24,4 @@ class VerifyUsersTitleState extends State<VerifyUsersTitle> {
     );
   }
 }
+// coverage:ignore-end

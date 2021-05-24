@@ -1,3 +1,4 @@
+// coverage:ignore-start
 import 'package:flutter/material.dart';
 
 import '../registration.functions.dart';
@@ -55,12 +56,4 @@ class NewPhoneState extends State<NewPhone> {
   }
 }
 
-bool hasInputErrorPhone(String phone) {
-  if (phone.length != 10) {
-    //checks if phone num is of length 13
-    return true;
-  }
-  bool hasLetters = double.tryParse(phone) !=
-      null; //checks if phone number contains any letters
-  return !hasLetters;
-}
+// coverage:ignore-end

@@ -1,3 +1,4 @@
+// coverage:ignore-start
 class accountDetails {
   final String accountNumber;
   final String accountType;
@@ -7,6 +8,7 @@ class accountDetails {
   final String lName;
   final int accountTypeId;
 
+  // coverage:ignore-line
   accountDetails({
     required this.accountNumber,
     required this.accountType,
@@ -17,3 +19,4 @@ class accountDetails {
     required this.accountTypeId,
   });
 }
+// coverage:ignore-end

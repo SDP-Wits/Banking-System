@@ -1,3 +1,4 @@
+// coverage:ignore-start
 import 'package:flutter/material.dart';
 
 import '../registration.functions.dart';
@@ -100,8 +101,8 @@ class NewLocState extends State<NewLoc> {
               scrollPadding:
                   const EdgeInsets.only(top: 30, left: 50, right: 50),
               onChanged: (value) {
-                _hasInputErrorName =
-                    hasInputErrorLoc(value); //call validator to check for errors
+                _hasInputErrorName = hasInputErrorLoc(
+                    value); //call validator to check for errors
                 if (_hasInputErrorName == false) {
                   //if no errors, assign location
                   //_loc = value;
@@ -128,8 +129,8 @@ class NewLocState extends State<NewLoc> {
               scrollPadding:
                   const EdgeInsets.only(top: 30, left: 50, right: 50),
               onChanged: (value) {
-                _hasInputErrorSub =
-                    hasInputErrorLoc(value); //call validator to check for errors
+                _hasInputErrorSub = hasInputErrorLoc(
+                    value); //call validator to check for errors
                 if (_hasInputErrorSub == false) {
                   //if no errors, assign location
                   //_loc = value;
@@ -154,8 +155,8 @@ class NewLocState extends State<NewLoc> {
               scrollPadding:
                   const EdgeInsets.only(top: 30, left: 50, right: 50),
               onChanged: (value) {
-                _hasInputErrorProv =
-                    hasInputErrorLoc(value); //call validator to check for errors
+                _hasInputErrorProv = hasInputErrorLoc(
+                    value); //call validator to check for errors
                 if (_hasInputErrorProv == false) {
                   //if no errors, assign location
                   //_loc = value;
@@ -194,9 +195,5 @@ bool hasInputErrorLoc(String loc) {
 /*String returnloc() {
     return _loc;
   }*/
+// coverage:ignore-end
 
-bool hasInputErrorInt(String Num) {
-  bool hasLetters = double.tryParse(Num) !=
-      null; //checks if id number contains any letters
-  return !hasLetters;
-}

@@ -1,3 +1,5 @@
+// coverage:ignore-start
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -52,3 +54,5 @@ class LoginPage extends StatelessWidget {
     );
   }
 }
+
+// coverage:ignore-end

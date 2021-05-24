@@ -1,3 +1,4 @@
+// coverage:ignore-start
 class accountTypes {
   final String accType;
   final String accDescription;
@@ -9,3 +10,4 @@ class accountTypes {
     required this.accountTypeId,
   });
 }
+// coverage:ignore-end

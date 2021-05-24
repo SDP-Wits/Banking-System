@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// coverage:ignore-start
 class InputEmail extends StatefulWidget {
   final TextEditingController emailController;
   InputEmail(this.emailController);
@@ -35,3 +36,4 @@ class _InputEmailState extends State<InputEmail> {
     );
   }
 }
+// coverage:ignore-end

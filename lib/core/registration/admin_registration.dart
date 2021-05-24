@@ -1,3 +1,4 @@
+// coverage:ignore-start
 import 'package:flutter/material.dart';
 
 import '../../widgets/Secret.dart';
@@ -59,6 +60,8 @@ class _AdminRegistrationPage extends State<AdminRegistrationPage> {
     );
   }
 }
+
+// coverage:ignore-end
 
 /*import 'package:flutter/material.dart';
 import 'package:last_national_bank/config/routes/router.dart';

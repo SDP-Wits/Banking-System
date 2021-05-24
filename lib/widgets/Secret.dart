@@ -1,3 +1,5 @@
+// coverage:ignore-start
+
 import 'package:flutter/material.dart';
 
 import '../core/registration/registration.functions.dart';
@@ -54,3 +56,4 @@ bool hasInputErrorsSecret(String skey) {
     return false;
   }
 }
+// coverage:ignore-end

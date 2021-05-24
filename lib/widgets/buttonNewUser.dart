@@ -5,7 +5,7 @@ import '../constants/php_url.dart';
 import '../core/SHA-256_encryption.dart';
 import '../core/registration/registration.functions.dart';
 import '../utils/services/online_db.dart';
-
+// coverage:ignore-start
 //Manually tested
 Future<String> clientRegisterOnline() async {
   //Choosing php file based off whether the user is a client or admin
@@ -212,3 +212,4 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
     );
   }
 }
+// coverage:ignore-end

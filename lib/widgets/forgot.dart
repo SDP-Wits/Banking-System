@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// coverage:ignore-start
 class Forgot extends StatefulWidget {
   @override
   _ForgotState createState() => _ForgotState();
@@ -14,7 +15,7 @@ class _ForgotState extends State<Forgot> {
         alignment: Alignment.topRight,
         height: 20,
         child: FlatButton(
-          onPressed: (){},
+          onPressed: () {},
           child: Text(
             'Forgot Password?',
             style: TextStyle(
@@ -27,3 +28,4 @@ class _ForgotState extends State<Forgot> {
     );
   }
 }
+// coverage:ignore-end

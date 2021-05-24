@@ -1,3 +1,4 @@
+// coverage:ignore-start
 import 'address.class.dart';
 
 class User {
@@ -50,3 +51,5 @@ class User {
         country: country);
   }
 }
+
+// coverage:ignore-end

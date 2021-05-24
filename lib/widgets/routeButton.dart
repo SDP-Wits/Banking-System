@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+// coverage:ignore-start
 import '../utils/helpers/style.dart';
 
 class RouteButtonCustom extends StatelessWidget {
@@ -24,3 +24,4 @@ class RouteButtonCustom extends StatelessWidget {
     );
   }
 }
+// coverage:ignore-end

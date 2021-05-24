@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
+// coverage:ignore-start
 import '../../classes/user.class.dart';
 import '../../config/routes/router.dart';
 import '../../utils/services/local_db.dart';
@@ -62,3 +62,4 @@ Future<void> verificationProcedure(
     goToAdminVerificationList(context);
   });
 }
+// coverage:ignore-end

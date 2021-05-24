@@ -1,3 +1,4 @@
+// coverage:ignore-start
 import 'package:flutter/material.dart';
 
 import '../registration.functions.dart';
@@ -53,12 +54,4 @@ class NewIDnumState extends State<NewIDnum> {
   }
 }
 
-bool hasInputErrorId(String idNum) {
-  if (idNum.length != 13) {
-    //checks if id num is of length 13
-    return true;
-  }
-  bool hasLetters = double.tryParse(idNum) !=
-      null; //checks if id number contains any letters
-  return !hasLetters;
-}
+// coverage:ignore-end

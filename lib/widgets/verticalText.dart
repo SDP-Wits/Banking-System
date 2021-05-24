@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// coverage:ignore-start
 class VerticalText extends StatefulWidget {
   @override
   _VerticalTextState createState() => _VerticalTextState();
@@ -23,3 +24,4 @@ class _VerticalTextState extends State<VerticalText> {
     );
   }
 }
+// coverage:ignore-end
