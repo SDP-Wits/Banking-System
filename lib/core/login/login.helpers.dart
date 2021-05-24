@@ -1,5 +1,4 @@
-//We already tested similar functions inside the registration functions file
-//coverage:ignore-start
+// coverage:ignore-start
 bool hasInputErrorsPassword(String password) {
   if (password.length < 8 || password.length > 20) {
     //check if password length is correct
@@ -24,4 +23,5 @@ bool hasInputErrorID(String idNum) {
       double.tryParse(idNum) != null; //checks if id number contains any letters
   return !hasLetters;
 }
-//coverage:ignore-end
+
+/// coverage:ignore-end
