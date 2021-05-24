@@ -8,19 +8,22 @@ import '../services/local_db.dart';
 
 //Print and toast at once :)
 void toastyPrint(String string) {
-  Fluttertoast.showToast(msg: string);
+  //coverage:ignore-line
+  Fluttertoast.showToast(msg: string); //coverage:ignore-line
   print(string);
 } //coverage:ignore-line
 
 //Checks if the user is already logged in (if they in local DB)
 void autoLogin(BuildContext context) {
   LocalDatabaseHelper.instance.isUser().then((isUser) {
+    //coverage:ignore-line
     if (isUser) {
       LocalDatabaseHelper.instance.getUserAndAddress().then((user) {
+        //coverage:ignore-line
         if (user!.isAdmin) {
-          router.goToAdminVerificationList(context);
+          router.goToAdminVerificationList(context); //coverage:ignore-line
         } else {
-          router.goToAdminVerificationStatus(context);
+          router.goToAdminVerificationStatus(context); //coverage:ignore-line
         }
       }); //coverage:ignore-line
     }

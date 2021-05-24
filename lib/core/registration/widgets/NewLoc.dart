@@ -195,10 +195,9 @@ bool hasInputErrorLoc(String loc) {
 /*String returnloc() {
     return _loc;
   }*/
-
+// coverage:ignore-end
 bool hasInputErrorInt(String Num) {
   bool hasLetters =
       double.tryParse(Num) != null; //checks if id number contains any letters
   return !hasLetters;
 }
-// coverage:ignore-end

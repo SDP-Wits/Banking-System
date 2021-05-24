@@ -71,6 +71,7 @@ class PasswordInputState extends State<PasswordInput> {
   }
 }
 
+// coverage:ignore-end
 bool hasInputErrorsPassword1(String password) {
   if (password.length < 8 || password.length > 20) {
     //check if password length is correct
@@ -85,4 +86,3 @@ bool hasInputErrorsPassword1(String password) {
   }
   return false;
 }
-// coverage:ignore-end

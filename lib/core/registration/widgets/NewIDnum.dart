@@ -54,6 +54,8 @@ class NewIDnumState extends State<NewIDnum> {
   }
 }
 
+// coverage:ignore-end
+
 bool hasInputErrorId(String idNum) {
   if (idNum.length != 13) {
     //checks if id num is of length 13
@@ -63,4 +65,3 @@ bool hasInputErrorId(String idNum) {
       double.tryParse(idNum) != null; //checks if id number contains any letters
   return !hasLetters;
 }
-// coverage:ignore-end

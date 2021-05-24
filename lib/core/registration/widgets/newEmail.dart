@@ -63,6 +63,7 @@ class NewEmailState extends State<NewEmail> {
     );
   }
 }
+// coverage:ignore-end
 
 //function to check if email is invalid
 bool hasInputErrorEmail(String email) {
@@ -76,4 +77,3 @@ bool hasInputErrorEmail(String email) {
   }
   return false;
 }
-// coverage:ignore-end
