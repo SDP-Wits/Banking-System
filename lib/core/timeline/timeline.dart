@@ -60,7 +60,8 @@ class _TimelineListPageState extends State<TimelinePage> {
                     style: new TextStyle(
                         fontSize: 30.0,
                         fontWeight: FontWeight.w500,
-                        color: Colors.white),
+                        color: Colors.white,
+                        fontFamily: fontMont),
                   ),
                 ],
               ),
@@ -118,21 +119,43 @@ class _TimelineListPageState extends State<TimelinePage> {
                       );
                     } else {
                       return Column(
+                        mainAxisSize: MainAxisSize.max,
                         children: [
-                          ListTile(
-                            title: Text(logs![index].timeStamp.split(" ")[0],
-                                style: TextStyle(
-                                    fontSize: 12, color: Colors.blueGrey)),
-                            subtitle: Text(logs![index].logDescription,
-                                style: TextStyle(fontSize: 16)),
-                            tileColor: Colors.white,
+                          Container(
+                            height: 18.0,
                           ),
-                          const Divider(
-                            color: Colors.black26,
-                            height: 0,
-                            thickness: 1,
-                            indent: 0,
-                            endIndent: 0,
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            width: size.width * 0.9,
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              children: [
+                                Container(
+                                  child: Text(
+                                      logs![index].timeStamp.split(" ")[0],
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.blue[500],
+                                          fontFamily: fontMont)),
+                                ),
+                                Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(vertical: 4.0)),
+                                Container(
+                                  child: Text(
+                                    logs![index].logDescription,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 17,
+                                        fontFamily: fontMont,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       );

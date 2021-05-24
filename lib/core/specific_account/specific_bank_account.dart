@@ -157,7 +157,9 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
                   ),
                 ),
 
-                Spacer(),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 18),
+                ),
 
                 Padding(
                   padding: EdgeInsets.only(left: 15, right: 15),
@@ -167,11 +169,20 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
                 ),
 
                 Padding(
-                  padding: EdgeInsets.only(bottom: size.height * 0.2, top: 15),
+                  padding: EdgeInsets.only(bottom: 15, top: size.height * 0.15),
                   child: Icon(
                     Icons.arrow_upward,
                     color: Colors.teal,
                     size: 36.0,
+                  ),
+                ),
+                Text(
+                  "Swipe Up for Transaction History",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.teal,
+                    fontFamily: fontMont,
+                    fontSize: 15,
                   ),
                 ),
               ]),
@@ -224,57 +235,83 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
 
                       // Display transactions if there are any
                       else {
-                        return Column(
-                          children: [
-                            // Tile with all information of transaction
-                            ListTile(
-                              // LisTiles usually only have two lines but make isThreeLine true to add more
-                              isThreeLine: true,
+                        return Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30.0),
+                            color: Colors.white70,
+                          ),
+                          padding: EdgeInsets.only(top: 5, right: 5, left: 5),
+                          margin: EdgeInsets.symmetric(vertical: 15),
+                          child: Column(
+                            children: [
+                              // Tile with all information of transaction
+                              ListTile(
+                                // LisTiles usually only have two lines but make isThreeLine true to add more
+                                isThreeLine: true,
 
-                              title: Align(
-                                alignment: Alignment.centerLeft,
+                                title: Align(
+                                  alignment: Alignment.centerLeft,
 
-                                // Date
-                                child: Text(
+                                  // Date
+                                  child: Text(
                                     logs![index].timeStamp.split(" ")[0],
                                     style: TextStyle(
-                                        fontSize: 20, color: Colors.white)),
+                                      fontSize: 20,
+                                      color: Colors.black,
+                                      fontFamily: fontMont,
+                                    ),
+                                  ),
+                                ),
+
+                                // isThree lines requires all other lines to be in a column
+                                subtitle: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    // Reference number
+                                    Container(
+                                      height: 10,
+                                    ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Align(
+                                          alignment: Alignment.bottomLeft,
+                                          child: Text(
+                                              'Reference Number: ' +
+                                                  logs![index].referenceNumber,
+                                              style: TextStyle(
+                                                fontSize: 13,
+                                                color: Colors.black,
+                                                fontFamily: fontMont,
+                                                fontWeight: FontWeight.w500,
+                                              )),
+                                        ),
+
+                                        // Amount
+                                        Align(
+                                          alignment: Alignment.bottomRight,
+                                          child: Text(
+                                            'R' +
+                                                logs![index].amount.toString(),
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              color: Colors.teal,
+                                              fontFamily: fontMont,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
-
-                              // isThree lines requires all other lines to be in a column
-                              subtitle: Column(
-                                children: [
-                                  // Reference number
-                                  Align(
-                                    alignment: Alignment.bottomLeft,
-                                    child: Text(
-                                        'Reference Number: ' +
-                                            logs![index].referenceNumber,
-                                        style: TextStyle(
-                                            fontSize: 15, color: Colors.black)),
-                                  ),
-
-                                  // Amount
-                                  Align(
-                                    alignment: Alignment.bottomRight,
-                                    child: Text(
-                                        'R' + logs![index].amount.toString(),
-                                        style: TextStyle(
-                                            fontSize: 15, color: Colors.black)),
-                                  ),
-
-                                  // Create black dividing line
-                                  const Divider(
-                                    color: Colors.black26,
-                                    height: 0,
-                                    thickness: 1,
-                                    indent: 0,
-                                    endIndent: 0,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
+                            ],
+                          ),
                         );
                       }
                     }),
@@ -294,11 +331,11 @@ class heading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         // Title
         Text(
-          'Account Transaction History',
+          'Add New Transaction',
           style: TextStyle(
             color: Colors.teal,
             fontSize: 20,

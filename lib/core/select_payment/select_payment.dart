@@ -43,8 +43,7 @@ class _SelectPaymentPageState extends State<SelectPaymentPage> {
   }
 
   Widget buildPage(BuildContext context) {
-    // TODO: implement build
-
+    final Size size = MediaQuery.of(context).size;
     // Used for navigation bar:
     GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -79,13 +78,15 @@ class _SelectPaymentPageState extends State<SelectPaymentPage> {
             padding: EdgeInsets.only(top: 20),
           ),
 
-          // Heading
+          // Headingpaint
           Text(
-            'Select Form of Payment:',
-            style: new TextStyle(
-                fontSize: 30.0,
-                fontWeight: FontWeight.w500,
-                color: Colors.white),
+            'Select Form of Payment',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 24.0,
+              fontWeight: FontWeight.w500,
+              color: Colors.white,
+            ),
           ),
 
           // Spacing
@@ -94,34 +95,43 @@ class _SelectPaymentPageState extends State<SelectPaymentPage> {
           ),
 
           // First button
-          paymentButton(
-            // Pass parameters:
+          Container(
+            width: size.width * 0.9,
+            child: Column(
+              children: [
+                paymentButton(
+                  // Pass parameters:
 
-            // When buton is clicked, do..
-            onTap: () {
-              //goToAdminVerificationList(context);
-            },
-            buttonTitle: "Trasfers",
-            buttonDescription: "Transfer funds betweeen your own accounts.",
-            buttonIcon: iconFamily.payment,
-          ),
+                  // When buton is clicked, do..
+                  onTap: () {
+                    //goToAdminVerificationList(context);
+                  },
+                  buttonTitle: "Transfers",
+                  buttonDescription:
+                      "Transfer funds betweeen your own accounts.",
+                  buttonIcon: iconFamily.payment,
+                ),
 
-          // Spacing
-          Padding(
-            padding: EdgeInsets.only(top: 20),
-          ),
+                // Spacing
+                Padding(
+                  padding: EdgeInsets.only(top: 20),
+                ),
 
-          // Second button
-          paymentButton(
-            // Pass parameters:
+                // Second button
+                paymentButton(
+                  // Pass parameters:
 
-            // When buton is clicked, do..
-            onTap: () {
-              //goToAdminVerificationList(context);
-            },
-            buttonTitle: "Payments",
-            buttonDescription: "Make payments to other client's bank accounts.",
-            buttonIcon: iconFamily.user,
+                  // When buton is clicked, do..
+                  onTap: () {
+                    //goToAdminVerificationList(context);
+                  },
+                  buttonTitle: "Payments",
+                  buttonDescription:
+                      "Make payments to other client's bank accounts.",
+                  buttonIcon: iconFamily.user,
+                ),
+              ],
+            ),
           ),
         ]),
       ),
