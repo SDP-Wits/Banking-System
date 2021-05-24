@@ -76,8 +76,7 @@ Future<void> loginProcedure(BuildContext context) async {
       await userLoginOnline(id, password, isClientLogin); //coverage:ignore-line
   Fluttertoast.showToast(msg: response); //coverage:ignore-line
 
-  if (response == dbSuccess) {
-    //coverage:ignore-line
+  if (response == dbSuccess) {// coverage:ignore-end
     currID.id = idController.text;
     if (!isClientLogin) {
       //coverage:ignore-line
