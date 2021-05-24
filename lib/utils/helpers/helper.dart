@@ -6,28 +6,26 @@ import '../services/local_db.dart';
 
 // coverage:ignore-start
 
-
 //Print and toast at once :)
 void toastyPrint(String string) {
   Fluttertoast.showToast(msg: string);
   print(string);
-}
+} //coverage:ignore-line
 
 //Checks if the user is already logged in (if they in local DB)
 void autoLogin(BuildContext context) {
-  
   LocalDatabaseHelper.instance.isUser().then((isUser) {
     if (isUser) {
       LocalDatabaseHelper.instance.getUserAndAddress().then((user) {
         if (user!.isAdmin) {
-          router.goToAdminVerificationList(context); 
+          router.goToAdminVerificationList(context);
         } else {
-          router.goToAdminVerificationStatus(context); 
+          router.goToAdminVerificationStatus(context);
         }
-      });
+      }); //coverage:ignore-line
     }
-  });
-}
+  }); //coverage:ignore-line
+} //coverage:ignore-line
 
 //Gets the current date in the format, YYYY-MM-DD
 String getDate() {
@@ -35,7 +33,7 @@ String getDate() {
   DateTime date = new DateTime(now.year, now.month, now.day);
 
   return date.toString().split(' ')[0];
-}
+} //coverage:ignore-line
 
 // coverage:ignore-end
 
