@@ -21,7 +21,6 @@ TextEditingController getPasswordController() {
 }
 
 Future<void> loginProcedure(BuildContext context) async {
-  // coverage:ignore-start
   bool isClientLogin = true;
   await showDialog(
       context: context,
@@ -76,7 +75,6 @@ Future<void> loginProcedure(BuildContext context) async {
       goToAdminVerificationStatus(context);
     }
   }
-  // coverage:ignore-end
 }
 
 // coverage:ignore-end
