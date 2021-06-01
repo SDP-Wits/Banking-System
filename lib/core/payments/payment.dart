@@ -1,3 +1,4 @@
+// coverage:ignore-start
 import 'package:flutter/material.dart';
 import 'package:last_national_bank/core/payments/payment.functions.dart';
 import 'package:last_national_bank/utils/helpers/style.dart';
@@ -164,3 +165,4 @@ var inputInputDecoration = InputDecoration(
 );
 
 const borderRadius = Radius.circular(15.0);
+// coverage:ignore-end

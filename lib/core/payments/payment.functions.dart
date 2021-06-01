@@ -1,3 +1,4 @@
+// coverage:ignore-start
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -48,3 +49,4 @@ void submitPayment() {
 
   Fluttertoast.showToast(msg: "Success");
 }
+// coverage:ignore-end
