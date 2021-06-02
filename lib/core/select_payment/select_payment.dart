@@ -99,7 +99,7 @@ class _SelectPaymentPageState extends State<SelectPaymentPage> {
 
             // When buton is clicked, do..
             onTap: () {
-              //goToAdminVerificationList(context);
+              goToTransfers(context);
             },
             buttonTitle: "Trasfers",
             buttonDescription: "Transfer funds betweeen your own accounts.",
