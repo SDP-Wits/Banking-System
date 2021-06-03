@@ -2,12 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:last_national_bank/classes/accountDetails.dart';
 import 'package:last_national_bank/classes/user.class.dart';
-import 'package:last_national_bank/core/payments/payment.functions.dart';
 import 'package:last_national_bank/core/transfer/widgets/scrollAccount.dart';
 import 'package:last_national_bank/utils/helpers/style.dart';
 import 'package:last_national_bank/utils/services/local_db.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
 import 'package:last_national_bank/widgets/heading.dart';
+import 'package:last_national_bank/core/transfer/transfer.functions.dart';
 
 class Transfers extends StatefulWidget {
   @override
@@ -99,21 +99,21 @@ class _TransfersState extends State<Transfers> {
               child: TextField(
                 maxLines: 1,
                 decoration: inputInputDecoration,
-                controller: amountController,
-                onChanged: onChangeAmount,
+                controller: accountToController,
+                onChanged: onChangeAccountTo,
                 textAlign: TextAlign.center,
                 style: inputTextStyle,
               ),
             ),
             
-            // money transfered from
+            // money transferred from
             InputField(
               text: "AccountFrom",
               child: TextField(
                 maxLines: 1,
                 decoration: inputInputDecoration,
-                controller: amountController,
-                onChanged: onChangeAmount,
+                controller: accountFromController,
+                onChanged: onChangeAccountFrom,
                 textAlign: TextAlign.center,
                 style: inputTextStyle,
               ),
@@ -147,7 +147,7 @@ class _TransfersState extends State<Transfers> {
 
             // Send button
             TextButton(
-              onPressed: submitPayment,
+              onPressed: submitTransfer,
               child: Container(
                 width: size.width * 0.5,
                 padding: EdgeInsets.all(15),

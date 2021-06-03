@@ -437,3 +437,30 @@ Future<List<Log>> getLogs(String clientID) async {
 
   return logs;
 }
+
+//make a transfer (transaction option)
+//used in transfer.functions.dart
+Future<String> makeTransfer(String accountFrom, String accountTo, String amount, String refName) async {
+  final String date = getDate();
+
+  List<String> phpNames = ["accountFrom","accountTo","amount","referenceName"];
+  List<String> inputVariables = [
+    accountFrom,
+    accountTo,
+    amount,
+    refName
+  ];
+
+  String arguments =
+  argumentMaker(phpNames: phpNames, inputVariables: inputVariables);
+
+  final String url = urlPath + make_transfer + arguments;
+
+  final Map data = (await getURLData(url))[0];
+
+  if (data["status"]) {
+    return dbSuccess;
+  }
+
+  return "Failed to make transfer";
+}
