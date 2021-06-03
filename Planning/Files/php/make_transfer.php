@@ -44,48 +44,50 @@ if(mysqli_num_rows($check1) < 1) {
 	$accFromRes = mysqli_fetch_array($check1);
 	$accToRes = mysqli_fetch_array($check2);
 
-	$sql3 = "SELECT clientID AS id FROM CLIENT-ACCOUNT WHERE accountNumber = '$accountFrom' ";
+	$sql3 = "SELECT clientID AS id FROM `CLIENT-ACCOUNT` WHERE accountNumber = '$accountFrom' ";
 	$clientID = mysqli_query($conn, $sql3);
 	$idResult = mysqli_fetch_array($clientID);
 
-	$sql4 = "SELECT firstName, lastName FROM CLIENT WHERE clientID = '$idResult['id']' ";
+        $idNum = $idResult['id'];
+	$sql4 = "SELECT firstName, lastName FROM CLIENT WHERE clientID = '$idNum' ";
+        //$sql4 = "SELECT firstName, lastName FROM CLIENT WHERE clientID = 45 ";
 	$clientName = mysqli_query($conn, $sql4);
 	$nameResult = mysqli_fetch_array($clientName);
-	$customerName = $clientName['firstName'];
+	$customerName = $nameResult['firstName'];
 	$customerName .= " ";
-	$customerName .= clientname['lastName'];
+	$customerName .= $nameResult['lastName'];
 
 	//Adding transfer to TRANSACTION table
-	$stmt1 = $conn->prepare("INSERT INTO TRANSACTION (customerName,timeStamp,amount,accountFrom,accountTo,referenceName,referenceNumber) VALUES (?,?,?,?,?,?,?)");
-	$stmt1->bind_param("ssdssss", $customerName, NOW(), $amount, $accountFrom, $accountTo, $referenceName, $referenceNumber);
+	$stmt1 = $conn->prepare("INSERT INTO TRANSACTION (customerName,amount,accountFrom,accountTo,referenceName,referenceNumber) VALUES (?,?,?,?,?,?)");
+	$stmt1->bind_param("ssdsss", $customerName, $amount, $accountFrom, $accountTo, $referenceName, $referenceNumber);
 	$stmt1->execute();
 
 	//updating each account's balance
 	$newBalance1 = $accFromRes['currentBalance'] - $amount;
-	$stmt2 = $conn->prepare("UPDATE ACCOUNT SET currentBalance = ? WHERE accountNumber = ?) ";
+	$stmt2 = $conn->prepare("UPDATE ACCOUNT SET currentBalance = ? WHERE accountNumber = ?");
 	$stmt2->bind_param("ds", $newBalance1, $accountFrom);
 	$stmt2->execute();
 
 	$newBalance2 = $accToRes['currentBalance'] + $amount;
-	$stmt3 = $conn->prepare("UPDATE ACCOUNT SET currentBalance = ? WHERE accountNumber = ?) ";
+	$stmt3 = $conn->prepare("UPDATE ACCOUNT SET currentBalance = ? WHERE accountNumber = ?");
 	$stmt3->bind_param("ds", $newBalance2, $accountTo);
 	$stmt3->execute();
 
 	//logging transfer to LOG table
-	$stmt4 = $conn->prepare("INSERT INTO LOG (timeStamp, description, clientID)");
+	$stmt4 = $conn->prepare("INSERT INTO LOG (description, clientID) VALUES (?,?)");
 	$desc1 = "Transfer to ";
 	$desc1 .= $accToRes['accountNumber'];
 	$desc1 .= " of ";
 	$desc1 .= $amount;
-	$stmt4->bind_param("ssi", NOW(), $desc1, $idResult['id']);
+	$stmt4->bind_param("si", $desc1, $idNum);
 	$stmt4->execute();
 
-	$stmt5 = $conn->prepare("INSERT INTO LOG (timeStamp, description, clientID)");
+	$stmt5 = $conn->prepare("INSERT INTO LOG (description, clientID)  VALUES (?,?)");
 	$desc2 = "Transfer from ";
 	$desc2 .= $accFromRes['accountNumber'];
 	$desc2 .= " of ";
 	$desc2 .= $amount;
-	$stmt5->bind_param("ssi", NOW(), $desc2, $idResult['id']);
+	$stmt5->bind_param("si", $desc2, $idNum);
 	$stmt5->execute();
 
 	echo json_encode(
