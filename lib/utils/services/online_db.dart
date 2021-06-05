@@ -67,8 +67,9 @@ Future<String> userLoginOnline(
   //If there isn't an error, then we should add User to local DB
   //then we should return dbSuccess
 
-  print("null value in sql is: ");
-  print(data["apartmentNumber"]);
+  //print("null value in sql is: ");
+  //print(data["apartmentNumber"]);
+  // coverage:ignore-start
   bool isAdmin = !isClientLogin;
   User user = User(
     (isAdmin) ? int.parse(data["adminID"]) : int.parse(data["clientID"]),
@@ -106,6 +107,7 @@ Future<String> userLoginOnline(
       user.address.province,
       user.address.country,
       user.address.apartmentNumber);
+  // coverage:ignore-end
 }
 
 //Admin Registering online

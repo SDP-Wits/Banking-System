@@ -60,6 +60,7 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
       getSpecificAccount(this.widget.acc.accountNumber).then((logsIn) {
         setState(() {
           logs = logsIn;
+          logs = logs!.reversed.toList();
         });
       });
     });

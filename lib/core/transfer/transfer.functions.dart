@@ -1,3 +1,4 @@
+// coverage:ignore-start
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
@@ -61,3 +62,4 @@ void submitTransfer(){
   makeTransfer(accountFromText,accountToText,amountText,referenceNameText);
 
 }
+// coverage:ignore-end
