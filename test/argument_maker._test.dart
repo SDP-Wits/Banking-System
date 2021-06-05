@@ -713,6 +713,36 @@ void main() {
 
   });
 
+  group('testing http request getUnverifiedClients', ()  {
+    test("test to check for valid getUnverifiedClients", () async {
+      var expected = true;
+
+      var actual = await getUnverifiedClients();
+
+      expect(actual.isNotEmpty, expected);
+    });
+  });
+
+  // group('testing http request getUnverifiedClients', ()  {
+  //   // //valid
+  //   // test('test to check for valid user', () async {
+  //   //   //TestWidgetsFlutterBinding.ensureInitialized();
+  //   //   var expected = [{"clientID":"48","email":"0@gmail.com","phoneNumber":"0000000000","idNumber":"0000000000000","password":"3875034e17855bac03a3cc9e107b1d28a9b44313d381c3335588525b4e70b55b","age":"21","firstName":"Test","middleName":"","lastName":"User ","verificationStatus":"Pending","streetName":"Name","streetNumber":"0","suburb":"Suburb","province":"Province","country":"South Africa","apartmentNumber":"0"}];
+  //   //
+  //   //   var actual = await userLoginOnline("0000000000000",encode("Qwerty123!"),true);
+  //   //   print(actual);
+  //   //   expect(actual, expected);
+  //   // });
+  //   //invalid
+  //   test("test to check for invalid user", () async {
+  //     var expected = "Invalid Password";
+  //
+  //     var actual = await userLoginOnline("0000000000000",encode("Qwert123!"),true);
+  //
+  //     expect(actual, expected);
+  //   });
+  // });
+
   String firstName = "John";
   String middleNames = "Sarah Noockles";
   String lastName = "Smith";
