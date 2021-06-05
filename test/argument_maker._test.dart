@@ -693,6 +693,26 @@ void main() {
     });
   });
 
+  group('testing http request getlogs', ()  {
+
+    test("test for user without logs", () async {
+      var expected = [];
+
+      var actual = await getLogs("48");
+
+      expect(actual, expected);
+    });
+
+    test("test for user with logs", () async {
+      var expected = true;
+
+      var actual = await getLogs("45");
+
+      expect(actual.isNotEmpty, expected);
+    });
+
+  });
+
   String firstName = "John";
   String middleNames = "Sarah Noockles";
   String lastName = "Smith";
