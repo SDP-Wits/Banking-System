@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:last_national_bank/constants/database_constants.dart';
 import 'package:last_national_bank/core/SHA-256_encryption.dart';
 import 'package:last_national_bank/core/registration/widgets/NewSurname.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
@@ -710,6 +711,89 @@ void main() {
 
       expect(actual.isNotEmpty, expected);
     });
+
+  });
+
+
+  group('testing http request makeTransfers', ()  {
+
+    test("test for valid transfers", () async {
+      var expected = dbSuccess;
+
+      var actual = await  makeTransfer(
+          "34455637975", "34455637975", "1", "test");
+
+      expect(actual, expected);
+    });
+
+    test("test for invalid transfers", () async {
+      var expected = "Failed to make transfer";
+
+      var actual = await makeTransfer(
+          "34455637975", "34455637025", "1", "test");
+
+      expect(actual, expected);
+    });
+
+  });
+
+  group('testing http request makePayment', ()  {
+
+    test("test for valid payment", () async {
+      var expected = dbSuccess;
+
+      var actual = await  makePayment(
+          "34455637975", "34455637975", "1", "test", "35", "Jared Govindsamy");
+
+      expect(actual, expected);
+    });
+
+    test("test for invalid payment", () async {
+      var expected = "Failed to make transfer";
+
+      var actual = await makePayment(
+          "34455637975", "34455637825", "1", "test", "35", "Jared Govindsamy");
+
+      expect(actual, expected);
+    });
+
+  });
+
+  group('testing http request getSpecificAccount', ()  {
+
+    test("test for valid specific Account", () async {
+      var expected = true;
+
+      var actual = await  getSpecificAccount("34455637975");
+
+      expect(actual.isNotEmpty, expected);
+    });
+
+    test("test for invalid specific Account", () async {
+      var expected = false;
+
+      var actual = await getSpecificAccount("0000000000000");
+
+      expect(actual.isNotEmpty, expected);
+    });
+  });
+    group('testing http request getAccDetails', ()  {
+
+      test("test for valid Account Details", () async {
+        var expected = true;
+
+        var actual = await  getAccountDetails("0011223344556");
+
+        expect(actual.isNotEmpty, expected);
+      });
+
+      test("test for invalid Account Details", () async {
+        var expected = false;
+
+        var actual = await getAccountDetails("0000000000000");
+
+        expect(actual.isNotEmpty, expected);
+      });
 
   });
 
