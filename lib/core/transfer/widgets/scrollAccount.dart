@@ -1,3 +1,4 @@
+// coverage:ignore-start
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:last_national_bank/classes/accountDetails.dart';
@@ -154,3 +155,4 @@ class __bankDetails extends StatelessWidget {
     );
   }
 }
+// coverage:ignore-end
