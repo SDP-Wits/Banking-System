@@ -26,6 +26,7 @@ class _TimelineListPageState extends State<TimelinePage> {
       getLogs(user!.userID.toString()).then((logsIn) {
         setState(() {
           logs = logsIn;
+          logs = logs!.reversed.toList();
         });
       });
     });
