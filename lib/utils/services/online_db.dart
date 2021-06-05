@@ -44,7 +44,7 @@ Future<List<Map<String, dynamic>>> getURLData(String url) async {
 //Manually tested
 //Log the user in, based off whether they are a client or not
 
-// coverage:ignore-start
+// coverage-ignore-start
 Future<String> userLoginOnline(
     String idNumber, String hashPassword, bool isClientLogin) async {
   //Choosing php file based off whether the user is a client or admin
@@ -107,7 +107,7 @@ Future<String> userLoginOnline(
       user.address.country,
       user.address.apartmentNumber);
 }
-// coverage:ignore-end
+// coverage-ignore-end
 
 //Admin Registering online
 //no implementations found so im commnting it out for now
