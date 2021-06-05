@@ -1,3 +1,4 @@
+// coverage:ignore-start
 import 'package:flutter/material.dart';
 import 'package:last_national_bank/utils/helpers/style.dart';
 
@@ -23,3 +24,4 @@ class Heading extends StatelessWidget {
     );
   }
 }
+// coverage:ignore-end
