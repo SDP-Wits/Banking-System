@@ -810,26 +810,37 @@ void main() {
 
   });
 
+  test("test to check for valid getNumberOfAccounts", () async {
+    var expected = 4;
 
-  // group('testing http request getUnverifiedClients', ()  {
-  //   // //valid
-  //   // test('test to check for valid user', () async {
-  //   //   //TestWidgetsFlutterBinding.ensureInitialized();
-  //   //   var expected = [{"clientID":"48","email":"0@gmail.com","phoneNumber":"0000000000","idNumber":"0000000000000","password":"3875034e17855bac03a3cc9e107b1d28a9b44313d381c3335588525b4e70b55b","age":"21","firstName":"Test","middleName":"","lastName":"User ","verificationStatus":"Pending","streetName":"Name","streetNumber":"0","suburb":"Suburb","province":"Province","country":"South Africa","apartmentNumber":"0"}];
-  //   //
-  //   //   var actual = await userLoginOnline("0000000000000",encode("Qwerty123!"),true);
-  //   //   print(actual);
-  //   //   expect(actual, expected);
-  //   // });
-  //   //invalid
-  //   test("test to check for invalid user", () async {
-  //     var expected = "Invalid Password";
-  //
-  //     var actual = await userLoginOnline("0000000000000",encode("Qwert123!"),true);
-  //
-  //     expect(actual, expected);
-  //   });
-  // });
+    var actual = await getNumberOfAccounts();
+
+    expect(actual, expected);
+  });
+
+  test("test to check for valid getNumberOfAccounts", () async {
+    var expected = "Test";
+
+    var actual = await getClientDetails("0000000000000");
+
+    expect(actual[0].firstName, expected);
+  });
+
+  test("test to check for valid getExistingAccountTypes", () async {
+    var expected = true;
+
+    var actual = await getExistingAccountTypes(48);
+
+    expect(actual.isEmpty, expected);
+  });
+
+  test("test to check for valid getExistingAccountTypes", () async {
+    var expected = true;
+
+    var actual = await getExistingAccountTypes(35);
+
+    expect(actual.isNotEmpty, expected);
+  });
 
 
   String firstName = "John";
