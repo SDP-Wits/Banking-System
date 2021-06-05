@@ -180,9 +180,9 @@ class Navigation extends StatelessWidget {
 
                 // When tile is clicked, do..
                 onTap: () {
-                  LocalDatabaseHelper.instance.deleteData().then((value) {
-                    goToLogin(context);
-                  });
+                  LocalDatabaseHelper.instance.deleteData();
+                  Navigator.pop(context);
+                  goToLogin(context);
                 },
               )),
         ],
