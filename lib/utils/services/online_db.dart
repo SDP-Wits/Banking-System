@@ -41,7 +41,7 @@ Future<List<Map<String, dynamic>>> getURLData(String url) async {
 }
 
 //TODO: Tests
-
+// coverage:ignore-start
 //Manually tested
 //Log the user in, based off whether they are a client or not
 Future<String> userLoginOnline(
@@ -67,7 +67,7 @@ Future<String> userLoginOnline(
   //If there isn't an error, then we should add User to local DB
   //then we should return dbSuccess
 
-// coverage:ignore-start
+
   bool isAdmin = !isClientLogin;
   User user = User(
     (isAdmin) ? int.parse(data["adminID"]) : int.parse(data["clientID"]),
