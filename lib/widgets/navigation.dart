@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:last_national_bank/utils/services/local_db.dart';
 // coverage:ignore-start
 import '../config/routes/router.dart';
 import '../utils/helpers/icons.dart';
@@ -179,8 +180,9 @@ class Navigation extends StatelessWidget {
 
                 // When tile is clicked, do..
                 onTap: () {
-                  //
-                  Navigator.pop(context);
+                  LocalDatabaseHelper.instance.deleteData().then((value) {
+                    goToLogin(context);
+                  });
                 },
               )),
         ],
