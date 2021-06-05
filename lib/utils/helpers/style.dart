@@ -74,5 +74,4 @@ Widget buildLoadingScreen() {
     ),
   );
 }
-
 // coverage:ignore-end

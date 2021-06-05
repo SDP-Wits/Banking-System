@@ -41,7 +41,6 @@ Future<List<Map<String, dynamic>>> getURLData(String url) async {
 }
 
 //TODO: Tests
-// coverage:ignore-start
 //Manually tested
 //Log the user in, based off whether they are a client or not
 Future<String> userLoginOnline(
@@ -105,7 +104,6 @@ Future<String> userLoginOnline(
       user.address.province,
       user.address.country,
       user.address.apartmentNumber);
-// coverage:ignore-end
 }
 
 //Admin Registering online
