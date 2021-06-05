@@ -209,6 +209,14 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
                     controller: scrollController,
                     itemCount: (logs!.length == 0) ? 1 : logs!.length,
                     itemBuilder: (BuildContext context, int index) {
+                      //Checks whether a transaction amount is positive (accountTo) or negative (accountFrom)
+                      //and adds the appropriate Rand symbol to the front of the amount
+                      String amountPrefix;
+                      if (this.widget.acc.accountNumber == logs![index].accountTo) {
+                        amountPrefix = "R ";
+                      } else {
+                        amountPrefix = "- R ";
+                      }
                       // If there are no transactions, then display message in place
                       if (logs!.length == 0) {
                         return Column(
@@ -258,7 +266,7 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
                                   Align(
                                     alignment: Alignment.bottomRight,
                                     child: Text(
-                                        'R' + logs![index].amount.toString(),
+                                        amountPrefix + logs![index].amount.toString(),
                                         style: TextStyle(
                                             fontSize: 15, color: Colors.black)),
                                   ),
