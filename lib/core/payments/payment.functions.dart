@@ -1,6 +1,9 @@
 // coverage:ignore-start
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:last_national_bank/classes/accountDetails.dart';
+import 'package:last_national_bank/classes/user.class.dart';
+import 'package:last_national_bank/utils/services/online_db.dart';
 
 //Text for inputs
 String amountText = "";
@@ -30,7 +33,12 @@ void onChangeReferenceName(String newReferenceName) {
   referenceNameText = newReferenceName;
 }
 
-void submitPayment() {
+void submitPayment(User? user, accountDetails accountDetail) async {
+  if (user == null) {
+    Fluttertoast.showToast(msg: "Please Login Again");
+    return;
+  }
+
   int amount;
   try {
     amount = int.parse(amountText);
@@ -45,8 +53,24 @@ void submitPayment() {
   }
 
   //Http Request
-  //addPayment(amount, receipentAccountNumberText, referenceNameText)
+  String fullName = user.firstName + ' ';
 
-  Fluttertoast.showToast(msg: "Success");
+  if (user.middleName != null) {
+    fullName += user.middleName! + ' ';
+  }
+
+  fullName += user.lastName;
+
+  final String successString = await makePayment(
+      accountDetail.accountNumber,
+      receipentAccountNumberText,
+      amount.toString(),
+      referenceNameText,
+      user.userID.toString(),
+      fullName);
+
+  Fluttertoast.showToast(msg: successString);
+
+  return;
 }
 // coverage:ignore-end
