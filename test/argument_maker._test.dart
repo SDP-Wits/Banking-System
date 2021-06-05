@@ -827,19 +827,19 @@ void main() {
   });
 
   test("test to check for valid getExistingAccountTypes", () async {
-    var expected = true;
+    var expected = [];
 
     var actual = await getExistingAccountTypes(48);
 
-    expect(actual.isEmpty, expected);
+    expect(actual, expected);
   });
 
-  test("test to check for valid getExistingAccountTypes", () async {
-    var expected = true;
+  test("test to check for invalid getExistingAccountTypes", () async {
+    var expected = [1, 4, 3];
 
     var actual = await getExistingAccountTypes(35);
 
-    expect(actual.isNotEmpty, expected);
+    expect(actual, expected);
   });
 
 

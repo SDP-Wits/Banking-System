@@ -274,6 +274,10 @@ Future<List<int>> getExistingAccountTypes(int clientID) async {
 
   final List<Map> existingAccTypes = await getURLData(url);
 
+  if (existingAccTypes.isEmpty){
+    return [];
+  }
+
   if (existingAccTypes[0].containsKey("status")) {
     if (!existingAccTypes[0]["status"]) {
       print("There are no exisiting accounts for this user");
