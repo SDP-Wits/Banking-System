@@ -23,7 +23,6 @@ var backgroundGradient = LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
     colors: [Colors.blueGrey, Colors.teal]);
-// coverage:ignore-end
 
 PreferredSize appBar(BuildContext context) {
   return new PreferredSize(
