@@ -1,6 +1,7 @@
 // coverage:ignore-start
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:last_national_bank/config/routes/router.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
 
 //Text for inputs
@@ -40,7 +41,7 @@ void onChangeReferenceName(String newReferenceName) {
 }
 
 //Other functions
-void submitTransfer(String accountFrom, String accountTo){
+void submitTransfer(String accountFrom, String accountTo, BuildContext context){
   //validation checks
   int amount;
 
@@ -62,6 +63,8 @@ void submitTransfer(String accountFrom, String accountTo){
   makeTransfer(accountFrom, accountTo, amountText, referenceNameText);
 
   Fluttertoast.showToast(msg: "Transfer Successful");
+
+  goToTimeline(context);
 
 }
 // coverage:ignore-end

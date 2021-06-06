@@ -5,6 +5,7 @@ import 'package:last_national_bank/classes/accountDetails.dart';
 import 'package:last_national_bank/classes/name.class.dart';
 import 'package:last_national_bank/core/account/accounts.dart';
 import 'package:last_national_bank/core/bank_account_options/account_options.dart';
+import 'package:last_national_bank/core/payments/payment.dart';
 import 'package:last_national_bank/core/select_payment/select_payment.dart';
 import 'package:last_national_bank/core/specific_account/specific_bank_account.dart';
 import 'package:last_national_bank/core/transfer/transfer.dart';
@@ -73,6 +74,9 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case MakeTransfer:
       return MaterialRouteWrap(Transfers());
 
+      case MakePayment:
+      return MaterialRouteWrap(Payments());
+
     //If page to go to is unknown, go to default home page, i.e. Login Page
     default:
       return MaterialRouteWrap(LoginPage());
@@ -137,5 +141,9 @@ void goToSelectPayment(BuildContext context) {
 
 void goToTransfers(BuildContext context) {
   Navigator.pushNamed(context, MakeTransfer);
+}
+
+void goToPayments(BuildContext context) {
+  Navigator.pushNamed(context, MakePayment);
 }
 // coverage:ignore-end

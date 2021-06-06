@@ -92,8 +92,24 @@ class _TransfersState extends State<Transfers> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ScrollAccount(acc: acc, itemSize: acc.length.toDouble(), controller: controller1, index: getAccountFromIndex),
-                ScrollAccount(acc: acc, itemSize: acc.length.toDouble(), controller: controller2, index: getAccountToIndex),
+
+                // From
+                ScrollAccount(
+                  acc: acc, 
+                  itemSize: acc.length.toDouble(), 
+                  controller: controller1, 
+                  index: getAccountFromIndex,
+                  width: 0.45
+                ),
+
+                // To
+                ScrollAccount(
+                  acc: acc, 
+                  itemSize: acc.length.toDouble(), 
+                  controller: controller2, 
+                  index: getAccountToIndex,
+                  width: 0.45,
+                ),
               ],
             ),  
             
@@ -127,7 +143,7 @@ class _TransfersState extends State<Transfers> {
             // Send button
             TextButton(
               onPressed: () => {
-                submitTransfer(acc[accountFromIndex].accountNumber, acc[accountToIndex].accountNumber),
+                submitTransfer(acc[accountFromIndex].accountNumber, acc[accountToIndex].accountNumber, this.context),
               },
               child: Container(
                 width: size.width * 0.5,

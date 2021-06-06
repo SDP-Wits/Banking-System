@@ -101,7 +101,7 @@ class _SelectPaymentPageState extends State<SelectPaymentPage> {
             onTap: () {
               goToTransfers(context);
             },
-            buttonTitle: "Trasfers",
+            buttonTitle: "Transfers",
             buttonDescription: "Transfer funds betweeen your own accounts.",
             buttonIcon: iconFamily.payment,
           ),
@@ -117,7 +117,7 @@ class _SelectPaymentPageState extends State<SelectPaymentPage> {
 
             // When buton is clicked, do..
             onTap: () {
-              //goToAdminVerificationList(context);
+              goToPayments(context);
             },
             buttonTitle: "Payments",
             buttonDescription: "Make payments to other client's bank accounts.",

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:last_national_bank/classes/accountDetails.dart';
 import 'package:last_national_bank/classes/user.class.dart';
 import 'package:last_national_bank/core/payments/payment.functions.dart';
+import 'package:last_national_bank/core/transfer/transfer.dart';
 import 'package:last_national_bank/core/transfer/widgets/scrollAccount.dart';
 import 'package:last_national_bank/utils/helpers/ignore_helper.dart';
 import 'package:last_national_bank/utils/helpers/style.dart';
@@ -10,6 +11,9 @@ import 'package:last_national_bank/utils/services/local_db.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
 import 'package:last_national_bank/widgets/heading.dart';
 import 'package:last_national_bank/widgets/navigation.dart';
+
+// Used to determine the account chosen in both scroll widgets
+int accountFromIndex = 0;
 
 class Payments extends StatefulWidget {
   const Payments({Key? key}) : super(key: key);
@@ -21,9 +25,11 @@ class Payments extends StatefulWidget {
 class _PaymentsState extends State<Payments> {
   List<accountDetails> accountsDetails = [];
   User? user = null;
+  late ScrollController controller1;
 
   @override
   void initState() {
+    controller1 = ScrollController();
     super.initState();
 
     LocalDatabaseHelper.instance.getUserAndAddress().then((user) {
@@ -43,12 +49,11 @@ class _PaymentsState extends State<Payments> {
 
     return (user != null)
         ? Scaffold(
-            drawer: Navigation(
-                clientName: user!.firstName, clientSurname: user!.lastName),
-            appBar: appBar(context),
+
+          
             body: SingleChildScrollView(
               child: Container(
-                height: size.height,
+                height: size.height * 1.1,
                 decoration: BoxDecoration(
                   gradient: backgroundGradient,
                 ),
@@ -56,7 +61,25 @@ class _PaymentsState extends State<Payments> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Heading("Payments"),
-                  //  ScrollAccount(acc: accountsDetails),
+                    Text(
+                      'Select account to make payment from: ',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: fontMont,
+                        fontSize: 15.0,
+                      ),
+                    ),
+                    ScrollAccount(
+                      acc: accountsDetails, 
+                      itemSize: accountsDetails.length.toDouble(), 
+                      controller: controller1, 
+                      index: getAccountFromIndex,
+                      width: 0.7,
+                    ),
+                    // Spacing
+                    Padding(
+                      padding: EdgeInsets.only(top: 10),
+                    ),
                     InputField(
                       text: "Amount",
                       child: TextField(
@@ -93,7 +116,7 @@ class _PaymentsState extends State<Payments> {
                     TextButton(
                       // onPressed: ()=>{submitPayment(user!, accountsDetails[indexToUse])},
                       onPressed: () =>
-                          {submitPayment(user!, accountsDetails[0])},
+                          {submitPayment(user!, accountsDetails[accountFromIndex])},
                       child: Container(
                         width: size.width * 0.5,
                         padding: EdgeInsets.all(15),
@@ -208,4 +231,8 @@ var inputInputDecoration = InputDecoration(
 );
 
 const borderRadius = Radius.circular(15.0);
+
+getAccountFromIndex(int newIndex){
+  accountFromIndex = newIndex;
+}
 // coverage:ignore-end

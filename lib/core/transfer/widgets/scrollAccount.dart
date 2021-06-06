@@ -10,9 +10,10 @@ class ScrollAccount extends StatelessWidget {
   List<accountDetails> acc = [];
   final double itemSize;
   ScrollController controller;  // controller used to control scroll function
-  Function index;               // getIndex function from transfer.dart (used to set the current account chosen index)
+  Function index;  
+  double width;             // getIndex function from transfer.dart (used to set the current account chosen index)
 
-  ScrollAccount({required this.acc, required this.itemSize, required this.controller, required this.index});
+  ScrollAccount({required this.acc, required this.itemSize, required this.controller, required this.index, required this.width});
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +28,8 @@ class ScrollAccount extends StatelessWidget {
 
         // Scroll up container
         Container(
-          width: size.width * 0.45,
-          height: size.width * 0.1,
+          width: size.width * width,
+          height: size.width * 0.07,
 
           alignment: Alignment.center,
 
@@ -67,8 +68,8 @@ class ScrollAccount extends StatelessWidget {
 
         // Center part with account information
         Container(
-          width: size.width * 0.45,
-          height: size.width * 0.35,  
+          width: size.width * width,
+          height: size.width * 0.31,  
 
           decoration: BoxDecoration(
             color: Colors.white,
@@ -101,8 +102,8 @@ class ScrollAccount extends StatelessWidget {
 
         // Scroll down container
         Container(
-          width: size.width * 0.45,
-          height: size.width * 0.1,
+          width: size.width * width,
+          height: size.width * 0.07,
 
           alignment: Alignment.center,
 
