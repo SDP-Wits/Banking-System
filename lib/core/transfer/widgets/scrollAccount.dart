@@ -8,25 +8,28 @@ import 'package:last_national_bank/utils/helpers/style.dart';
 class ScrollAccount extends StatelessWidget {
 
   List<accountDetails> acc = [];
-  //final ItemScrollController itemScrollController = ItemScrollController();
- // final ItemPositionsListener itemPositionsListener = ItemPositionsListener.create();
+  final double itemSize;
+  ScrollController controller;  // controller used to control scroll function
+  Function index;               // getIndex function from transfer.dart (used to set the current account chosen index)
 
-  ScrollAccount({required this.acc});
+  ScrollAccount({required this.acc, required this.itemSize, required this.controller, required this.index});
 
   @override
   Widget build(BuildContext context) {
 
     final size = MediaQuery.of(context).size;
+    int indexNo = 0;  // indexNo is used to change the index whenever up/down arrow is clicked
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
 
       children: [
 
-        // Scroll up
+        // Scroll up container
         Container(
           width: size.width * 0.45,
-          padding: EdgeInsets.all(10),
+          height: size.width * 0.1,
+
           alignment: Alignment.center,
 
           decoration: BoxDecoration(
@@ -37,15 +40,35 @@ class ScrollAccount extends StatelessWidget {
             ),
           ),
 
-          child: Icon(
-            Icons.keyboard_arrow_up_rounded
+          // Set icon button
+          child: IconButton(
+            icon: new Icon(Icons.keyboard_arrow_up_rounded), 
+            alignment: Alignment.center,
+            
+            onPressed: () { 
+              // Scroll up
+              // itemSize*35 is how much of the list scrolls up - 
+              // if number is smaller, then you can see information from two accounts in the little white block (hardcoded)
+              controller.animateTo(controller.offset - itemSize*35,
+              curve: Curves.linear, duration: Duration(milliseconds: 100));
+
+              // Prevent negative index
+              if (indexNo > 0){
+                indexNo--;
+              }
+
+              // Pass index number into getIndex function in transfer.dart
+              index(indexNo);
+             },
+            
           ),
         ),
 
-        // Center part with account information - doesn't work
-        /*Container(
+
+        // Center part with account information
+        Container(
           width: size.width * 0.45,
-          height: size.width * 0.3,  
+          height: size.width * 0.35,  
 
           decoration: BoxDecoration(
             color: Colors.white,
@@ -53,14 +76,16 @@ class ScrollAccount extends StatelessWidget {
 
           child: ListView.builder(
             
-            //physics: NeverScrollableScrollPhysics(),
-            padding: EdgeInsets.symmetric(vertical: 15),
+            // Use buttons to scroll, not fingers/mouse
+            physics: NeverScrollableScrollPhysics(),
+            controller: controller,
             itemCount: acc.length,
             
             itemBuilder: (BuildContext context, int index) {
               
               return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 24.0),
+                padding: const EdgeInsets.symmetric(vertical: 15.0),
+
                 child: __bankDetails(
                   accountType: this.acc[index].accountType, 
                   accountNumber: this.acc[index].accountNumber,  
@@ -69,17 +94,16 @@ class ScrollAccount extends StatelessWidget {
 
               );
             },
-
-           // itemScrollController: itemScrollController,
-           // itemPositionsListener: itemPositionsListener,
+            
           ),
         ),
-*/
 
-        // Scroll down
+
+        // Scroll down container
         Container(
           width: size.width * 0.45,
-          padding: EdgeInsets.all(10),
+          height: size.width * 0.1,
+
           alignment: Alignment.center,
 
           decoration: BoxDecoration(
@@ -90,8 +114,26 @@ class ScrollAccount extends StatelessWidget {
             ),
           ),
 
-          child: Icon(
-            Icons.keyboard_arrow_down_rounded
+          // Set icon button
+          child: IconButton(
+            icon: new Icon(Icons.keyboard_arrow_down_rounded), 
+            
+            // Scroll down
+            // itemSize*35 is how much of the list scrolls up - 
+            // if number is smaller, then you can see information from two accounts in the little white block (hardcoded)
+            onPressed: () { 
+              controller.animateTo(controller.offset + itemSize*35,
+              curve: Curves.linear, duration: Duration(milliseconds: 100));
+              
+              // Prevent range out of index
+              if (indexNo < itemSize){
+                indexNo++;
+              }
+
+              // Pass index number into getIndex function in transfer.dart
+              index(indexNo);
+             },
+            
           ),
         ),
 
@@ -99,12 +141,15 @@ class ScrollAccount extends StatelessWidget {
       ],
     );
   }
+
+  
 }
 
 class __bankDetails extends StatelessWidget {
   final String accountType;
   final String accountNumber;
   final double amount;
+  
 
   __bankDetails({
     required this.accountType,
@@ -123,18 +168,22 @@ class __bankDetails extends StatelessWidget {
           //Heading
           Text(
             accountType,
+            textAlign: TextAlign.left,
             style: TextStyle(
               color: Colors.teal,
-              fontSize: 20,
+              fontSize: 15,
               fontFamily: fontMont,
-              // fontStyle: FontStyle.italic,
               fontWeight: FontWeight.bold,
             ),
           ),
-          //Names
+          
+          Padding(
+              padding: EdgeInsets.only(top: 10),
+            ),
 
           Text(
-            "Account Number: \n" + accountNumber,
+            "Account Number:",
+            textAlign: TextAlign.start,
             style: TextStyle(
               color: Colors.black,
               fontSize: 15,
@@ -143,7 +192,32 @@ class __bankDetails extends StatelessWidget {
           ),
 
           Text(
-            "Balance: " + "R$amount",
+            accountNumber,
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 15,
+              fontFamily: fontMont,
+            ),
+          ),
+          
+          Padding(
+              padding: EdgeInsets.only(top: 10),
+            ),
+
+          Text(
+            "Balance: ",
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 15,
+              fontFamily: fontMont,
+            ),
+          ),
+
+          Text(
+            "R$amount",
+            textAlign: TextAlign.left,
             style: TextStyle(
               color: Colors.black,
               fontSize: 15,

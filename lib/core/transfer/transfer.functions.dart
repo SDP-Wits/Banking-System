@@ -40,7 +40,7 @@ void onChangeReferenceName(String newReferenceName) {
 }
 
 //Other functions
-void submitTransfer(){
+void submitTransfer(String accountFrom, String accountTo){
   //validation checks
   int amount;
 
@@ -53,13 +53,15 @@ void submitTransfer(){
   }
 
   //check if account number is valid
-  if (accountToText.length != 11 || accountFromText.length != 11) {
+  if (accountTo.length != 11 || accountFrom.length != 11) {
     Fluttertoast.showToast(msg: "Please Enter Valid Account Number/s");
     return;
   }
 
   //http request to make transfer when send button is pressed
-  makeTransfer(accountFromText,accountToText,amountText,referenceNameText);
+  makeTransfer(accountFrom, accountTo, amountText, referenceNameText);
+
+  Fluttertoast.showToast(msg: "Transfer Successful");
 
 }
 // coverage:ignore-end

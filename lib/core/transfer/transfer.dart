@@ -14,13 +14,22 @@ class Transfers extends StatefulWidget {
   _TransfersState createState() => _TransfersState();
 }
 
+// Used to determine the account chosen in both scroll widgets
+int accountFromIndex = 0;
+int accountToIndex = 0;
 
 class _TransfersState extends State<Transfers> {
   User? user;
   List<accountDetails> acc = [];
+  // Two controlers to control scroll functionality on the two widgets (accountFrom and accountTo)
+  late ScrollController controller1;
+  late ScrollController controller2;  
 
   @override
   void initState() {
+    // Initialise scroll contorllers
+    controller1 = ScrollController();
+    controller2 = ScrollController();
     super.initState();
 
     //Getting unique account details
@@ -56,12 +65,12 @@ class _TransfersState extends State<Transfers> {
           children: [
             Heading("Transfers"),
 
-/*  Scroll thingy with headings and stuff 
+            // Scroll widgets with headings and stuff 
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Text(
-                  'From:',
+                  'Transfer From:',
                   style: TextStyle(
                     color: Colors.white,
                     fontFamily: fontMont,
@@ -70,7 +79,7 @@ class _TransfersState extends State<Transfers> {
                 ),
                 
                 Text(
-                  'To:',
+                  'Transfer To:  ',
                   style: TextStyle(
                     color: Colors.white,
                     fontFamily: fontMont,
@@ -83,41 +92,11 @@ class _TransfersState extends State<Transfers> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ScrollAccount(acc: acc),
-                ScrollAccount(acc: acc),
+                ScrollAccount(acc: acc, itemSize: acc.length.toDouble(), controller: controller1, index: getAccountFromIndex),
+                ScrollAccount(acc: acc, itemSize: acc.length.toDouble(), controller: controller2, index: getAccountToIndex),
               ],
             ),  
             
-            // Spacing
-            Padding(
-              padding: EdgeInsets.only(top: 10),
-            ),    */      
-
-            // money transfers to
-            InputField(
-              text: "AccountTo",
-              child: TextField(
-                maxLines: 1,
-                decoration: inputInputDecoration,
-                controller: accountToController,
-                onChanged: onChangeAccountTo,
-                textAlign: TextAlign.center,
-                style: inputTextStyle,
-              ),
-            ),
-            
-            // money transferred from
-            InputField(
-              text: "AccountFrom",
-              child: TextField(
-                maxLines: 1,
-                decoration: inputInputDecoration,
-                controller: accountFromController,
-                onChanged: onChangeAccountFrom,
-                textAlign: TextAlign.center,
-                style: inputTextStyle,
-              ),
-            ),
             
             // amount
             InputField(
@@ -147,7 +126,9 @@ class _TransfersState extends State<Transfers> {
 
             // Send button
             TextButton(
-              onPressed: submitTransfer,
+              onPressed: () => {
+                submitTransfer(acc[accountFromIndex].accountNumber, acc[accountToIndex].accountNumber),
+              },
               child: Container(
                 width: size.width * 0.5,
                 padding: EdgeInsets.all(15),
@@ -221,7 +202,7 @@ class InputField extends StatelessWidget {
         ),
         Container(
           width: size.width * 0.9,
-          margin: EdgeInsets.only(bottom: 15.0),
+          margin: EdgeInsets.only(bottom: 5.0),
           padding: EdgeInsets.all(5),
           decoration: BoxDecoration(
             boxShadow: [
@@ -262,4 +243,13 @@ var inputInputDecoration = InputDecoration(
 );
 
 const borderRadius = Radius.circular(15.0);
+
+// Two functions are passed into ScrollAccount widget to set the index of the accounts chosen
+getAccountFromIndex(int newIndex){
+  accountFromIndex = newIndex;
+}
+
+getAccountToIndex(int newIndex){
+  accountToIndex = newIndex;
+}
 // coverage:ignore-end

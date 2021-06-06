@@ -56,7 +56,7 @@ class _PaymentsState extends State<Payments> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Heading("Payments"),
-                    ScrollAccount(acc: accountsDetails),
+                  //  ScrollAccount(acc: accountsDetails),
                     InputField(
                       text: "Amount",
                       child: TextField(
