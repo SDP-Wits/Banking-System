@@ -440,21 +440,55 @@ Future<List<Log>> getLogs(String clientID) async {
 
 //make a transfer (transaction option)
 //used in transfer.functions.dart
-Future<String> makeTransfer(String accountFrom, String accountTo, String amount, String refName) async {
+Future<String> makeTransfer(
+    String accountFrom, String accountTo, String amount, String refName) async {
   final String date = getDate();
 
-  List<String> phpNames = ["accountFrom","accountTo","amount","referenceName"];
+  List<String> phpNames = [
+    "accountFrom",
+    "accountTo",
+    "amount",
+    "referenceName"
+  ];
+  List<String> inputVariables = [accountFrom, accountTo, amount, refName];
+
+  String arguments =
+      argumentMaker(phpNames: phpNames, inputVariables: inputVariables);
+
+  final String url = urlPath + make_transfer + arguments;
+
+  final Map data = (await getURLData(url))[0];
+
+  if (data["status"]) {
+    return dbSuccess;
+  }
+
+  return "Failed to make transfer";
+}
+
+Future<String> makePayment(String accountFrom, String accountTo, String amount,
+    String refName, String clientID, String clientName) async {
+  List<String> phpNames = [
+    "accFrom",
+    "clientID",
+    "clientName",
+    "amt",
+    "accTo",
+    "refname"
+  ];
   List<String> inputVariables = [
     accountFrom,
-    accountTo,
+    clientID,
+    clientName,
     amount,
+    accountTo,
     refName
   ];
 
   String arguments =
-  argumentMaker(phpNames: phpNames, inputVariables: inputVariables);
+      argumentMaker(phpNames: phpNames, inputVariables: inputVariables);
 
-  final String url = urlPath + make_transfer + arguments;
+  final String url = urlPath + make_payment + arguments;
 
   final Map data = (await getURLData(url))[0];
 
