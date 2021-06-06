@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:last_national_bank/classes/accountDetails.dart';
 import 'package:last_national_bank/classes/user.class.dart';
+import 'package:last_national_bank/core/transfer/transfer.functions.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
 
 //Text for inputs
@@ -33,10 +34,11 @@ void onChangeReferenceName(String newReferenceName) {
   referenceNameText = newReferenceName;
 }
 
-void submitPayment(User? user, accountDetails accountDetail) async {
+Future<bool> submitPayment(User? user, accountDetails accountDetail) async {
+  Fluttertoast.showToast(msg: 'tf');
   if (user == null) {
     Fluttertoast.showToast(msg: "Please Login Again");
-    return;
+    return false;
   }
 
   int amount;
@@ -44,12 +46,22 @@ void submitPayment(User? user, accountDetails accountDetail) async {
     amount = int.parse(amountText);
   } catch (e) {
     Fluttertoast.showToast(msg: "Please Enter Valid Amount");
-    return;
+    return false;
   }
 
   if (receipentAccountNumberText.length != 11) {
     Fluttertoast.showToast(msg: "Please Enter Valid Account Number");
-    return;
+    return false;
+  }
+
+  if (accountDetail.currentBalance < int.parse(amountText)) {
+    Fluttertoast.showToast(msg: "You can't spend more than you have");
+    return false;
+  }
+
+  if (accountDetail.accountNumber == receipentAccountNumberText) {
+    Fluttertoast.showToast(msg: "Cannot transfer to your own account");
+    return false;
   }
 
   //Http Request
@@ -71,6 +83,6 @@ void submitPayment(User? user, accountDetails accountDetail) async {
 
   Fluttertoast.showToast(msg: successString);
 
-  return;
+  return true;
 }
 // coverage:ignore-end

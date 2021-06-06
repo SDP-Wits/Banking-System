@@ -1,9 +1,9 @@
 // coverage:ignore-start
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:last_national_bank/classes/accountDetails.dart';
 import 'package:last_national_bank/classes/user.class.dart';
 import 'package:last_national_bank/core/payments/payment.functions.dart';
-import 'package:last_national_bank/core/transfer/transfer.dart';
 import 'package:last_national_bank/core/transfer/widgets/scrollAccount.dart';
 import 'package:last_national_bank/utils/helpers/ignore_helper.dart';
 import 'package:last_national_bank/utils/helpers/style.dart';
@@ -36,7 +36,6 @@ class _PaymentsState extends State<Payments> {
       this.user = user;
       getAccountDetails(user!.idNumber).then((accounts) {
         setState(() {
-          toastyPrint(user.idNumber);
           accountsDetails = accounts;
         });
       });
@@ -49,8 +48,6 @@ class _PaymentsState extends State<Payments> {
 
     return (user != null)
         ? Scaffold(
-
-          
             body: SingleChildScrollView(
               child: Container(
                 height: size.height * 1.1,
@@ -70,9 +67,9 @@ class _PaymentsState extends State<Payments> {
                       ),
                     ),
                     ScrollAccount(
-                      acc: accountsDetails, 
-                      itemSize: accountsDetails.length.toDouble(), 
-                      controller: controller1, 
+                      acc: accountsDetails,
+                      itemSize: accountsDetails.length.toDouble(),
+                      controller: controller1,
                       index: getAccountFromIndex,
                       width: 0.7,
                     ),
@@ -115,8 +112,20 @@ class _PaymentsState extends State<Payments> {
                     ),
                     TextButton(
                       // onPressed: ()=>{submitPayment(user!, accountsDetails[indexToUse])},
-                      onPressed: () =>
-                          {submitPayment(user!, accountsDetails[accountFromIndex])},
+                      onPressed: () {
+                        toastyPrint(accountFromIndex.toString());
+                        toastyPrint(accountsDetails.length.toString());
+                        Fluttertoast.showToast(msg: ":(");
+                        submitPayment(user!, accountsDetails[accountFromIndex])
+                            .then((success) {
+                          setState(() {
+                            accountsDetails[accountFromIndex].currentBalance -=
+                                double.parse(amountText);
+                          });
+                        });
+
+                        Fluttertoast.showToast(msg: "agyer await");
+                      },
                       child: Container(
                         width: size.width * 0.5,
                         padding: EdgeInsets.all(15),
@@ -232,7 +241,7 @@ var inputInputDecoration = InputDecoration(
 
 const borderRadius = Radius.circular(15.0);
 
-getAccountFromIndex(int newIndex){
+void getAccountFromIndex(int newIndex) {
   accountFromIndex = newIndex;
 }
 // coverage:ignore-end
