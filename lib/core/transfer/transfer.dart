@@ -152,7 +152,7 @@ class _TransfersState extends State<Transfers> {
                         // Send button
                         TextButton(
                           onPressed: () {
-                            submitTransfer(
+                            submitTransfer(acc[accountFromIndex].currentBalance,
                                     acc[accountFromIndex].accountNumber,
                                     acc[accountToIndex].accountNumber,
                                     this.context)

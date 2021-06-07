@@ -54,7 +54,7 @@ Future<bool> submitPayment(User? user, accountDetails accountDetail) async {
   }
 
   if (accountDetail.currentBalance < int.parse(amountText)) {
-    Fluttertoast.showToast(msg: "You can't spend more than you have");
+    Fluttertoast.showToast(msg: "Insufficient funds");
     return false;
   }
 
