@@ -74,7 +74,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case MakeTransfer:
       return MaterialRouteWrap(Transfers());
 
-      case MakePayment:
+    case MakePayment:
       return MaterialRouteWrap(Payments());
 
     //If page to go to is unknown, go to default home page, i.e. Login Page
@@ -91,7 +91,10 @@ Route<dynamic> unknownRoute(RouteSettings settings) {
 }
 
 void goToLogin(BuildContext context) {
-  Navigator.popUntil(context, ModalRoute.withName(LoginRoute));
+  Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => WrapScaffold(LoginPage())),
+      (route) => route.isFirst);
 }
 
 void goToClientRegistration(BuildContext context) {

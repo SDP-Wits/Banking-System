@@ -5,144 +5,102 @@ import 'package:last_national_bank/classes/accountDetails.dart';
 import 'package:last_national_bank/utils/helpers/style.dart';
 //import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
-class ScrollAccount extends StatelessWidget {
+class ScrollAccount extends StatefulWidget {
   List<accountDetails> acc = [];
-  final double itemSize;
+  // final double itemSize;
   ScrollController controller; // controller used to control scroll function
-  Function index;
-  double
-      width; // getIndex function from transfer.dart (used to set the current account chosen index)
+  Function setIndex;
+  // double width;
 
   ScrollAccount(
-      {required this.acc,
-      required this.itemSize,
-      required this.controller,
-      required this.index,
-      required this.width});
+      {required this.acc, required this.controller, required this.setIndex});
 
   @override
+  _ScrollAccountState createState() => _ScrollAccountState();
+}
+
+class _ScrollAccountState extends State<ScrollAccount> {
+  int indexNo =
+      0; // indexNo is used to change the index whenever up/down arrow is clicked
+  accountDetails? accDetails;
+  @override
   Widget build(BuildContext context) {
+    final itemSize = this.widget.acc.length;
     final size = MediaQuery.of(context).size;
-    int indexNo =
-        0; // indexNo is used to change the index whenever up/down arrow is clicked
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Scroll up container
-        Container(
-          width: size.width * width,
-          height: size.width * 0.1,
+    if (itemSize != 0) {
+      accDetails = this.widget.acc[indexNo];
+    }
 
-          alignment: Alignment.center,
+    final containerWidth = size.width * 0.9;
 
-          decoration: BoxDecoration(
-            color: Colors.white24,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(15.0),
-              topRight: Radius.circular(15.0),
-            ),
-          ),
+    return (itemSize == 0)
+        ? buildLoadingScreen()
+        : Container(
+            width: containerWidth,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Arrow(
+                  onPressed: () {
+                    // Prevent negative index
+                    setState(() {
+                      if (indexNo > 0) {
+                        indexNo--;
+                        accDetails = this.widget.acc[indexNo];
+                      }
+                    });
 
-          // Set icon button
-          child: IconButton(
-            icon: new Icon(Icons.keyboard_arrow_up_rounded),
-            alignment: Alignment.center,
-            onPressed: () {
-              // Scroll up
-              // itemSize*35 is how much of the list scrolls up -
-              // if number is smaller, then you can see information from two accounts in the little white block (hardcoded)
-              controller.animateTo(controller.offset - itemSize * 35,
-                  curve: Curves.linear, duration: Duration(milliseconds: 100));
-
-              // Prevent negative index
-              if (indexNo > 0) {
-                indexNo--;
-              }
-
-              // Pass index number into getIndex function in transfer.dart
-              index(indexNo);
-            },
-          ),
-        ),
-
-        // Center part with account information
-        Container(
-          width: size.width * width,
-          height: size.width * 0.31,
-          decoration: BoxDecoration(
-            color: Colors.white,
-          ),
-          child: ListView.builder(
-            // Use buttons to scroll, not fingers/mouse
-            physics: NeverScrollableScrollPhysics(),
-            controller: controller,
-            itemCount: acc.length,
-
-            itemBuilder: (BuildContext context, int index) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 15.0),
-                child: __bankDetails(
-                  accountType: this.acc[index].accountType,
-                  accountNumber: this.acc[index].accountNumber,
-                  amount: this.acc[index].currentBalance,
+                    // Pass index number into getIndex function in transfer.dart
+                    this.widget.setIndex(indexNo);
+                  },
+                  icon: new Icon(Icons.keyboard_arrow_up_rounded),
+                  arrowDecoration: arrowDecorationUp,
+                  width: containerWidth,
                 ),
-              );
-            },
-          ),
-        ),
+                // Scroll up container
 
-        // Scroll down container
-        Container(
-          width: size.width * width,
-          height: size.width * 0.1,
+                // Center part with account information
+                Container(
+                  width: containerWidth,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                  ),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 15.0),
+                    child: _BankDetails(
+                      accDetails: accDetails!,
+                    ),
+                  ),
+                ),
 
-          alignment: Alignment.center,
+                // Scroll down container
+                Arrow(
+                    onPressed: () {
+                      // Prevent range out of index
+                      setState(() {
+                        if (indexNo < itemSize - 1) {
+                          indexNo++;
+                          accDetails = this.widget.acc[indexNo];
+                        }
+                      });
 
-          decoration: BoxDecoration(
-            color: Colors.white24,
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(15.0),
-              bottomRight: Radius.circular(15.0),
+                      // Pass index number into getIndex function in transfer.dart
+                      this.widget.setIndex(indexNo);
+                    },
+                    icon: new Icon(Icons.keyboard_arrow_down_rounded),
+                    arrowDecoration: arrowDecorationDown,
+                    width: containerWidth),
+              ],
             ),
-          ),
-
-          // Set icon button
-          child: IconButton(
-            icon: new Icon(Icons.keyboard_arrow_down_rounded),
-
-            // Scroll down
-            // itemSize*35 is how much of the list scrolls up -
-            // if number is smaller, then you can see information from two accounts in the little white block (hardcoded)
-            onPressed: () {
-              controller.animateTo(controller.offset + itemSize * 35,
-                  curve: Curves.linear, duration: Duration(milliseconds: 100));
-
-              // Prevent range out of index
-              if (indexNo < itemSize - 1) {
-                indexNo++;
-              }
-
-              // Pass index number into getIndex function in transfer.dart
-              index(indexNo);
-            },
-          ),
-        ),
-      ],
-    );
+          );
   }
 }
 
-class __bankDetails extends StatelessWidget {
-  final String accountType;
-  final String accountNumber;
-  final double amount;
+class _BankDetails extends StatelessWidget {
+  final accountDetails accDetails;
 
-  __bankDetails({
-    required this.accountType,
-    required this.accountNumber,
-    required this.amount,
-  });
+  _BankDetails({required this.accDetails});
 
   @override
   Widget build(BuildContext context) {
@@ -150,7 +108,7 @@ class __bankDetails extends StatelessWidget {
       child: Column(children: [
         //Heading
         Text(
-          accountType,
+          accDetails.accountType,
           textAlign: TextAlign.left,
           style: TextStyle(
             color: Colors.teal,
@@ -168,19 +126,21 @@ class __bankDetails extends StatelessWidget {
           "Account Number:",
           textAlign: TextAlign.start,
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.blueGrey,
             fontSize: 15,
             fontFamily: fontMont,
+            fontWeight: FontWeight.w400,
           ),
         ),
 
         Text(
-          accountNumber,
+          accDetails.accountNumber,
           textAlign: TextAlign.left,
           style: TextStyle(
             color: Colors.black,
             fontSize: 15,
             fontFamily: fontMont,
+            fontWeight: FontWeight.w500,
           ),
         ),
 
@@ -192,23 +152,73 @@ class __bankDetails extends StatelessWidget {
           "Balance: ",
           textAlign: TextAlign.left,
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.blueGrey,
             fontSize: 15,
             fontFamily: fontMont,
+            fontWeight: FontWeight.w400,
           ),
         ),
 
         Text(
-          "R$amount",
+          "R ${accDetails.currentBalance}",
           textAlign: TextAlign.left,
           style: TextStyle(
             color: Colors.black,
             fontSize: 15,
             fontFamily: fontMont,
+            fontWeight: FontWeight.w500,
           ),
         ),
       ]),
     );
   }
 }
+
+class Arrow extends StatelessWidget {
+  final Function() onPressed;
+  final icon;
+  final arrowDecoration;
+  final width;
+
+  Arrow(
+      {required this.onPressed,
+      required this.icon,
+      required this.arrowDecoration,
+      required this.width});
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
+    return Container(
+      alignment: Alignment.center,
+      width: width,
+      decoration: arrowDecoration,
+
+      // Set icon button
+      child: IconButton(
+        icon: icon,
+        alignment: Alignment.center,
+        onPressed: onPressed,
+      ),
+    );
+  }
+}
+
+final arrowDecorationUp = BoxDecoration(
+  color: Colors.white24,
+  borderRadius: BorderRadius.only(
+    topLeft: Radius.circular(15.0),
+    topRight: Radius.circular(15.0),
+  ),
+);
+
+final arrowDecorationDown = BoxDecoration(
+  color: Colors.white24,
+  borderRadius: BorderRadius.only(
+    bottomLeft: Radius.circular(15.0),
+    bottomRight: Radius.circular(15.0),
+  ),
+);
+
 // coverage:ignore-end

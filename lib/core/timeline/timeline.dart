@@ -61,7 +61,8 @@ class _TimelineListPageState extends State<TimelinePage> {
                     style: new TextStyle(
                         fontSize: 30.0,
                         fontWeight: FontWeight.w500,
-                        color: Colors.white),
+                        color: Colors.white,
+                        fontFamily: fontMont),
                   ),
                 ],
               ),
@@ -80,6 +81,8 @@ class _TimelineListPageState extends State<TimelinePage> {
           preferredSize: new Size(MediaQuery.of(context).size.width, 150.0),
         ),
         body: Container(
+          width: size.width,
+          alignment: Alignment.center,
           decoration: BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.topCenter,
@@ -88,57 +91,78 @@ class _TimelineListPageState extends State<TimelinePage> {
           ),
 
           // Allows page to be scrollable
-          child: SingleChildScrollView(
-            // padding: EdgeInsets.all(2.0),
-            child: ConstrainedBox(
-              //Use MediaQuery.of(context).size.height for max Height
-              constraints: BoxConstraints(
-                  minHeight: MediaQuery.of(context).size.height,
-                  maxHeight: MediaQuery.of(context).size.height),
+          child: Container(
+            width: size.width * 0.9,
+            alignment: Alignment.center,
+            child: SingleChildScrollView(
+              // padding: EdgeInsets.all(2.0),
+              child: ConstrainedBox(
+                //Use MediaQuery.of(context).size.height for max Height
+                constraints: BoxConstraints(
+                    minHeight: MediaQuery.of(context).size.height,
+                    maxHeight: MediaQuery.of(context).size.height),
 
-              // List
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  physics: ScrollPhysics(),
-                  itemCount: (logs!.length == 0) ? 1 : logs!.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    if (logs!.length == 0) {
-                      return Container(
-                        width: size.width,
-                        height: size.height,
-                        child: Center(
-                          child: Text(
-                            "No Recent Activity",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 24,
-                                color: Colors.white,
-                                fontFamily: fontMont),
+                // List
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    physics: ScrollPhysics(),
+                    itemCount: (logs!.length == 0) ? 1 : logs!.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      if (logs!.length == 0) {
+                        return Container(
+                          width: size.width,
+                          height: size.height,
+                          child: Center(
+                            child: Text(
+                              "No Recent Activity",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 24,
+                                  color: Colors.white,
+                                  fontFamily: fontMont),
+                            ),
                           ),
-                        ),
-                      );
-                    } else {
-                      return Column(
-                        children: [
-                          ListTile(
-                            title: Text(logs![index].timeStamp.split(" ")[0],
+                        );
+                      } else {
+                        return Container(
+                          width: size.width * 0.8,
+                          margin: EdgeInsets.only(top: 20),
+                          padding: EdgeInsets.all(15),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: Colors.white70,
+                            borderRadius: BorderRadius.circular(35),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                logs![index].timeStamp.split(" ")[0],
+                                textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontSize: 12, color: Colors.blueGrey)),
-                            subtitle: Text(logs![index].logDescription,
-                                style: TextStyle(fontSize: 16)),
-                            tileColor: Colors.white,
+                                  fontFamily: fontMont,
+                                  color: Colors.blueGrey[700],
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              Padding(padding: EdgeInsets.only(top: 5)),
+                              Text(
+                                logs![index].logDescription,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontFamily: fontMont,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black87,
+                                ),
+                              ),
+                            ],
                           ),
-                          const Divider(
-                            color: Colors.black26,
-                            height: 0,
-                            thickness: 1,
-                            indent: 0,
-                            endIndent: 0,
-                          ),
-                        ],
-                      );
-                    }
-                  }),
+                        );
+                      }
+                    }),
+              ),
             ),
           ),
         ));

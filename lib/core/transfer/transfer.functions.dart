@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:last_national_bank/config/routes/router.dart';
+import 'package:last_national_bank/constants/database_constants.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
 
 //Text for inputs
@@ -12,16 +13,16 @@ String referenceNameText = "";
 
 //Controllers for input fields
 final TextEditingController accountToController =
-TextEditingController(text: accountToText);
+    TextEditingController(text: accountToText);
 
 final TextEditingController accountFromController =
-TextEditingController(text: accountFromText);
+    TextEditingController(text: accountFromText);
 
 final TextEditingController amountController =
-TextEditingController(text: amountText);
+    TextEditingController(text: amountText);
 
 final TextEditingController referenceNameController =
-TextEditingController(text: referenceNameText);
+    TextEditingController(text: referenceNameText);
 
 //onChange for Controllers
 void onChangeAccountTo(String newAccountTo) {
@@ -41,30 +42,34 @@ void onChangeReferenceName(String newReferenceName) {
 }
 
 //Other functions
-void submitTransfer(String accountFrom, String accountTo, BuildContext context){
+Future<bool> submitTransfer(
+    String accountFrom, String accountTo, BuildContext context) async {
   //validation checks
-  int amount;
 
   //check if input amount is correct
   try {
-    amount = int.parse(amountText);
+    int.parse(amountText);
   } catch (e) {
     Fluttertoast.showToast(msg: "Please Enter Valid Amount");
-    return;
+    return false;
   }
 
   //check if account number is valid
   if (accountTo.length != 11 || accountFrom.length != 11) {
     Fluttertoast.showToast(msg: "Please Enter Valid Account Number/s");
-    return;
+    return false;
+  }
+
+  if (accountTo == accountFrom) {
+    Fluttertoast.showToast(msg: "Cannot send money to the same account");
+    return false;
   }
 
   //http request to make transfer when send button is pressed
-  makeTransfer(accountFrom, accountTo, amountText, referenceNameText);
+  String success =
+      await makeTransfer(accountFrom, accountTo, amountText, referenceNameText);
 
-  Fluttertoast.showToast(msg: "Transfer Successful");
-
-  goToTimeline(context);
-
+  Fluttertoast.showToast(msg: success);
+  return (success == dbSuccess);
 }
 // coverage:ignore-end

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:last_national_bank/classes/accountDetails.dart';
 import 'package:last_national_bank/classes/user.class.dart';
+import 'package:last_national_bank/constants/database_constants.dart';
 import 'package:last_national_bank/core/transfer/transfer.functions.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
 
@@ -35,15 +36,13 @@ void onChangeReferenceName(String newReferenceName) {
 }
 
 Future<bool> submitPayment(User? user, accountDetails accountDetail) async {
-  Fluttertoast.showToast(msg: 'tf');
   if (user == null) {
     Fluttertoast.showToast(msg: "Please Login Again");
     return false;
   }
 
-  int amount;
   try {
-    amount = int.parse(amountText);
+    int.parse(amountText);
   } catch (e) {
     Fluttertoast.showToast(msg: "Please Enter Valid Amount");
     return false;
@@ -64,6 +63,10 @@ Future<bool> submitPayment(User? user, accountDetails accountDetail) async {
     return false;
   }
 
+  //TODO: ARNEEV - Later
+  //Check if THEIR account exists
+  //if exists, get THEIR clientID and pass to function
+
   //Http Request
   String fullName = user.firstName + ' ';
 
@@ -76,13 +79,13 @@ Future<bool> submitPayment(User? user, accountDetails accountDetail) async {
   final String successString = await makePayment(
       accountDetail.accountNumber,
       receipentAccountNumberText,
-      amount.toString(),
+      amountText,
       referenceNameText,
       user.userID.toString(),
       fullName);
 
   Fluttertoast.showToast(msg: successString);
 
-  return true;
+  return (successString == dbSuccess);
 }
 // coverage:ignore-end
