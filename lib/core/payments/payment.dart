@@ -119,12 +119,14 @@ class _PaymentsState extends State<Payments> {
                       onPressed: () {
                         submitPayment(user!, accountsDetails[accountFromIndex])
                             .then((success) {
-                          setState(() {
-                            accountsDetails[accountFromIndex].currentBalance -=
-                                double.parse(amountText);
-                          });
+                          if (success) {
+                            setState(() {
+                              accountsDetails[accountFromIndex]
+                                  .currentBalance -= double.parse(amountText);
+                            });
 
-                          goToTimelineDialog(context);
+                            goToTimelineDialog(context);
+                          }
                         });
                       },
                       child: Container(
