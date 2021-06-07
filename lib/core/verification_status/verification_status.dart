@@ -49,10 +49,10 @@ class _VerificationStatusState extends State<VerificationStatus> {
 
   Widget buildPage() {
     final Size size = MediaQuery.of(context).size;
+
     return (user == null)
         ? Scaffold(
-            drawer: Navigation(
-                clientName: user!.firstName, clientSurname: user!.lastName),
+            drawer: null,
             body: Container(
               width: size.width,
               height: size.height,
@@ -74,8 +74,10 @@ class _VerificationStatusState extends State<VerificationStatus> {
             ))
         : Scaffold(
             key: _scaffoldKey,
-            drawer: Navigation(
-                clientName: user!.firstName, clientSurname: user!.lastName),
+            drawer: (me![0].status != "Pending")
+                ? Navigation(
+                    clientName: user!.firstName, clientSurname: user!.lastName)
+                : null,
             body: Container(
               width: size.width,
               height: size.height,

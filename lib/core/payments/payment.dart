@@ -5,11 +5,14 @@ import 'package:last_national_bank/classes/accountDetails.dart';
 import 'package:last_national_bank/classes/user.class.dart';
 import 'package:last_national_bank/core/payments/payment.functions.dart';
 import 'package:last_national_bank/core/transfer/widgets/scrollAccount.dart';
+import 'package:last_national_bank/utils/helpers/dialogs.dart';
 import 'package:last_national_bank/utils/helpers/ignore_helper.dart';
 import 'package:last_national_bank/utils/helpers/style.dart';
 import 'package:last_national_bank/utils/services/local_db.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
 import 'package:last_national_bank/widgets/heading.dart';
+import 'package:last_national_bank/widgets/navigation.dart';
+
 import 'package:last_national_bank/widgets/navigation.dart';
 
 // Used to determine the account chosen in both scroll widgets
@@ -24,6 +27,7 @@ class Payments extends StatefulWidget {
 
 class _PaymentsState extends State<Payments> {
   List<accountDetails> accountsDetails = [];
+  // ignore: avoid_init_to_null
   User? user = null;
   late ScrollController controller1;
 
@@ -33,10 +37,10 @@ class _PaymentsState extends State<Payments> {
     super.initState();
 
     LocalDatabaseHelper.instance.getUserAndAddress().then((user) {
-      this.user = user;
       getAccountDetails(user!.idNumber).then((accounts) {
         setState(() {
           accountsDetails = accounts;
+          this.user = user;
         });
       });
     });
@@ -48,6 +52,8 @@ class _PaymentsState extends State<Payments> {
 
     return (user != null)
         ? Scaffold(
+            drawer: Navigation(
+                clientName: user!.firstName, clientSurname: user!.lastName),
             body: SingleChildScrollView(
               child: Container(
                 height: size.height * 1.1,
@@ -68,10 +74,8 @@ class _PaymentsState extends State<Payments> {
                     ),
                     ScrollAccount(
                       acc: accountsDetails,
-                      itemSize: accountsDetails.length.toDouble(),
                       controller: controller1,
-                      index: getAccountFromIndex,
-                      width: 0.7,
+                      setIndex: getAccountFromIndex,
                     ),
                     // Spacing
                     Padding(
@@ -113,18 +117,15 @@ class _PaymentsState extends State<Payments> {
                     TextButton(
                       // onPressed: ()=>{submitPayment(user!, accountsDetails[indexToUse])},
                       onPressed: () {
-                        toastyPrint(accountFromIndex.toString());
-                        toastyPrint(accountsDetails.length.toString());
-                        Fluttertoast.showToast(msg: ":(");
                         submitPayment(user!, accountsDetails[accountFromIndex])
                             .then((success) {
                           setState(() {
                             accountsDetails[accountFromIndex].currentBalance -=
                                 double.parse(amountText);
                           });
-                        });
 
-                        Fluttertoast.showToast(msg: "agyer await");
+                          goToTimelineDialog(context);
+                        });
                       },
                       child: Container(
                         width: size.width * 0.5,

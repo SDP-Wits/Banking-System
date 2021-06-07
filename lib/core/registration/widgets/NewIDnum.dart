@@ -24,6 +24,7 @@ class NewIDnumState extends State<NewIDnum> {
         height: 60,
         width: MediaQuery.of(context).size.width,
         child: TextField(
+          maxLength: 13,
           onChanged: (value) {
             _hasInputError = hasInputErrorId(value);
             if (_hasInputError == false) {
