@@ -213,9 +213,13 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
                       //Checks whether a transaction amount is positive (accountTo) or negative (accountFrom)
                       //and adds the appropriate Rand symbol to the front of the amount
                       String amountPrefix;
-                      if (this.widget.acc.accountNumber == logs![index].accountTo) {
+                      Color textCol = Colors.black;
+                      if (this.widget.acc.accountNumber ==
+                          logs![index].accountTo) {
+                        textCol = Colors.green[800]!;
                         amountPrefix = "R ";
                       } else {
+                        textCol = Colors.red[500]!;
                         amountPrefix = "- R ";
                       }
                       // If there are no transactions, then display message in place
@@ -233,57 +237,62 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
 
                       // Display transactions if there are any
                       else {
-                        return Column(
-                          children: [
-                            // Tile with all information of transaction
-                            ListTile(
-                              // LisTiles usually only have two lines but make isThreeLine true to add more
-                              isThreeLine: true,
-
-                              title: Align(
-                                alignment: Alignment.centerLeft,
-
-                                // Date
-                                child: Text(
-                                    logs![index].timeStamp.split(" ")[0],
-                                    style: TextStyle(
-                                        fontSize: 20, color: Colors.white)),
+                        return Container(
+                          padding: EdgeInsets.all(20),
+                          margin: EdgeInsets.symmetric(vertical: 15),
+                          decoration: BoxDecoration(
+                              color: Colors.white70,
+                              borderRadius: BorderRadius.circular(35)),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                logs![index].timeStamp.split(" ")[0],
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.blueGrey[600]!,
+                                  fontFamily: fontMont,
+                                ),
                               ),
-
-                              // isThree lines requires all other lines to be in a column
-                              subtitle: Column(
+                              Padding(padding: EdgeInsets.only(top: 5)),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  // Reference number
-                                  Align(
-                                    alignment: Alignment.bottomLeft,
-                                    child: Text(
-                                        'Reference Number: ' +
-                                            logs![index].referenceNumber,
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Ref: ',
                                         style: TextStyle(
-                                            fontSize: 15, color: Colors.black)),
-                                  ),
-
-                                  // Amount
-                                  Align(
-                                    alignment: Alignment.bottomRight,
-                                    child: Text(
-                                        amountPrefix + logs![index].amount.toString(),
+                                          fontSize: 12,
+                                          color: Colors.black,
+                                          fontFamily: fontMont,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Text(
+                                        logs![index].referenceNumber,
                                         style: TextStyle(
-                                            fontSize: 15, color: Colors.black)),
+                                            fontSize: 17,
+                                            color: Colors.black,
+                                            fontFamily: fontMont),
+                                      ),
+                                    ],
                                   ),
-
-                                  // Create black dividing line
-                                  const Divider(
-                                    color: Colors.black26,
-                                    height: 0,
-                                    thickness: 1,
-                                    indent: 0,
-                                    endIndent: 0,
+                                  Text(
+                                    amountPrefix +
+                                        logs![index].amount.toString(),
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        color: textCol,
+                                        fontFamily: fontMont),
                                   ),
                                 ],
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         );
                       }
                     }),

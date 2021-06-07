@@ -10,7 +10,7 @@ Future<void> goToTimelineDialog(BuildContext context) {
     builder: (BuildContext context) {
       return AlertDialog(
         title: Text('Go To Timeline?'),
-        content: Text("Do you want to go to the Timeline?"),
+        content: Text("Successful. Do you want to go to the timeline?"),
         actions: <Widget>[
           TextButton(
             child: const Text('Yes'),

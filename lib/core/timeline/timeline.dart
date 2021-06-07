@@ -124,9 +124,13 @@ class _TimelineListPageState extends State<TimelinePage> {
                           ),
                         );
                       } else {
+                        Color colorToUse =
+                            (logs![index].logDescription.contains("to"))
+                                ? Colors.red[500]!
+                                : Colors.green[600]!;
                         return Container(
                           width: size.width * 0.8,
-                          margin: EdgeInsets.only(top: 20),
+                          margin: EdgeInsets.only(top: 25),
                           padding: EdgeInsets.all(15),
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
@@ -141,7 +145,7 @@ class _TimelineListPageState extends State<TimelinePage> {
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontFamily: fontMont,
-                                  color: Colors.blueGrey[700],
+                                  color: Colors.blueGrey[800]!,
                                   fontSize: 14,
                                   fontWeight: FontWeight.w400,
                                 ),
@@ -154,7 +158,7 @@ class _TimelineListPageState extends State<TimelinePage> {
                                   fontFamily: fontMont,
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.black87,
+                                  color: colorToUse,
                                 ),
                               ),
                             ],
