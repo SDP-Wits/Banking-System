@@ -60,6 +60,7 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
       getSpecificAccount(this.widget.acc.accountNumber).then((logsIn) {
         setState(() {
           logs = logsIn;
+          logs = logs!.reversed.toList();
         });
       });
     });
@@ -220,6 +221,18 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
                     controller: scrollController,
                     itemCount: (logs!.length == 0) ? 1 : logs!.length,
                     itemBuilder: (BuildContext context, int index) {
+                      //Checks whether a transaction amount is positive (accountTo) or negative (accountFrom)
+                      //and adds the appropriate Rand symbol to the front of the amount
+                      String amountPrefix;
+                      Color textCol = Colors.black;
+                      if (this.widget.acc.accountNumber ==
+                          logs![index].accountTo) {
+                        textCol = Colors.green[800]!;
+                        amountPrefix = "R ";
+                      } else {
+                        textCol = Colors.red[500]!;
+                        amountPrefix = "- R ";
+                      }
                       // If there are no transactions, then display message in place
                       if (logs!.length == 0) {
                         return Column(
@@ -236,79 +249,58 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
                       // Display transactions if there are any
                       else {
                         return Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30.0),
-                            color: Colors.white70,
-                          ),
-                          padding: EdgeInsets.only(top: 5, right: 5, left: 5),
+                          padding: EdgeInsets.all(20),
                           margin: EdgeInsets.symmetric(vertical: 15),
+                          decoration: BoxDecoration(
+                              color: Colors.white70,
+                              borderRadius: BorderRadius.circular(35)),
                           child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // Tile with all information of transaction
-                              ListTile(
-                                // LisTiles usually only have two lines but make isThreeLine true to add more
-                                isThreeLine: true,
-
-                                title: Align(
-                                  alignment: Alignment.centerLeft,
-
-                                  // Date
-                                  child: Text(
-                                    logs![index].timeStamp.split(" ")[0],
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.black,
-                                      fontFamily: fontMont,
-                                    ),
+                              Text(
+                                logs![index].timeStamp.split(" ")[0],
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.blueGrey[600]!,
+                                  fontFamily: fontMont,
+                                ),
+                              ),
+                              Padding(padding: EdgeInsets.only(top: 5)),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Ref: ',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.black,
+                                          fontFamily: fontMont,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Text(
+                                        logs![index].referenceNumber,
+                                        style: TextStyle(
+                                            fontSize: 17,
+                                            color: Colors.black,
+                                            fontFamily: fontMont),
+                                      ),
+                                    ],
                                   ),
-                                ),
-
-                                // isThree lines requires all other lines to be in a column
-                                subtitle: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    // Reference number
-                                    Container(
-                                      height: 10,
-                                    ),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Align(
-                                          alignment: Alignment.bottomLeft,
-                                          child: Text(
-                                              'Reference Number: ' +
-                                                  logs![index].referenceNumber,
-                                              style: TextStyle(
-                                                fontSize: 13,
-                                                color: Colors.black,
-                                                fontFamily: fontMont,
-                                                fontWeight: FontWeight.w500,
-                                              )),
-                                        ),
-
-                                        // Amount
-                                        Align(
-                                          alignment: Alignment.bottomRight,
-                                          child: Text(
-                                            'R' +
-                                                logs![index].amount.toString(),
-                                            style: TextStyle(
-                                              fontSize: 15,
-                                              color: Colors.teal,
-                                              fontFamily: fontMont,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
+                                  Text(
+                                    amountPrefix +
+                                        logs![index].amount.toString(),
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        color: textCol,
+                                        fontFamily: fontMont),
+                                  ),
+                                ],
                               ),
                             ],
                           ),

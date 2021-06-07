@@ -23,6 +23,7 @@ class _InputIDState extends State<InputID> {
         height: 60,
         width: MediaQuery.of(context).size.width,
         child: TextField(
+          maxLength: 13,
           controller: this.widget.idController,
           onChanged: (String idNumb) {
             _hasInputError = hasInputErrorID(idNumb);

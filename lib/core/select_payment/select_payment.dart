@@ -1,13 +1,16 @@
 // coverage:ignore-start
 import 'package:flutter/material.dart';
+import 'package:last_national_bank/classes/accountDetails.dart';
 import 'package:last_national_bank/classes/user.class.dart';
 import 'package:last_national_bank/config/routes/router.dart';
 import 'package:last_national_bank/core/select_payment/widgets/paymentButton.dart';
 import 'package:last_national_bank/utils/helpers/icons.dart';
+import 'package:last_national_bank/utils/helpers/ignore_helper.dart';
 import 'package:last_national_bank/utils/helpers/style.dart';
 import 'package:last_national_bank/utils/services/local_db.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
 import 'package:last_national_bank/widgets/navigation.dart';
+import 'package:last_national_bank/widgets/noAccounts.dart';
 
 class SelectPaymentPage extends StatefulWidget {
   @override
@@ -16,16 +19,18 @@ class SelectPaymentPage extends StatefulWidget {
 
 class _SelectPaymentPageState extends State<SelectPaymentPage> {
   User? user;
+  List<accountDetails> accountDets = [];
 
   @override
   void initState() {
     super.initState();
 
     LocalDatabaseHelper.instance.getUserAndAddress().then((userDB) {
-      getAccountDetails(userDB!.idNumber).then((account) {
+      getAccountDetails(userDB!.idNumber).then((accounts) {
         setState(
           () {
             user = userDB;
+            accountDets = accounts;
           },
         );
       });
@@ -36,9 +41,13 @@ class _SelectPaymentPageState extends State<SelectPaymentPage> {
   @override
   Widget build(BuildContext context) {
     if (user == null) {
-      return _buildLoadingScreen();
+      return buildLoadingScreen();
     } else {
-      return buildPage(context);
+      if (accountDets.isNotEmpty) {
+        return buildPage(context);
+      } else {
+        return NoAccount();
+      }
     }
   }
 
@@ -81,12 +90,10 @@ class _SelectPaymentPageState extends State<SelectPaymentPage> {
           // Headingpaint
           Text(
             'Select Form of Payment',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 24.0,
-              fontWeight: FontWeight.w500,
-              color: Colors.white,
-            ),
+            style: new TextStyle(
+                fontSize: 30.0,
+                fontWeight: FontWeight.w500,
+                color: Colors.white),
           ),
 
           // Spacing
@@ -95,59 +102,45 @@ class _SelectPaymentPageState extends State<SelectPaymentPage> {
           ),
 
           // First button
-          Container(
-            width: size.width * 0.9,
-            child: Column(
-              children: [
-                paymentButton(
+          (accountDets.length > 1)
+              ? paymentButton(
                   // Pass parameters:
 
                   // When buton is clicked, do..
                   onTap: () {
-                    //goToAdminVerificationList(context);
+                    goToTransfers(context);
                   },
                   buttonTitle: "Transfers",
                   buttonDescription:
                       "Transfer funds betweeen your own accounts.",
                   buttonIcon: iconFamily.payment,
+                )
+              : Container(
+                  height: 0,
+                  width: 0,
                 ),
 
-                // Spacing
-                Padding(
-                  padding: EdgeInsets.only(top: 20),
-                ),
+          // Spacing
+          Padding(
+            padding: EdgeInsets.only(top: 20),
+          ),
 
-                // Second button
-                paymentButton(
-                  // Pass parameters:
+          // Second button
+          paymentButton(
+            // Pass parameters:
 
-                  // When buton is clicked, do..
-                  onTap: () {
-                    //goToAdminVerificationList(context);
-                  },
-                  buttonTitle: "Payments",
-                  buttonDescription:
-                      "Make payments to other client's bank accounts.",
-                  buttonIcon: iconFamily.user,
-                ),
-              ],
-            ),
+            // When buton is clicked, do..
+            onTap: () {
+              goToPayments(context);
+            },
+            buttonTitle: "Payments",
+            buttonDescription: "Make payments to other client's bank accounts.",
+            buttonIcon: iconFamily.user,
           ),
         ]),
       ),
     );
   }
-}
-
-// Loading screen
-Widget _buildLoadingScreen() {
-  return Center(
-    child: Container(
-      width: 50,
-      height: 50,
-      child: CircularProgressIndicator(),
-    ),
-  );
 }
 
 // coverage:ignore-end

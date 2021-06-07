@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:last_national_bank/constants/database_constants.dart';
 import 'package:last_national_bank/core/SHA-256_encryption.dart';
 import 'package:last_national_bank/core/registration/widgets/NewSurname.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
@@ -672,6 +673,175 @@ void main() {
 
     expect(actual[i].accDescription, expected);
   });
+
+  group('testing http request userLoginOnline', ()  {
+    // //valid
+    // test('test to check for valid user', () async {
+    //   //TestWidgetsFlutterBinding.ensureInitialized();
+    //   var expected = [{"clientID":"48","email":"0@gmail.com","phoneNumber":"0000000000","idNumber":"0000000000000","password":"3875034e17855bac03a3cc9e107b1d28a9b44313d381c3335588525b4e70b55b","age":"21","firstName":"Test","middleName":"","lastName":"User ","verificationStatus":"Pending","streetName":"Name","streetNumber":"0","suburb":"Suburb","province":"Province","country":"South Africa","apartmentNumber":"0"}];
+    //
+    //   var actual = await userLoginOnline("0000000000000",encode("Qwerty123!"),true);
+    //   print(actual);
+    //   expect(actual, expected);
+    // });
+    //invalid
+    test("test to check for invalid user", () async {
+      var expected = "Invalid Password";
+
+      var actual = await userLoginOnline("0000000000000",encode("Qwert123!"),true);
+
+      expect(actual, expected);
+    });
+  });
+
+  group('testing http request getlogs', ()  {
+
+    test("test for user without logs", () async {
+      var expected = [];
+
+      var actual = await getLogs("48");
+
+      expect(actual, expected);
+    });
+
+    test("test for user with logs", () async {
+      var expected = true;
+
+      var actual = await getLogs("45");
+
+      expect(actual.isNotEmpty, expected);
+    });
+
+  });
+
+
+
+  group('testing http request makeTransfers', ()  {
+
+    test("test for valid transfers", () async {
+      var expected = dbSuccess;
+
+      var actual = await  makeTransfer(
+          "34455637975", "34455637975", "1", "test");
+
+      expect(actual, expected);
+    });
+
+    test("test for invalid transfers", () async {
+      var expected = "Failed to make transfer";
+
+      var actual = await makeTransfer(
+          "34455637975", "34455637025", "1", "test");
+
+      expect(actual, expected);
+    });
+
+  });
+
+  group('testing http request makePayment', ()  {
+
+    test("test for valid payment", () async {
+      var expected = dbSuccess;
+
+      var actual = await  makePayment(
+          "34455637975", "34455637975", "1", "test", "35", "Jared Govindsamy");
+
+      expect(actual, expected);
+    });
+
+    test("test for invalid payment", () async {
+      var expected = "Failed to make transfer";
+
+      var actual = await makePayment(
+          "34455637975", "34455637825", "1", "test", "35", "Jared Govindsamy");
+
+      expect(actual, expected);
+    });
+
+  });
+
+  group('testing http request getSpecificAccount', ()  {
+
+    test("test for valid specific Account", () async {
+      var expected = true;
+
+      var actual = await  getSpecificAccount("34455637975");
+
+      expect(actual.isNotEmpty, expected);
+    });
+
+    test("test for invalid specific Account", () async {
+      var expected = false;
+
+      var actual = await getSpecificAccount("0000000000000");
+      expect(actual.isNotEmpty, expected);
+    });
+  });
+
+
+  group('testing http request getUnverifiedClients', ()  {
+    test("test to check for valid getUnverifiedClients", () async {
+      var expected = true;
+
+      var actual = await getUnverifiedClients();
+
+
+      expect(actual.isNotEmpty, expected);
+    });
+  });
+
+    group('testing http request getAccDetails', ()  {
+
+      test("test for valid Account Details", () async {
+        var expected = true;
+
+        var actual = await  getAccountDetails("0011223344556");
+
+        expect(actual.isNotEmpty, expected);
+      });
+
+      test("test for invalid Account Details", () async {
+        var expected = false;
+
+        var actual = await getAccountDetails("0000000000000");
+
+        expect(actual.isNotEmpty, expected);
+      });
+
+  });
+
+  test("test to check for valid getNumberOfAccounts", () async {
+    var expected = 4;
+
+    var actual = await getNumberOfAccounts();
+
+    expect(actual, expected);
+  });
+
+  test("test to check for valid getNumberOfAccounts", () async {
+    var expected = "Test";
+
+    var actual = await getClientDetails("0000000000000");
+
+    expect(actual[0].firstName, expected);
+  });
+
+  test("test to check for valid getExistingAccountTypes", () async {
+    var expected = [];
+
+    var actual = await getExistingAccountTypes(48);
+
+    expect(actual, expected);
+  });
+
+  test("test to check for invalid getExistingAccountTypes", () async {
+    var expected = [1, 4, 3];
+
+    var actual = await getExistingAccountTypes(35);
+
+    expect(actual, expected);
+  });
+
 
   String firstName = "John";
   String middleNames = "Sarah Noockles";

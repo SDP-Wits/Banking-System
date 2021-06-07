@@ -41,9 +41,11 @@ Future<List<Map<String, dynamic>>> getURLData(String url) async {
 }
 
 //TODO: Tests
-
 //Manually tested
 //Log the user in, based off whether they are a client or not
+
+// coverage:ignore-start
+//coveralls-ignore-start
 Future<String> userLoginOnline(
     String idNumber, String hashPassword, bool isClientLogin) async {
   //Choosing php file based off whether the user is a client or admin
@@ -67,8 +69,7 @@ Future<String> userLoginOnline(
   //If there isn't an error, then we should add User to local DB
   //then we should return dbSuccess
 
-  print("null value in sql is: ");
-  print(data["apartmentNumber"]);
+
   bool isAdmin = !isClientLogin;
   User user = User(
     (isAdmin) ? int.parse(data["adminID"]) : int.parse(data["clientID"]),
@@ -107,6 +108,8 @@ Future<String> userLoginOnline(
       user.address.country,
       user.address.apartmentNumber);
 }
+//coveralls-ignore-end
+// coverage:ignore-end
 
 //Admin Registering online
 //no implementations found so im commnting it out for now
@@ -274,6 +277,10 @@ Future<List<int>> getExistingAccountTypes(int clientID) async {
 
   final List<Map> existingAccTypes = await getURLData(url);
 
+  if (existingAccTypes.isEmpty){
+    return [];
+  }
+
   if (existingAccTypes[0].containsKey("status")) {
     if (!existingAccTypes[0]["status"]) {
       print("There are no exisiting accounts for this user");
@@ -436,4 +443,65 @@ Future<List<Log>> getLogs(String clientID) async {
   }
 
   return logs;
+}
+
+//make a transfer (transaction option)
+//used in transfer.functions.dart
+Future<String> makeTransfer(
+    String accountFrom, String accountTo, String amount, String refName) async {
+  final String date = getDate();
+
+  List<String> phpNames = [
+    "accountFrom",
+    "accountTo",
+    "amount",
+    "referenceName"
+  ];
+  List<String> inputVariables = [accountFrom, accountTo, amount, refName];
+
+  String arguments =
+      argumentMaker(phpNames: phpNames, inputVariables: inputVariables);
+
+  final String url = urlPath + make_transfer + arguments;
+
+  final Map data = (await getURLData(url))[0];
+
+  if (data["status"]) {
+    return dbSuccess;
+  }
+
+  return "Failed to make transfer";
+}
+
+Future<String> makePayment(String accountFrom, String accountTo, String amount,
+    String refName, String clientID, String clientName) async {
+  List<String> phpNames = [
+    "accFrom",
+    "clientID",
+    "clientName",
+    "amt",
+    "accTo",
+    "refname"
+  ];
+  List<String> inputVariables = [
+    accountFrom,
+    clientID,
+    clientName,
+    amount,
+    accountTo,
+    refName
+  ];
+
+  String arguments =
+      argumentMaker(phpNames: phpNames, inputVariables: inputVariables);
+
+  final String url = urlPath + make_payment + arguments;
+
+  final Map data = (await getURLData(url))[0];
+
+  if (data["status"]) {
+    return dbSuccess;
+  }
+
+  return "Failed to make transfer";
 }

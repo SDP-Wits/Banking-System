@@ -5,8 +5,10 @@ import 'package:last_national_bank/classes/accountDetails.dart';
 import 'package:last_national_bank/classes/name.class.dart';
 import 'package:last_national_bank/core/account/accounts.dart';
 import 'package:last_national_bank/core/bank_account_options/account_options.dart';
+import 'package:last_national_bank/core/payments/payment.dart';
 import 'package:last_national_bank/core/select_payment/select_payment.dart';
 import 'package:last_national_bank/core/specific_account/specific_bank_account.dart';
+import 'package:last_national_bank/core/transfer/transfer.dart';
 
 import '../../constants/route_constants.dart';
 import '../../core/login/login.dart';
@@ -69,6 +71,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case SelectPayment:
       return MaterialRouteWrap(SelectPaymentPage());
 
+    case MakeTransfer:
+      return MaterialRouteWrap(Transfers());
+
+    case MakePayment:
+      return MaterialRouteWrap(Payments());
+
     //If page to go to is unknown, go to default home page, i.e. Login Page
     default:
       return MaterialRouteWrap(LoginPage());
@@ -83,7 +91,10 @@ Route<dynamic> unknownRoute(RouteSettings settings) {
 }
 
 void goToLogin(BuildContext context) {
-  Navigator.popUntil(context, ModalRoute.withName(LoginRoute));
+  Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => WrapScaffold(LoginPage())),
+      (route) => route.isFirst);
 }
 
 void goToClientRegistration(BuildContext context) {
@@ -129,5 +140,13 @@ void goToTimeline(BuildContext context) {
 
 void goToSelectPayment(BuildContext context) {
   Navigator.pushNamed(context, SelectPayment);
+}
+
+void goToTransfers(BuildContext context) {
+  Navigator.pushNamed(context, MakeTransfer);
+}
+
+void goToPayments(BuildContext context) {
+  Navigator.pushNamed(context, MakePayment);
 }
 // coverage:ignore-end

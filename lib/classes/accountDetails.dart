@@ -2,7 +2,7 @@
 class accountDetails {
   final String accountNumber;
   final String accountType;
-  final double currentBalance;
+  double currentBalance;
   final String fName;
   final String mName;
   final String lName;
