@@ -56,7 +56,7 @@ class _PaymentsState extends State<Payments> {
                 clientName: user!.firstName, clientSurname: user!.lastName),
             body: SingleChildScrollView(
               child: Container(
-                height: size.height * 1.1,
+                height: size.height * 1.2,
                 decoration: BoxDecoration(
                   gradient: backgroundGradient,
                 ),
