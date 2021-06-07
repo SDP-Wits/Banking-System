@@ -1,3 +1,4 @@
+// coverage:ignore-start
 import 'package:flutter/material.dart';
 import 'package:last_national_bank/classes/user.class.dart';
 import 'package:last_national_bank/config/routes/router.dart';
@@ -83,3 +84,4 @@ Widget floatingCreateAccount(BuildContext context) {
     ],
   );
 }
+// coverage:ignore-end
