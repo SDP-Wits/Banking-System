@@ -84,14 +84,6 @@ class _BankAccountOptionsState extends State<BankAccountOptions> {
         : Scaffold(
             drawer: Navigation(
                 clientName: user!.firstName, clientSurname: user!.lastName),
-            appBar: AppBar(
-              title: Text(
-                "Bank Account Options",
-                style: TextStyle(color: Colors.black),
-              ),
-              elevation: 5,
-              backgroundColor: Colors.white,
-            ),
             body: (accountTypeList.isNotEmpty)
                 ? ListView.builder(
                     itemCount: accountTypeList.length,

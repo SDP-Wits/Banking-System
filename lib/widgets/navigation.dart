@@ -125,12 +125,12 @@ class Navigation extends StatelessWidget {
             },
           ),
 
-          // History/Timeline
+          // Timeline
           ListTile(
             leading: Icon(iconFamily.history),
 
             title: Text(
-              'History/Timeline',
+              'Timeline',
               style: TextStyle(
                 fontSize: 18,
                 fontFamily: fontMont,

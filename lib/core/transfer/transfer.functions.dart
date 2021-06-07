@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:last_national_bank/config/routes/router.dart';
 import 'package:last_national_bank/constants/database_constants.dart';
+import 'package:last_national_bank/core/transfer/transfer.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
 
 //Text for inputs
@@ -41,9 +42,21 @@ void onChangeReferenceName(String newReferenceName) {
   referenceNameText = newReferenceName;
 }
 
+void emptyTextTransfer() {
+  accountToText = "";
+  accountFromText = "";
+  amountText = "";
+  referenceNameText = "";
+
+  accountToController.text = "";
+  accountFromController.text = "";
+  amountController.text = "";
+  referenceNameController.text = "";
+}
+
 //Other functions
-Future<bool> submitTransfer(
-    double currAmt, String accountFrom, String accountTo, BuildContext context) async {
+Future<bool> submitTransfer(double currAmt, String accountFrom,
+    String accountTo, BuildContext context) async {
   //validation checks
 
   //check if input amount is correct

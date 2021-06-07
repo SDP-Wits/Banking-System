@@ -35,6 +35,16 @@ void onChangeReferenceName(String newReferenceName) {
   referenceNameText = newReferenceName;
 }
 
+void emptyText() {
+  amountText = "";
+  receipentAccountNumberText = "";
+  referenceNameText = "";
+
+  amountController.text = "";
+  receiptentAccountNumberController.text = "";
+  referenceNameController.text = "";
+}
+
 Future<bool> submitPayment(User? user, accountDetails accountDetail) async {
   if (user == null) {
     Fluttertoast.showToast(msg: "Please Login Again");

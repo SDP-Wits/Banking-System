@@ -123,6 +123,8 @@ class _PaymentsState extends State<Payments> {
                             setState(() {
                               accountsDetails[accountFromIndex]
                                   .currentBalance -= double.parse(amountText);
+
+                              emptyText();
                             });
 
                             goToTimelineDialog(context);

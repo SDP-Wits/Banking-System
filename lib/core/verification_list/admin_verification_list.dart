@@ -44,127 +44,93 @@ class _VerificationListPageState extends State<VerificationListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: new PreferredSize(
-          child: Container(
-            padding:
-                new EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-            child: new Padding(
-              padding: const EdgeInsets.only(
-                  left: 10.0, right: 30.0, top: 5.0, bottom: 10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    'Verify Client',
-                    style: new TextStyle(
-                        fontSize: 30.0,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white),
-                  ),
-                ],
-              ),
-            ),
-            decoration: new BoxDecoration(
-                gradient:
-                    new LinearGradient(colors: [Colors.blueGrey, Colors.teal]),
-                boxShadow: [
-                  new BoxShadow(
-                    color: Colors.black,
-                    blurRadius: 20.0,
-                    spreadRadius: 1.0,
-                  )
-                ]),
-          ),
-          preferredSize: new Size(MediaQuery.of(context).size.width, 150.0),
-        ),
         body: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [Colors.blueGrey, Colors.teal]),
-          ),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Colors.blueGrey, Colors.teal]),
+      ),
 
-          // Allows page to be scrollable
-          child: SingleChildScrollView(
-            padding: EdgeInsets.all(10.0),
-            child: ConstrainedBox(
-              //Use MediaQuery.of(context).size.height for max Height
-              constraints:
-                  BoxConstraints(minHeight: MediaQuery.of(context).size.height),
+      // Allows page to be scrollable
+      child: SingleChildScrollView(
+        padding: EdgeInsets.all(10.0),
+        child: ConstrainedBox(
+          //Use MediaQuery.of(context).size.height for max Height
+          constraints:
+              BoxConstraints(minHeight: MediaQuery.of(context).size.height),
 
-              // child: Column(
-              //   children: <Widget>[
-              //     // Title/heading
-              //     Row(children: <Widget>[
-              //       VerifyUsersTitle(),
-              //     ]),
+          // child: Column(
+          //   children: <Widget>[
+          //     // Title/heading
+          //     Row(children: <Widget>[
+          //       VerifyUsersTitle(),
+          //     ]),
 
-              // List
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  physics: ScrollPhysics(),
-                  itemCount: names.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    String textToUse = "\t\t ${names[index].fName} ";
-                    if (names[index].mName != null) {
-                      textToUse += names[index].mName!;
-                      textToUse += " ";
-                    }
-                    textToUse += names[index].sName;
+          // List
+          child: ListView.builder(
+              shrinkWrap: true,
+              physics: ScrollPhysics(),
+              itemCount: names.length,
+              itemBuilder: (BuildContext context, int index) {
+                String textToUse = "\t\t ${names[index].fName} ";
+                if (names[index].mName != null) {
+                  textToUse += names[index].mName!;
+                  textToUse += " ";
+                }
+                textToUse += names[index].sName;
 
-                    return Card(
-                      color: Colors.transparent,
-                      elevation: 1,
-                      // shadowColor: Colors.transparent,
-                      // shape: RoundedRectangleBorder(
-                      //   borderRadius: BorderRadius.circular(15.0),
-                      // ),
+                return Card(
+                  color: Colors.transparent,
+                  elevation: 1,
+                  // shadowColor: Colors.transparent,
+                  // shape: RoundedRectangleBorder(
+                  //   borderRadius: BorderRadius.circular(15.0),
+                  // ),
 
-                      // Space around item box
-                      // margin: EdgeInsets.symmetric(
-                      //     vertical: 20.0, horizontal: 10),
+                  // Space around item box
+                  // margin: EdgeInsets.symmetric(
+                  //     vertical: 20.0, horizontal: 10),
 
-                      child: InkWell(
-                        // When user clicks on item box, sonmething happens:
-                        // customBorder: Border.all(color: Colors.white, width: 2),
-                        onTap: () {
-                          // Navigator.push(context, MaterialPageRoute(builder: (context) => admin_verify_user(Name: names[index])) );
-                          // Fluttertoast.showToast(
-                          //     msg: names[index].IDnum,
-                          //     toastLength: Toast.LENGTH_SHORT,
-                          //     gravity: ToastGravity.CENTER,
-                          //     timeInSecForIosWeb: 3,
-                          //     backgroundColor: Colors.teal,
-                          //     textColor: Colors.white,
-                          //     fontSize: 16.0);
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  VerifyUser(names[index].IDnum),
-                            ),
-                          );
-                        },
-
-                        child: Container(
-                          // color:Colors.transparent,
-
-                          padding: EdgeInsets.all(15),
-                          child: Text(
-                            // names i sthe name of the example array used above
-                            // Will need to find outy how to use array in
-                            // verification.functions.dart here
-                            textToUse,
-                            style: TextStyle(
-                                fontSize: fontSizeSmall, color: Colors.white),
-                          ),
+                  child: InkWell(
+                    // When user clicks on item box, sonmething happens:
+                    // customBorder: Border.all(color: Colors.white, width: 2),
+                    onTap: () {
+                      // Navigator.push(context, MaterialPageRoute(builder: (context) => admin_verify_user(Name: names[index])) );
+                      // Fluttertoast.showToast(
+                      //     msg: names[index].IDnum,
+                      //     toastLength: Toast.LENGTH_SHORT,
+                      //     gravity: ToastGravity.CENTER,
+                      //     timeInSecForIosWeb: 3,
+                      //     backgroundColor: Colors.teal,
+                      //     textColor: Colors.white,
+                      //     fontSize: 16.0);
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => VerifyUser(names[index].IDnum),
                         ),
+                      );
+                    },
+
+                    child: Container(
+                      // color:Colors.transparent,
+
+                      padding: EdgeInsets.all(15),
+                      child: Text(
+                        // names i sthe name of the example array used above
+                        // Will need to find outy how to use array in
+                        // verification.functions.dart here
+                        textToUse,
+                        style: TextStyle(
+                            fontSize: fontSizeSmall, color: Colors.white),
                       ),
-                    );
-                  }),
-            ),
-          ),
-        ));
+                    ),
+                  ),
+                );
+              }),
+        ),
+      ),
+    ));
   }
 }
 

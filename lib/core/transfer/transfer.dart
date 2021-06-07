@@ -152,7 +152,8 @@ class _TransfersState extends State<Transfers> {
                         // Send button
                         TextButton(
                           onPressed: () {
-                            submitTransfer(acc[accountFromIndex].currentBalance,
+                            submitTransfer(
+                                    acc[accountFromIndex].currentBalance,
                                     acc[accountFromIndex].accountNumber,
                                     acc[accountToIndex].accountNumber,
                                     this.context)
@@ -164,6 +165,8 @@ class _TransfersState extends State<Transfers> {
 
                                   acc[accountToIndex].currentBalance +=
                                       double.parse(amountText);
+
+                                  emptyTextTransfer();
                                 });
 
                                 goToTimelineDialog(context);
