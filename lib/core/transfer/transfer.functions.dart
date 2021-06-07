@@ -43,7 +43,7 @@ void onChangeReferenceName(String newReferenceName) {
 
 //Other functions
 Future<bool> submitTransfer(
-    String accountFrom, String accountTo, BuildContext context) async {
+    double currAmt, String accountFrom, String accountTo, BuildContext context) async {
   //validation checks
 
   //check if input amount is correct
@@ -57,6 +57,11 @@ Future<bool> submitTransfer(
   //check if account number is valid
   if (accountTo.length != 11 || accountFrom.length != 11) {
     Fluttertoast.showToast(msg: "Please Enter Valid Account Number/s");
+    return false;
+  }
+
+  if (currAmt < int.parse(amountText)) {
+    Fluttertoast.showToast(msg: "Insufficient funds");
     return false;
   }
 
