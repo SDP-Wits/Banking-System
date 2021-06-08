@@ -10,7 +10,7 @@ class Heading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16),
+    //  padding: EdgeInsets.all(16),
       alignment: Alignment.center,
       child: Text(
         headingText,

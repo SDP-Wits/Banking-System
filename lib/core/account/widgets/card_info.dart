@@ -1,9 +1,7 @@
 // coverage:ignore-start
 
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:last_national_bank/classes/accountDetails.dart';
 import 'package:last_national_bank/constants/app_constants.dart';
 import 'package:last_national_bank/core/account/accounts.functions.dart';

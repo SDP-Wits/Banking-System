@@ -53,14 +53,17 @@ class _TransfersState extends State<Transfers> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     return (user == null)
         ? buildLoadingScreen()
         : (acc.isEmpty)
             ? NoAccount()
             : Scaffold(
+                key: _scaffoldKey,
                 drawer: Navigation(
-                    clientName: user!.firstName, clientSurname: user!.lastName),
+                    clientName: user!.firstName, clientSurname: user!.lastName
+                ),
                 body: SingleChildScrollView(
                   child: Container(
                     height: size.height,
@@ -70,8 +73,21 @@ class _TransfersState extends State<Transfers> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Heading("Transfers"),
 
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: IconButton(
+                            icon: Icon(Icons.menu, color: Colors.white),
+                            onPressed: () {
+                              _scaffoldKey.currentState!.openDrawer();
+                            },
+                          ),
+                        ),
+                        Heading("Transfers"),
+                        // Spacing
+                        Padding(
+                          padding: EdgeInsets.only(top: 10),
+                        ),
                         // Scroll widgets with headings and stuff
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,

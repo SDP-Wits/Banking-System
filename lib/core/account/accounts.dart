@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:last_national_bank/config/routes/router.dart';
+import 'package:last_national_bank/widgets/heading.dart';
 import 'package:last_national_bank/widgets/navigation.dart';
 import 'package:last_national_bank/widgets/noAccounts.dart';
 
@@ -78,7 +79,8 @@ class _AccountsState extends State<Accounts> {
       return Scaffold(
         key: _scaffoldKey,
         drawer: Navigation(
-            clientName: user!.firstName, clientSurname: user!.lastName),
+            clientName: user!.firstName, clientSurname: user!.lastName
+        ),
         body: Container(
           width: size.width,
           height: size.height,
@@ -99,19 +101,14 @@ class _AccountsState extends State<Accounts> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: verticalPadding),
+                  padding: EdgeInsets.only(top: 10),
                 ),
-                Text(
-                  'Accounts',
-                  style: new TextStyle(
-                      fontSize: 30.0,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.white),
-                ),
+                Heading("Accounts"),
                 // Spacing
                 Padding(
                   padding: EdgeInsets.only(top: 20),
                 ),
+
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Text(

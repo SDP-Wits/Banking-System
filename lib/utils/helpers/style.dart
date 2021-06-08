@@ -22,7 +22,7 @@ var backgroundGradient = LinearGradient(
     //Gradient we use for page background
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
-    colors: [Colors.blueGrey, Colors.teal]);
+    colors: [Colors.teal, Color(0xFFFFBB9D)]);
 
 // PreferredSize appBar(BuildContext context) {
 //   return new PreferredSize(

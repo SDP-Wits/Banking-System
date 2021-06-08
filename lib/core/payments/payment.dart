@@ -49,11 +49,15 @@ class _PaymentsState extends State<Payments> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
 
     return (user != null)
         ? Scaffold(
+            key: _scaffoldKey,
             drawer: Navigation(
-                clientName: user!.firstName, clientSurname: user!.lastName),
+              clientName: user!.firstName, clientSurname: user!.lastName
+            ),
             body: SingleChildScrollView(
               child: Container(
                 height: size.height * 1.2,
@@ -63,7 +67,19 @@ class _PaymentsState extends State<Payments> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
+                    Align(
+                          alignment: Alignment.topLeft,
+                          child: IconButton(
+                            icon: Icon(Icons.menu, color: Colors.white),
+                            onPressed: () {
+                              _scaffoldKey.currentState!.openDrawer();
+                            },
+                          ),
+                        ),
                     Heading("Payments"),
+                    Padding(
+                          padding: EdgeInsets.only(top: 10),
+                        ),
                     Text(
                       'Select account to make payment from: ',
                       style: TextStyle(
