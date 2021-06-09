@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:last_national_bank/constants/php_url.dart';
 // coverage:ignore-start
 import '../../classes/user.class.dart';
 import '../../config/routes/router.dart';
 import '../../utils/services/local_db.dart';
 import '../../utils/services/online_db.dart';
+
 
 // When the Accept Client Button is clicked, add client to Verified-Clients
 // table and change status to Verified
@@ -41,11 +43,11 @@ Future<void> verificationProcedure(
       if (accepted) {
         // Accepted button clicked
         verifyClient(
-            clientIDNum, userIDNum, '1'); // 1 represents client is accepted
+            clientIDNum, userIDNum, '1',verify_client); // 1 represents client is accepted
       } else {
         // Rejected button clicked
         verifyClient(
-            clientIDNum, userIDNum, '0'); // 0 represents client is rejected
+            clientIDNum, userIDNum, '0',verify_client); // 0 represents client is rejected
       }
 
       // Create 'Showmessage'

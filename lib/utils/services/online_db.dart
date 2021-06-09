@@ -210,7 +210,7 @@ Future<List<thisUser>> getClientDetails(String idNumber) async {
 //Manually tested
 //Verify an unverified client
 Future<String> verifyClient(
-    String clientIdNumber, String adminIdNumber, String clientStatus) async {
+    String clientIdNumber, String adminIdNumber, String clientStatus, String php) async {
   String date = getDate();
 
   String arguments = argumentMaker(phpNames: [
@@ -225,7 +225,7 @@ Future<String> verifyClient(
     clientStatus
   ]);
 
-  Map data = (await getURLData(urlPath + verify_client + arguments))[0];
+  Map data = (await getURLData(urlPath + php + arguments))[0];
 
   bool status = data["status"];
 
