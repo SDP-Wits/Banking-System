@@ -32,11 +32,8 @@ Future<List<Map<String, dynamic>>> getURLData(String url) async {
     }
 
     return map;
-  } else {
-    print("Oi, the url that just failed was : $url");
-    return [
-      {"error": "Failed to get data from database"}
-    ];
+  } else { print("Oi, the url that just failed was : $url");
+    return [ {"error": "Failed to get data from database"} ];
   }
 }
 
@@ -104,8 +101,7 @@ Future<List<Name>> getUnverifiedClients() async {
   final List<Map> data = await getURLData(url);
 
   if (data[0].containsKey("status")) {
-    if (!data[0]["status"]) {
-      print("There are no unverified clients");
+    if (!data[0]["status"]) { print("There are no unverified clients");
       return [];
     }
   }
@@ -132,8 +128,7 @@ Future<int> getNumberOfAccounts() async {
   final List<Map> data = (await getURLData(url));
 
   if (data[0].containsKey("status")) {
-    if (!data[0]["status"]) {
-      print("There are no account types");
+    if (!data[0]["status"]) { print("There are no account types");
       return 0;
     }
   }
@@ -150,8 +145,7 @@ Future<List<thisUser>> getClientDetails(String idNumber) async {
   final List<Map> data = (await getURLData(url));
 
   if (data[0].containsKey("status")) {
-    if (!data[0]["status"]) {
-      print("There are no unverified clients");
+    if (!data[0]["status"]) { print("There are no unverified clients");
       return [];
     }
   }
@@ -211,8 +205,7 @@ Future<List<accountTypes>> getAccountTypes() async {
   final List<Map> accTypeDetails = await getURLData(url);
 
   if (accTypeDetails[0].containsKey("status")) {
-    if (!accTypeDetails[0]["status"]) {
-      print("There are no account options");
+    if (!accTypeDetails[0]["status"]) { print("There are no account options");
       return [];
     }
   }
@@ -250,8 +243,7 @@ Future<List<int>> getExistingAccountTypes(int clientID) async {
   }
 
   if (existingAccTypes[0].containsKey("status")) {
-    if (!existingAccTypes[0]["status"]) {
-      print("There are no exisiting accounts for this user");
+    if (!existingAccTypes[0]["status"]) {print("There are no exisiting accounts for this user");
       return [];
     }
   }
