@@ -71,42 +71,10 @@ Future<String> userLoginOnline(
 
 
   bool isAdmin = !isClientLogin;
-  User user = User(
-    (isAdmin) ? int.parse(data["adminID"]) : int.parse(data["clientID"]),
-    data["firstName"],
-    data["middleName"],
-    data["lastName"],
-    int.parse(data["age"]),
-    data["phoneNumber"],
-    data["email"],
-    data["idNumber"],
-    data["password"],
-    isAdmin,
-    int.parse(data["streetNumber"]),
-    data["streetName"],
-    data["suburb"],
-    data["province"],
-    data["country"],
-    int.parse(data["apartmentNumber"]),
+  User user = User((isAdmin) ? int.parse(data["adminID"]) : int.parse(data["clientID"]), data["firstName"], data["middleName"], data["lastName"], int.parse(data["age"]), data["phoneNumber"], data["email"], data["idNumber"], data["password"], isAdmin, int.parse(data["streetNumber"]), data["streetName"], data["suburb"], data["province"], data["country"], int.parse(data["apartmentNumber"]),
   );
 
-  return await LocalDatabaseHelper.instance.addUserDetails(
-      user.userID,
-      user.email,
-      user.phoneNumber,
-      user.idNumber,
-      user.hashPassword,
-      user.age,
-      user.firstName,
-      user.middleName,
-      user.lastName,
-      user.isAdmin,
-      user.address.streetNumber,
-      user.address.streetName,
-      user.address.suburb,
-      user.address.province,
-      user.address.country,
-      user.address.apartmentNumber);
+  return await LocalDatabaseHelper.instance.addUserDetails(user.userID, user.email, user.phoneNumber, user.idNumber, user.hashPassword, user.age, user.firstName, user.middleName, user.lastName, user.isAdmin, user.address.streetNumber, user.address.streetName, user.address.suburb, user.address.province, user.address.country, user.address.apartmentNumber);
 }
 //coveralls-ignore-end
 // coverage:ignore-end
