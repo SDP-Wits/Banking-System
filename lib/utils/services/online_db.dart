@@ -301,7 +301,7 @@ Future<List<int>> getExistingAccountTypes(int clientID) async {
 
 //Manually tested
 //Create a client's account
-Future<String> createAccount(String clientIdNumber, int accountTypeID) async {
+Future<String> createAccount(String clientIdNumber, int accountTypeID, String php) async {
   final String date = getDate();
 
   List<String> phpNames = ["clientIdNum", "accountType", "currentDate"];
@@ -314,7 +314,7 @@ Future<String> createAccount(String clientIdNumber, int accountTypeID) async {
   String arguments =
       argumentMaker(phpNames: phpNames, inputVariables: inputVariables);
 
-  final String url = urlPath + insert_new_account + arguments;
+  final String url = urlPath + php + arguments;
 
   final Map data = (await getURLData(url))[0];
 

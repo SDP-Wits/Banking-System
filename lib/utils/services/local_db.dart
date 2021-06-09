@@ -1,3 +1,4 @@
+// coverage:ignore-start
 import 'dart:io';
 
 import 'package:fluttertoast/fluttertoast.dart';
@@ -251,3 +252,5 @@ class LocalDatabaseHelper {
     return ((await rawQuery(sql))[0]);
   }
 }
+
+// coverage:ignore-end

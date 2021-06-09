@@ -1,6 +1,7 @@
 // coverage:ignore-start
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:last_national_bank/constants/php_url.dart';
 import 'package:last_national_bank/utils/helpers/style.dart';
 import '../../utils/services/online_db.dart';
 import '../../widgets/navigation.dart';
@@ -193,7 +194,7 @@ Future<void> _asyncConfirmDialog(
                 user = currUser;
 
                 String response =
-                    await createAccount(user!.idNumber, accTypeId);
+                    await createAccount(user!.idNumber, accTypeId, insert_new_account);
 
                 if (response == dbSuccess) {
                   // Create 'Showmessage'

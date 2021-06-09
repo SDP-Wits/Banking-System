@@ -860,6 +860,25 @@ void main() {
 
   });
 
+  group('testing http request create account', ()  {
+
+    test("test for successful create account", () async {
+      var expected = "Success";
+
+      var actual = await createAccount("0000000000000", 0, insert_new_account1);
+
+      expect(actual, expected);
+    });
+    test("test for unsuccessful create account", () async {
+      var expected = "Failed to create an account";
+
+      var actual = await createAccount("0000000000000", 1, insert_new_account1);
+
+      expect(actual, expected);
+    });
+
+  });
+
 
   String firstName = "John";
   String middleNames = "Sarah Noockles";
