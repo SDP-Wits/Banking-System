@@ -109,9 +109,7 @@ class LocalDatabaseHelper {
       String? middleName,
       String lastName,
       bool isAdmin) async {
-    final String sql =
-        "INSERT INTO USER(userID, email, phoneNumber, idNumber, password, age, firstName, middleName, lastName, isAdmin)" +
-            "VALUES($userID, ${doubleQuote(email)}, ${doubleQuote(phoneNumber)}, ${doubleQuote(idNumber)}, ${doubleQuote(password)}, $age, ${doubleQuote(firstName)},${(middleName == null) ? "null" : doubleQuote(middleName)},${doubleQuote(lastName)}, ${isAdmin ? 1 : 0})";
+    final String sql = "INSERT INTO USER(userID, email, phoneNumber, idNumber, password, age, firstName, middleName, lastName, isAdmin)" + "VALUES($userID, ${doubleQuote(email)}, ${doubleQuote(phoneNumber)}, ${doubleQuote(idNumber)}, ${doubleQuote(password)}, $age, ${doubleQuote(firstName)},${(middleName == null) ? "null" : doubleQuote(middleName)},${doubleQuote(lastName)}, ${isAdmin ? 1 : 0})";
 
     try {
       List<Map> results = await rawQuery(sql);
@@ -141,23 +139,7 @@ class LocalDatabaseHelper {
 
       Map data = (await rawQuery(sqlUser))[0];
 
-      return User(
-          data["userID"],
-          data["firstName"],
-          data["middleName"],
-          data["lastName"],
-          data["age"],
-          data["phoneNumber"],
-          data["email"],
-          data["idNumber"],
-          data["password"],
-          (data["isAdmin"] == 1) ? true : false,
-          data["streetNumber"],
-          data["streetName"],
-          data["suburb"],
-          data["province"],
-          data["country"],
-          data["apartmentNumber"]);
+      return User(data["userID"], data["firstName"], data["middleName"], data["lastName"], data["age"], data["phoneNumber"], data["email"], data["idNumber"], data["password"], (data["isAdmin"] == 1) ? true : false, data["streetNumber"], data["streetName"], data["suburb"], data["province"], data["country"], data["apartmentNumber"]);
     }
     return null;
   }

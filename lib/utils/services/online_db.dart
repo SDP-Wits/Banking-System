@@ -32,11 +32,8 @@ Future<List<Map<String, dynamic>>> getURLData(String url) async {
     }
 
     return map;
-  } else {
-    print("Oi, the url that just failed was : $url");
-    return [
-      {"error": "Failed to get data from database"}
-    ];
+  } else { print("Oi, the url that just failed was : $url");
+    return [ {"error": "Failed to get data from database"} ];
   }
 }
 
@@ -71,42 +68,10 @@ Future<String> userLoginOnline(
 
 
   bool isAdmin = !isClientLogin;
-  User user = User(
-    (isAdmin) ? int.parse(data["adminID"]) : int.parse(data["clientID"]),
-    data["firstName"],
-    data["middleName"],
-    data["lastName"],
-    int.parse(data["age"]),
-    data["phoneNumber"],
-    data["email"],
-    data["idNumber"],
-    data["password"],
-    isAdmin,
-    int.parse(data["streetNumber"]),
-    data["streetName"],
-    data["suburb"],
-    data["province"],
-    data["country"],
-    int.parse(data["apartmentNumber"]),
+  User user = User((isAdmin) ? int.parse(data["adminID"]) : int.parse(data["clientID"]), data["firstName"], data["middleName"], data["lastName"], int.parse(data["age"]), data["phoneNumber"], data["email"], data["idNumber"], data["password"], isAdmin, int.parse(data["streetNumber"]), data["streetName"], data["suburb"], data["province"], data["country"], int.parse(data["apartmentNumber"]),
   );
 
-  return await LocalDatabaseHelper.instance.addUserDetails(
-      user.userID,
-      user.email,
-      user.phoneNumber,
-      user.idNumber,
-      user.hashPassword,
-      user.age,
-      user.firstName,
-      user.middleName,
-      user.lastName,
-      user.isAdmin,
-      user.address.streetNumber,
-      user.address.streetName,
-      user.address.suburb,
-      user.address.province,
-      user.address.country,
-      user.address.apartmentNumber);
+  return await LocalDatabaseHelper.instance.addUserDetails(user.userID, user.email, user.phoneNumber, user.idNumber, user.hashPassword, user.age, user.firstName, user.middleName, user.lastName, user.isAdmin, user.address.streetNumber, user.address.streetName, user.address.suburb, user.address.province, user.address.country, user.address.apartmentNumber);
 }
 //coveralls-ignore-end
 // coverage:ignore-end
@@ -136,8 +101,7 @@ Future<List<Name>> getUnverifiedClients() async {
   final List<Map> data = await getURLData(url);
 
   if (data[0].containsKey("status")) {
-    if (!data[0]["status"]) {
-      print("There are no unverified clients");
+    if (!data[0]["status"]) { print("There are no unverified clients");
       return [];
     }
   }
@@ -164,8 +128,7 @@ Future<int> getNumberOfAccounts() async {
   final List<Map> data = (await getURLData(url));
 
   if (data[0].containsKey("status")) {
-    if (!data[0]["status"]) {
-      print("There are no account types");
+    if (!data[0]["status"]) { print("There are no account types");
       return 0;
     }
   }
@@ -182,8 +145,7 @@ Future<List<thisUser>> getClientDetails(String idNumber) async {
   final List<Map> data = (await getURLData(url));
 
   if (data[0].containsKey("status")) {
-    if (!data[0]["status"]) {
-      print("There are no unverified clients");
+    if (!data[0]["status"]) { print("There are no unverified clients");
       return [];
     }
   }
@@ -210,7 +172,7 @@ Future<List<thisUser>> getClientDetails(String idNumber) async {
 //Manually tested
 //Verify an unverified client
 Future<String> verifyClient(
-    String clientIdNumber, String adminIdNumber, String clientStatus) async {
+    String clientIdNumber, String adminIdNumber, String clientStatus, String php) async {
   String date = getDate();
 
   String arguments = argumentMaker(phpNames: [
@@ -225,7 +187,7 @@ Future<String> verifyClient(
     clientStatus
   ]);
 
-  Map data = (await getURLData(urlPath + verify_client + arguments))[0];
+  Map data = (await getURLData(urlPath + php + arguments))[0];
 
   bool status = data["status"];
 
@@ -243,8 +205,7 @@ Future<List<accountTypes>> getAccountTypes() async {
   final List<Map> accTypeDetails = await getURLData(url);
 
   if (accTypeDetails[0].containsKey("status")) {
-    if (!accTypeDetails[0]["status"]) {
-      print("There are no account options");
+    if (!accTypeDetails[0]["status"]) { print("There are no account options");
       return [];
     }
   }
@@ -282,8 +243,7 @@ Future<List<int>> getExistingAccountTypes(int clientID) async {
   }
 
   if (existingAccTypes[0].containsKey("status")) {
-    if (!existingAccTypes[0]["status"]) {
-      print("There are no exisiting accounts for this user");
+    if (!existingAccTypes[0]["status"]) {print("There are no exisiting accounts for this user");
       return [];
     }
   }
@@ -301,7 +261,7 @@ Future<List<int>> getExistingAccountTypes(int clientID) async {
 
 //Manually tested
 //Create a client's account
-Future<String> createAccount(String clientIdNumber, int accountTypeID) async {
+Future<String> createAccount(String clientIdNumber, int accountTypeID, String php) async {
   final String date = getDate();
 
   List<String> phpNames = ["clientIdNum", "accountType", "currentDate"];
@@ -314,7 +274,7 @@ Future<String> createAccount(String clientIdNumber, int accountTypeID) async {
   String arguments =
       argumentMaker(phpNames: phpNames, inputVariables: inputVariables);
 
-  final String url = urlPath + insert_new_account + arguments;
+  final String url = urlPath + php + arguments;
 
   final Map data = (await getURLData(url))[0];
 

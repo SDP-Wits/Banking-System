@@ -22,6 +22,7 @@ import 'dart:async';
 import 'package:last_national_bank/utils/services/online_db.dart';
 import 'package:last_national_bank/classes/accountTypes.dart';
 import 'dart:math';
+import 'package:last_national_bank/constants/php_url.dart';
 
 void main() {
   List<String> phpNames = ["id", "password"];
@@ -714,8 +715,6 @@ void main() {
 
   });
 
-
-
   group('testing http request makeTransfers', ()  {
 
     test("test for valid transfers", () async {
@@ -840,6 +839,44 @@ void main() {
     var actual = await getExistingAccountTypes(35);
 
     expect(actual, expected);
+  });
+
+  group('testing http request verify client', ()  {
+
+    test("test for successful verify user", () async {
+      var expected = "Success";
+
+      var actual = await verifyClient("1", "1", '1',verify_client1);
+
+      expect(actual, expected);
+    });
+    test("test for unsuccessful verify user", () async {
+      var expected = "Failed";
+
+      var actual = await verifyClient("1", "0", '0',verify_client1);
+
+      expect(actual, expected);
+    });
+
+  });
+
+  group('testing http request create account', ()  {
+
+    test("test for successful create account", () async {
+      var expected = "Success";
+
+      var actual = await createAccount("0000000000000", 0, insert_new_account1);
+
+      expect(actual, expected);
+    });
+    test("test for unsuccessful create account", () async {
+      var expected = "Failed to create an account";
+
+      var actual = await createAccount("0000000000000", 1, insert_new_account1);
+
+      expect(actual, expected);
+    });
+
   });
 
 
