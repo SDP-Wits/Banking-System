@@ -34,25 +34,27 @@ class _NoAccountState extends State<NoAccount> {
         : Scaffold(
             drawer: Navigation(
                 clientName: user!.firstName, clientSurname: user!.lastName),
-            body: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 90.0),
-                    child: Text(
-                      "No Accounts here...",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontFamily: fontMont,
-                        fontSize: 40,
-                        color: Colors.teal,
+            body: Container(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 90.0),
+                      child: Text(
+                        "No Accounts here...",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: fontMont,
+                          fontSize: 40,
+                          color: Colors.teal,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                floatingCreateAccount(context),
-              ],
+                  floatingCreateAccount(context),
+                ],
+              ),
             ),
           );
   }

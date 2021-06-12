@@ -1,6 +1,6 @@
 {
-    "name": "banking_system_app",
-    "short_name": "banking_system_app",
+    "name": "Last National Bank",
+    "short_name": "LNB",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
