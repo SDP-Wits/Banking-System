@@ -32,6 +32,7 @@ dependencies:
     sqflite: ^2.0.0+3
     intl: ^0.17.0
     animate_do: ^2.0.0
+    back_button_interceptor: ^5.0.0
     #scrollable_positioned_list: ^0.1.10
 
 dev_dependencies:

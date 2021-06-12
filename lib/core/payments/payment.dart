@@ -1,8 +1,10 @@
 // coverage:ignore-start
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:last_national_bank/classes/accountDetails.dart';
 import 'package:last_national_bank/classes/user.class.dart';
+import 'package:last_national_bank/config/routes/router.dart';
 import 'package:last_national_bank/core/payments/payment.functions.dart';
 import 'package:last_national_bank/core/transfer/widgets/scrollAccount.dart';
 import 'package:last_national_bank/utils/helpers/dialogs.dart';
@@ -36,6 +38,8 @@ class _PaymentsState extends State<Payments> {
     controller1 = ScrollController();
     super.initState();
 
+    BackButtonInterceptor.add(myInterceptor);
+
     LocalDatabaseHelper.instance.getUserAndAddress().then((user) {
       getAccountDetails(user!.idNumber).then((accounts) {
         setState(() {
@@ -44,6 +48,17 @@ class _PaymentsState extends State<Payments> {
         });
       });
     });
+  }
+
+  @override
+  void dispose() {
+    BackButtonInterceptor.remove(myInterceptor);
+    super.dispose();
+  }
+
+  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+    goToAdminVerificationStatus(context);
+    return true;
   }
 
   @override

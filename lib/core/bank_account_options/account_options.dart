@@ -1,4 +1,5 @@
 // coverage:ignore-start
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:last_national_bank/constants/php_url.dart';
@@ -39,6 +40,8 @@ class _BankAccountOptionsState extends State<BankAccountOptions> {
   void initState() {
     super.initState();
 
+    BackButtonInterceptor.add(myInterceptor);
+
     //get data, extract and put it into lists to use later on
     getAccountTypes().then((value) {
       for (int i = 0; i < value.length; ++i) {
@@ -72,6 +75,17 @@ class _BankAccountOptionsState extends State<BankAccountOptions> {
         }
       });
     });
+  }
+
+  @override
+  void dispose() {
+    BackButtonInterceptor.remove(myInterceptor);
+    super.dispose();
+  }
+
+  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+    goToAdminVerificationStatus(context);
+    return true;
   }
 
   @override

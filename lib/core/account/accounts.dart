@@ -1,5 +1,6 @@
 // coverage:ignore-start
 
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:last_national_bank/config/routes/router.dart';
@@ -35,6 +36,8 @@ class _AccountsState extends State<Accounts> {
   void initState() {
     super.initState();
 
+    BackButtonInterceptor.add(myInterceptor);
+
     //Getting unique account details
     LocalDatabaseHelper.instance.getUserAndAddress().then((userDB) {
       getAccountDetails(userDB!.idNumber).then((account) {
@@ -61,6 +64,17 @@ class _AccountsState extends State<Accounts> {
         }); //End of future getting unique account types
       });
     });
+  }
+
+  @override
+  void dispose() {
+    BackButtonInterceptor.remove(myInterceptor);
+    super.dispose();
+  }
+
+  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+    goToAdminVerificationStatus(context);
+    return true;
   }
 
   @override

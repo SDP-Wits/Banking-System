@@ -1,4 +1,5 @@
 // coverage:ignore-start
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:last_national_bank/classes/accountDetails.dart';
 import 'package:last_national_bank/classes/specificAccount.dart';
@@ -38,6 +39,8 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
   void initState() {
     super.initState();
 
+    BackButtonInterceptor.add(myInterceptor);
+
     //Intialization of animation controller and animation
     animationController = AnimationController(
       vsync: this,
@@ -66,7 +69,13 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
   void dispose() {
     //Dispose of animationController from RAM once done with it
     animationController!.dispose();
+    BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
+  }
+
+  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+    goToAdminVerificationStatus(context);
+    return true;
   }
 
   // Use loading page instead of red error screen

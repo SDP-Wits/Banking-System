@@ -1,5 +1,6 @@
 // coverage:ignore-start
 import 'package:flutter/material.dart';
+import 'package:last_national_bank/config/routes/router.dart';
 import 'package:last_national_bank/utils/helpers/style.dart';
 import 'package:last_national_bank/utils/services/local_db.dart';
 import 'package:last_national_bank/widgets/heading.dart';
@@ -7,6 +8,8 @@ import 'package:last_national_bank/widgets/navigation.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
 import '../../classes/log.dart';
 import '../../classes/user.class.dart';
+import 'package:back_button_interceptor/back_button_interceptor.dart';
+ 
 
 class TimelinePage extends StatefulWidget {
   @override
@@ -20,6 +23,9 @@ class _TimelineListPageState extends State<TimelinePage> {
   @override
   void initState() {
     super.initState();
+
+    BackButtonInterceptor.add(myInterceptor);
+
     LocalDatabaseHelper.instance.getUserAndAddress().then((userDB) {
       setState(() {
         user = userDB;
@@ -34,6 +40,17 @@ class _TimelineListPageState extends State<TimelinePage> {
   }
 
   @override
+  void dispose() {
+    BackButtonInterceptor.remove(myInterceptor);
+    super.dispose();
+  }
+
+  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+    goToAdminVerificationStatus(context);
+    return true;
+  }
+
+  @override
   Widget build(BuildContext context) {
     if (logs == null) {
       return _buildLoadingScreen();
@@ -45,8 +62,15 @@ class _TimelineListPageState extends State<TimelinePage> {
   Widget buildPage() {
     final Size size = MediaQuery.of(context).size;
     GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+bool shouldPop = true;
 
-    return Scaffold(
+    return WillPopScope(
+
+      onWillPop: () {
+        return Future.value(shouldPop);
+      },
+    
+      child: Scaffold(
         key: _scaffoldKey,
         drawer: Navigation(
             clientName: user!.firstName, clientSurname: user!.lastName
@@ -168,7 +192,7 @@ class _TimelineListPageState extends State<TimelinePage> {
               
             ),
           ),
-        ));
+        )));
   }
 }
 
