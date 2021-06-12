@@ -1,5 +1,10 @@
 // coverage:ignore-start
 import 'package:flutter/material.dart';
+import 'package:last_national_bank/utils/helpers/style.dart';
+import 'package:last_national_bank/widgets/heading.dart';
+import 'package:last_national_bank/widgets/pendingNav.dart';
+import 'package:last_national_bank/widgets/subHeading.dart';
+import 'package:last_national_bank/widgets/subsubHeading.dart';
 import '../../widgets/navigation.dart';
 
 import '../../classes/thisUser.dart';
@@ -76,118 +81,101 @@ class _VerificationStatusState extends State<VerificationStatus> {
             key: _scaffoldKey,
             drawer: (me![0].status != "Pending")
                 ? Navigation(
-                    clientName: user!.firstName, clientSurname: user!.lastName)
-                : null,
-            body: Container(
-              width: size.width,
-              height: size.height,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topRight,
-                    end: Alignment.bottomLeft,
-                    colors: [Colors.teal, Colors.blueGrey]),
-              ),
-              padding: EdgeInsets.all(10.0),
-              child: ListView(
-                children: <Widget>[
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: IconButton(
-                      icon: Icon(Icons.menu, color: Colors.white),
-                      onPressed: () {
-                        _scaffoldKey.currentState!.openDrawer();
-                      },
+                    clientName: user!.firstName, clientSurname: user!.lastName
+                  )
+                : pendingNav(
+                  clientName: user!.firstName, clientSurname: user!.lastName
+                ),
+            
+            body: SingleChildScrollView(
+              child: Container(
+                height: size.height *1.1,
+
+                child: Column(
+                  //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+
+                    Container(
+                      height: size.height/2,
+                      decoration: BoxDecoration(
+                        gradient: backgroundGradient,
+
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(25.0),
+                          bottomRight: Radius.circular(25.0),
+                          // topRight: borderRadius,
+                        ),
+                      ),
+
+                      child: Column(
+                        //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: IconButton(
+                              icon: Icon(Icons.menu, color: Colors.white),
+                              onPressed: () {
+                                _scaffoldKey.currentState!.openDrawer();
+                              },
+                            ),
+                          ),
+
+                          Heading("My Profile"),
+
+                          // Spacing
+                          Padding(
+                            padding: EdgeInsets.only(top: 30),
+                          ),
+
+                          Icon(
+                            Icons.account_circle,
+                            size: 100,
+                          ),
+
+                          subHeading(user!.firstName + " " + user!.lastName),
+                          // Spacing
+                          Padding(
+                            padding: EdgeInsets.only(top: 10),
+                          ),
+                          subsubHeading(user!.idNumber),
+
+                        ]
+                      ),
                     ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(vertical: 5),
-                  ),
-                  HeadingBlocks1("My Information", 34, 30),
-                  Container(
-                    padding: EdgeInsets.all(15),
-                  ),
-                  HeadingBlocks(
-                      "Verification Status: " + me![0].status, 22, 20),
-                  DetailedBlocks(user!.firstName, "First Name"),
-                  (user!.middleName != null)
-                      ? DetailedBlocks(user!.middleName!, "Middle Name")
-                      : Container(),
-                  DetailedBlocks(user!.lastName, "Last Name"),
-                  DetailedBlocks(user!.email, "Email"),
-                  DetailedBlocks(user!.idNumber, "ID"),
-                  DetailedBlocks(user!.phoneNumber, "Phone Number"),
-                  DetailedBlocks(
-                      user!.address.streetNumber.toString() +
-                          " " +
-                          user!.address.streetName,
-                      "Address"),
-                  DetailedBlocks(user!.address.suburb, "Suburb"),
-                ],
+
+                    // Spacing
+                    Padding(
+                      padding: EdgeInsets.only(top: 40),
+                    ),
+
+                    DetailedBlocks(me![0].status, "Verification Status"),
+                    // Spacing
+                    Padding(
+                      padding: EdgeInsets.only(top: 30),
+                    ),
+                    DetailedBlocks(user!.email, "Email Address"),
+                    Padding(
+                      padding: EdgeInsets.only(top: 30),
+                    ),
+                    DetailedBlocks(user!.phoneNumber, "Phone Number"),
+                    Padding(
+                      padding: EdgeInsets.only(top: 30),
+                    ),
+                    DetailedBlocks(
+                        user!.address.streetNumber.toString() +
+                            " " +
+                            user!.address.streetName +
+                            ", " +
+                            user!.address.suburb,
+                        "Address"),
+
+                  ]
+                ),
               ),
-            ));
-  }
-}
-
-class HeadingBlocks extends StatelessWidget {
-  final String text;
-  final double fontSize;
-  final double padding;
-  HeadingBlocks(this.text, this.fontSize, this.padding);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(padding),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: Text(
-        text,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: fontSize,
-          color: Colors.teal,
-        ),
-      ),
-    );
-  }
-}
-
-class HeadingBlocks1 extends StatelessWidget {
-  final String text;
-  final double fontSize;
-  final double padding;
-  HeadingBlocks1(this.text, this.fontSize, this.padding);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(padding),
-      decoration: BoxDecoration(
-        color: Colors.transparent,
-        borderRadius: BorderRadius.circular(15),
-        // border: Border(
-        //   left: BorderSide(
-        //     color: Colors.white,
-        //     width: 1,
-        //   ),
-        //   bottom: BorderSide(
-        //     color: Colors.white,
-        //     width: 1,
-        //   ),
-        // ),
-        border: Border.all(color: Colors.white, width: 3),
-      ),
-      child: Text(
-        text,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: fontSize,
-          color: Colors.white,
-        ),
-      ),
-    );
+            ),  
+          );
+            
   }
 }
 
@@ -199,29 +187,50 @@ class DetailedBlocks extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.5,
-      padding: EdgeInsets.all(15),
-      //padding: const EdgeInsets.only(top: 20, left: 50, right: 50),
-      margin: EdgeInsets.all(15),
+      width: MediaQuery.of(context).size.width * 0.9,
+      padding: EdgeInsets.all(5),
       decoration: BoxDecoration(
         color: Colors.transparent,
-        // borderRadius: BorderRadius.circular(15),
         border: Border(
-          // left: BorderSide(
-          //   color: Colors.white,
-          //   width: 1,
-          // ),
           bottom: BorderSide(
-            color: Colors.white,
-            width: 1,
+            color: Colors.black,
+            width: 0.5,
           ),
         ),
       ),
-      child: Text(
-        property + ": " + text,
-        textAlign: TextAlign.left,
-        style: TextStyle(fontSize: 16, color: Colors.white),
-      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        
+        children: [
+          
+          Text(
+            property,
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              fontSize: 20, 
+              color: Colors.teal,
+              fontFamily: fontMont,
+              fontWeight: FontWeight.w600
+            ),
+          ),
+
+          // Spacing
+          Padding(
+            padding: EdgeInsets.only(top: 10),
+          ),
+
+          Text(
+            text,
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              fontSize: 16, 
+              color: Colors.black, 
+              fontFamily: fontMont,
+              fontWeight: FontWeight.w500
+            ),
+          ),
+        ],
+      )
     );
   }
 }
@@ -229,12 +238,6 @@ class DetailedBlocks extends StatelessWidget {
 Widget _buildLoadingScreen() {
   return Center(
     child: Container(
-      // decoration: BoxDecoration(
-      //   gradient: LinearGradient(
-      //       begin: Alignment.topRight,
-      //       end: Alignment.bottomLeft,
-      //       colors: [Colors.blueGrey, Colors.teal]),
-      // ),
       width: 50,
       height: 50,
       child: CircularProgressIndicator(),
