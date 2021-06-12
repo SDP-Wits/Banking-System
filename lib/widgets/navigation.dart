@@ -45,7 +45,7 @@ class Navigation extends StatelessWidget {
                   gradient: backgroundGradient,
                   // Image logo:
                   image: new DecorationImage(
-                    image: AssetImage("assets/logo1.png"),
+                    image: AssetImage("assets/images/logo1.png"),
                     alignment: Alignment.topCenter,
                   ),
                 ),
