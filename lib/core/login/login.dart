@@ -1,5 +1,7 @@
 // coverage:ignore-start
 
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -14,6 +16,7 @@ import 'widgets/login_password.dart';
 
 class LoginPage extends StatelessWidget {
   @override
+  int test = 0;
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
