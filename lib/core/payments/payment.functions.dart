@@ -74,15 +74,10 @@ Future<bool> submitPayment(User? user, accountDetails accountDetail) async {
     return false;
   }
 
-  //TODO: ARNEEV - Later
-  //Check if THEIR account exists
-  //if exists, get THEIR clientID and pass to function
-
   final int recipientClientID = await getClientID(receipentAccountNumberText);
   print(recipientClientID);
   if (recipientClientID == 0) {
-    Fluttertoast.showToast(
-        msg: "User account does not have a valid client ID assigned to it");
+    Fluttertoast.showToast(msg: "Recipient Account does not exist");
     return false;
   }
 

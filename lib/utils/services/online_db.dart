@@ -40,7 +40,6 @@ Future<List<Map<String, dynamic>>> getURLData(String url) async {
   }
 }
 
-//TODO: Tests
 //Manually tested
 //Log the user in, based off whether they are a client or not
 

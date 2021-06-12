@@ -3,6 +3,8 @@ class Name {
   final String fName;
   final String? mName;
   final String sName;
+
+  // ignore: non_constant_identifier_names
   final String IDnum;
 
   Name(

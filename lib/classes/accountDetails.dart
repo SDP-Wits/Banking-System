@@ -1,4 +1,5 @@
 // coverage:ignore-start
+// ignore: camel_case_types
 class accountDetails {
   final String accountNumber;
   final String accountType;

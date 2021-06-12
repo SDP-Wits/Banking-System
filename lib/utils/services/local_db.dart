@@ -1,3 +1,16 @@
+//NOTE TO MARKER
+
+/*
+We ignoring this class from coveralls as we cannot test the local DB
+as it can ONLY run on Android & iOS devices,
+WE DID do a test file for this under the test folder
+We run the local db test file on our machines THROUGH AN EMULATOR
+(since it is dependant on either Android or iOS)
+We are unable to do it on Travis CI as it runs on a windows/linux server
+and does NOT start up an android emulator
+*/
+
+// coverage:ignore-start
 import 'dart:io';
 
 import 'package:fluttertoast/fluttertoast.dart';
@@ -40,6 +53,10 @@ class LocalDatabaseHelper {
 
     return await openDatabase(path,
         version: _databaseVersion, onCreate: _onCreate, onUpgrade: _onUpgrade);
+  }
+
+  Future<void> deleteDatabase() async {
+    return await this.deleteDatabase();
   }
 
   //SQL codes for making the database
@@ -109,7 +126,9 @@ class LocalDatabaseHelper {
       String? middleName,
       String lastName,
       bool isAdmin) async {
-    final String sql = "INSERT INTO USER(userID, email, phoneNumber, idNumber, password, age, firstName, middleName, lastName, isAdmin)" + "VALUES($userID, ${doubleQuote(email)}, ${doubleQuote(phoneNumber)}, ${doubleQuote(idNumber)}, ${doubleQuote(password)}, $age, ${doubleQuote(firstName)},${(middleName == null) ? "null" : doubleQuote(middleName)},${doubleQuote(lastName)}, ${isAdmin ? 1 : 0})";
+    final String sql =
+        "INSERT INTO USER(userID, email, phoneNumber, idNumber, password, age, firstName, middleName, lastName, isAdmin)" +
+            "VALUES($userID, ${doubleQuote(email)}, ${doubleQuote(phoneNumber)}, ${doubleQuote(idNumber)}, ${doubleQuote(password)}, $age, ${doubleQuote(firstName)},${(middleName == null) ? "null" : doubleQuote(middleName)},${doubleQuote(lastName)}, ${isAdmin ? 1 : 0})";
 
     try {
       List<Map> results = await rawQuery(sql);
@@ -139,7 +158,23 @@ class LocalDatabaseHelper {
 
       Map data = (await rawQuery(sqlUser))[0];
 
-      return User(data["userID"], data["firstName"], data["middleName"], data["lastName"], data["age"], data["phoneNumber"], data["email"], data["idNumber"], data["password"], (data["isAdmin"] == 1) ? true : false, data["streetNumber"], data["streetName"], data["suburb"], data["province"], data["country"], data["apartmentNumber"]);
+      return User(
+          data["userID"],
+          data["firstName"],
+          data["middleName"],
+          data["lastName"],
+          data["age"],
+          data["phoneNumber"],
+          data["email"],
+          data["idNumber"],
+          data["password"],
+          (data["isAdmin"] == 1) ? true : false,
+          data["streetNumber"],
+          data["streetName"],
+          data["suburb"],
+          data["province"],
+          data["country"],
+          data["apartmentNumber"]);
     }
     return null;
   }
@@ -233,3 +268,4 @@ class LocalDatabaseHelper {
     return ((await rawQuery(sql))[0]);
   }
 }
+// coverage:ignore-end

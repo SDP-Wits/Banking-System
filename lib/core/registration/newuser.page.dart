@@ -1,7 +1,5 @@
 // coverage:ignore-start
 
-// TODO:turn this page into selector for admin or customer registration
-
 import 'package:flutter/material.dart';
 import 'package:last_national_bank/core/registration/widgets/Logo.dart';
 import 'package:last_national_bank/core/registration/widgets/NewAge.dart';

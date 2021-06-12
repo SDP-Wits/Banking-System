@@ -180,7 +180,6 @@ class Navigation extends StatelessWidget {
 
                 // When tile is clicked, do..
                 onTap: () {
-                  //TODO: ARNEEV FIX
                   LocalDatabaseHelper.instance
                       .deleteData()
                       .then((value) => goToLogin(context));
