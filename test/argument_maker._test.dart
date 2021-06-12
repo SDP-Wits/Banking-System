@@ -675,7 +675,7 @@ void main() {
     expect(actual[i].accDescription, expected);
   });
 
-  group('testing http request userLoginOnline', ()  {
+  group('testing http request userLoginOnline', () {
     // //valid
     // test('test to check for valid user', () async {
     //   //TestWidgetsFlutterBinding.ensureInitialized();
@@ -689,14 +689,14 @@ void main() {
     test("test to check for invalid user", () async {
       var expected = "Invalid Password";
 
-      var actual = await userLoginOnline("0000000000000",encode("Qwert123!"),true);
+      var actual =
+          await userLoginOnline("0000000000000", encode("Qwert123!"), true);
 
       expect(actual, expected);
     });
   });
 
-  group('testing http request getlogs', ()  {
-
+  group('testing http request getlogs', () {
     test("test for user without logs", () async {
       var expected = [];
 
@@ -712,16 +712,14 @@ void main() {
 
       expect(actual.isNotEmpty, expected);
     });
-
   });
 
-  group('testing http request makeTransfers', ()  {
-
+  group('testing http request makeTransfers', () {
     test("test for valid transfers", () async {
       var expected = dbSuccess;
 
-      var actual = await  makeTransfer(
-          "34455637975", "34455637975", "1", "test");
+      var actual =
+          await makeTransfer("34455637975", "34455637975", "1", "test");
 
       expect(actual, expected);
     });
@@ -729,21 +727,19 @@ void main() {
     test("test for invalid transfers", () async {
       var expected = "Failed to make transfer";
 
-      var actual = await makeTransfer(
-          "34455637975", "34455637025", "1", "test");
+      var actual =
+          await makeTransfer("34455637975", "34455637025", "1", "test");
 
       expect(actual, expected);
     });
-
   });
 
-  group('testing http request makePayment', ()  {
-
+  group('testing http request makePayment', () {
     test("test for valid payment", () async {
       var expected = dbSuccess;
 
-      var actual = await  makePayment(
-          "34455637975", "34455637975", "1", "test", "35", "Jared Govindsamy");
+      var actual = await makePayment("35", "34455637975", "65544312450", "1",
+          "test", "36", "Jared Govindsamy");
 
       expect(actual, expected);
     });
@@ -751,20 +747,18 @@ void main() {
     test("test for invalid payment", () async {
       var expected = "Failed to make transfer";
 
-      var actual = await makePayment(
-          "34455637975", "34455637825", "1", "test", "35", "Jared Govindsamy");
+      var actual = await makePayment("35", "34455637975", "34455637825", "1",
+          "test", "35", "Jared Govindsamy");
 
       expect(actual, expected);
     });
-
   });
 
-  group('testing http request getSpecificAccount', ()  {
-
+  group('testing http request getSpecificAccount', () {
     test("test for valid specific Account", () async {
       var expected = true;
 
-      var actual = await  getSpecificAccount("34455637975");
+      var actual = await getSpecificAccount("34455637975");
 
       expect(actual.isNotEmpty, expected);
     });
@@ -777,36 +771,32 @@ void main() {
     });
   });
 
-
-  group('testing http request getUnverifiedClients', ()  {
+  group('testing http request getUnverifiedClients', () {
     test("test to check for valid getUnverifiedClients", () async {
       var expected = true;
 
       var actual = await getUnverifiedClients();
 
-
       expect(actual.isNotEmpty, expected);
     });
   });
 
-    group('testing http request getAccDetails', ()  {
+  group('testing http request getAccDetails', () {
+    test("test for valid Account Details", () async {
+      var expected = true;
 
-      test("test for valid Account Details", () async {
-        var expected = true;
+      var actual = await getAccountDetails("0011223344556");
 
-        var actual = await  getAccountDetails("0011223344556");
+      expect(actual.isNotEmpty, expected);
+    });
 
-        expect(actual.isNotEmpty, expected);
-      });
+    test("test for invalid Account Details", () async {
+      var expected = false;
 
-      test("test for invalid Account Details", () async {
-        var expected = false;
+      var actual = await getAccountDetails("0000000000000");
 
-        var actual = await getAccountDetails("0000000000000");
-
-        expect(actual.isNotEmpty, expected);
-      });
-
+      expect(actual.isNotEmpty, expected);
+    });
   });
 
   test("test to check for valid getNumberOfAccounts", () async {
@@ -841,27 +831,24 @@ void main() {
     expect(actual, expected);
   });
 
-  group('testing http request verify client', ()  {
-
+  group('testing http request verify client', () {
     test("test for successful verify user", () async {
       var expected = "Success";
 
-      var actual = await verifyClient("1", "1", '1',verify_client1);
+      var actual = await verifyClient("1", "1", '1', verify_client1);
 
       expect(actual, expected);
     });
     test("test for unsuccessful verify user", () async {
       var expected = "Failed";
 
-      var actual = await verifyClient("1", "0", '0',verify_client1);
+      var actual = await verifyClient("1", "0", '0', verify_client1);
 
       expect(actual, expected);
     });
-
   });
 
-  group('testing http request create account', ()  {
-
+  group('testing http request create account', () {
     test("test for successful create account", () async {
       var expected = "Success";
 
@@ -876,9 +863,7 @@ void main() {
 
       expect(actual, expected);
     });
-
   });
-
 
   String firstName = "John";
   String middleNames = "Sarah Noockles";
