@@ -139,7 +139,7 @@ class _TimelineListPageState extends State<TimelinePage> {
                                           height: 0,
                                         ),
                                   Container(
-                                    width: size.width * 0.8,
+                                    width: size.width * 0.9,
                                     margin: EdgeInsets.only(top: 25),
                                     padding: EdgeInsets.all(15),
                                     alignment: Alignment.center,
