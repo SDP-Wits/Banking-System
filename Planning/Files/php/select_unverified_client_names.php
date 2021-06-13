@@ -2,9 +2,7 @@
 include "./helpers/server_details.php";
 
 $sql = "SELECT firstName, middleName,lastName,idNumber 
-FROM CLIENT WHERE verificationStatus != 'Rejected' LEFT JOIN `VERIFIED CLIENT` 
-ON CLIENT.clientID = `VERIFIED CLIENT`.clientID 
-WHERE `VERIFIED CLIENT`.clientID";
+FROM CLIENT WHERE verificationStatus = 'Pending'";
 
 $output = array();
 if ($result = mysqli_query($conn,$sql)){
