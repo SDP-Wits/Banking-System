@@ -498,8 +498,8 @@ Future<String> makePayment(
     String clientID,
     String clientName) async {
   List<String> phpNames = [
-    "recipientClientID"
-        "accFrom",
+    "recipientClientID",
+    "accFrom",
     "clientID",
     "clientName",
     "amt",

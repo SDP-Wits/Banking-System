@@ -89,6 +89,7 @@ Future<bool> submitPayment(User? user, accountDetails accountDetail) async {
   }
 
   fullName += user.lastName;
+  print(recipientClientID.toString());
 
   final String successString = await makePayment(
       recipientClientID.toString(),
