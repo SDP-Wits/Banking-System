@@ -1,6 +1,9 @@
 // coverage:ignore-start
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
+import 'package:last_national_bank/widgets/heading.dart';
 
 import '../../classes/name.class.dart';
 import '../../utils/helpers/style.dart';
@@ -43,91 +46,96 @@ class _VerificationListPageState extends State<VerificationListPage> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
         body: Container(
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Colors.blueGrey, Colors.teal]),
+        gradient: backgroundGradient,
       ),
 
       // Allows page to be scrollable
       child: SingleChildScrollView(
         padding: EdgeInsets.all(10.0),
         child: ConstrainedBox(
-          //Use MediaQuery.of(context).size.height for max Height
           constraints:
               BoxConstraints(minHeight: MediaQuery.of(context).size.height),
 
-          // child: Column(
-          //   children: <Widget>[
-          //     // Title/heading
-          //     Row(children: <Widget>[
-          //       VerifyUsersTitle(),
-          //     ]),
-
           // List
-          child: ListView.builder(
-              shrinkWrap: true,
-              physics: ScrollPhysics(),
-              itemCount: names.length,
-              itemBuilder: (BuildContext context, int index) {
-                String textToUse = "\t\t ${names[index].fName} ";
-                if (names[index].mName != null) {
-                  textToUse += names[index].mName!;
-                  textToUse += " ";
-                }
-                textToUse += names[index].sName;
-
-                return Card(
-                  color: Colors.transparent,
-                  elevation: 1,
-                  // shadowColor: Colors.transparent,
-                  // shape: RoundedRectangleBorder(
-                  //   borderRadius: BorderRadius.circular(15.0),
-                  // ),
-
-                  // Space around item box
-                  // margin: EdgeInsets.symmetric(
-                  //     vertical: 20.0, horizontal: 10),
-
-                  child: InkWell(
-                    // When user clicks on item box, sonmething happens:
-                    // customBorder: Border.all(color: Colors.white, width: 2),
-                    onTap: () {
-                      // Navigator.push(context, MaterialPageRoute(builder: (context) => admin_verify_user(Name: names[index])) );
-                      // Fluttertoast.showToast(
-                      //     msg: names[index].IDnum,
-                      //     toastLength: Toast.LENGTH_SHORT,
-                      //     gravity: ToastGravity.CENTER,
-                      //     timeInSecForIosWeb: 3,
-                      //     backgroundColor: Colors.teal,
-                      //     textColor: Colors.white,
-                      //     fontSize: 16.0);
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => VerifyUser(names[index].IDnum),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Heading("Verify User"),
+              ),
+              (names.length == 0)
+                  ? Container(
+                      width: size.width,
+                      height: size.height,
+                      child: Center(
+                        child: Text(
+                          "No Users to Verify",
+                          style: TextStyle(
+                            fontFamily: fontMont,
+                            fontSize: 30,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w400,
+                          ),
+                          textAlign: TextAlign.center,
                         ),
-                      );
-                    },
-
-                    child: Container(
-                      // color:Colors.transparent,
-
-                      padding: EdgeInsets.all(15),
-                      child: Text(
-                        // names i sthe name of the example array used above
-                        // Will need to find outy how to use array in
-                        // verification.functions.dart here
-                        textToUse,
-                        style: TextStyle(
-                            fontSize: fontSizeSmall, color: Colors.white),
                       ),
-                    ),
-                  ),
-                );
-              }),
+                    )
+                  : ListView.builder(
+                      shrinkWrap: true,
+                      physics: ScrollPhysics(),
+                      itemCount: names.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        String textToUse = "\t\t ${names[index].fName} ";
+                        if (names[index].mName != null) {
+                          textToUse += names[index].mName!;
+                          textToUse += " ";
+                        }
+                        textToUse += names[index].sName;
+
+                        return Container(
+                          margin: EdgeInsets.symmetric(vertical: 10),
+                          decoration: BoxDecoration(
+                            color: Colors.black26,
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          child: InkWell(
+                            // When user clicks on item box, sonmething happens:
+                            // customBorder: Border.all(color: Colors.white, width: 2),
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      VerifyUser(names[index].IDnum),
+                                ),
+                              );
+                            },
+
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              padding: EdgeInsets.all(15),
+                              child: Text(
+                                // names i sthe name of the example array used above
+                                // Will need to find outy how to use array in
+                                // verification.functions.dart here
+                                textToUse,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: fontSizeSmall,
+                                    color: Colors.white,
+                                    fontFamily: fontMont),
+                              ),
+                            ),
+                          ),
+                        );
+                      }),
+            ],
+          ),
         ),
       ),
     ));

@@ -35,6 +35,9 @@ class _NoAccountState extends State<NoAccount> {
             drawer: Navigation(
                 clientName: user!.firstName, clientSurname: user!.lastName),
             body: Container(
+              decoration: BoxDecoration(
+                gradient: backgroundGradient,
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

@@ -46,7 +46,7 @@ class _buttonRejectClientState extends State<buttonRejectClient> {
               Text(
                 'Reject Client',
                 style: TextStyle(
-                  color: Colors.teal,
+                  color: Colors.red,
                   fontSize: 14,
                 ),
               ),

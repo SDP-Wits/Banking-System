@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:last_national_bank/utils/helpers/style.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
 
 import '../../widgets/button.dart';
@@ -21,10 +22,7 @@ class LoginPage extends StatelessWidget {
     ));
     return Container(
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Colors.blueGrey, Colors.teal]),
+        gradient: backgroundGradient,
       ),
       child: SingleChildScrollView(
         child: Container(

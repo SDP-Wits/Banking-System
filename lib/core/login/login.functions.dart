@@ -1,6 +1,7 @@
 // coverage:ignore-start
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:last_national_bank/utils/helpers/ignore_helper.dart';
 
 import '../../classes/currID.dart';
 import '../../config/routes/router.dart';
@@ -43,14 +44,14 @@ Future<void> loginProcedure(BuildContext context) async {
             ],
           ),
           actions: <Widget>[
-            FlatButton(
+            TextButton(
               child: Text('Yes'),
               onPressed: () {
                 isClientLogin = false;
                 Navigator.pop(context);
               },
             ),
-            FlatButton(
+            TextButton(
               child: Text('No'),
               onPressed: () {
                 isClientLogin = true;
@@ -62,6 +63,16 @@ Future<void> loginProcedure(BuildContext context) async {
       });
 
   String id = idController.text;
+
+  if (id.length != 13) {
+    Fluttertoast.showToast(msg: "Invalid ID Number");
+    return;
+  }
+
+  if (passwordController.text.length == 0) {
+    Fluttertoast.showToast(msg: "Password cannot be empty");
+  }
+
   String password = encode(passwordController.text);
 
   String response = await userLoginOnline(id, password, isClientLogin);

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:last_national_bank/constants/php_url.dart';
 import 'package:last_national_bank/utils/helpers/style.dart';
+import 'package:last_national_bank/widgets/heading.dart';
 import '../../utils/services/online_db.dart';
 import '../../widgets/navigation.dart';
 
@@ -59,20 +60,20 @@ class _BankAccountOptionsState extends State<BankAccountOptions> {
         accountTypeList = [...accountTypeList];
         descriptionList = [...descriptionList];
       });
-    });
 
-    // get IDs of existing account types for specific user
-    LocalDatabaseHelper.instance.getUserAndAddress().then((user) {
-      setState(() {
-        this.user = user;
-      });
-      getExistingAccountTypes(user!.userID).then((value) {
-        for (int i = 0; i < value.length; ++i) {
-          int eID = value[i];
-          setState(() {
-            existingAccountTypes = [...existingAccountTypes, eID];
-          });
-        }
+      // get IDs of existing account types for specific user
+      LocalDatabaseHelper.instance.getUserAndAddress().then((user) {
+        setState(() {
+          this.user = user;
+        });
+        getExistingAccountTypes(user!.userID).then((value) {
+          for (int i = 0; i < value.length; ++i) {
+            int eID = value[i];
+            setState(() {
+              existingAccountTypes = [...existingAccountTypes, eID];
+            });
+          }
+        });
       });
     });
   }
@@ -94,84 +95,141 @@ class _BankAccountOptionsState extends State<BankAccountOptions> {
 
     existingAccountTypes.sort();
 
+    GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+    final size = MediaQuery.of(context).size;
     return (user == null)
         ? buildLoadingScreen()
         : Scaffold(
+            key: _scaffoldKey,
             drawer: Navigation(
                 clientName: user!.firstName, clientSurname: user!.lastName),
             body: (accountTypeList.isNotEmpty)
-                ? ListView.builder(
-                    itemCount: accountTypeList.length,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                          onTap: () async {
-                            //check if account type id exists in existing account type list
-                            if (existingAccountTypes
-                                .contains(accountTypeIdList[index])) {
-                              // display toast to restrict user
-                              Fluttertoast.showToast(
-                                  msg:
-                                      "An account of this type already exists. Restriction: Only one of each type of account allowed.",
-                                  toastLength: Toast.LENGTH_LONG,
-                                  gravity: ToastGravity.CENTER,
-                                  timeInSecForIosWeb: 3,
-                                  fontSize: 16.0);
-                            } else {
-                              // confirm creation of selected account
-                              await _asyncConfirmDialog(
-                                  context,
-                                  accountTypeIdList[index],
-                                  accountTypeList[index]);
-                            }
-                          },
-                          child: Card(
-                            child: Container(
-                                margin:
-                                    const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                                decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  colors: [
-                                    Colors.teal,
-                                    Colors.teal[800]!,
-                                  ],
-                                )),
-                                child: Row(
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.all(20.0),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            accountTypeList[index],
-                                            style: TextStyle(
-                                                fontSize: 25,
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold),
+                ? Container(
+                    decoration: BoxDecoration(
+                      gradient: backgroundGradient,
+                    ),
+                    child: ListView.builder(
+                        itemCount: accountTypeList.length,
+                        itemBuilder: (context, index) {
+                          return Column(
+                            children: [
+                              (index == 0)
+                                  ? Column(
+                                      children: [
+                                        Align(
+                                          alignment: Alignment.topLeft,
+                                          child: IconButton(
+                                            icon: Icon(Icons.menu,
+                                                color: Colors.white),
+                                            onPressed: () {
+                                              _scaffoldKey.currentState!
+                                                  .openDrawer();
+                                            },
                                           ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Container(
-                                            width: width,
-                                            child: Text(
-                                              descriptionList[index],
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                color: Colors.white60,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                        ),
+                                        Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 5)),
+                                        Heading("Create Account"),
+                                        Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 15)),
+                                      ],
                                     )
-                                  ],
-                                )),
-                          ));
-                    })
+                                  : Container(
+                                      width: 0,
+                                      height: 0,
+                                    ),
+                              GestureDetector(
+                                  onTap: () async {
+                                    //check if account type id exists in existing account type list
+                                    if (existingAccountTypes
+                                        .contains(accountTypeIdList[index])) {
+                                      // display toast to restrict user
+                                      Fluttertoast.showToast(
+                                          msg:
+                                              "An account of this type already exists. Restriction: Only one of each type of account allowed.",
+                                          toastLength: Toast.LENGTH_LONG,
+                                          gravity: ToastGravity.CENTER,
+                                          timeInSecForIosWeb: 3,
+                                          fontSize: 16.0);
+                                    } else {
+                                      // confirm creation of selected account
+                                      await _asyncConfirmDialog(
+                                          context,
+                                          accountTypeIdList[index],
+                                          accountTypeList[index]);
+                                    }
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 8.0),
+                                    child: Container(
+                                      width: size.width * 0.95,
+                                      child: Card(
+                                        color: Colors.white,
+                                        child: Container(
+                                            margin: const EdgeInsets.all(10),
+                                            decoration: BoxDecoration(
+                                                gradient: LinearGradient(
+                                              begin: Alignment.topCenter,
+                                              end: Alignment.bottomCenter,
+                                              colors: [
+                                                Colors.teal,
+                                                Colors.teal[800]!,
+                                              ],
+                                            )),
+                                            child: Row(
+                                              children: <Widget>[
+                                                Padding(
+                                                  padding: const EdgeInsets.all(
+                                                      20.0),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: <Widget>[
+                                                      Text(
+                                                        accountTypeList[index],
+                                                        style: TextStyle(
+                                                          fontSize: 20,
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontFamily: fontMont,
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        height: 10,
+                                                      ),
+                                                      Container(
+                                                        width: width,
+                                                        child: Text(
+                                                          descriptionList[
+                                                              index],
+                                                          style: TextStyle(
+                                                              fontSize: 15,
+                                                              color: Colors
+                                                                  .white70,
+                                                              fontFamily:
+                                                                  fontMont,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )
+                                              ],
+                                            )),
+                                      ),
+                                    ),
+                                  )),
+                            ],
+                          );
+                        }),
+                  )
                 : buildLoadingScreen(),
           );
   }
@@ -185,8 +243,8 @@ Future<void> _asyncConfirmDialog(
     builder: (BuildContext context) {
       return AlertDialog(
         title: Text('Confirm account creation'),
-        content: Text(
-            "Are you sure you want to create a  " + accType + "  account?"),
+        content:
+            Text("Are you sure you want to create a " + accType + " account?"),
         actions: <Widget>[
           FlatButton(
             child: const Text('Cancel'),
@@ -207,31 +265,20 @@ Future<void> _asyncConfirmDialog(
                   .then((currUser) async {
                 user = currUser;
 
-                String response =
-                    await createAccount(user!.idNumber, accTypeId, insert_new_account);
+                String response = await createAccount(
+                    user!.idNumber, accTypeId, insert_new_account);
+
+                Fluttertoast.showToast(
+                    msg: response,
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.CENTER,
+                    timeInSecForIosWeb: 3,
+                    backgroundColor: Colors.teal,
+                    textColor: Colors.white,
+                    fontSize: 16.0);
 
                 if (response == dbSuccess) {
-                  // Create 'Showmessage'
-                  Fluttertoast.showToast(
-                      msg: "Succesful",
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.CENTER,
-                      timeInSecForIosWeb: 3,
-                      backgroundColor: Colors.teal,
-                      textColor: Colors.white,
-                      fontSize: 16.0);
-
                   goToViewAccount(context);
-                } else {
-                  // Create 'Showmessage'
-                  Fluttertoast.showToast(
-                      msg: response,
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.CENTER,
-                      timeInSecForIosWeb: 3,
-                      backgroundColor: Colors.teal,
-                      textColor: Colors.white,
-                      fontSize: 16.0);
                 }
               });
             },

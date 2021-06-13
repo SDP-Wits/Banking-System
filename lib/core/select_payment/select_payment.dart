@@ -37,7 +37,6 @@ class _SelectPaymentPageState extends State<SelectPaymentPage> {
         );
       });
     });
-    
   }
 
   @override
@@ -70,91 +69,90 @@ class _SelectPaymentPageState extends State<SelectPaymentPage> {
     GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     return Scaffold(
-        // Set navigation:
-        key: _scaffoldKey,
-        drawer: Navigation(
-            clientName: user!.firstName, clientSurname: user!.lastName),
+      // Set navigation:
+      key: _scaffoldKey,
+      drawer: Navigation(
+          clientName: user!.firstName, clientSurname: user!.lastName),
 
-        body: Container(
-          // Decorate background
-          decoration: BoxDecoration(
-            gradient: backgroundGradient,
+      body: Container(
+        // Decorate background
+        decoration: BoxDecoration(
+          gradient: backgroundGradient,
+        ),
+
+        // Column: Three lines icon, Heading, Two buttons
+        child: Column(children: [
+          // Open navigation icon (three lines icon)
+          Align(
+            alignment: Alignment.topLeft,
+            child: IconButton(
+              icon: Icon(Icons.menu, color: Colors.white),
+              // When the icon is clicked, open the navigation/drawer
+              onPressed: () {
+                _scaffoldKey.currentState!.openDrawer();
+              },
+            ),
           ),
 
-          // Column: Three lines icon, Heading, Two buttons
-          child: Column(children: [
-            // Open navigation icon (three lines icon)
-            Align(
-              alignment: Alignment.topLeft,
-              child: IconButton(
-                icon: Icon(Icons.menu, color: Colors.white),
-                // When the icon is clicked, open the navigation/drawer
-                onPressed: () {
-                  _scaffoldKey.currentState!.openDrawer();
-                },
-              ),
-            ),
+          // Spacing
+          Padding(
+            padding: EdgeInsets.only(top: 20),
+          ),
 
-            // Spacing
-            Padding(
-              padding: EdgeInsets.only(top: 20),
-            ),
+          // Heading
+          Text(
+            'Select Form of Payment',
+            style: new TextStyle(
+                fontSize: 30.0,
+                fontWeight: FontWeight.w500,
+                color: Colors.white),
+          ),
 
-            // Heading
-            Text(
-              'Select Form of Payment',
-              style: new TextStyle(
-                  fontSize: 30.0,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white),
-            ),
+          // Spacing
+          Padding(
+            padding: EdgeInsets.only(top: 20),
+          ),
 
-            // Spacing
-            Padding(
-              padding: EdgeInsets.only(top: 20),
-            ),
+          // First button
+          (accountDets.length > 1)
+              ? paymentButton(
+                  // Pass parameters:
 
-            // First button
-            (accountDets.length > 1)
-                ? paymentButton(
-                    // Pass parameters:
+                  // When buton is clicked, do..
+                  onTap: () {
+                    goToTransfers(context);
+                  },
+                  buttonTitle: "Transfers",
+                  buttonDescription:
+                      "Transfer funds betweeen your own accounts.",
+                  buttonIcon: iconFamily.payment,
+                )
+              : Container(
+                  height: 0,
+                  width: 0,
+                ),
 
-                    // When buton is clicked, do..
-                    onTap: () {
-                      goToTransfers(context);
-                    },
-                    buttonTitle: "Transfers",
-                    buttonDescription:
-                        "Transfer funds betweeen your own accounts.",
-                    buttonIcon: iconFamily.payment,
-                  )
-                : Container(
-                    height: 0,
-                    width: 0,
-                  ),
+          // Spacing
+          Padding(
+            padding: EdgeInsets.only(top: 20),
+          ),
 
-            // Spacing
-            Padding(
-              padding: EdgeInsets.only(top: 20),
-            ),
+          // Second button
+          paymentButton(
+            // Pass parameters:
 
-            // Second button
-            paymentButton(
-              // Pass parameters:
-
-              // When buton is clicked, do..
-              onTap: () {
-                goToPayments(context);
-              },
-              buttonTitle: "Payments",
-              buttonDescription: "Make payments to other client's bank accounts.",
-              buttonIcon: iconFamily.user,
-            ),
-          ]),
-        ),
-      );
+            // When buton is clicked, do..
+            onTap: () {
+              goToPayments(context);
+            },
+            buttonTitle: "Payments",
+            buttonDescription: "Make payments to other client's bank accounts.",
+            buttonIcon: iconFamily.user,
+          ),
+        ]),
+      ),
+    );
   }
 }
-
 
 // coverage:ignore-end

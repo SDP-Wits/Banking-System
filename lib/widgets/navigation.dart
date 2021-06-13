@@ -180,9 +180,10 @@ class Navigation extends StatelessWidget {
 
                 // When tile is clicked, do..
                 onTap: () {
-                  LocalDatabaseHelper.instance
-                      .deleteData()
-                      .then((value) => goToLogin(context));
+                  Future.delayed(Duration(milliseconds: 500)).then((value) {
+                    LocalDatabaseHelper.instance.deleteData();
+                  });
+                  goToLogin(context);
                 },
               )),
         ],

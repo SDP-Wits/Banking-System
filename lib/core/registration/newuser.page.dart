@@ -9,6 +9,7 @@ import 'package:last_national_bank/core/registration/widgets/NewPassword.dart';
 import 'package:last_national_bank/core/registration/widgets/NewSurname.dart';
 import 'package:last_national_bank/core/registration/widgets/newEmail.dart';
 import 'package:last_national_bank/core/registration/widgets/newName.dart';
+import 'package:last_national_bank/utils/helpers/style.dart';
 import 'package:last_national_bank/widgets/Secret.dart';
 import 'package:last_national_bank/widgets/buttonNewUser.dart';
 import 'package:last_national_bank/widgets/userOld.dart';
@@ -23,10 +24,7 @@ class _NewUserState extends State<NewUser> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Colors.blueGrey, Colors.teal]),
+        gradient: backgroundGradient,
       ),
       child: ListView(
         children: <Widget>[

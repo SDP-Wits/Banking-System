@@ -110,6 +110,8 @@ void goToAdminVerificationList(BuildContext context) {
 }
 
 void goToAdminVerifyUsers(BuildContext context, {required Name names}) {
+  //Removing outdated verficiation list
+  Navigator.pop(context);
   Navigator.pushNamed(context, AdminVerifyUser, arguments: names);
 }
 

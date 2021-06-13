@@ -7,7 +7,6 @@ import '../../config/routes/router.dart';
 import '../../utils/services/local_db.dart';
 import '../../utils/services/online_db.dart';
 
-
 // When the Accept Client Button is clicked, add client to Verified-Clients
 // table and change status to Verified
 
@@ -42,26 +41,35 @@ Future<void> verificationProcedure(
 
       if (accepted) {
         // Accepted button clicked
-        verifyClient(
-            clientIDNum, userIDNum, '1',verify_client); // 1 represents client is accepted
+        verifyClient(clientIDNum, userIDNum, '1', verify_client).then((value) {
+          Fluttertoast.showToast(
+              msg: value,
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 3,
+              backgroundColor: Colors.teal,
+              textColor: Colors.white,
+              fontSize: 16.0);
+          goToAdminVerificationList(context);
+        }); // 1 represents client is accepted
       } else {
         // Rejected button clicked
-        verifyClient(
-            clientIDNum, userIDNum, '0',verify_client); // 0 represents client is rejected
+        verifyClient(clientIDNum, userIDNum, '0', verify_client).then((value) {
+          Fluttertoast.showToast(
+              msg: value,
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 3,
+              backgroundColor: Colors.teal,
+              textColor: Colors.white,
+              fontSize: 16.0);
+          goToAdminVerificationList(context);
+        }); // 0 represents client is rejected
       }
 
       // Create 'Showmessage'
-      Fluttertoast.showToast(
-          msg: "Successful",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 3,
-          backgroundColor: Colors.teal,
-          textColor: Colors.white,
-          fontSize: 16.0);
-    }
 
-    goToAdminVerificationList(context);
+    }
   });
 }
 // coverage:ignore-end

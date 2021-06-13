@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:last_national_bank/utils/helpers/style.dart';
+
 // coverage:ignore-start
 class ButtonLogin extends StatefulWidget {
   final Function onTap;
@@ -43,8 +45,10 @@ class _ButtonLoginState extends State<ButtonLogin> {
               Text(
                 'Login',
                 style: TextStyle(
-                  color: Colors.lightBlueAccent,
-                  fontSize: 14,
+                  color: Colors.black,
+                  fontSize: 16,
+                  fontFamily: fontMont,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
             ],

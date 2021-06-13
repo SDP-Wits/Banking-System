@@ -2,6 +2,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:last_national_bank/utils/helpers/style.dart';
 
 import '../../classes/thisUser.dart';
 import '../../utils/services/online_db.dart';
@@ -20,13 +21,6 @@ class _VerifyUserState extends State<VerifyUser> {
 // late thisUser thisuser;
   List<thisUser> thisuser = [];
 
-// Future<thisUser> getClient() async{
-//   return getClientDetails(widget.IDnum);
-// }
-// Future<String> print() async{
-//   await Future.delayed(Duration(seconds: 2));
-//   return thisuser[0].firstName;
-// }
   void initState() {
     super.initState();
     getClientDetails(widget.IDnum).then((lstNames) {
@@ -37,26 +31,11 @@ class _VerifyUserState extends State<VerifyUser> {
     // setState(() {});
   }
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   return FutureBuilder<thisUser>(
-  //     future: getClient(),
-  //     builder: (ctx, snapshot) {
-  //       thisUser thisuser = snapshot.data! ;
-  //       switch (snapshot.connectionState) {
-  //         case ConnectionState.done:
-  //            return _buildpage(thisuser);
-  //         default:
-  //           return _buildLoadingScreen();
-  //       }
-  //     },
-  //   );
-  // }
   @override
   Widget build(BuildContext context) {
     if (thisuser.isEmpty) {
       getClientDetails(widget.IDnum);
-      return _buildLoadingScreen();
+      return buildLoadingScreen();
     } else {
       return buildpage();
     }
@@ -68,10 +47,7 @@ class _VerifyUserState extends State<VerifyUser> {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: [Colors.blueGrey, Colors.teal]),
+          gradient: backgroundGradient,
         ),
 
         // Allows page to be scrollable
@@ -84,6 +60,7 @@ class _VerifyUserState extends State<VerifyUser> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
+              Padding(padding: EdgeInsets.symmetric(vertical: 15)),
               Icon(
                 Icons.assignment_ind_rounded,
                 color: Colors.white,
@@ -99,7 +76,7 @@ class _VerifyUserState extends State<VerifyUser> {
               ),
 
               DetailedBlocks(curruser.firstName, "FirstName"),
-              (curruser.middleName != null)
+              (curruser.middleName != null || curruser.middleName!.trim() == "")
                   ? DetailedBlocks(curruser.middleName!, "Middle Name")
                   : Container(),
               DetailedBlocks(curruser.lastName, "LastName"),
@@ -128,44 +105,6 @@ class _VerifyUserState extends State<VerifyUser> {
           ),
         ),
       ),
-
-      /*  floatingActionButton: FloatingActionButton(
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute<void>(
-                  builder: (BuildContext context) {
-                    return Scaffold(
-                      appBar: AppBar(
-                        title: const Text('Confirmation'),
-                      ),
-                      body: const Center(
-                        child: Text(
-                          'Are you sure you would like to verify this client?',
-                          style: TextStyle(fontSize: 24),
-                        ),
-                      ),
-                    );
-                  },
-                ));
-              },
-              tooltip: 'Verify',
-              child: Icon(Icons.app_registration),
-            ),*/
-    );
-  }
-
-  Widget _buildLoadingScreen() {
-    return Center(
-      child: Container(
-        // decoration: BoxDecoration(
-        //   gradient: LinearGradient(
-        //       begin: Alignment.topRight,
-        //       end: Alignment.bottomLeft,
-        //       colors: [Colors.blueGrey, Colors.teal]),
-        // ),
-        width: 50,
-        height: 50,
-        child: CircularProgressIndicator(),
-      ),
     );
   }
 }
@@ -189,20 +128,37 @@ class DetailedBlocks extends StatelessWidget {
             color: Colors.transparent,
             // borderRadius: BorderRadius.circular(15),
             border: Border(
-              // left: BorderSide(
-              //   color: Colors.white,
-              //   width: 1,
-              // ),
               bottom: BorderSide(
                 color: Colors.white,
                 width: 1,
               ),
             ),
           ),
-          child: Text(
-            property + ": " + text,
-            textAlign: TextAlign.left,
-            style: TextStyle(fontSize: 16, color: Colors.white),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                property + ':',
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white,
+                  fontFamily: fontMont,
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
+              // Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
+              Text(
+                text,
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white,
+                  fontFamily: fontMont,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
           ),
         )
       ],

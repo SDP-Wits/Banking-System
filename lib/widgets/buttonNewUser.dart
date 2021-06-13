@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:last_national_bank/utils/helpers/style.dart';
 
 import '../constants/php_url.dart';
 import '../core/SHA-256_encryption.dart';
 import '../core/registration/registration.functions.dart';
 import '../utils/services/online_db.dart';
+
 // coverage:ignore-start
 //Manually tested
 Future<String> clientRegisterOnline() async {
@@ -122,7 +124,7 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
               5.0, // vertical, move down 10
             ),*/
           ),
-        ], color: Colors.indigo[200], borderRadius: BorderRadius.circular(30)),
+        ], color: Colors.white, borderRadius: BorderRadius.circular(30)),
         child: TextButton(
           onPressed: () {
             if (Data.is_client) {
@@ -201,8 +203,10 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
               Text(
                 'Create Account',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Colors.black,
                   fontSize: 16,
+                  fontFamily: fontMont,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
             ],

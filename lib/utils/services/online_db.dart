@@ -47,7 +47,7 @@ Future<List<Map<String, dynamic>>> getURLData(String url) async {
 //coveralls-ignore-start
 Future<String> userLoginOnline(
     String idNumber, String hashPassword, bool isClientLogin) async {
-  //Choosing php file based off whether the user is a client or admin
+  //Choosing php file based off whether the user is a client or admin"
   String phpFileToUse =
       isClientLogin ? attempt_client_login : attempt_admin_login;
 

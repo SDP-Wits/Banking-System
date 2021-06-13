@@ -93,8 +93,7 @@ class _AccountsState extends State<Accounts> {
       return Scaffold(
         key: _scaffoldKey,
         drawer: Navigation(
-            clientName: user!.firstName, clientSurname: user!.lastName
-        ),
+            clientName: user!.firstName, clientSurname: user!.lastName),
         body: Container(
           width: size.width,
           height: size.height,
@@ -169,20 +168,9 @@ class _AccountsState extends State<Accounts> {
     } else if (finishedGetData) {
       return NoAccount();
     } else {
-      return _buildLoadingScreen();
+      return buildLoadingScreen();
     }
   }
-}
-
-// Loading screen
-Widget _buildLoadingScreen() {
-  return Center(
-    child: Container(
-      width: 50,
-      height: 50,
-      child: CircularProgressIndicator(),
-    ),
-  );
 }
 
 // coverage:ignore-end

@@ -46,7 +46,7 @@ class _VerificationStatusState extends State<VerificationStatus> {
   @override
   Widget build(BuildContext context) {
     if (me == null) {
-      return _buildLoadingScreen();
+      return buildLoadingScreen();
     } else {
       return buildPage();
     }
@@ -81,101 +81,89 @@ class _VerificationStatusState extends State<VerificationStatus> {
             key: _scaffoldKey,
             drawer: (me![0].status != "Pending")
                 ? Navigation(
-                    clientName: user!.firstName, clientSurname: user!.lastName
-                  )
+                    clientName: user!.firstName, clientSurname: user!.lastName)
                 : pendingNav(
-                  clientName: user!.firstName, clientSurname: user!.lastName
-                ),
-            
+                    clientName: user!.firstName, clientSurname: user!.lastName),
             body: SingleChildScrollView(
               child: Container(
-                height: size.height *1.1,
-
+                height: size.height * 1.1,
                 child: Column(
-                  //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-
-                    Container(
-                      height: size.height/2,
-                      decoration: BoxDecoration(
-                        gradient: backgroundGradient,
-
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(25.0),
-                          bottomRight: Radius.circular(25.0),
-                          // topRight: borderRadius,
+                    //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        height: size.height / 2,
+                        decoration: BoxDecoration(
+                          gradient: backgroundGradient,
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(25.0),
+                            bottomRight: Radius.circular(25.0),
+                            // topRight: borderRadius,
+                          ),
                         ),
+                        child: Column(
+                            //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: IconButton(
+                                  icon: Icon(Icons.menu, color: Colors.white),
+                                  onPressed: () {
+                                    _scaffoldKey.currentState!.openDrawer();
+                                  },
+                                ),
+                              ),
+
+                              Heading("My Profile"),
+
+                              // Spacing
+                              Padding(
+                                padding: EdgeInsets.only(top: 30),
+                              ),
+
+                              Icon(
+                                Icons.account_circle,
+                                size: 100,
+                              ),
+
+                              subHeading(
+                                  user!.firstName + " " + user!.lastName),
+                              // Spacing
+                              Padding(
+                                padding: EdgeInsets.only(top: 10),
+                              ),
+                              subsubHeading(user!.idNumber),
+                            ]),
                       ),
 
-                      child: Column(
-                        //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: IconButton(
-                              icon: Icon(Icons.menu, color: Colors.white),
-                              onPressed: () {
-                                _scaffoldKey.currentState!.openDrawer();
-                              },
-                            ),
-                          ),
-
-                          Heading("My Profile"),
-
-                          // Spacing
-                          Padding(
-                            padding: EdgeInsets.only(top: 30),
-                          ),
-
-                          Icon(
-                            Icons.account_circle,
-                            size: 100,
-                          ),
-
-                          subHeading(user!.firstName + " " + user!.lastName),
-                          // Spacing
-                          Padding(
-                            padding: EdgeInsets.only(top: 10),
-                          ),
-                          subsubHeading(user!.idNumber),
-
-                        ]
+                      // Spacing
+                      Padding(
+                        padding: EdgeInsets.only(top: 40),
                       ),
-                    ),
 
-                    // Spacing
-                    Padding(
-                      padding: EdgeInsets.only(top: 40),
-                    ),
-
-                    DetailedBlocks(me![0].status, "Verification Status"),
-                    // Spacing
-                    Padding(
-                      padding: EdgeInsets.only(top: 30),
-                    ),
-                    DetailedBlocks(user!.email, "Email Address"),
-                    Padding(
-                      padding: EdgeInsets.only(top: 30),
-                    ),
-                    DetailedBlocks(user!.phoneNumber, "Phone Number"),
-                    Padding(
-                      padding: EdgeInsets.only(top: 30),
-                    ),
-                    DetailedBlocks(
-                        user!.address.streetNumber.toString() +
-                            " " +
-                            user!.address.streetName +
-                            ", " +
-                            user!.address.suburb,
-                        "Address"),
-
-                  ]
-                ),
+                      DetailedBlocks(me![0].status, "Verification Status"),
+                      // Spacing
+                      Padding(
+                        padding: EdgeInsets.only(top: 30),
+                      ),
+                      DetailedBlocks(user!.email, "Email Address"),
+                      Padding(
+                        padding: EdgeInsets.only(top: 30),
+                      ),
+                      DetailedBlocks(user!.phoneNumber, "Phone Number"),
+                      Padding(
+                        padding: EdgeInsets.only(top: 30),
+                      ),
+                      DetailedBlocks(
+                          user!.address.streetNumber.toString() +
+                              " " +
+                              user!.address.streetName +
+                              ", " +
+                              user!.address.suburb,
+                          "Address"),
+                    ]),
               ),
-            ),  
+            ),
           );
-            
   }
 }
 
@@ -187,61 +175,47 @@ class DetailedBlocks extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.9,
-      padding: EdgeInsets.all(5),
-      decoration: BoxDecoration(
-        color: Colors.transparent,
-        border: Border(
-          bottom: BorderSide(
-            color: Colors.black,
-            width: 0.5,
+        width: MediaQuery.of(context).size.width * 0.9,
+        padding: EdgeInsets.all(5),
+        decoration: BoxDecoration(
+          color: Colors.transparent,
+          border: Border(
+            bottom: BorderSide(
+              color: Colors.black,
+              width: 0.5,
+            ),
           ),
         ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        
-        children: [
-          
-          Text(
-            property,
-            textAlign: TextAlign.left,
-            style: TextStyle(
-              fontSize: 20, 
-              color: Colors.teal,
-              fontFamily: fontMont,
-              fontWeight: FontWeight.w600
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              property,
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.teal,
+                  fontFamily: fontMont,
+                  fontWeight: FontWeight.w600),
             ),
-          ),
 
-          // Spacing
-          Padding(
-            padding: EdgeInsets.only(top: 10),
-          ),
-
-          Text(
-            text,
-            textAlign: TextAlign.left,
-            style: TextStyle(
-              fontSize: 16, 
-              color: Colors.black, 
-              fontFamily: fontMont,
-              fontWeight: FontWeight.w500
+            // Spacing
+            Padding(
+              padding: EdgeInsets.only(top: 10),
             ),
-          ),
-        ],
-      )
-    );
+
+            Text(
+              text,
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.black,
+                  fontFamily: fontMont,
+                  fontWeight: FontWeight.w500),
+            ),
+          ],
+        ));
   }
 }
 
-Widget _buildLoadingScreen() {
-  return Center(
-    child: Container(
-      width: 50,
-      height: 50,
-      child: CircularProgressIndicator(),
-    ),
-  );
-}
 // coverage:ignore-end

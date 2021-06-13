@@ -1,5 +1,6 @@
 // coverage:ignore-start
 import 'package:flutter/material.dart';
+import 'package:last_national_bank/utils/helpers/style.dart';
 
 import '../../widgets/buttonNewUser.dart';
 import '../../widgets/userOld.dart';
@@ -24,10 +25,7 @@ class _ClientRegistrationPageState extends State<ClientRegistrationPage> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Colors.blueGrey, Colors.teal]),
+        gradient: backgroundGradient,
       ),
       child: ListView(
         children: <Widget>[

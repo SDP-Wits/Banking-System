@@ -55,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.blueAccent,
+      statusBarColor: Colors.teal,
     ));
     // return PlaygroundTest();
     return LoginPage();
