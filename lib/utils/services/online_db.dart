@@ -490,10 +490,17 @@ Future<String> makeTransfer(
   return "Failed to make transfer";
 }
 
-Future<String> makePayment(String accountFrom, String accountTo, String amount,
-    String refName, String clientID, String clientName) async {
+Future<String> makePayment(
+    String recipientClientID,
+    String accountFrom,
+    String accountTo,
+    String amount,
+    String refName,
+    String clientID,
+    String clientName) async {
   List<String> phpNames = [
-    "accFrom",
+    "recipientClientID"
+        "accFrom",
     "clientID",
     "clientName",
     "amt",
@@ -501,6 +508,7 @@ Future<String> makePayment(String accountFrom, String accountTo, String amount,
     "refname"
   ];
   List<String> inputVariables = [
+    recipientClientID,
     accountFrom,
     clientID,
     clientName,

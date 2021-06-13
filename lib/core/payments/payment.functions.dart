@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:last_national_bank/classes/accountDetails.dart';
 import 'package:last_national_bank/classes/user.class.dart';
 import 'package:last_national_bank/constants/database_constants.dart';
+import 'package:last_national_bank/constants/php_url.dart';
 import 'package:last_national_bank/core/transfer/transfer.functions.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
 
@@ -77,6 +78,14 @@ Future<bool> submitPayment(User? user, accountDetails accountDetail) async {
   //Check if THEIR account exists
   //if exists, get THEIR clientID and pass to function
 
+  final int recipientClientID = await getClientID(receipentAccountNumberText);
+  print(recipientClientID);
+  if (recipientClientID == 0) {
+    Fluttertoast.showToast(
+        msg: "User account does not have a valid client ID assigned to it");
+    return false;
+  }
+
   //Http Request
   String fullName = user.firstName + ' ';
 
@@ -87,6 +96,7 @@ Future<bool> submitPayment(User? user, accountDetails accountDetail) async {
   fullName += user.lastName;
 
   final String successString = await makePayment(
+      recipientClientID.toString(),
       accountDetail.accountNumber,
       receipentAccountNumberText,
       amountText,
