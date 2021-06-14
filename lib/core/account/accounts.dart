@@ -116,7 +116,9 @@ class _AccountsState extends State<Accounts> {
                 Padding(
                   padding: EdgeInsets.only(top: 10),
                 ),
+
                 Heading("Accounts"),
+                
                 // Spacing
                 Padding(
                   padding: EdgeInsets.only(top: 20),
