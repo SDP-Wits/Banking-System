@@ -73,7 +73,7 @@ class _AccountsState extends State<Accounts> {
   }
 
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-    goToAdminVerificationStatus(context);
+    goToProfilePage(context);
     return true;
   }
 

@@ -84,7 +84,7 @@ class _BankAccountOptionsState extends State<BankAccountOptions> {
   }
 
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-    goToAdminVerificationStatus(context);
+    goToProfilePage(context);
     return true;
   }
 

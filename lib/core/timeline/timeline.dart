@@ -47,9 +47,10 @@ class _TimelineListPageState extends State<TimelinePage> {
   }
 
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-    goToAdminVerificationStatus(context);
+    goToProfilePage(context);
     return true;
   }
+
   // Displays loading screen while the data loads
   @override
   Widget build(BuildContext context) {

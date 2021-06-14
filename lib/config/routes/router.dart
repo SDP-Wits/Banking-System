@@ -45,7 +45,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     // case AdminVerifyUser :
     //   return MaterialRouteWrap(VerifyUser());
     //If User, go to see your application status
-    case VerificationStatusRoute:
+    case ProfilePageRoute:
       return MaterialRouteWrap(VerificationStatus());
 
     case NewUserRoute:
@@ -115,8 +115,8 @@ void goToAdminVerifyUsers(BuildContext context, {required Name names}) {
   Navigator.pushNamed(context, AdminVerifyUser, arguments: names);
 }
 
-void goToAdminVerificationStatus(BuildContext context) {
-  Navigator.pushNamed(context, VerificationStatusRoute);
+void goToProfilePage(BuildContext context) {
+  Navigator.pushNamed(context, ProfilePageRoute);
 }
 
 void goToNewUser(BuildContext context) {

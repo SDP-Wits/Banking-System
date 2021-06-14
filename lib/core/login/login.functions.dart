@@ -83,7 +83,7 @@ Future<void> loginProcedure(BuildContext context) async {
     if (!isClientLogin) {
       goToAdminVerificationList(context);
     } else {
-      goToAdminVerificationStatus(context);
+      goToProfilePage(context);
     }
   }
 }
