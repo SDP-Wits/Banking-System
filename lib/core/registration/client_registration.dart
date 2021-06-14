@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:last_national_bank/utils/helpers/style.dart';
 
-import '../../widgets/buttonNewUser.dart';
-import '../../widgets/userOld.dart';
+import 'widgets/buttonNewUser.dart';
+import 'widgets/userOld.dart';
 import 'widgets/Logo.dart';
 import 'widgets/NewAge.dart';
 import 'widgets/NewIDnum.dart';

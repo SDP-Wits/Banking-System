@@ -1,17 +1,16 @@
 // coverage:ignore-start
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:last_national_bank/classes/accountDetails.dart';
 import 'package:last_national_bank/classes/user.class.dart';
 import 'package:last_national_bank/config/routes/router.dart';
+import 'package:last_national_bank/core/transfer/transfer.functions.dart';
 import 'package:last_national_bank/core/transfer/widgets/scrollAccount.dart';
 import 'package:last_national_bank/utils/helpers/dialogs.dart';
 import 'package:last_national_bank/utils/helpers/style.dart';
 import 'package:last_national_bank/utils/services/local_db.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
 import 'package:last_national_bank/widgets/heading.dart';
-import 'package:last_national_bank/core/transfer/transfer.functions.dart';
 import 'package:last_national_bank/widgets/navigation.dart';
 import 'package:last_national_bank/widgets/noAccounts.dart';
 
@@ -76,8 +75,7 @@ class _TransfersState extends State<Transfers> {
             : Scaffold(
                 key: _scaffoldKey,
                 drawer: Navigation(
-                    clientName: user!.firstName, clientSurname: user!.lastName
-                ),
+                    clientName: user!.firstName, clientSurname: user!.lastName),
                 body: SingleChildScrollView(
                   child: Container(
                     height: size.height,
@@ -87,7 +85,6 @@ class _TransfersState extends State<Transfers> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-
                         Align(
                           alignment: Alignment.topLeft,
                           child: IconButton(

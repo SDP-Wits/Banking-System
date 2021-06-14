@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:last_national_bank/utils/services/local_db.dart';
+
 // coverage:ignore-start
 import '../config/routes/router.dart';
 import '../utils/helpers/icons.dart';
 import '../utils/helpers/style.dart';
+import '../utils/services/local_db.dart';
 
 class DrawerCode extends StatelessWidget {
   @override

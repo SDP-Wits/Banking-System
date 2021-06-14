@@ -1,10 +1,12 @@
 // coverage:ignore-start
 
 import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:last_national_bank/classes/accountDetails.dart';
 import 'package:last_national_bank/constants/app_constants.dart';
 import 'package:last_national_bank/core/account/accounts.functions.dart';
+
 import '../../../utils/helpers/helper.dart';
 import '../../../utils/helpers/style.dart';
 

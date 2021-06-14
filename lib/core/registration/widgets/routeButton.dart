@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
 // coverage:ignore-start
-import '../utils/helpers/style.dart';
+import 'package:flutter/material.dart';
+
+import '../../../utils/helpers/style.dart';
 
 class RouteButtonCustom extends StatelessWidget {
   final String text;

@@ -13,8 +13,6 @@ and does NOT start up an android emulator
 // coverage:ignore-start
 import 'dart:io';
 
-import 'package:fluttertoast/fluttertoast.dart';
-import '../helpers/helper.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';

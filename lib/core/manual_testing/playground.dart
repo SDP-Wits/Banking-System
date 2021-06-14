@@ -2,8 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:last_national_bank/core/payments/payment.dart';
 
-import '../account/accounts.dart';
-
 class PlaygroundTest extends StatefulWidget {
   @override
   _PlaygroundTestState createState() => _PlaygroundTestState();

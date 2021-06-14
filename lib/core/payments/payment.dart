@@ -1,20 +1,16 @@
 // coverage:ignore-start
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:last_national_bank/classes/accountDetails.dart';
 import 'package:last_national_bank/classes/user.class.dart';
 import 'package:last_national_bank/config/routes/router.dart';
 import 'package:last_national_bank/core/payments/payment.functions.dart';
 import 'package:last_national_bank/core/transfer/widgets/scrollAccount.dart';
 import 'package:last_national_bank/utils/helpers/dialogs.dart';
-import 'package:last_national_bank/utils/helpers/ignore_helper.dart';
 import 'package:last_national_bank/utils/helpers/style.dart';
 import 'package:last_national_bank/utils/services/local_db.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
 import 'package:last_national_bank/widgets/heading.dart';
-import 'package:last_national_bank/widgets/navigation.dart';
-
 import 'package:last_national_bank/widgets/navigation.dart';
 
 // Used to determine the account chosen in both scroll widgets
@@ -66,13 +62,11 @@ class _PaymentsState extends State<Payments> {
     final size = MediaQuery.of(context).size;
     GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-
     return (user != null)
         ? Scaffold(
             key: _scaffoldKey,
             drawer: Navigation(
-              clientName: user!.firstName, clientSurname: user!.lastName
-            ),
+                clientName: user!.firstName, clientSurname: user!.lastName),
             body: SingleChildScrollView(
               child: Container(
                 height: size.height * 1.2,
@@ -83,18 +77,18 @@ class _PaymentsState extends State<Payments> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Align(
-                          alignment: Alignment.topLeft,
-                          child: IconButton(
-                            icon: Icon(Icons.menu, color: Colors.white),
-                            onPressed: () {
-                              _scaffoldKey.currentState!.openDrawer();
-                            },
-                          ),
-                        ),
+                      alignment: Alignment.topLeft,
+                      child: IconButton(
+                        icon: Icon(Icons.menu, color: Colors.white),
+                        onPressed: () {
+                          _scaffoldKey.currentState!.openDrawer();
+                        },
+                      ),
+                    ),
                     Heading("Payments"),
                     Padding(
-                          padding: EdgeInsets.only(top: 10),
-                        ),
+                      padding: EdgeInsets.only(top: 10),
+                    ),
                     Text(
                       'Select account to make payment from: ',
                       style: TextStyle(

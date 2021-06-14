@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:last_national_bank/constants/php_url.dart';
+
 // coverage:ignore-start
 import '../../classes/user.class.dart';
 import '../../config/routes/router.dart';
+import '../../constants/php_url.dart';
 import '../../utils/services/local_db.dart';
 import '../../utils/services/online_db.dart';
 

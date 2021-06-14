@@ -1,10 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-
-import '../../config/routes/router.dart' as router;
-import '../services/local_db.dart';
-
-
 //Takes in a card number and adds spaces to it
 String seperateCardNumber(String cardNumber) {
   String ansString = "";

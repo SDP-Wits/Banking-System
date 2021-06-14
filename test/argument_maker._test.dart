@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:last_national_bank/constants/database_constants.dart';
-import 'package:last_national_bank/core/SHA-256_encryption.dart';
+import 'package:last_national_bank/utils/helpers/SHA-256_encryption.dart';
 import 'package:last_national_bank/core/registration/widgets/NewSurname.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
 import 'package:last_national_bank/core/registration/widgets/NewIDnum.dart';
@@ -10,7 +10,7 @@ import 'package:last_national_bank/core/registration/widgets/NewPassword2.dart';
 import 'package:last_national_bank/core/registration/widgets/NewPhone.dart';
 import 'package:last_national_bank/core/registration/widgets/newEmail.dart';
 import 'package:last_national_bank/core/registration/widgets/newName.dart';
-import 'package:last_national_bank/widgets/Secret.dart';
+import 'package:last_national_bank/core/registration/widgets/Secret.dart';
 import "package:last_national_bank/core/registration/registration.functions.dart";
 import "package:last_national_bank/core/registration/widgets/NewAge.dart";
 import 'package:last_national_bank/utils/helpers/helper.dart';

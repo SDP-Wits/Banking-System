@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../core/registration/registration.functions.dart';
+import '../registration.functions.dart';
 
 class SecretKey extends StatefulWidget {
   @override

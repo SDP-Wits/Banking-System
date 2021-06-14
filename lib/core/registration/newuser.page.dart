@@ -10,9 +10,9 @@ import 'package:last_national_bank/core/registration/widgets/NewSurname.dart';
 import 'package:last_national_bank/core/registration/widgets/newEmail.dart';
 import 'package:last_national_bank/core/registration/widgets/newName.dart';
 import 'package:last_national_bank/utils/helpers/style.dart';
-import 'package:last_national_bank/widgets/Secret.dart';
-import 'package:last_national_bank/widgets/buttonNewUser.dart';
-import 'package:last_national_bank/widgets/userOld.dart';
+import 'package:last_national_bank/core/registration/widgets/Secret.dart';
+import 'package:last_national_bank/core/registration/widgets/buttonNewUser.dart';
+import 'package:last_national_bank/core/registration/widgets/userOld.dart';
 
 class NewUser extends StatefulWidget {
   @override

@@ -1,9 +1,7 @@
 // coverage:ignore-start
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:last_national_bank/config/routes/router.dart';
 import 'package:last_national_bank/constants/database_constants.dart';
-import 'package:last_national_bank/core/transfer/transfer.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
 
 //Text for inputs

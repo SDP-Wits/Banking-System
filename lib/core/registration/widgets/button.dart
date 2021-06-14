@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:last_national_bank/utils/helpers/style.dart';
+
+import '../../../utils/helpers/style.dart';
 
 // coverage:ignore-start
 class ButtonLogin extends StatefulWidget {

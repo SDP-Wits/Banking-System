@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import "package:http/http.dart" as http;
-import 'package:last_national_bank/utils/helpers/ignore_helper.dart';
 
 import '../../classes/accountDetails.dart';
 import '../../classes/accountTypes.dart';
@@ -12,7 +11,7 @@ import '../../classes/thisUser.dart';
 import '../../classes/user.class.dart';
 import '../../constants/database_constants.dart';
 import '../../constants/php_url.dart';
-import '../helpers/helper.dart';
+import '../helpers/ignore_helper.dart';
 import 'local_db.dart';
 
 //Give in a url, get back a List of Maps (List of Rows) from PHP File

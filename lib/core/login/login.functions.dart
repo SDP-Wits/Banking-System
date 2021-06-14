@@ -7,7 +7,7 @@ import '../../classes/currID.dart';
 import '../../config/routes/router.dart';
 import '../../constants/database_constants.dart';
 import '../../utils/services/online_db.dart';
-import '../SHA-256_encryption.dart';
+import '../../utils/helpers/SHA-256_encryption.dart';
 
 final TextEditingController idController = TextEditingController(text: "");
 final TextEditingController passwordController =

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+
 import '../../classes/accountDetails.dart';
 import '../../config/routes/router.dart';
-import '../../utils/helpers/helper.dart';
 
 // coverage:ignore-start
 void onSwipe(

@@ -1,7 +1,6 @@
 // coverage:ignore-start
 import 'package:flutter/material.dart';
 
-import '../login.functions.dart';
 import '../login.helpers.dart';
 
 class InputID extends StatefulWidget {

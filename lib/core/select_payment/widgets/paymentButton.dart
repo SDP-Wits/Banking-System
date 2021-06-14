@@ -1,8 +1,8 @@
 // coverage:ignore-start
-import 'package:flutter/material.dart';
-import 'package:last_national_bank/utils/helpers/style.dart';
-import 'package:last_national_bank/utils/helpers/icons.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:flutter/material.dart';
+import 'package:last_national_bank/utils/helpers/icons.dart';
+import 'package:last_national_bank/utils/helpers/style.dart';
 
 // ignore: camel_case_types
 class paymentButton extends StatefulWidget {

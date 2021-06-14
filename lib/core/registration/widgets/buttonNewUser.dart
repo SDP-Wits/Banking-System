@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:last_national_bank/utils/helpers/style.dart';
 
-import '../constants/php_url.dart';
-import '../core/SHA-256_encryption.dart';
-import '../core/registration/registration.functions.dart';
-import '../utils/services/online_db.dart';
+import '../../../constants/php_url.dart';
+import '../../../utils/helpers/style.dart';
+import '../../../utils/services/online_db.dart';
+import '../../../utils/helpers/SHA-256_encryption.dart';
+import '../registration.functions.dart';
 
 // coverage:ignore-start
 //Manually tested

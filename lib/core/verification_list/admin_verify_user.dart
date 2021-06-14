@@ -6,8 +6,8 @@ import 'package:last_national_bank/utils/helpers/style.dart';
 
 import '../../classes/thisUser.dart';
 import '../../utils/services/online_db.dart';
-import '../../widgets/buttonRejectClient.dart';
-import '../../widgets/buttonVerifyClient.dart';
+import '../registration/widgets/buttonRejectClient.dart';
+import '../registration/widgets/buttonVerifyClient.dart';
 import 'verification.functions.dart';
 
 class VerifyUser extends StatefulWidget {

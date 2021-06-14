@@ -4,8 +4,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:last_national_bank/classes/accountDetails.dart';
 import 'package:last_national_bank/classes/user.class.dart';
 import 'package:last_national_bank/constants/database_constants.dart';
-import 'package:last_national_bank/constants/php_url.dart';
-import 'package:last_national_bank/core/transfer/transfer.functions.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
 
 //Text for inputs

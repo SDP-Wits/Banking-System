@@ -5,14 +5,13 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:last_national_bank/constants/php_url.dart';
 import 'package:last_national_bank/utils/helpers/style.dart';
 import 'package:last_national_bank/widgets/heading.dart';
-import '../../utils/services/online_db.dart';
-import '../../widgets/navigation.dart';
 
 import '../../classes/user.class.dart';
 import '../../config/routes/router.dart';
 import '../../constants/database_constants.dart';
 import '../../utils/services/local_db.dart';
 import '../../utils/services/online_db.dart';
+import '../../widgets/navigation.dart';
 
 /// This is the main application widget.
 class AccountOptionsScreen extends StatelessWidget {

@@ -15,9 +15,9 @@ import '../../core/login/login.dart';
 import '../../core/registration/admin_registration.dart';
 import '../../core/registration/client_registration.dart';
 import '../../core/registration/newuser.page.dart';
+import '../../core/timeline/timeline.dart';
 import '../../core/verification_list/admin_verification_list.dart';
 import '../../core/verification_status/verification_status.dart';
-import '../../core/timeline/timeline.dart';
 import 'router.helper.dart';
 import 'undefined_page.dart';
 
