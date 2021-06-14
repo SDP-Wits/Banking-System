@@ -103,7 +103,7 @@ class Navigation extends StatelessWidget {
             // When tile is clicked, do..
             onTap: () {
               Navigator.pop(context);
-              goToAdminVerificationStatus(context);
+              goToProfilePage(context);
             },
           ),
 

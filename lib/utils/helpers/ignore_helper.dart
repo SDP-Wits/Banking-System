@@ -22,7 +22,7 @@ void autoLogin(BuildContext context) {
         if (user!.isAdmin) {
           router.goToAdminVerificationList(context); //coverage:ignore-line
         } else {
-          router.goToAdminVerificationStatus(context); //coverage:ignore-line
+          router.goToProfilePage(context); //coverage:ignore-line
         }
       }); //coverage:ignore-line
     }

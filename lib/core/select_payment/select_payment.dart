@@ -46,7 +46,7 @@ class _SelectPaymentPageState extends State<SelectPaymentPage> {
   }
 
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-    goToAdminVerificationStatus(context);
+    goToProfilePage(context);
     return true;
   }
 

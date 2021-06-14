@@ -37,7 +37,6 @@ There is an http request and PHP file that takes the input data from this UI and
 the respective tables in the database.
 */
 
-
 class Transfers extends StatefulWidget {
   @override
   _TransfersState createState() => _TransfersState();
@@ -47,20 +46,16 @@ class Transfers extends StatefulWidget {
 int accountFromIndex = 0;
 int accountToIndex = 0;
 
-
 class _TransfersState extends State<Transfers> {
-
-  User? user;   // User information
-  List<accountDetails> acc = [];    // User's account information
+  User? user; // User information
+  List<accountDetails> acc = []; // User's account information
 
   // Two controlers to control scroll functionality on the two widgets (accountFrom and accountTo)
   late ScrollController controller1;
   late ScrollController controller2;
 
-
   @override
   void initState() {
-
     // Initialise scroll contorllers
     controller1 = ScrollController();
     controller2 = ScrollController();
@@ -78,12 +73,10 @@ class _TransfersState extends State<Transfers> {
             user = userDB;
             acc = account;
           });
-        });   // End of future getting unique account types
-      });   // End of future getting user's account details
-    });   // End of future getting user details
-
+        }); // End of future getting unique account types
+      }); // End of future getting user's account details
+    }); // End of future getting user details
   }
-
 
   @override
   void dispose() {
@@ -91,235 +84,220 @@ class _TransfersState extends State<Transfers> {
     super.dispose();
   }
 
-
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-    goToAdminVerificationStatus(context);
+    goToProfilePage(context);
     return true;
   }
 
-
   @override
   Widget build(BuildContext context) {
-
     final size = MediaQuery.of(context).size;
 
     // _scaffoldKey is the key used for the navigation drawer
     GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-
     return (user == null)
-      // While the user's dettails are being retrieved, display the loading screen
-      ? buildLoadingScreen()
+        // While the user's dettails are being retrieved, display the loading screen
+        ? buildLoadingScreen()
 
-      // When the user's details have been retrieved,  
-      // if the do not have an account, display the NoAccount Widget, 
-      // otherwise display the Scaffold Widget.
-      : (acc.isEmpty)
-        ? NoAccount()
+        // When the user's details have been retrieved,
+        // if the do not have an account, display the NoAccount Widget,
+        // otherwise display the Scaffold Widget.
+        : (acc.isEmpty)
+            ? NoAccount()
+            : Scaffold(
+                // Set navigation drawer
+                key: _scaffoldKey,
+                drawer: Navigation(
+                    clientName: user!.firstName, clientSurname: user!.lastName),
 
-        : Scaffold(          
-          // Set navigation drawer
-          key: _scaffoldKey,
-          drawer: Navigation(
-            clientName: user!.firstName, 
-            clientSurname: user!.lastName
-          ),
+                // SingleChildScrollView allows the page to be scrollable
+                body: SingleChildScrollView(
+                  // Page container
+                  child: Container(
+                    height: size.height,
 
-          // SingleChildScrollView allows the page to be scrollable
-          body: SingleChildScrollView(
-          
-            // Page container
-            child: Container(
-              height: size.height,
-              
-              // Background
-              decoration: BoxDecoration(
-                gradient: backgroundGradient,
-              ),
-
-              // All widets on the UI are displayed one below another (column form)   
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,                      
-                children: [
-                        
-                  // Three-line menu bar on the top to open the navigation drawer
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: IconButton(
-                      icon: Icon(Icons.menu, color: Colors.white),
-                      onPressed: () {
-                        _scaffoldKey.currentState!.openDrawer();
-                      },
+                    // Background
+                    decoration: BoxDecoration(
+                      gradient: backgroundGradient,
                     ),
-                  ),
 
-                  // Global Heading Widget
-                  Heading("Transfers"),
-                        
-                  // Spacing
-                  Padding(
-                    padding: EdgeInsets.only(top: 10),
-                  ),
-                        
-                  // Two scroll widgets are displayed next to each other with respective headings
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,                    
-                    children: [
-
-                      // Heading for first scroll widget (accountFrom)
-                      Text(
-                        'Transfer From:',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: fontMont,
-                          fontSize: 15.0,
-                        ),
-                      ),
-                            
-                      // Heading for second scroll widget (accountTo)
-                      Text(
-                        'Transfer To:  ',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: fontMont,
-                          fontSize: 15.0,
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  // Two scroll widgets are placed in a container so that they can be evenly spaced
-                  Container(
-                    width: size.width,                          
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,                            
+                    // All widets on the UI are displayed one below another (column form)
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        
-                        // accountFrom scroll widget
-                        Container(
-                          width: size.width * 0.45,
-                          child: ScrollAccount(
-                            acc: acc,
-                            controller: controller1,
-                            setIndex: getAccountFromIndex,
+                        // Three-line menu bar on the top to open the navigation drawer
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: IconButton(
+                            icon: Icon(Icons.menu, color: Colors.white),
+                            onPressed: () {
+                              _scaffoldKey.currentState!.openDrawer();
+                            },
                           ),
                         ),
 
-                        // accountTo scroll widget
+                        // Global Heading Widget
+                        Heading("Transfers"),
+
+                        // Spacing
+                        Padding(
+                          padding: EdgeInsets.only(top: 10),
+                        ),
+
+                        // Two scroll widgets are displayed next to each other with respective headings
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            // Heading for first scroll widget (accountFrom)
+                            Text(
+                              'Transfer From:',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: fontMont,
+                                fontSize: 15.0,
+                              ),
+                            ),
+
+                            // Heading for second scroll widget (accountTo)
+                            Text(
+                              'Transfer To:  ',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: fontMont,
+                                fontSize: 15.0,
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        // Two scroll widgets are placed in a container so that they can be evenly spaced
                         Container(
-                          width: size.width * 0.45,
-                          child: ScrollAccount(
-                            acc: acc,
-                            controller: controller2,
-                            setIndex: getAccountToIndex,
+                          width: size.width,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              // accountFrom scroll widget
+                              Container(
+                                width: size.width * 0.45,
+                                child: ScrollAccount(
+                                  acc: acc,
+                                  controller: controller1,
+                                  setIndex: getAccountFromIndex,
+                                ),
+                              ),
+
+                              // accountTo scroll widget
+                              Container(
+                                width: size.width * 0.45,
+                                child: ScrollAccount(
+                                  acc: acc,
+                                  controller: controller2,
+                                  setIndex: getAccountToIndex,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                            
+
+                        // Input field for transfer amount
+                        InputField(
+                          text: "Amount",
+                          child: TextField(
+                            maxLines: 1,
+                            decoration: inputInputDecoration,
+                            controller: amountController,
+                            onChanged: onChangeAmount,
+                            textAlign: TextAlign.center,
+                            style: inputTextStyle,
+                          ),
+                        ),
+
+                        // Input field for transfer reference
+                        InputField(
+                          text: "Reference Name",
+                          child: TextField(
+                            //maxLength: 11,
+                            decoration: inputInputDecoration,
+                            controller: referenceNameController,
+                            onChanged: onChangeReferenceName,
+                            textAlign: TextAlign.center,
+                            style: inputTextStyle,
+                          ),
+                        ),
+
+                        // Send button which allows transfer to be processed
+                        TextButton(
+                          onPressed: () {
+                            // Make transfer
+                            submitTransfer(
+                                    acc[accountFromIndex].currentBalance,
+                                    acc[accountFromIndex].accountNumber,
+                                    acc[accountToIndex].accountNumber,
+                                    this.context)
+                                .then((success) {
+                              if (success) {
+                                setState(() {
+                                  // Update the current balance in both respective accounts after transaction is successful
+                                  acc[accountFromIndex].currentBalance -=
+                                      double.parse(amountText);
+                                  acc[accountToIndex].currentBalance +=
+                                      double.parse(amountText);
+                                  emptyTextTransfer(); // Clear InputFields
+                                });
+
+                                // Dialogue which asks user if they wish to make another transfer or
+                                // be directed to the Timeline UI
+                                goToTimelineDialog(context);
+                              }
+                            });
+                          },
+
+                          // Container which designs the 'Send' button
+                          child: Container(
+                            width: size.width * 0.5,
+                            padding: EdgeInsets.all(15),
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(50),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black54,
+                                    blurRadius:
+                                        10.0, // Has the effect of softening the shadow
+                                    spreadRadius:
+                                        1.0, // Has the effect of extending the shadow
+
+                                    offset: Offset(
+                                      5.0, // Horizontal, move right 10
+                                      5.0, // Vertical, move down 10
+                                    ),
+                                  ),
+                                ]),
+                            child: Text(
+                              "Send",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.teal,
+                                fontSize: 18.0,
+                                fontFamily: fontMont,
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
-
-                  // Input field for transfer amount
-                  InputField(
-                    text: "Amount",
-                    child: TextField(
-                      maxLines: 1,
-                      decoration: inputInputDecoration,
-                      controller: amountController,
-                      onChanged: onChangeAmount,
-                      textAlign: TextAlign.center,
-                      style: inputTextStyle,
-                    ),
-                  ),
-
-                  // Input field for transfer reference
-                  InputField(
-                    text: "Reference Name",
-                    child: TextField(
-                      //maxLength: 11,
-                      decoration: inputInputDecoration,
-                      controller: referenceNameController,
-                      onChanged: onChangeReferenceName,
-                      textAlign: TextAlign.center,
-                      style: inputTextStyle,
-                    ),
-                  ),
-
-                  // Send button which allows transfer to be processed
-                  TextButton(
-                    onPressed: () {
-                      // Make transfer
-                      submitTransfer(
-                        acc[accountFromIndex].currentBalance,
-                        acc[accountFromIndex].accountNumber,
-                        acc[accountToIndex].accountNumber,
-                        this.context
-                      )
-                      .then((success) {
-                        if (success) {
-                          
-                          setState(() {
-                            // Update the current balance in both respective accounts after transaction is successful
-                            acc[accountFromIndex].currentBalance -= double.parse(amountText);
-                            acc[accountToIndex].currentBalance += double.parse(amountText);
-                            emptyTextTransfer();    // Clear InputFields
-                          });
-                          
-                          // Dialogue which asks user if they wish to make another transfer or 
-                          // be directed to the Timeline UI
-                          goToTimelineDialog(context);
-                        }
-                      });
-                    },
-                          
-                    // Container which designs the 'Send' button
-                    child: Container(
-                      width: size.width * 0.5,
-                      padding: EdgeInsets.all(15),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(50),
-
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black54,
-                            blurRadius: 10.0, // Has the effect of softening the shadow
-                            spreadRadius: 1.0, // Has the effect of extending the shadow
-                            
-                            offset: Offset(
-                              5.0, // Horizontal, move right 10
-                              5.0, // Vertical, move down 10
-                            ),
-                          ),
-                        ]
-                      ),
-                      
-                      child: Text(
-                        "Send",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.teal,
-                          fontSize: 18.0,
-                          fontFamily: fontMont,
-                        ),
-                      ),
-                          
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
+                ),
+              );
   }
 }
 
 // Creates the InputField boxes for user input data
 class InputField extends StatelessWidget {
-
   // InputField variables
-  final String text;    // Heading -> ('Amount' or 'Reference')
-  final Widget child;   // TextField widget with respective controllers 
+  final String text; // Heading -> ('Amount' or 'Reference')
+  final Widget child; // TextField widget with respective controllers
 
   InputField({required this.text, required this.child});
 
@@ -331,13 +309,11 @@ class InputField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-
         // Top part of InputField (transparent) which contains the InputField title
         Container(
           width: size.width * 0.9,
           padding: EdgeInsets.all(10),
           alignment: Alignment.center,
-
           decoration: BoxDecoration(
             color: Colors.white24,
             borderRadius: BorderRadius.only(
@@ -345,9 +321,8 @@ class InputField extends StatelessWidget {
               topRight: borderRadius,
             ),
           ),
-
           child: Text(
-            text,   // ('Amount' or 'Reference')
+            text, // ('Amount' or 'Reference')
             style: TextStyle(
               color: Colors.white,
               fontFamily: fontMont,
@@ -356,7 +331,7 @@ class InputField extends StatelessWidget {
           ),
         ),
 
-        // Bottom part (white) of InputField 
+        // Bottom part (white) of InputField
         Container(
           width: size.width * 0.9,
           margin: EdgeInsets.only(bottom: 5.0),
@@ -365,19 +340,16 @@ class InputField extends StatelessWidget {
           // Adding shadows
           decoration: BoxDecoration(
             boxShadow: [
-
               BoxShadow(
                 color: Colors.white24,
-                offset: Offset(4.0, 2.0),  //(x,y)
+                offset: Offset(4.0, 2.0), //(x,y)
                 blurRadius: 6.0,
               ),
-              
               BoxShadow(
                 color: Colors.white24,
-                offset: Offset(-4.0, 2.0),  //(x,y)
+                offset: Offset(-4.0, 2.0), //(x,y)
                 blurRadius: 6.0,
               ),
-            
             ],
 
             color: Colors.white,
@@ -387,13 +359,10 @@ class InputField extends StatelessWidget {
               bottomLeft: borderRadius,
               bottomRight: borderRadius,
             ),
-
           ),
 
           // Adds TextField widget as child
-          child: Container(
-            width: (size.width * 0.9), 
-            child: child),
+          child: Container(width: (size.width * 0.9), child: child),
         ),
       ],
     );
