@@ -4,64 +4,52 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:last_national_bank/constants/database_constants.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
 
+/*
+Functions used in the process to make a client transfer.
+*/
+
 //Text for inputs
-String accountToText = "";
-String accountFromText = "";
 String amountText = "";
 String referenceNameText = "";
 
 //Controllers for input fields
-final TextEditingController accountToController =
-    TextEditingController(text: accountToText);
-
-final TextEditingController accountFromController =
-    TextEditingController(text: accountFromText);
-
 final TextEditingController amountController =
     TextEditingController(text: amountText);
 
 final TextEditingController referenceNameController =
     TextEditingController(text: referenceNameText);
 
-//onChange for Controllers
-void onChangeAccountTo(String newAccountTo) {
-  accountToText = newAccountTo;
-}
-
-void onChangeAccountFrom(String newAccountFrom) {
-  accountFromText = newAccountFrom;
-}
-
+// Whenever a user changes the amount in the Input Field,
+// the amountText variable is changed (always has updated value)
 void onChangeAmount(String newAmount) {
   amountText = newAmount;
 }
 
+// Whenever a user changes the reference in the Input Field,
+// the referenceNameText variable is changed (always has updated value)
 void onChangeReferenceName(String newReferenceName) {
   referenceNameText = newReferenceName;
 }
 
+// Clear InputFields
 void emptyTextTransfer() {
-  accountToText = "";
-  accountFromText = "";
   amountText = "";
   referenceNameText = "";
-
-  accountToController.text = "";
-  accountFromController.text = "";
   amountController.text = "";
   referenceNameController.text = "";
 }
 
-//Other functions
-Future<bool> submitTransfer(double currAmt, String accountFrom,
-    String accountTo, BuildContext context) async {
-  //validation checks
+// When user clicks the 'Submit' button, this function is called
+Future<bool> submitTransfer(double currAmt, String accountFrom, String accountTo, BuildContext context) async {
+
+  // Validation checks
+  // ===============================================================================
 
   //check if input amount is correct
   try {
     int.parse(amountText);
   } catch (e) {
-    Fluttertoast.showToast(msg: "Please Enter Valid Amount");
+    Fluttertoast.showToast(msg: "Please Enter Valid Transfer Amount");
     return false;
   }
 
@@ -80,6 +68,8 @@ Future<bool> submitTransfer(double currAmt, String accountFrom,
     Fluttertoast.showToast(msg: "Cannot send money to the same account");
     return false;
   }
+
+  // ===============================================================================
 
   //http request to make transfer when send button is pressed
   String success =
