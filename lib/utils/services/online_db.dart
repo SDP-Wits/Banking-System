@@ -44,7 +44,7 @@ Future<List<Map<String, dynamic>>> getURLData(String url) async {
 //Log the user in, based off whether they are a client or not
 
 
-Future<String> userLoginOnline(// coverage:ignore-start
+Future<String> userLoginOnline(
     String idNumber, String hashPassword, bool isClientLogin) async {
   //Choosing php file based off whether the user is a client or admin"
   String phpFileToUse =
@@ -68,7 +68,7 @@ Future<String> userLoginOnline(// coverage:ignore-start
   //then we should return dbSuccess
 
   bool isAdmin = !isClientLogin;
-  User user = User(
+  User user = User(// coverage:ignore-start
     (isAdmin) ? int.parse(data["adminID"]) : int.parse(data["clientID"]),
     data["firstName"],
     data["middleName"],
