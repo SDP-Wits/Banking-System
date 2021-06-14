@@ -28,12 +28,9 @@ class MyApp extends StatelessWidget {
       ),
       onGenerateRoute: router.generateRoute,
       onUnknownRoute: router.unknownRoute,
-      home: WillPopScope(
-        onWillPop: () => onPop(context),
-        child: Scaffold(
-          body: SafeArea(
-            child: MyHomePage(),
-          ),
+      home: Scaffold(
+        body: SafeArea(
+          child: MyHomePage(),
         ),
       ),
     );

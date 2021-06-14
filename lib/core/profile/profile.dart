@@ -51,7 +51,7 @@ class _ProfileState extends State<Profile> {
   }
 
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-    SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+    // SystemChannels.platform.invokeMethod('SystemNavigator.pop');
 
     return false;
   }

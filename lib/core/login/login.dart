@@ -31,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-    SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+    // SystemChannels.platform.invokeMethod('SystemNavigator.pop');
 
     return false;
   }

@@ -1,8 +1,7 @@
 // coverage:ignore-start
-import 'dart:html';
-
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:last_national_bank/classes/accountDetails.dart';
 import 'package:last_national_bank/classes/user.class.dart';
 import 'package:last_national_bank/config/routes/router.dart';
@@ -10,6 +9,7 @@ import 'package:last_national_bank/constants/route_constants.dart';
 import 'package:last_national_bank/core/transfer/transfer.functions.dart';
 import 'package:last_national_bank/core/transfer/widgets/scrollAccount.dart';
 import 'package:last_national_bank/utils/helpers/dialogs.dart';
+import 'package:last_national_bank/utils/helpers/ignore_helper.dart';
 import 'package:last_national_bank/utils/helpers/style.dart';
 import 'package:last_national_bank/utils/services/local_db.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
@@ -88,12 +88,16 @@ class _TransfersState extends State<Transfers> {
   }
 
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+    // toastyPrint(info.routeWhenAdded.isFirst);
+    Fluttertoast.showToast(msg: "Back button interceptor triggered");
     if (ModalRoute.of(context)!.settings.name == TransferRoute) {
+      Fluttertoast.showToast(msg: "hey");
+      Navigator.pop(context);
       goToSelectPayment(context);
       return true;
     }
 
-    return false;
+    return true;
   }
 
   @override

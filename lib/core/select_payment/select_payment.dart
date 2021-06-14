@@ -1,6 +1,7 @@
 // coverage:ignore-start
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:last_national_bank/classes/accountDetails.dart';
 import 'package:last_national_bank/classes/user.class.dart';
 import 'package:last_national_bank/config/routes/router.dart';
@@ -47,12 +48,13 @@ class _SelectPaymentPageState extends State<SelectPaymentPage> {
   }
 
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-    if (ModalRoute.of(context)!.settings.name == ProfileRoute) {
+    if (ModalRoute.of(context)!.settings.name == SelectPaymentRoute) {
+      Navigator.pop(context);
       goToProfilePage(context);
       return true;
     }
 
-    return false;
+    return true;
   }
 
   // Use loading page instead of red error screen

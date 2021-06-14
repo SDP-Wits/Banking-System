@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 
 import '../../constants/route_constants.dart';
 
-Route<dynamic> MaterialRouteWrap(Widget widget) {
+Route<dynamic> MaterialRouteWrap(Widget widget, RouteSettings settings) {
   return MaterialPageRoute(
+    settings: settings,
     builder: (context) => WrapScaffold(widget),
   );
 }
@@ -16,11 +17,15 @@ class WrapScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: widget,
-      ),
-    );
+    return WillPopScope(
+        child: Scaffold(
+          body: SafeArea(
+            child: widget,
+          ),
+        ),
+        onWillPop: () async {
+          return false;
+        });
   }
 }
 
