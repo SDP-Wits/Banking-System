@@ -1,8 +1,8 @@
 // coverage:ignore-start
 import 'package:flutter/material.dart';
 
-import 'widgets/buttonNewUser.dart';
-import 'widgets/userOld.dart';
+import '../../widgets/buttonNewUser.dart';
+import '../../widgets/userOld.dart';
 import 'widgets/Logo.dart';
 import 'widgets/NewAge.dart';
 import 'widgets/NewIDnum.dart';
