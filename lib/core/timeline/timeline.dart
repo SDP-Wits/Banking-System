@@ -2,6 +2,7 @@
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:last_national_bank/config/routes/router.dart';
+import 'package:last_national_bank/constants/route_constants.dart';
 import 'package:last_national_bank/utils/helpers/style.dart';
 import 'package:last_national_bank/utils/services/local_db.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
@@ -47,8 +48,12 @@ class _TimelineListPageState extends State<TimelinePage> {
   }
 
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-    goToProfilePage(context);
-    return true;
+    if (ModalRoute.of(context)!.settings.name == ProfileRoute) {
+      goToProfilePage(context);
+      return true;
+    }
+
+    return false;
   }
 
   // Displays loading screen while the data loads

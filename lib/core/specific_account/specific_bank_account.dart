@@ -1,4 +1,5 @@
 // coverage:ignore-start
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:last_national_bank/classes/accountDetails.dart';
 import 'package:last_national_bank/classes/log.dart';
@@ -6,6 +7,7 @@ import 'package:last_national_bank/classes/specificAccount.dart';
 import 'package:last_national_bank/classes/user.class.dart';
 import 'package:last_national_bank/config/routes/router.dart';
 import 'package:last_national_bank/constants/app_constants.dart';
+import 'package:last_national_bank/constants/route_constants.dart';
 import 'package:last_national_bank/core/account/widgets/card_info.dart';
 import 'package:last_national_bank/core/select_payment/widgets/paymentButton.dart';
 import 'package:last_national_bank/utils/helpers/helper.dart';
@@ -44,6 +46,8 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
   void initState() {
     super.initState();
 
+    BackButtonInterceptor.add(myInterceptor);
+
     //Intialization of animation controller and animation
     animationController = AnimationController(
       vsync: this,
@@ -70,9 +74,19 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
 
   @override
   void dispose() {
+    BackButtonInterceptor.remove(myInterceptor);
     //Dispose of animationController from RAM once done with it
     animationController!.dispose();
     super.dispose();
+  }
+
+  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+    if (ModalRoute.of(context)!.settings.name == ViewAccountRoute) {
+      goToViewAccount(context);
+      return true;
+    }
+
+    return false;
   }
 
   // Use loading page instead of red error screen
