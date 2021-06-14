@@ -38,8 +38,6 @@ Future<List<Map<String, dynamic>>> getURLData(String url) async {
     ];
   }
 }
-// coverage:ignore-end
-//Manually tested
 //Log the user in, based off whether they are a client or not
 
 
@@ -104,38 +102,19 @@ Future<String> userLoginOnline(
       user.address.country,
       user.address.apartmentNumber);
 }
-// coverage:ignore-end
 
-//Admin Registering online
-//no implementations found so im commnting it out for now
-/*
-Future<String> adminRegisterOnline(String idNumber, String hashPassword) async {
-  final String arguments = "?id=$idNumber;password=$hashPassword";
-  Map data = (await getURLData(urlPath + insert_admin + arguments))[0];
-
-  bool status = data["status"];
-
-  if (status) {
-    return dbSuccess;
-  } else {
-    return data["error"];
-  }
-}
-*/
-
-//Manually tested
 //Getting list of all unverified clients
 Future<List<Name>> getUnverifiedClients() async {
   final String url = urlPath + select_unverified_client_names;
 
   final List<Map> data = await getURLData(url);
+
+  //status only returned in failed case, so as long as the returned data
+  // contains "status" we can assume it failed
   if (data[0].containsKey("status")) {
-    if (!data[0]["status"]) {// coverage:ignore-start
-      print("There are no unverified clients");
-      return [];
-    }
+    return [];
   }
-// coverage:ignore-end
+
   List<Name> names = [];
   for (var map in data) {
     Name name = Name(
@@ -151,23 +130,20 @@ Future<List<Name>> getUnverifiedClients() async {
   return names;
 }
 
-//Manually tested
 Future<int> getNumberOfAccounts() async {
   final String url = urlPath + count_num_accountTypes;
 
   final List<Map> data = (await getURLData(url));
+
+  //status only returned in failed case, so as long as the returned data
+  // contains "status" we can assume it failed
   // There will always be account typed in the db
   if (data[0].containsKey("status")) {
-    if (!data[0]["status"]) {// coverage:ignore-start
-      print("There are no account types");
-      return 0;
-    }
+    return 0;
   }
-// coverage:ignore-end
   return int.parse(data[0]["NumAccountTypes"].toString());
 }
 
-//Manually tested
 // this function gets the ClientID from the database, using the clients ID number - we get all details, and return the ClientID
 Future<int> getClientID(String accountNumber) async {
   final String arguments = "?accountNumber=$accountNumber";
@@ -175,17 +151,15 @@ Future<int> getClientID(String accountNumber) async {
 
   final List<Map> data = (await getURLData(url));
 
+  //status only returned in failed case, so as long as the returned data
+  // contains "status" we can assume it failed
   if (data[0].containsKey("status")) {
-    if (!data[0]["status"]) {
-      print("No client ID exists with the account number provided");
-      return 0;
-    }
+    return 0;
   }
 
   return int.parse(data[0]["clientID"].toString());
 }
 
-//Manually tested
 // get clients details for admin to view
 Future<List<thisUser>> getClientDetails(String idNumber) async {
   final String arguments = "?id=$idNumber";
@@ -193,13 +167,12 @@ Future<List<thisUser>> getClientDetails(String idNumber) async {
 
   final List<Map> data = (await getURLData(url));
 
+  //status only returned in failed case, so as long as the returned data
+  // contains "status" we can assume it failed
   if (data[0].containsKey("status")) {
-    if (!data[0]["status"]) {// coverage:ignore-start
-      print("There are no unverified clients");
-      return [];
-    }
+    return [];
   }
-// coverage:ignore-end
+
   List<thisUser> users = [];
   for (var map in data) {
     thisUser user = thisUser(
@@ -219,7 +192,7 @@ Future<List<thisUser>> getClientDetails(String idNumber) async {
   return users;
 }
 
-//Manually tested
+
 //Verify an unverified client
 Future<String> verifyClient(String clientIdNumber, String adminIdNumber,
     String clientStatus, String php) async {
@@ -254,13 +227,12 @@ Future<List<accountTypes>> getAccountTypes() async {
 
   final List<Map> accTypeDetails = await getURLData(url);
 
+  //status only returned in failed case, so as long as the returned data
+  // contains "status" we can assume it failed
   if (accTypeDetails[0].containsKey("status")) {
-    if (!accTypeDetails[0]["status"]) {// coverage:ignore-start
-      print("There are no account options");
-      return [];
-    }
+    return [];
   }
-// coverage:ignore-end
+
   List<accountTypes> bankAccTypes = [];
 
   for (int i = 0; i < accTypeDetails.length; ++i) {
@@ -289,17 +261,17 @@ Future<List<int>> getExistingAccountTypes(int clientID) async {
 
   final List<Map> existingAccTypes = await getURLData(url);
 
+  // if client has no accounts
   if (existingAccTypes.isEmpty) {
     return [];
   }
 
+  //status only returned in failed case, so as long as the returned data
+  // contains "status" we can assume it failed
   if (existingAccTypes[0].containsKey("status")) {
-    if (!existingAccTypes[0]["status"]) {// coverage:ignore-start
-      print("There are no exisiting accounts for this user");
-      return [];
-    }
+    return [];
   }
-// coverage:ignore-end
+
   List<int> existingAccTypeID = [];
 
   for (int i = 0; i < existingAccTypes.length; ++i) {
@@ -311,7 +283,6 @@ Future<List<int>> getExistingAccountTypes(int clientID) async {
   return existingAccTypeID;
 }
 
-//Manually tested
 //Create a client's account
 Future<String> createAccount(
     String clientIdNumber, int accountTypeID, String php) async {
@@ -338,7 +309,6 @@ Future<String> createAccount(
   return "Failed to create an account";
 }
 
-//Manually tested
 //Get all the details for all the user's accounts
 Future<List<accountDetails>> getAccountDetails(String idNumber) async {
   final String arguments = "?idNum=$idNumber";
@@ -373,9 +343,6 @@ Future<List<accountDetails>> getAccountDetails(String idNumber) async {
   return accounts;
 }
 
-//Getting account description from account id
-
-//Manually tested
 //Getting specific account details
 Future<List<specificAccount>> getSpecificAccount(String accNum) async {
   final String arguments = "?accNum=$accNum";
@@ -413,7 +380,6 @@ Future<List<specificAccount>> getSpecificAccount(String accNum) async {
   return specAccounts;
 }
 
-//Manually tested
 //Helper Functions
 String argumentMaker(
     {required List<String> phpNames, required List<String> inputVariables}) {
@@ -431,7 +397,6 @@ String argumentMaker(
   return argument;
 }
 
-//Manually tested
 // This function gets the logs for a specific client to view on their timeline page
 Future<List<Log>> getLogs(String clientID) async {
   final String arguments = "?clientID=$clientID";

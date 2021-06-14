@@ -772,12 +772,17 @@ void main() {
   });
 
   group('testing http request getUnverifiedClients', () {
-    test("test to check for valid getUnverifiedClients", () async {
-      var expected = true;
+    test("testing getUnverifiedClients", () async {
 
       var actual = await getUnverifiedClients();
 
-      expect(actual.isNotEmpty, expected);
+      if (actual.isNotEmpty){//if there are unverified clients
+        var expected = true;
+        expect(actual.isNotEmpty, expected);
+      }else{//if all clients have been verified
+        var expected = true;
+        expect(actual.isEmpty, expected);
+      }
     });
   });
 
@@ -807,7 +812,7 @@ void main() {
     expect(actual, expected);
   });
 
-  test("test to check for valid getNumberOfAccounts", () async {
+  test("test to check for valid getClientDetails", () async {
     var expected = "Test";
 
     var actual = await getClientDetails("0000000000000");
@@ -815,7 +820,15 @@ void main() {
     expect(actual[0].firstName, expected);
   });
 
-  test("test to check for valid getExistingAccountTypes", () async {
+  test("test to check for invalid getClientDetails", () async {
+    var expected = [];
+
+    var actual = await getClientDetails("000000");
+
+    expect(actual, expected);
+  });
+
+  test("test to check for getExistingAccountTypes with no accounts", () async {
     var expected = [];
 
     var actual = await getExistingAccountTypes(48);
@@ -823,7 +836,7 @@ void main() {
     expect(actual, expected);
   });
 
-  test("test to check for invalid getExistingAccountTypes", () async {
+  test("test to check for getExistingAccountTypes with accounts", () async {
     var expected = [1, 4, 3];
 
     var actual = await getExistingAccountTypes(35);
@@ -860,6 +873,23 @@ void main() {
       var expected = "Failed to create an account";
 
       var actual = await createAccount("0000000000000", 1, insert_new_account1);
+
+      expect(actual, expected);
+    });
+  });
+
+  group('testing http request getClientID', () {
+    test("test for successful getClientID", () async {
+      var expected = 47;
+
+      var actual = await getClientID("84444410904");
+
+      expect(actual, expected);
+    });
+    test("test for unsuccessful getClientID", () async {
+      var expected = 0;
+
+      var actual = await getClientID("0000");
 
       expect(actual, expected);
     });
