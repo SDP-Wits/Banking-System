@@ -30,3 +30,5 @@ def make_request(i):
     return  all_times
 
 driver_func()
+#this file does the latency test. It makes 10 simultaneous calls to the database from each user, and the wait time was less than
+# 0.1 seconds each call - this is a python file, and has to be run independently from the app

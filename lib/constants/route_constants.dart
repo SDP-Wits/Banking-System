@@ -18,3 +18,4 @@ const String MakePayment = "payment";
 
 
 // coverage:ignore-end
+// This file stores the names of the pages which are used for routing between different pages

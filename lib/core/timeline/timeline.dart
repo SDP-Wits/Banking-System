@@ -29,6 +29,7 @@ class _TimelineListPageState extends State<TimelinePage> {
       setState(() {
         user = userDB;
       });
+      //uses the local database to get the userID then makes a call to the online database to get the Logs for this user
       getLogs(user!.userID.toString()).then((logsIn) {
         setState(() {
           logs = logsIn;
@@ -48,7 +49,7 @@ class _TimelineListPageState extends State<TimelinePage> {
     goToAdminVerificationStatus(context);
     return true;
   }
-
+  // Displays loading screen while the data loads
   @override
   Widget build(BuildContext context) {
     if (logs == null) {

@@ -88,6 +88,7 @@ bool fullvalidation() {
   return flag;
 }
 
+// this function just gives an error or success message depending on the validation
 String giveError() {
   if (!fullvalidation()) {
     return ("Some Fields Have Errors");
@@ -95,7 +96,7 @@ String giveError() {
     return ("Proceed to next page");
   }
 }
-
+// Checks for any errors when entering password - used for validation
 bool hasInputErrorsPassword(String password) {
   if (password.length < 8 || password.length > 20) {
     //check if password length is correct
@@ -111,6 +112,7 @@ bool hasInputErrorsPassword(String password) {
   return false;
 }
 
+// Checks for any errors when entering ID Number - used for validation
 bool hasInputErrorID(String idNum) {
   if (idNum.length != 13) {
     //checks if id num is of length 13
@@ -142,7 +144,7 @@ bool hasInputErrorEmail(String email) {
   return false;
 }
 
-
+// following functions used for validation purposes
 bool hasInputErrorId(String idNum) {
   if (idNum.length != 13) {
     //checks if id num is of length 13
@@ -210,7 +212,7 @@ bool hasInputErrorSurname(String surname) {
 }
 
 
-
+// returns the current date
 String currentDate() {// coverage:ignore-start
   var now = new DateTime.now();
   var formatter = new DateFormat('yyyy-MM-dd');

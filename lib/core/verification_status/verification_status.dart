@@ -31,6 +31,7 @@ class _VerificationStatusState extends State<VerificationStatus> {
       setState(() {
         user = currUser;
       });
+      // used the client ID number from the local database, to get the rest of the clients details from the online database
       getClientDetails(user!.idNumber).then((stat) {
         setState(() {
           me = stat;
@@ -42,7 +43,7 @@ class _VerificationStatusState extends State<VerificationStatus> {
       }
     });
   }
-
+  // checks whether the database contents were loaded, and displays a loading screen while the data is extracted
   @override
   Widget build(BuildContext context) {
     if (me == null) {

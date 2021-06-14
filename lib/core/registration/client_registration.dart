@@ -19,7 +19,7 @@ class ClientRegistrationPage extends StatefulWidget {
   @override
   _ClientRegistrationPageState createState() => _ClientRegistrationPageState();
 }
-
+//builds the UI for clients to register and calls the relevant widgets to be displayed
 class _ClientRegistrationPageState extends State<ClientRegistrationPage> {
   @override
   Widget build(BuildContext context) {

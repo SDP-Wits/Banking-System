@@ -172,6 +172,7 @@ Future<int> getNumberOfAccounts() async {
 }
 
 //Manually tested
+// this function gets the ClientID from the database, using the clients ID number - we get all details, and return the ClientID
 Future<int> getClientID(String accountNumber) async {
   final String arguments = "?accountNumber=$accountNumber";
   final String url = urlPath + get_client_id + arguments;
@@ -435,6 +436,7 @@ String argumentMaker(
 }
 
 //Manually tested
+// This function gets the logs for a specific client to view on their timeline page
 Future<List<Log>> getLogs(String clientID) async {
   final String arguments = "?clientID=$clientID";
   final String url = urlPath + select_client_log + arguments;

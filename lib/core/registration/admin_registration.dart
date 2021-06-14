@@ -20,7 +20,7 @@ class AdminRegistrationPage extends StatefulWidget {
   @override
   _AdminRegistrationPage createState() => _AdminRegistrationPage();
 }
-
+//builds the UI for admin to register and calls the relevant widgets to be displayed
 class _AdminRegistrationPage extends State<AdminRegistrationPage> {
   @override
   Widget build(BuildContext context) {

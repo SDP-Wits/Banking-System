@@ -24,3 +24,4 @@ const String make_payment = "make_payment.php";
 const String get_client_id = "get_client_id.php";
 
 // coverage:ignore-end
+// this file stores all the php file names for http requests

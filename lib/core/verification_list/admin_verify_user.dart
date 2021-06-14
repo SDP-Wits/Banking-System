@@ -23,6 +23,7 @@ class _VerifyUserState extends State<VerifyUser> {
 
   void initState() {
     super.initState();
+    // gets the clients details for the admin to view
     getClientDetails(widget.IDnum).then((lstNames) {
       thisuser = lstNames;
       setState(() {});
@@ -30,7 +31,7 @@ class _VerifyUserState extends State<VerifyUser> {
     // _thisuser = getClient();
     // setState(() {});
   }
-
+  // checks whether the clients details have loaded, and displays loading screen while it is being loaded
   @override
   Widget build(BuildContext context) {
     if (thisuser.isEmpty) {

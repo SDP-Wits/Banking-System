@@ -24,7 +24,7 @@ var backgroundGradient = LinearGradient(
   end: Alignment.bottomCenter,
   colors: [Colors.teal, Color(0xFFffa781)],
 );
-
+// below is a loading screen which is used for pages that have to wait for data from the database
 Widget buildLoadingScreen() {
   return Expanded(
     child: Container(

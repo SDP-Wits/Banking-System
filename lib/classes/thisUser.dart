@@ -1,5 +1,5 @@
 // coverage:ignore-start
-
+// class to store a users information - most fields are required to prevent any incomplete data from displayed
 class thisUser {
   final int userID;
   final String firstName;
