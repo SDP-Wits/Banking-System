@@ -6,6 +6,7 @@ import 'package:last_national_bank/classes/name.class.dart';
 import 'package:last_national_bank/core/account/accounts.dart';
 import 'package:last_national_bank/core/bank_account_options/account_options.dart';
 import 'package:last_national_bank/core/payments/payment.dart';
+import 'package:last_national_bank/core/profile/profile.dart';
 import 'package:last_national_bank/core/select_payment/select_payment.dart';
 import 'package:last_national_bank/core/specific_account/specific_bank_account.dart';
 import 'package:last_national_bank/core/transfer/transfer.dart';
@@ -16,7 +17,6 @@ import '../../core/registration/admin_registration.dart';
 import '../../core/registration/client_registration.dart';
 import '../../core/registration/newuser.page.dart';
 import '../../core/verification_list/admin_verification_list.dart';
-import '../../core/verification_status/verification_status.dart';
 import '../../core/timeline/timeline.dart';
 import 'router.helper.dart';
 import 'undefined_page.dart';
@@ -45,19 +45,19 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     // case AdminVerifyUser :
     //   return MaterialRouteWrap(VerifyUser());
     //If User, go to see your application status
-    case VerificationStatusRoute:
-      return MaterialRouteWrap(VerificationStatus());
+    case ProfileRoute:
+      return MaterialRouteWrap(Profile());
 
     case NewUserRoute:
       return MaterialRouteWrap(NewUser());
 
-    case CreateAccount:
+    case CreateAccountRoute:
       return MaterialRouteWrap(BankAccountOptions());
 
-    case ViewAccount:
+    case ViewAccountRoute:
       return MaterialRouteWrap(Accounts());
 
-    case SpecificAccount:
+    case SpecificAccountRoute:
       //Whatever arguments that get passed will be converted into the
       //accountDetails object
       final args = settings.arguments as accountDetails;
@@ -68,13 +68,13 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case TimelineRoute:
       return MaterialRouteWrap(TimelinePage());
 
-    case SelectPayment:
+    case SelectPaymentRoute:
       return MaterialRouteWrap(SelectPaymentPage());
 
-    case MakeTransfer:
+    case MakeTransferRoute:
       return MaterialRouteWrap(Transfers());
 
-    case MakePayment:
+    case MakePaymentRoute:
       return MaterialRouteWrap(Payments());
 
     //If page to go to is unknown, go to default home page, i.e. Login Page
@@ -110,11 +110,11 @@ void goToAdminVerificationList(BuildContext context) {
 }
 
 void goToAdminVerifyUsers(BuildContext context, {required Name names}) {
-  Navigator.pushNamed(context, AdminVerifyUser, arguments: names);
+  Navigator.pushNamed(context, AdminVerifyUserRoute, arguments: names);
 }
 
 void goToAdminVerificationStatus(BuildContext context) {
-  Navigator.pushNamed(context, VerificationStatusRoute);
+  Navigator.pushNamed(context, ProfileRoute);
 }
 
 void goToNewUser(BuildContext context) {
@@ -122,16 +122,16 @@ void goToNewUser(BuildContext context) {
 }
 
 void goToCreateAccount(BuildContext context) {
-  Navigator.pushNamed(context, CreateAccount);
+  Navigator.pushNamed(context, CreateAccountRoute);
 }
 
 void goToViewAccount(BuildContext context) {
-  Navigator.pushNamed(context, ViewAccount);
+  Navigator.pushNamed(context, ViewAccountRoute);
 }
 
 void goToSpecificAccount(
     {required BuildContext context, required accountDetails acc}) {
-  Navigator.pushNamed(context, SpecificAccount, arguments: acc);
+  Navigator.pushNamed(context, SpecificAccountRoute, arguments: acc);
 }
 
 void goToTimeline(BuildContext context) {
@@ -139,14 +139,14 @@ void goToTimeline(BuildContext context) {
 }
 
 void goToSelectPayment(BuildContext context) {
-  Navigator.pushNamed(context, SelectPayment);
+  Navigator.pushNamed(context, SelectPaymentRoute);
 }
 
 void goToTransfers(BuildContext context) {
-  Navigator.pushNamed(context, MakeTransfer);
+  Navigator.pushNamed(context, MakeTransferRoute);
 }
 
 void goToPayments(BuildContext context) {
-  Navigator.pushNamed(context, MakePayment);
+  Navigator.pushNamed(context, MakePaymentRoute);
 }
 // coverage:ignore-end

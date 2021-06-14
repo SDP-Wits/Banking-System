@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 // coverage:ignore-start
-import '../config/routes/router.dart';
-import '../core/registration/registration.functions.dart';
+import '../../../config/routes/router.dart';
+import '../registration.functions.dart';
 
 class FirstTime extends StatefulWidget {
   @override

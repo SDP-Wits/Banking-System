@@ -8,12 +8,12 @@ import '../../config/routes/router.dart';
 import '../../utils/services/local_db.dart';
 import '../../utils/services/online_db.dart';
 
-class VerificationStatus extends StatefulWidget {
+class Profile extends StatefulWidget {
   @override
-  _VerificationStatusState createState() => _VerificationStatusState();
+  _ProfileState createState() => _ProfileState();
 }
 
-class _VerificationStatusState extends State<VerificationStatus> {
+class _ProfileState extends State<Profile> {
   User? user;
   List<thisUser>? me = null;
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
