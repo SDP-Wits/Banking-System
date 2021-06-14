@@ -12,12 +12,12 @@ import '../../utils/services/local_db.dart';
 import '../../utils/services/online_db.dart';
 import '../../widgets/navigation.dart';
 
-class VerificationStatus extends StatefulWidget {
+class Profile extends StatefulWidget {
   @override
-  _VerificationStatusState createState() => _VerificationStatusState();
+  _ProfileState createState() => _ProfileState();
 }
 
-class _VerificationStatusState extends State<VerificationStatus> {
+class _ProfileState extends State<Profile> {
   User? user;
   List<thisUser>? me = null;
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -42,6 +42,7 @@ class _VerificationStatusState extends State<VerificationStatus> {
       }
     });
   }
+
   // checks whether the database contents were loaded, and displays a loading screen while the data is extracted
   @override
   Widget build(BuildContext context) {

@@ -10,12 +10,13 @@ import '../../utils/helpers/style.dart';
 import '../../utils/services/online_db.dart';
 import 'admin_verify_user.dart';
 
-class VerificationListPage extends StatefulWidget {
+class AdminVerificationListPage extends StatefulWidget {
   @override
-  _VerificationListPageState createState() => _VerificationListPageState();
+  _AdminVerificationListPageState createState() =>
+      _AdminVerificationListPageState();
 }
 
-class _VerificationListPageState extends State<VerificationListPage> {
+class _AdminVerificationListPageState extends State<AdminVerificationListPage> {
   //==================================================================
   //Example data:
   /*List<VerificationListClass> names = [
