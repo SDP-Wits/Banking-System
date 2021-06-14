@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:last_national_bank/classes/accountDetails.dart';
 import 'package:last_national_bank/classes/user.class.dart';
 import 'package:last_national_bank/config/routes/router.dart';
+import 'package:last_national_bank/constants/route_constants.dart';
 import 'package:last_national_bank/core/transfer/transfer.functions.dart';
 import 'package:last_national_bank/core/transfer/widgets/scrollAccount.dart';
 import 'package:last_national_bank/utils/helpers/dialogs.dart';
@@ -85,8 +86,12 @@ class _TransfersState extends State<Transfers> {
   }
 
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-    goToProfilePage(context);
-    return true;
+    if (ModalRoute.of(context)!.settings.name == TransferRoute) {
+      goToSelectPayment(context);
+      return true;
+    }
+
+    return false;
   }
 
   @override

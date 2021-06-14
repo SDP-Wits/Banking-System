@@ -1,5 +1,9 @@
 // coverage:ignore-start
+import 'dart:io';
+
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
+import 'package:last_national_bank/constants/route_constants.dart';
 import 'package:last_national_bank/core/registration/widgets/subHeading.dart';
 import 'package:last_national_bank/core/registration/widgets/subsubHeading.dart';
 import 'package:last_national_bank/utils/helpers/style.dart';
@@ -26,6 +30,8 @@ class _ProfileState extends State<Profile> {
   void initState() {
     super.initState();
 
+    BackButtonInterceptor.add(myInterceptor);
+
     LocalDatabaseHelper.instance.getUserAndAddress().then((currUser) {
       setState(() {
         user = currUser;
@@ -41,6 +47,20 @@ class _ProfileState extends State<Profile> {
         Navigator.pop(context);
       }
     });
+  }
+
+  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+    if (ModalRoute.of(context)!.settings.name == ProfileRoute) {
+      exit(0);
+    }
+
+    return false;
+  }
+
+  @override
+  void dispose() {
+    BackButtonInterceptor.remove(myInterceptor);
+    super.dispose();
   }
 
   // checks whether the database contents were loaded, and displays a loading screen while the data is extracted

@@ -16,12 +16,9 @@ class WrapScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () => onPop(context),
-      child: Scaffold(
-        body: SafeArea(
-          child: widget,
-        ),
+    return Scaffold(
+      body: SafeArea(
+        child: widget,
       ),
     );
   }

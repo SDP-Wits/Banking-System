@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:last_national_bank/classes/accountDetails.dart';
 import 'package:last_national_bank/classes/user.class.dart';
 import 'package:last_national_bank/config/routes/router.dart';
+import 'package:last_national_bank/constants/route_constants.dart';
 import 'package:last_national_bank/core/select_payment/widgets/paymentButton.dart';
 import 'package:last_national_bank/utils/helpers/icons.dart';
 import 'package:last_national_bank/utils/helpers/style.dart';
@@ -46,8 +47,12 @@ class _SelectPaymentPageState extends State<SelectPaymentPage> {
   }
 
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-    goToProfilePage(context);
-    return true;
+    if (ModalRoute.of(context)!.settings.name == ProfileRoute) {
+      goToProfilePage(context);
+      return true;
+    }
+
+    return false;
   }
 
   // Use loading page instead of red error screen

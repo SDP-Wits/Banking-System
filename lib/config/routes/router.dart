@@ -71,10 +71,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case SelectPaymentRoute:
       return MaterialRouteWrap(SelectPaymentPage());
 
-    case MakeTransferRoute:
+    case TransferRoute:
       return MaterialRouteWrap(Transfers());
 
-    case MakePaymentRoute:
+    case PaymentRoute:
       return MaterialRouteWrap(Payments());
 
     //If page to go to is unknown, go to default home page, i.e. Login Page
@@ -145,10 +145,10 @@ void goToSelectPayment(BuildContext context) {
 }
 
 void goToTransfers(BuildContext context) {
-  Navigator.pushNamed(context, MakeTransferRoute);
+  Navigator.pushNamed(context, TransferRoute);
 }
 
 void goToPayments(BuildContext context) {
-  Navigator.pushNamed(context, MakePaymentRoute);
+  Navigator.pushNamed(context, PaymentRoute);
 }
 // coverage:ignore-end

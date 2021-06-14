@@ -12,8 +12,8 @@ const String ViewAccountRoute = "view-account";
 const String SpecificAccountRoute = "specific-account";
 const String TimelineRoute = "timeline";
 const String SelectPaymentRoute = "select-payment";
-const String MakeTransferRoute = "transfer";
-const String MakePaymentRoute = "payment";
+const String TransferRoute = "transfer";
+const String PaymentRoute = "payment";
 
 // coverage:ignore-end
 // This file stores the names of the pages which are used for routing between different pages
