@@ -1,5 +1,9 @@
+import 'dart:io';
+
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:last_national_bank/constants/route_constants.dart';
 
 import 'config/routes/router.dart' as router;
 import 'config/routes/router.helper.dart';
@@ -45,6 +49,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
+
+    //TODO: Comment before final release
     autoLogin(context);
   }
 
