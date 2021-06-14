@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:last_national_bank/config/routes/router.dart';
 import 'package:last_national_bank/widgets/navigation.dart';
-import 'package:last_national_bank/widgets/noAccounts.dart';
 
 import '../../classes/accountDetails.dart';
 import '../../classes/user.class.dart';
@@ -156,7 +155,7 @@ class _AccountsState extends State<Accounts> {
         ),
       );
     } else if (finishedGetData) {
-      return NoAccount();
+      return _noAccount(context);
     } else {
       return _buildLoadingScreen();
     }
@@ -174,4 +173,53 @@ Widget _buildLoadingScreen() {
   );
 }
 
+Widget floatingCreateAccount(BuildContext context) {
+  return Row(
+    mainAxisSize: MainAxisSize.max,
+    mainAxisAlignment: MainAxisAlignment.end,
+    children: [
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+        child: FloatingActionButton(
+            backgroundColor: Colors.white,
+            child: Text(
+              '+',
+              style: TextStyle(
+                color: Colors.teal,
+                fontSize: 36,
+                fontFamily: fontMont,
+              ),
+            ),
+            onPressed: () {
+              //When floating action button is pressed
+              //this will go to 'create account' page
+              goToCreateAccount(context);
+            }),
+      ),
+    ],
+  );
+}
+
+Widget _noAccount(BuildContext context) {
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 90.0),
+          child: Text(
+            "No Accounts here...",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: fontMont,
+              fontSize: 40,
+              color: Colors.teal,
+            ),
+          ),
+        ),
+      ),
+      floatingCreateAccount(context)
+    ],
+  );
+}
 // coverage:ignore-end

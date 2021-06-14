@@ -13,8 +13,5 @@ const String ViewAccount = "view-account";
 const String SpecificAccount = "specific-account";
 const String TimelineRoute = "timeline";
 const String SelectPayment = "select-payment";
-const String MakeTransfer = "transfer";
-const String MakePayment = "payment";
-
 
 // coverage:ignore-end
