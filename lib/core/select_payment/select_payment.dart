@@ -13,6 +13,7 @@ import 'package:last_national_bank/utils/services/local_db.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
 import 'package:last_national_bank/widgets/navigation.dart';
 import 'package:last_national_bank/widgets/noAccounts.dart';
+import 'package:last_national_bank/utils/helpers/back_button_helper.dart';
 
 class SelectPaymentPage extends StatefulWidget {
   @override
@@ -48,13 +49,12 @@ class _SelectPaymentPageState extends State<SelectPaymentPage> {
   }
 
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-    if (ModalRoute.of(context)!.settings.name == SelectPaymentRoute) {
-      Navigator.pop(context);
-      goToProfilePage(context);
-      return true;
-    }
-
-    return true;
+    return helperInterceptor(
+        context: context,
+        currentRoute: SelectPaymentRoute,
+        goTo: goToProfilePage,
+        info: info,
+        stopDefaultButtonEvent: stopDefaultButtonEvent);
   }
 
   // Use loading page instead of red error screen
@@ -127,6 +127,7 @@ class _SelectPaymentPageState extends State<SelectPaymentPage> {
 
                   // When buton is clicked, do..
                   onTap: () {
+                    Navigator.pop(context);
                     goToTransfers(context);
                   },
                   buttonTitle: "Transfers",
@@ -150,6 +151,7 @@ class _SelectPaymentPageState extends State<SelectPaymentPage> {
 
             // When buton is clicked, do..
             onTap: () {
+              Navigator.pop(context);
               goToPayments(context);
             },
             buttonTitle: "Payments",

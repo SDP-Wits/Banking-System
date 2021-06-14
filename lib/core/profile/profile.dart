@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:last_national_bank/config/routes/router.helper.dart';
 import 'package:last_national_bank/constants/route_constants.dart';
 import 'package:last_national_bank/core/registration/widgets/subHeading.dart';
 import 'package:last_national_bank/core/registration/widgets/subsubHeading.dart';
@@ -51,7 +52,10 @@ class _ProfileState extends State<Profile> {
   }
 
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-    // SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+    if (info.currentRoute(context)!.settings.name ==
+        getCurrentRouteName(context)) {
+      SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+    }
 
     return false;
   }

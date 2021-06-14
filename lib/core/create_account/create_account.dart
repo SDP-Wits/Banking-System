@@ -1,8 +1,10 @@
 // coverage:ignore-start
+import 'package:last_national_bank/utils/helpers/back_button_helper.dart';
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:last_national_bank/constants/php_url.dart';
+import 'package:last_national_bank/constants/route_constants.dart';
 import 'package:last_national_bank/utils/helpers/style.dart';
 import 'package:last_national_bank/widgets/heading.dart';
 
@@ -14,19 +16,12 @@ import '../../utils/services/online_db.dart';
 import '../../widgets/navigation.dart';
 
 /// This is the main application widget.
-class AccountOptionsScreen extends StatelessWidget {
+class CreateAccount extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(home: BankAccountOptions());
-  }
+  _CreateAccountState createState() => _CreateAccountState();
 }
 
-class BankAccountOptions extends StatefulWidget {
-  @override
-  _BankAccountOptionsState createState() => _BankAccountOptionsState();
-}
-
-class _BankAccountOptionsState extends State<BankAccountOptions> {
+class _CreateAccountState extends State<CreateAccount> {
   List<String> accountTypeList = [];
   List<String> descriptionList = [];
   List<int> accountTypeIdList = [];
@@ -84,8 +79,12 @@ class _BankAccountOptionsState extends State<BankAccountOptions> {
   }
 
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-    goToProfilePage(context);
-    return true;
+    return helperInterceptor(
+        context: context,
+        currentRoute: CreateAccountRoute,
+        goTo: goToViewAccount,
+        info: info,
+        stopDefaultButtonEvent: stopDefaultButtonEvent);
   }
 
   @override

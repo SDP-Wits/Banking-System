@@ -6,6 +6,7 @@ import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:last_national_bank/config/routes/router.helper.dart';
 import 'package:last_national_bank/constants/route_constants.dart';
 import 'package:last_national_bank/utils/helpers/style.dart';
 
@@ -31,7 +32,14 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-    // SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+    if (info.currentRoute(context)!.settings.name ==
+        getCurrentRouteName(context)) {
+      Future.delayed(Duration(milliseconds: 50)).then((value) {
+        SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+      });
+    } else {
+      return true;
+    }
 
     return false;
   }

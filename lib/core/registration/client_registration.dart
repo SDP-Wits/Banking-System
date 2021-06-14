@@ -1,5 +1,7 @@
 // coverage:ignore-start
 import 'package:flutter/material.dart';
+import 'package:last_national_bank/config/routes/router.dart';
+import 'package:last_national_bank/constants/route_constants.dart';
 import 'package:last_national_bank/utils/helpers/style.dart';
 
 import 'widgets/buttonNewUser.dart';
@@ -14,13 +16,37 @@ import 'widgets/NewPhone.dart';
 import 'widgets/NewSurname.dart';
 import 'widgets/newEmail.dart';
 import 'widgets/newName.dart';
+import 'package:last_national_bank/utils/helpers/back_button_helper.dart';
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 
 class ClientRegistrationPage extends StatefulWidget {
   @override
   _ClientRegistrationPageState createState() => _ClientRegistrationPageState();
 }
+
 //builds the UI for clients to register and calls the relevant widgets to be displayed
 class _ClientRegistrationPageState extends State<ClientRegistrationPage> {
+  @override
+  void initState() {
+    super.initState();
+    BackButtonInterceptor.add(myInterceptor);
+  }
+
+  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+    return helperInterceptor(
+        context: context,
+        currentRoute: ClientRegistrationRoute,
+        goTo: goToLogin,
+        info: info,
+        stopDefaultButtonEvent: stopDefaultButtonEvent);
+  }
+
+  @override
+  void dispose() {
+    BackButtonInterceptor.remove(myInterceptor);
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(

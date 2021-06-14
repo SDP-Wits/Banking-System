@@ -1,4 +1,5 @@
 // coverage:ignore-start
+import 'package:last_national_bank/utils/helpers/back_button_helper.dart';
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:last_national_bank/classes/accountDetails.dart';
@@ -81,33 +82,30 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
   }
 
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-    if (ModalRoute.of(context)!.settings.name == ViewAccountRoute) {
-      goToViewAccount(context);
-      return true;
-    }
-
-    return false;
+    return helperInterceptor(
+        context: context,
+        currentRoute: SpecificAccountRoute,
+        goTo: goToViewAccount,
+        info: info,
+        stopDefaultButtonEvent: stopDefaultButtonEvent);
   }
 
   // Use loading page instead of red error screen
   @override
   Widget build(BuildContext context) {
-    
-
     if (user == null || logs == null) {
       return _buildLoadingScreen();
     } else {
       return Scaffold(
-        key: _scaffoldKey,
-            drawer: Navigation(
-                clientName: user!.firstName, clientSurname: user!.lastName),
-        body: Container(
-          decoration: BoxDecoration(
-                gradient: backgroundGradient,
-              ),
-          child: buildPage(context),
-            
-            ));
+          key: _scaffoldKey,
+          drawer: Navigation(
+              clientName: user!.firstName, clientSurname: user!.lastName),
+          body: Container(
+            decoration: BoxDecoration(
+              gradient: backgroundGradient,
+            ),
+            child: buildPage(context),
+          ));
     }
   }
 
@@ -120,7 +118,6 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
             parent: animationController!, curve: Curves.easeInCubic));
 
     return Stack(
-
       children: <Widget>[
         //Detects if the user moved their finger up or down (swiped up or down)
         GestureDetector(
@@ -135,81 +132,77 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
               animationController!.animateBack(0);
             }
           },
+        ),
 
+        Positioned(
+          top: 0,
+          bottom: 100,
+          left: 0,
+          right: 0,
+          child: Container(
+            child: Column(children: [
+              Align(
+                alignment: Alignment.topLeft,
+                child: IconButton(
+                  icon: Icon(Icons.menu, color: Colors.white),
+                  onPressed: () {
+                    _scaffoldKey.currentState!.openDrawer();
+                  },
+                ),
+              ),
+
+              // Spacing
+              Padding(
+                padding: EdgeInsets.only(top: 20),
+              ),
+
+              // Card
+              Align(
+                alignment: Alignment.topCenter,
+                child: AccountCardInfo(
+                  accountType: this.widget.acc.accountType,
+                  accountNumber: this.widget.acc.accountNumber,
+                  firstName: this.widget.acc.fName,
+                  middleNames: this.widget.acc.mName,
+                  lastName: this.widget.acc.lName,
+                  cardType: "VISA",
+                  currAmount: this.widget.acc.currentBalance,
+                  accountTypeId: this.widget.acc.accountTypeId,
+                  canSwipe: false,
+                ),
+              ),
+
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 18),
+              ),
+
+              Padding(
+                padding: EdgeInsets.only(left: 15, right: 15),
+
+                // Function is at the bottom
+                child: heading(),
+              ),
+
+              Padding(
+                padding: EdgeInsets.only(bottom: 15, top: size.height * 0.2),
+                child: Icon(
+                  Icons.arrow_upward,
+                  color: Colors.teal,
+                  size: 36.0,
+                ),
+              ),
+              Text(
+                "Swipe Up for Transaction History",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: fontMont,
+                  fontSize: 20,
+                ),
+              ),
+            ]),
           ),
-          
-            Positioned(
-            top: 0,
-            bottom: 100,
-            left: 0,
-            right: 0,
-            child: Container(
-              child: Column(children: [
-
-                Align(
-                      alignment: Alignment.topLeft,
-                      child: IconButton(
-                        icon: Icon(Icons.menu, color: Colors.white),
-                        onPressed: () {
-                          _scaffoldKey.currentState!.openDrawer();
-                        },
-                      ),
-                    ),
-
-                // Spacing
-                Padding(
-                  padding: EdgeInsets.only(top: 20),
-                ),
-
-                // Card
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: AccountCardInfo(
-                    accountType: this.widget.acc.accountType,
-                    accountNumber: this.widget.acc.accountNumber,
-                    firstName: this.widget.acc.fName,
-                    middleNames: this.widget.acc.mName,
-                    lastName: this.widget.acc.lName,
-                    cardType: "VISA",
-                    currAmount: this.widget.acc.currentBalance,
-                    accountTypeId: this.widget.acc.accountTypeId,
-                    canSwipe: false,
-                  ),
-                ),
-
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 18),
-                ),
-
-                Padding(
-                  padding: EdgeInsets.only(left: 15, right: 15),
-
-                  // Function is at the bottom
-                  child: heading(),
-                ),
-
-                Padding(
-                  padding: EdgeInsets.only(bottom: 15, top: size.height * 0.2),
-                  child: Icon(
-                    Icons.arrow_upward,
-                    color: Colors.teal,
-                    size: 36.0,
-                  ),
-                ),
-                Text(
-                  "Swipe Up for Transaction History",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: fontMont,
-                    fontSize: 20,
-                  ),
-                ),
-              ]),
-            ),
-          ),
-          
-        
+        ),
 
         // Makes the transaction history come up when dragged up
 
@@ -269,107 +262,99 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
                       // Display transactions if there are any
                       else {
                         return Container(
-                            padding: EdgeInsets.all(20),
-                            margin: EdgeInsets.symmetric(vertical: 15),
-                            decoration: BoxDecoration(
-                                color: Colors.teal[100],
-                                borderRadius: BorderRadius.circular(35)),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  logs![index].timeStamp.split(" ")[0],
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.blueGrey[600]!,
-                                    fontFamily: fontMont,
-                                  ),
+                          padding: EdgeInsets.all(20),
+                          margin: EdgeInsets.symmetric(vertical: 15),
+                          decoration: BoxDecoration(
+                              color: Colors.teal[100],
+                              borderRadius: BorderRadius.circular(35)),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                logs![index].timeStamp.split(" ")[0],
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.blueGrey[600]!,
+                                  fontFamily: fontMont,
                                 ),
-                                Padding(padding: EdgeInsets.only(top: 5)),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Ref No: ',
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            color: Colors.black,
-                                            fontFamily: fontMont,
-                                            fontWeight: FontWeight.bold,
-                                          ),
+                              ),
+                              Padding(padding: EdgeInsets.only(top: 5)),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Ref No: ',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.black,
+                                          fontFamily: fontMont,
+                                          fontWeight: FontWeight.bold,
                                         ),
-                                        Padding(
-                                      padding: EdgeInsets.symmetric(horizontal: 10),
-
-                                      child: Text(
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 10),
+                                        child: Text(
                                           logs![index].referenceNumber,
                                           style: TextStyle(
                                               fontSize: 17,
                                               color: Colors.black,
-                                              fontFamily: fontMont
-                                            ),
-                                            
+                                              fontFamily: fontMont),
                                         ),
-                                        ),
-                                      ],
+                                      ),
+                                    ],
+                                  ),
+                                  Text(
+                                    amountPrefix +
+                                        logs![index].amount.toString(),
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        color: textCol,
+                                        fontFamily: fontMont),
+                                  ),
+                                ],
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(10),
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Ref: ',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.black,
+                                      fontFamily: fontMont,
+                                      fontWeight: FontWeight.bold,
                                     ),
-                                    Text(
-                                      amountPrefix +
-                                          logs![index].amount.toString(),
-                                      style: TextStyle(
-                                          fontSize: 15,
-                                          color: textCol,
-                                          fontFamily: fontMont),
-                                    ),
-                                  ],
-                                ),
-
-                                Padding(
-                                      padding: EdgeInsets.all(10),
-                                ),
-
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Ref: ',
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        color: Colors.black,
-                                        fontFamily: fontMont,
-                                        fontWeight: FontWeight.bold,
+                                  ),
+                                  Flexible(
+                                    child: Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 30),
+                                      child: Text(
+                                        logs![index].referenceName,
+                                        style: TextStyle(
+                                            fontSize: 17,
+                                            color: Colors.black,
+                                            fontFamily: fontMont),
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 5,
+                                        textAlign: TextAlign.left,
                                       ),
                                     ),
-
-                                    Flexible(
-
-                                      child: Padding(
-                                      padding: EdgeInsets.symmetric(horizontal: 30),
-
-                                      child: Text(
-                                            logs![index].referenceName,
-                                            style: TextStyle(
-                                                fontSize: 17,
-                                                color: Colors.black,
-                                                fontFamily: fontMont
-                                              ), 
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 5,
-                                          textAlign: TextAlign.left,
-                                          ),
-                                    ),
-                                          
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          );
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        );
                       }
                     }),
               );

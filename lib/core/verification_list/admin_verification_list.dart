@@ -1,9 +1,13 @@
 // coverage:ignore-start
 import 'dart:ui';
 
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
+import 'package:last_national_bank/config/routes/router.dart';
+import 'package:last_national_bank/constants/route_constants.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
 import 'package:last_national_bank/widgets/heading.dart';
+import 'package:last_national_bank/utils/helpers/back_button_helper.dart';
 
 import '../../classes/name.class.dart';
 import '../../utils/helpers/style.dart';
@@ -38,11 +42,27 @@ class _AdminVerificationListPageState extends State<AdminVerificationListPage> {
   @override
   void initState() {
     super.initState();
+    BackButtonInterceptor.add(myInterceptor);
 
     getUnverifiedClients().then((lstNames) {
       names = lstNames;
       setState(() {});
     });
+  }
+
+  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+    return helperInterceptor(
+        context: context,
+        currentRoute: AdminVerificationListRoute,
+        goTo: goToLogin,
+        info: info,
+        stopDefaultButtonEvent: stopDefaultButtonEvent);
+  }
+
+  @override
+  void dispose() {
+    BackButtonInterceptor.remove(myInterceptor);
+    super.dispose();
   }
 
   @override

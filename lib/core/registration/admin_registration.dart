@@ -1,5 +1,7 @@
 // coverage:ignore-start
 import 'package:flutter/material.dart';
+import 'package:last_national_bank/config/routes/router.dart';
+import 'package:last_national_bank/constants/route_constants.dart';
 import 'package:last_national_bank/utils/helpers/style.dart';
 
 import 'widgets/Logo.dart';
@@ -15,13 +17,37 @@ import 'widgets/buttonNewUser.dart';
 import 'widgets/newEmail.dart';
 import 'widgets/newName.dart';
 import 'widgets/userOld.dart';
+import 'package:last_national_bank/utils/helpers/back_button_helper.dart';
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 
 class AdminRegistrationPage extends StatefulWidget {
   @override
   _AdminRegistrationPage createState() => _AdminRegistrationPage();
 }
+
 //builds the UI for admin to register and calls the relevant widgets to be displayed
 class _AdminRegistrationPage extends State<AdminRegistrationPage> {
+  @override
+  void initState() {
+    super.initState();
+    BackButtonInterceptor.add(myInterceptor);
+  }
+
+  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+    return helperInterceptor(
+        context: context,
+        currentRoute: AdminRegistrationRoute,
+        goTo: goToLogin,
+        info: info,
+        stopDefaultButtonEvent: stopDefaultButtonEvent);
+  }
+
+  @override
+  void dispose() {
+    BackButtonInterceptor.remove(myInterceptor);
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(

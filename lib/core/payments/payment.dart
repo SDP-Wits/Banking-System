@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:last_national_bank/classes/accountDetails.dart';
 import 'package:last_national_bank/classes/user.class.dart';
 import 'package:last_national_bank/config/routes/router.dart';
+import 'package:last_national_bank/constants/route_constants.dart';
 import 'package:last_national_bank/core/payments/payment.functions.dart';
 import 'package:last_national_bank/core/transfer/widgets/scrollAccount.dart';
 import 'package:last_national_bank/utils/helpers/dialogs.dart';
@@ -12,6 +13,7 @@ import 'package:last_national_bank/utils/services/local_db.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
 import 'package:last_national_bank/widgets/heading.dart';
 import 'package:last_national_bank/widgets/navigation.dart';
+import 'package:last_national_bank/utils/helpers/back_button_helper.dart';
 
 // Used to determine the account chosen in both scroll widgets
 int accountFromIndex = 0;
@@ -53,8 +55,12 @@ class _PaymentsState extends State<Payments> {
   }
 
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-    goToProfilePage(context);
-    return true;
+    return helperInterceptor(
+        context: context,
+        currentRoute: PaymentRoute,
+        goTo: goToSelectPayment,
+        info: info,
+        stopDefaultButtonEvent: stopDefaultButtonEvent);
   }
 
   @override

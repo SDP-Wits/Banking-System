@@ -1,5 +1,6 @@
 // coverage:ignore-start
 
+import 'package:last_national_bank/utils/helpers/back_button_helper.dart';
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -74,12 +75,12 @@ class _AccountsState extends State<Accounts> {
   }
 
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-    if (ModalRoute.of(context)!.settings.name == ProfileRoute) {
-      goToProfilePage(context);
-      return true;
-    }
-
-    return false;
+    return helperInterceptor(
+        context: context,
+        currentRoute: ViewAccountRoute,
+        goTo: goToProfilePage,
+        info: info,
+        stopDefaultButtonEvent: stopDefaultButtonEvent);
   }
 
   @override
@@ -123,7 +124,7 @@ class _AccountsState extends State<Accounts> {
                 ),
 
                 Heading("Accounts"),
-                
+
                 // Spacing
                 Padding(
                   padding: EdgeInsets.only(top: 20),

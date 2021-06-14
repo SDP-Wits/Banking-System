@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:fluttertoast/fluttertoast.dart';
 import "package:http/http.dart" as http;
 
 import '../../classes/accountDetails.dart';
@@ -19,30 +21,52 @@ Future<List<Map<String, dynamic>>> getURLData(String url) async {
   print(url);
   final Uri uri = Uri.parse(url);
 
-  final httpResponse = await http.get(uri);
+  try {
+    final httpResponse = await http.get(uri);
 
-  if (httpResponse.statusCode == 200) {
-    print("response from json is " + httpResponse.body);
-    final jsonOutput = json.decode(httpResponse.body);
+    if (httpResponse.statusCode == 200) {
+      print("response from json is " + httpResponse.body);
+      final jsonOutput = json.decode(httpResponse.body);
 
-    List<Map<String, dynamic>> map = [];
-    for (dynamic e in jsonOutput) {
-      map.add(Map<String, dynamic>.from(e));
+      List<Map<String, dynamic>> map = [];
+      for (dynamic e in jsonOutput) {
+        map.add(Map<String, dynamic>.from(e));
+      }
+
+      return map;
+    } else {
+      // coverage:ignore-start
+      print("Oi, the url that just failed was : $url");
+      return [
+        {"error": "Failed to get data from database"}
+      ];
     }
+  } on SocketException catch (e) {
+    print("Database down");
+    print(e.toString());
+    Fluttertoast.showToast(msg: "The database's server is down :(");
 
-    return map;
-  } else {// coverage:ignore-start
-    print("Oi, the url that just failed was : $url");
     return [
-      {"error": "Failed to get data from database"}
+      {"status": false, "error": "Failed to connect to database"}
+    ];
+  } catch (e) {
+    print("php script might be messed up");
+    print(url);
+    print(e.toString());
+    Fluttertoast.showToast(
+        msg:
+            "Whoops, we encounted an issue. Please try again or contact support");
+
+    return [
+      {"status": false, "error": "Failed to get your information"}
     ];
   }
 }
 //Log the user in, based off whether they are a client or not
 
-
 Future<String> userLoginOnline(
-    String idNumber, String hashPassword, bool isClientLogin) async {// coverage:ignore-start
+    String idNumber, String hashPassword, bool isClientLogin) async {
+  // coverage:ignore-start
   //Choosing php file based off whether the user is a client or admin"
   String phpFileToUse =
       isClientLogin ? attempt_client_login : attempt_admin_login;
@@ -191,7 +215,6 @@ Future<List<thisUser>> getClientDetails(String idNumber) async {
   }
   return users;
 }
-
 
 //Verify an unverified client
 Future<String> verifyClient(String clientIdNumber, String adminIdNumber,

@@ -16,6 +16,7 @@ import 'package:last_national_bank/utils/services/online_db.dart';
 import 'package:last_national_bank/widgets/heading.dart';
 import 'package:last_national_bank/widgets/navigation.dart';
 import 'package:last_national_bank/widgets/noAccounts.dart';
+import 'package:last_national_bank/utils/helpers/back_button_helper.dart';
 
 /*
 The Transfers class allows for clients to make a transfer between their own bank accounts.
@@ -52,7 +53,6 @@ int accountToIndex = 0;
 class _TransfersState extends State<Transfers> {
   User? user; // User information
   List<accountDetails> acc = []; // User's account information
-
   // Two controlers to control scroll functionality on the two widgets (accountFrom and accountTo)
   late ScrollController controller1;
   late ScrollController controller2;
@@ -88,14 +88,12 @@ class _TransfersState extends State<Transfers> {
   }
 
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-    // toastyPrint(info.routeWhenAdded.isFirst);
-    if (ModalRoute.of(context)!.settings.name == TransferRoute) {
-      Navigator.pop(context);
-      goToSelectPayment(context);
-      return true;
-    }
-
-    return true;
+    return helperInterceptor(
+        context: context,
+        currentRoute: TransferRoute,
+        goTo: goToSelectPayment,
+        info: info,
+        stopDefaultButtonEvent: stopDefaultButtonEvent);
   }
 
   @override
@@ -257,6 +255,7 @@ class _TransfersState extends State<Transfers> {
 
                                 // Dialogue which asks user if they wish to make another transfer or
                                 // be directed to the Timeline UI
+                                Navigator.pop(context);
                                 goToTimelineDialog(context);
                               }
                             });

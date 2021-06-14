@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:last_national_bank/classes/accountDetails.dart';
 import 'package:last_national_bank/classes/name.class.dart';
 import 'package:last_national_bank/core/account/accounts.dart';
-import 'package:last_national_bank/core/bank_account_options/account_options.dart';
+import 'package:last_national_bank/core/create_account/create_account.dart';
 import 'package:last_national_bank/core/payments/payment.dart';
 import 'package:last_national_bank/core/select_payment/select_payment.dart';
 import 'package:last_national_bank/core/specific_account/specific_bank_account.dart';
@@ -52,7 +52,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialRouteWrap(NewUser(), settings);
 
     case CreateAccountRoute:
-      return MaterialRouteWrap(BankAccountOptions(), settings);
+      return MaterialRouteWrap(CreateAccount(), settings);
 
     case ViewAccountRoute:
       return MaterialRouteWrap(Accounts(), settings);
