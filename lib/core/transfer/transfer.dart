@@ -89,9 +89,7 @@ class _TransfersState extends State<Transfers> {
 
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
     // toastyPrint(info.routeWhenAdded.isFirst);
-    Fluttertoast.showToast(msg: "Back button interceptor triggered");
     if (ModalRoute.of(context)!.settings.name == TransferRoute) {
-      Fluttertoast.showToast(msg: "hey");
       Navigator.pop(context);
       goToSelectPayment(context);
       return true;
