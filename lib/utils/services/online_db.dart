@@ -45,7 +45,7 @@ Future<List<Map<String, dynamic>>> getURLData(String url) async {
 
 
 Future<String> userLoginOnline(
-    String idNumber, String hashPassword, bool isClientLogin) async {
+    String idNumber, String hashPassword, bool isClientLogin) async {// coverage:ignore-start
   //Choosing php file based off whether the user is a client or admin"
   String phpFileToUse =
       isClientLogin ? attempt_client_login : attempt_admin_login;
@@ -68,7 +68,7 @@ Future<String> userLoginOnline(
   //then we should return dbSuccess
 
   bool isAdmin = !isClientLogin;
-  User user = User(// coverage:ignore-start
+  User user = User(
     (isAdmin) ? int.parse(data["adminID"]) : int.parse(data["clientID"]),
     data["firstName"],
     data["middleName"],
@@ -130,8 +130,8 @@ Future<List<Name>> getUnverifiedClients() async {
   final String url = urlPath + select_unverified_client_names;
 
   final List<Map> data = await getURLData(url);
-  if (data[0].containsKey("status")) { // coverage:ignore-start
-    if (!data[0]["status"]) {
+  if (data[0].containsKey("status")) {
+    if (!data[0]["status"]) {// coverage:ignore-start
       print("There are no unverified clients");
       return [];
     }
@@ -158,8 +158,8 @@ Future<int> getNumberOfAccounts() async {
 
   final List<Map> data = (await getURLData(url));
   // There will always be account typed in the db
-  if (data[0].containsKey("status")) {// coverage:ignore-start
-    if (!data[0]["status"]) {
+  if (data[0].containsKey("status")) {
+    if (!data[0]["status"]) {// coverage:ignore-start
       print("There are no account types");
       return 0;
     }
@@ -194,8 +194,8 @@ Future<List<thisUser>> getClientDetails(String idNumber) async {
 
   final List<Map> data = (await getURLData(url));
 
-  if (data[0].containsKey("status")) {// coverage:ignore-start
-    if (!data[0]["status"]) {
+  if (data[0].containsKey("status")) {
+    if (!data[0]["status"]) {// coverage:ignore-start
       print("There are no unverified clients");
       return [];
     }
@@ -255,8 +255,8 @@ Future<List<accountTypes>> getAccountTypes() async {
 
   final List<Map> accTypeDetails = await getURLData(url);
 
-  if (accTypeDetails[0].containsKey("status")) {// coverage:ignore-start
-    if (!accTypeDetails[0]["status"]) {
+  if (accTypeDetails[0].containsKey("status")) {
+    if (!accTypeDetails[0]["status"]) {// coverage:ignore-start
       print("There are no account options");
       return [];
     }
@@ -294,8 +294,8 @@ Future<List<int>> getExistingAccountTypes(int clientID) async {
     return [];
   }
 
-  if (existingAccTypes[0].containsKey("status")) {// coverage:ignore-start
-    if (!existingAccTypes[0]["status"]) {
+  if (existingAccTypes[0].containsKey("status")) {
+    if (!existingAccTypes[0]["status"]) {// coverage:ignore-start
       print("There are no exisiting accounts for this user");
       return [];
     }
