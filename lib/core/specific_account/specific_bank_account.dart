@@ -156,7 +156,7 @@ class _SpecificAccountPageState extends State<SpecificAccountPage> with TickerPr
 
         Positioned(
           top: 0,
-          bottom: 100,
+          bottom: 80,
           left: 0,
           right: 0,
           child: Container(
@@ -256,15 +256,17 @@ class _SpecificAccountPageState extends State<SpecificAccountPage> with TickerPr
                     itemBuilder: (BuildContext context, int index) {
                       //Checks whether a transaction amount is positive (accountTo) or negative (accountFrom)
                       //and adds the appropriate Rand symbol to the front of the amount
-                      String amountPrefix;
+                      String amountPrefix = '';
                       Color textCol = Colors.black;
-                      if (this.widget.acc.accountNumber ==
-                          logs![index].accountTo) {
-                        textCol = Colors.green[800]!;
-                        amountPrefix = "+ R ";
-                      } else {
-                        textCol = Colors.red[500]!;
-                        amountPrefix = "- R ";
+                      if (logs!.length > 0){
+                        if (this.widget.acc.accountNumber ==
+                            logs![index].accountTo) {
+                          textCol = Colors.green[800]!;
+                          amountPrefix = "+ R ";
+                        } else {
+                          textCol = Colors.red[500]!;
+                          amountPrefix = "- R ";
+                        }
                       }
                       // If there are no transactions, then display message in place
                       if (logs!.length == 0) {
@@ -273,7 +275,7 @@ class _SpecificAccountPageState extends State<SpecificAccountPage> with TickerPr
                             ListTile(
                               title: Text("No Recent Activity",
                                   style: TextStyle(
-                                      fontSize: 15, color: Colors.white)),
+                                      fontSize: 15, color: Colors.teal)),
                             ),
                           ],
                         );
