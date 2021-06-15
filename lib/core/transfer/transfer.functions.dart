@@ -75,7 +75,11 @@ Future<bool> submitTransfer(double currAmt, String accountFrom, String accountTo
   String success =
       await makeTransfer(accountFrom, accountTo, amountText, referenceNameText);
 
+  
+
   Fluttertoast.showToast(msg: success);
   return (success == dbSuccess);
+
+  
 }
 // coverage:ignore-end

@@ -22,25 +22,22 @@ and a swipe widget which displays all the relevant transactions for the specific
 FRONT END
 ==========================================================================================
 There is no need for any input data but the front end includes displaying data:
-  - Account number that the client wishes to make the transfer FROM (accountFrom)
-  - Account number that the client wishes to make the transfer TO (accountTo)
-  - The amount the client wishes to transfer
-  - The refernce name of the transaction
-AccountFrom and AccountTo are presented in the form of scroll widgets which reduces user input.
+  - The card widget displays ther user's account details (account number, account current
+    amount, account holder name)
+  - A swipe up widget which displays all transaction details per transaction (transaction date,
+    transaction reference number, transaction reference name)
 
 BACK END
 ==========================================================================================
-There is an http request and PHP file that gets all the accounts that the client already has 
-with the bank which is used to display account information in the scroll widgets.
-
-There is an http request and PHP file that takes the input data from this UI and enters it into
-the respective tables in the database.
+In the previous UI, when all user's accounts are retrieved, when a user swipes on a card widget
+the account details for that specific account that the client swiped on is sent to this UI.
 */
 
 class SpecificAccountPage extends StatefulWidget {
+
+  
   accountDetails acc;
 
-  //SpecificAccountPage ({ required Key key, required this.acc}): super(key: key);
   SpecificAccountPage({required this.acc});
 
   @override

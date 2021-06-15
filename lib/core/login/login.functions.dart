@@ -14,9 +14,13 @@ import '../../utils/helpers/SHA-256_encryption.dart';
 TextEditingControllers to keep track of the text in the UI
 */
 
-final TextEditingController idController = TextEditingController(text: "");
+//Text for inputs
+String idText = "";
+String passwordText = "";
+
+final TextEditingController idController = TextEditingController(text: idText);
 final TextEditingController passwordController =
-    TextEditingController(text: "");
+    TextEditingController(text: passwordText);
 
 TextEditingController getIDController() {
   return idController;
@@ -24,6 +28,14 @@ TextEditingController getIDController() {
 
 TextEditingController getPasswordController() {
   return passwordController;
+}
+
+// Clear InputFields
+void emptyTextLogin() {
+  idText = "";
+  passwordText = "";
+  idController.text = "";
+  passwordController.text = "";
 }
 
 /*
@@ -91,6 +103,8 @@ Future<void> loginProcedure(BuildContext context) async {
   String response = await userLoginOnline(id, password, isClientLogin);
   Fluttertoast.showToast(msg: response);
 
+  
+
   if (response == dbSuccess) {
     currID.id = idController.text;
     if (!isClientLogin) {
@@ -101,6 +115,8 @@ Future<void> loginProcedure(BuildContext context) async {
       goToProfilePage(context);
     }
   }
+
+  
 }
 
 // coverage:ignore-end

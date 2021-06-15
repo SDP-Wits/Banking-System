@@ -30,6 +30,8 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
     //Adding Back Button listener
     BackButtonInterceptor.add(myInterceptor);
+
+    emptyTextLogin();
   }
 
   //What happens when you press the back button, exit the app
@@ -86,6 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                 ButtonLogin(() {
                   //What happens when the login button is clicked
                   loginProcedure(context);
+                  
                 }),
                 FirstTime()
               ]),
