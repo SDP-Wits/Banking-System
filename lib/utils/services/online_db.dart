@@ -61,6 +61,7 @@ Future<List<Map<String, dynamic>>> getURLData(String url) async {
       {"status": false, "error": "Failed to get your information"}
     ];
   }
+  // coverage:ignore-end
 }
 //Log the user in, based off whether they are a client or not
 
@@ -89,6 +90,7 @@ Future<String> userLoginOnline(
   //then we should return dbSuccess
 
   bool isAdmin = !isClientLogin;
+  // coverage:ignore-start
   User user = User(
     (isAdmin) ? int.parse(data["adminID"]) : int.parse(data["clientID"]),
     data["firstName"],
@@ -125,6 +127,7 @@ Future<String> userLoginOnline(
       user.address.province,
       user.address.country,
       user.address.apartmentNumber);
+  // coverage:ignore-end
 }
 
 //Getting list of all unverified clients
@@ -136,9 +139,11 @@ Future<List<Name>> getUnverifiedClients() async {
   //status only returned in failed case, so as long as the returned data
   // contains "status" we can assume it failed
   if (data[0].containsKey("status")) {
+    // coverage:ignore-start
     return [];
+    // coverage:ignore-end
   }
-
+// coverage:ignore-start
   List<Name> names = [];
   for (var map in data) {
     Name name = Name(
@@ -150,6 +155,7 @@ Future<List<Name>> getUnverifiedClients() async {
 
     names.add(name);
   }
+  // coverage:ignore-end
 
   return names;
 }
@@ -253,7 +259,9 @@ Future<List<accountTypes>> getAccountTypes() async {
   //status only returned in failed case, so as long as the returned data
   // contains "status" we can assume it failed
   if (accTypeDetails[0].containsKey("status")) {
+    // coverage:ignore-start
     return [];
+    // coverage:ignore-end
   }
 
   List<accountTypes> bankAccTypes = [];
@@ -286,7 +294,9 @@ Future<List<int>> getExistingAccountTypes(int clientID) async {
 
   // if client has no accounts
   if (existingAccTypes.isEmpty) {
+    // coverage:ignore-start
     return [];
+    // coverage:ignore-end
   }
 
   //status only returned in failed case, so as long as the returned data

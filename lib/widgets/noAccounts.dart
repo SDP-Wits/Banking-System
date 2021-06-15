@@ -29,7 +29,7 @@ class _NoAccountState extends State<NoAccount> {
 
   Widget build(BuildContext context) {
     return (user == null)
-        ? buildLoadingScreen()
+        ? buildLoadingScreen(context)
         : Scaffold(
             drawer: Navigation(
                 clientName: user!.firstName, clientSurname: user!.lastName),

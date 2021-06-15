@@ -48,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
 
     //TODO: Comment before final release
-    autoLogin(context);
+    // autoLogin(context);
   }
 
   @override

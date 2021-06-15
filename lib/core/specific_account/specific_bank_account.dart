@@ -94,7 +94,7 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
   @override
   Widget build(BuildContext context) {
     if (user == null || logs == null) {
-      return buildLoadingScreen();
+      return buildLoadingScreen(context);
     } else {
       return Scaffold(
           key: _scaffoldKey,

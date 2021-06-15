@@ -96,7 +96,7 @@ class _CreateAccountState extends State<CreateAccount> {
     GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final size = MediaQuery.of(context).size;
     return (user == null)
-        ? buildLoadingScreen()
+        ? buildLoadingScreen(context)
         : Scaffold(
             key: _scaffoldKey,
             drawer: Navigation(
@@ -228,7 +228,7 @@ class _CreateAccountState extends State<CreateAccount> {
                           );
                         }),
                   )
-                : buildLoadingScreen(),
+                : buildLoadingScreen(context),
           );
   }
 }

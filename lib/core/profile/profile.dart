@@ -70,7 +70,7 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     if (me == null) {
-      return buildLoadingScreen();
+      return buildLoadingScreen(context);
     } else {
       return buildPage();
     }

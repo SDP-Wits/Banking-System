@@ -105,7 +105,7 @@ class _TransfersState extends State<Transfers> {
 
     return (user == null)
         // While the user's dettails are being retrieved, display the loading screen
-        ? buildLoadingScreen()
+        ? buildLoadingScreen(context)
 
         // When the user's details have been retrieved,
         // if the do not have an account, display the NoAccount Widget,
