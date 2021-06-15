@@ -15,8 +15,10 @@ def driver_func():
             k = arr
             results= [pool.apply_async(make_request, p) for p in k]
 
+            i = 0
             for r in results:
-                print('\t', r.get())
+                print("These are the times taken for client ", all_ids[i] ,':','\t', r.get())
+                i+=1
 
 def make_request(i):
     all_times = []
