@@ -61,7 +61,7 @@ class _TimelineListPageState extends State<TimelinePage> {
   @override
   Widget build(BuildContext context) {
     if (logs == null) {
-      return buildLoadingScreen();
+      return buildLoadingScreen(context);
     } else {
       return buildPage();
     }

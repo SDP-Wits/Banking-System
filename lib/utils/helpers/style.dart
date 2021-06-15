@@ -25,46 +25,51 @@ var backgroundGradient = LinearGradient(
   colors: [Colors.teal, Color(0xFFffa781)],
 );
 // below is a loading screen which is used for pages that have to wait for data from the database
-Widget buildLoadingScreen() {
-  return Expanded(
-    child: Container(
-      decoration: BoxDecoration(
-        gradient: backgroundGradient,
-      ),
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              width: 0,
-              height: 0,
+Widget buildLoadingScreen(BuildContext context) {
+  return Column(
+    children: [
+      Expanded(
+        flex: 1,
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: backgroundGradient,
+          ),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  width: 0,
+                  height: 0,
+                ),
+                Container(
+                  width: 50,
+                  height: 50,
+                  child: CircularProgressIndicator(
+                    backgroundColor: Colors.white,
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.all(5),
+                  margin: EdgeInsets.only(top: 25),
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Loading...",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontFamily: fontMont,
+                        fontSize: 22,
+                        color: Colors.white,
+                        decoration: TextDecoration.none),
+                  ),
+                ),
+              ],
             ),
-            Container(
-              width: 50,
-              height: 50,
-              child: CircularProgressIndicator(
-                backgroundColor: Colors.white,
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.all(5),
-              margin: EdgeInsets.only(top: 25),
-              alignment: Alignment.center,
-              child: Text(
-                "Loading...",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontFamily: fontMont,
-                    fontSize: 22,
-                    color: Colors.white,
-                    decoration: TextDecoration.none),
-              ),
-            ),
-          ],
+          ),
         ),
       ),
-    ),
+    ],
   );
 }
 // coverage:ignore-end

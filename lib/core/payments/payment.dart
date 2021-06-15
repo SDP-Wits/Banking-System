@@ -197,7 +197,7 @@ class _PaymentsState extends State<Payments> {
               ),
             ),
           )
-        : buildLoadingScreen();
+        : buildLoadingScreen(context);
   }
 }
 

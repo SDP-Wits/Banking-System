@@ -61,7 +61,7 @@ class _SelectPaymentPageState extends State<SelectPaymentPage> {
   @override
   Widget build(BuildContext context) {
     if (user == null) {
-      return buildLoadingScreen();
+      return buildLoadingScreen(context);
     } else {
       if (accountDets.isNotEmpty) {
         return buildPage(context);

@@ -1,5 +1,5 @@
 // coverage:ignore-start
-//Stores all the data for a persons account
+//Stores all the data for 2 peoples account for transactions/logs.
 class specificAccount {
   final String accountNumber;
   final int accountTypeId;

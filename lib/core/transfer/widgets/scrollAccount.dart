@@ -35,7 +35,7 @@ class _ScrollAccountState extends State<ScrollAccount> {
     final containerWidth = size.width * 0.9;
 
     return (itemSize == 0)
-        ? buildLoadingScreen()
+        ? buildLoadingScreen(context)
         : Container(
             width: containerWidth,
             child: Column(

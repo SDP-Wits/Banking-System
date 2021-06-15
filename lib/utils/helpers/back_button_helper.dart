@@ -11,7 +11,7 @@ bool helperInterceptor(
     required String currentRoute}) {
   if (info.currentRoute(context)!.settings.name ==
       getCurrentRouteName(context)) {
-    Future.delayed(Duration(milliseconds: 50)).then((value) {
+    Future.delayed(Duration(milliseconds: 1)).then((value) {
       Navigator.pop(context);
       goTo(context);
     });

@@ -182,7 +182,7 @@ class _AccountsState extends State<Accounts> {
     } else if (finishedGetData) {
       return NoAccount();
     } else {
-      return buildLoadingScreen();
+      return buildLoadingScreen(context);
     }
   }
 }

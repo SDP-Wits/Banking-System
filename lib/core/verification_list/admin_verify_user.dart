@@ -57,7 +57,7 @@ class _VerifyUserState extends State<VerifyUser> {
   Widget build(BuildContext context) {
     if (thisuser.isEmpty) {
       getClientDetails(widget.IDnum);
-      return buildLoadingScreen();
+      return buildLoadingScreen(context);
     } else {
       return buildpage();
     }
