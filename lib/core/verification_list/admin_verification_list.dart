@@ -45,8 +45,9 @@ class _AdminVerificationListPageState extends State<AdminVerificationListPage> {
     BackButtonInterceptor.add(myInterceptor);
 
     getUnverifiedClients().then((lstNames) {
-      names = lstNames;
-      setState(() {});
+      setState(() {
+        names = lstNames;
+      });
     });
   }
 
@@ -130,6 +131,7 @@ class _AdminVerificationListPageState extends State<AdminVerificationListPage> {
                               goToVerifyUser(
                                   context: context,
                                   idNumber: names[index].IDnum);
+                              Navigator.pop(context);
                             },
 
                             child: Container(
