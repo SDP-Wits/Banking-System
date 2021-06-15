@@ -40,20 +40,26 @@ Future<List<Map<String, dynamic>>> getURLData(String url) async {
       return [
         {"error": "Failed to get data from database"}
       ];
-    }
+    } // coverage:ignore-start
   } on SocketException catch (e) {
     print("Database down");
     print(e.toString());
     Fluttertoast.showToast(msg: "The database's server is down :(");
-
+// coverage:ignore-end
+    // coverage:ignore-start
     return [
-      {"status": false, "error": "Failed to connect to database"}
+      {
+        "status": false,
+        "error": "Failed to connect to database"
+      } // coverage:ignore-end
     ];
   } catch (e) {
+    // coverage:ignore-start
     print("php script might be messed up");
     print(url);
     print(e.toString());
     Fluttertoast.showToast(
+        // coverage:ignore-end
         msg:
             "Whoops, we encounted an issue. Please try again or contact support");
 
@@ -101,15 +107,19 @@ Future<String> userLoginOnline(
     data["email"],
     data["idNumber"],
     data["password"],
+    // coverage:ignore-end
     isAdmin,
+    // coverage:ignore-start
     int.parse(data["streetNumber"]),
     data["streetName"],
     data["suburb"],
     data["province"],
     data["country"],
     int.parse(data["apartmentNumber"]),
+    // coverage:ignore-end
   );
 
+  // coverage:ignore-start
   return await LocalDatabaseHelper.instance.addUserDetails(
       user.userID,
       user.email,
@@ -169,7 +179,9 @@ Future<int> getNumberOfAccounts() async {
   // contains "status" we can assume it failed
   // There will always be account typed in the db
   if (data[0].containsKey("status")) {
+    // coverage:ignore-start
     return 0;
+    // coverage:ignore-end
   }
   return int.parse(data[0]["NumAccountTypes"].toString());
 }
