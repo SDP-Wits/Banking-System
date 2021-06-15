@@ -35,10 +35,8 @@ Future<List<Map<String, dynamic>>> getURLData(String url) async {
 
       return map;
     } else {
-      print("Oi, the url that just failed was : $url");// coverage:ignore-line
-      return [// coverage:ignore-line
-        {"error": "Failed to get data from database"}// coverage:ignore-line
-      ];
+      print("Oi, the url that just failed was : $url"); //coverage:ignore-line
+      return [{"error": "Failed to get data from database"}];// coverage:ignore-line
     }
   } on SocketException catch (e) {
     print("Database down");
@@ -46,26 +44,18 @@ Future<List<Map<String, dynamic>>> getURLData(String url) async {
     Fluttertoast.showToast(msg: "The database's server is down :(");
 
     return [
-      {
-        "status": false,
-        "error": "Failed to connect to database"
-      }
+      {"status": false, "error": "Failed to connect to database"}
     ];
   } catch (e) {
-
     print("php script might be messed up");
     print(url);
     print(e.toString());
     Fluttertoast.showToast(
-
         msg:
             "Whoops, we encounted an issue. Please try again or contact support");
 
-    return [
-      {"status": false, "error": "Failed to get your information"}
-    ];
+    return [{"status": false, "error": "Failed to get your information"}];
   }
-
 }
 //Log the user in, based off whether they are a client or not
 
@@ -94,8 +84,9 @@ Future<String> userLoginOnline(
   //then we should return dbSuccess
 
   bool isAdmin = !isClientLogin;
-  // coverage:ignore-start
+
   User user = User(
+    // coverage:ignore-start
     (isAdmin) ? int.parse(data["adminID"]) : int.parse(data["clientID"]),
     data["firstName"],
     data["middleName"],
@@ -117,8 +108,8 @@ Future<String> userLoginOnline(
     // coverage:ignore-end
   );
 
-  // coverage:ignore-start
   return await LocalDatabaseHelper.instance.addUserDetails(
+      // coverage:ignore-start
       user.userID,
       user.email,
       user.phoneNumber,
@@ -135,7 +126,7 @@ Future<String> userLoginOnline(
       user.address.province,
       user.address.country,
       user.address.apartmentNumber);
-  // coverage:ignore-end
+      // coverage:ignore-end
 }
 
 //Getting list of all unverified clients
@@ -145,7 +136,7 @@ Future<List<Name>> getUnverifiedClients() async {
   final List<Map> data = await getURLData(url);
 
   //no unverfied clients
-  if (data.isEmpty){
+  if (data.isEmpty) {
     return [];
   }
 
