@@ -35,31 +35,29 @@ Future<List<Map<String, dynamic>>> getURLData(String url) async {
 
       return map;
     } else {
-      // coverage:ignore-start
-      print("Oi, the url that just failed was : $url");
-      return [
-        {"error": "Failed to get data from database"}
+      print("Oi, the url that just failed was : $url");// coverage:ignore-line
+      return [// coverage:ignore-line
+        {"error": "Failed to get data from database"}// coverage:ignore-line
       ];
-    } // coverage:ignore-start
+    }
   } on SocketException catch (e) {
     print("Database down");
     print(e.toString());
     Fluttertoast.showToast(msg: "The database's server is down :(");
-// coverage:ignore-end
-    // coverage:ignore-start
+
     return [
       {
         "status": false,
         "error": "Failed to connect to database"
-      } // coverage:ignore-end
+      }
     ];
   } catch (e) {
-    // coverage:ignore-start
+
     print("php script might be messed up");
     print(url);
     print(e.toString());
     Fluttertoast.showToast(
-        // coverage:ignore-end
+
         msg:
             "Whoops, we encounted an issue. Please try again or contact support");
 
@@ -67,7 +65,7 @@ Future<List<Map<String, dynamic>>> getURLData(String url) async {
       {"status": false, "error": "Failed to get your information"}
     ];
   }
-  // coverage:ignore-end
+
 }
 //Log the user in, based off whether they are a client or not
 
