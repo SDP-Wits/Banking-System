@@ -1,4 +1,5 @@
 // coverage:ignore-start
+//Stores all the details of all the transactions for the user
 class Log {
   late String timeStamp;
   late String logDescription;

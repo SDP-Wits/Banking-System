@@ -1,4 +1,5 @@
 // coverage:ignore-start
+//Stores the name of a user
 class Name {
   final String fName;
   final String? mName;

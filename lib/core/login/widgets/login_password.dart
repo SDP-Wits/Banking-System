@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import '../login.functions.dart';
 import '../login.helpers.dart';
 
+/*
+Input Filed for the password that takes in a TextEditingController to be user in
+login.functions.dart this is purely just for UI.
+*/
 class PasswordInput extends StatefulWidget {
   @override
   PasswordInputState createState() => PasswordInputState();

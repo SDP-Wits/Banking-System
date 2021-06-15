@@ -1,4 +1,5 @@
 // coverage:ignore-start
+//Stores the address information of the user
 class Address {
   int streetNumber;
   String streetName;

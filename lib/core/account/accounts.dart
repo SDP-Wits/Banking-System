@@ -25,9 +25,8 @@ class Accounts extends StatefulWidget {
 class _AccountsState extends State<Accounts> {
   User? user;
 
-  String cardType = "VISA"; // There is no field in the db for this
-  //There shouldn't be one coz it only applies to transactions account
-  //So we can sort that out in the future, but for now hardcode it
+  String cardType = "VISA"; // Shows the card type to give it a
+  //modern credit/debit card look
 
   //Intializing unique account details
   List<accountDetails> acc = [];
@@ -38,9 +37,10 @@ class _AccountsState extends State<Accounts> {
   void initState() {
     super.initState();
 
+    //Adding Back Button Listener
     BackButtonInterceptor.add(myInterceptor);
 
-    //Getting unique account details
+    //Getting unique account details and number of accounts and set it to variables
     LocalDatabaseHelper.instance.getUserAndAddress().then((userDB) {
       getAccountDetails(userDB!.idNumber).then((account) {
         getNumberOfAccounts().then((numberAccounts) {
@@ -50,6 +50,7 @@ class _AccountsState extends State<Accounts> {
             acc = account;
           });
 
+          //If account is empty show a toast
           if (acc.isEmpty) {
             Fluttertoast.showToast(
                 msg: "Account Does Not Exist",
@@ -70,10 +71,12 @@ class _AccountsState extends State<Accounts> {
 
   @override
   void dispose() {
+    //Removing Back Button Listener
     BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
   }
 
+  //When the Back Button is pressed this happens, go to Profile Page
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
     return helperInterceptor(
         context: context,
@@ -166,6 +169,9 @@ class _AccountsState extends State<Accounts> {
                       }),
                 ),
                 (acc.length < uniqueAccountTypes)
+                    //If and only if, the number of accounts the user has is less than the number of
+                    //unique accounts, show the + circle button. The user can click on this and it will
+                    //take them to the create accounts screen
                     ? floatingCreateAccount(context)
                     : Container(width: 0, height: 0)
               ],

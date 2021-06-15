@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 
 import '../login.helpers.dart';
 
+/*
+Input Filed for the ID Number that takes in a TextEditingController to be user in
+login.functions.dart this is purely just for UI.
+*/
 class InputID extends StatefulWidget {
   final TextEditingController idController;
   InputID(this.idController);

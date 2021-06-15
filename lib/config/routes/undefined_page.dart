@@ -1,6 +1,10 @@
 // coverage:ignore-start
 import 'package:flutter/material.dart';
 
+/*
+When there is a route that does NOT exist,
+this widget will show up
+*/
 class UndefinedPage extends StatelessWidget {
   final String name;
 

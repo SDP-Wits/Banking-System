@@ -22,7 +22,10 @@ import '../../core/profile/profile.dart';
 import 'router.helper.dart';
 import 'undefined_page.dart';
 
-//When the app changes route names, make this specific widget
+/*
+Routing for the app, this will handle the movement from one 
+widget/page to another widget/page
+*/
 Route<dynamic> generateRoute(RouteSettings settings) {
   //Getting page to go to (settings.name)
   switch (settings.name) {

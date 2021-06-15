@@ -1,6 +1,7 @@
 // coverage:ignore-start
 import 'address.class.dart';
 
+//User class that stores all the users data
 class User {
   late int userID;
   late String firstName;

@@ -28,10 +28,13 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
+    //Adding Back Button listener
     BackButtonInterceptor.add(myInterceptor);
   }
 
+  //What happens when you press the back button, exit the app
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+    //Exit the app
     if (info.currentRoute(context)!.settings.name ==
         getCurrentRouteName(context)) {
       Future.delayed(Duration(milliseconds: 50)).then((value) {
@@ -46,10 +49,12 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void dispose() {
+    //Removing Back Button listener
     BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
   }
 
+  //Contains ID Number and Password for the login of the user
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -79,6 +84,7 @@ class _LoginPageState extends State<LoginPage> {
                 InputID(getIDController()),
                 PasswordInput(getPasswordController()),
                 ButtonLogin(() {
+                  //What happens when the login button is clicked
                   loginProcedure(context);
                 }),
                 FirstTime()

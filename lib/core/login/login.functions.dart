@@ -1,6 +1,7 @@
 // coverage:ignore-start
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:last_national_bank/core/login/login.helpers.dart';
 import 'package:last_national_bank/utils/helpers/ignore_helper.dart';
 
 import '../../classes/currID.dart';
@@ -8,6 +9,10 @@ import '../../config/routes/router.dart';
 import '../../constants/database_constants.dart';
 import '../../utils/services/online_db.dart';
 import '../../utils/helpers/SHA-256_encryption.dart';
+
+/*
+TextEditingControllers to keep track of the text in the UI
+*/
 
 final TextEditingController idController = TextEditingController(text: "");
 final TextEditingController passwordController =
@@ -21,6 +26,10 @@ TextEditingController getPasswordController() {
   return passwordController;
 }
 
+/*
+Show a pop up box asking whether the user wants
+to login with their admin or client account
+*/
 Future<void> loginProcedure(BuildContext context) async {
   bool isClientLogin = true;
   await showDialog(
@@ -64,25 +73,31 @@ Future<void> loginProcedure(BuildContext context) async {
 
   String id = idController.text;
 
-  if (id.length != 13) {
+  //If Invalid ID Number, show error msg
+  if (hasInputErrorID(id)) {
     Fluttertoast.showToast(msg: "Invalid ID Number");
     return;
   }
 
-  if (passwordController.text.length == 0) {
-    Fluttertoast.showToast(msg: "Password cannot be empty");
+  //If Invalid password, show error msg
+  if (hasInputErrorsPassword(passwordController.text)) {
+    Fluttertoast.showToast(msg: "Invalid Password");
   }
 
+  //Encrypt password
   String password = encode(passwordController.text);
 
+  //Try to send login details to database
   String response = await userLoginOnline(id, password, isClientLogin);
   Fluttertoast.showToast(msg: response);
 
   if (response == dbSuccess) {
     currID.id = idController.text;
     if (!isClientLogin) {
+      //If Admin, go to admin verification list
       goToAdminVerificationList(context);
     } else {
+      //If client, go to profile page
       goToProfilePage(context);
     }
   }
