@@ -1,3 +1,4 @@
+// coverage:ignore-start
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:last_national_bank/config/routes/router.helper.dart';
@@ -20,3 +21,4 @@ bool helperInterceptor(
 
   return false;
 }
+// coverage:ignore-end

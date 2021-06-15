@@ -75,6 +75,7 @@ class _AdminRegistrationPage extends State<AdminRegistrationPage> {
               SecretKey(),
               ButtonNewUser(),
               UserOld(),
+              Padding(padding: EdgeInsets.symmetric(vertical: 15)),
             ],
           ),
         ],

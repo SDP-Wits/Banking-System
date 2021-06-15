@@ -9,6 +9,7 @@ import 'package:last_national_bank/core/payments/payment.dart';
 import 'package:last_national_bank/core/select_payment/select_payment.dart';
 import 'package:last_national_bank/core/specific_account/specific_bank_account.dart';
 import 'package:last_national_bank/core/transfer/transfer.dart';
+import 'package:last_national_bank/core/verification_list/admin_verify_user.dart';
 
 import '../../constants/route_constants.dart';
 import '../../core/login/login.dart';
@@ -79,6 +80,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case PaymentRoute:
       return MaterialRouteWrap(Payments(), settings);
 
+    case VerifyUserRoute:
+      final args = settings.arguments as String;
+      return MaterialRouteWrap(VerifyUser(args), settings);
+
     //If page to go to is unknown, go to default home page, i.e. Login Page
     default:
       return MaterialRouteWrap(LoginPage(), settings);
@@ -109,12 +114,6 @@ void goToAdminVerificationList(BuildContext context) {
   Navigator.pushNamed(context, AdminVerificationListRoute);
 }
 
-void goToAdminVerifyUsers(BuildContext context, {required Name names}) {
-  //Removing outdated verficiation list
-  Navigator.pop(context);
-  Navigator.pushNamed(context, AdminVerifyUserRoute, arguments: names);
-}
-
 void goToProfilePage(BuildContext context) {
   Navigator.pushNamed(context, ProfileRoute);
 }
@@ -129,6 +128,10 @@ void goToCreateAccount(BuildContext context) {
 
 void goToViewAccount(BuildContext context) {
   Navigator.pushNamed(context, ViewAccountRoute);
+}
+
+void goToVerifyUser({required BuildContext context, required String idNumber}) {
+  Navigator.pushNamed(context, VerifyUserRoute, arguments: idNumber);
 }
 
 void goToSpecificAccount(

@@ -40,7 +40,7 @@ class _VerifyUserState extends State<VerifyUser> {
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
     return helperInterceptor(
         context: context,
-        currentRoute: AdminVerifyUserRoute,
+        currentRoute: VerifyUserRoute,
         goTo: goToAdminVerificationList,
         info: info,
         stopDefaultButtonEvent: stopDefaultButtonEvent);
@@ -64,10 +64,13 @@ class _VerifyUserState extends State<VerifyUser> {
   }
 
   Widget buildpage() {
+    final size = MediaQuery.of(context).size;
     // Name names = ModalRoute.of(context)!.settings.arguments as Name;
     thisUser curruser = thisuser[0];
     return Scaffold(
       body: Container(
+        width: size.width,
+        height: size.height,
         decoration: BoxDecoration(
           gradient: backgroundGradient,
         ),

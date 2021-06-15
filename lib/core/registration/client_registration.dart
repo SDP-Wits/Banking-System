@@ -74,6 +74,7 @@ class _ClientRegistrationPageState extends State<ClientRegistrationPage> {
               PasswordInput2(),
               ButtonNewUser(),
               UserOld(),
+              Padding(padding: EdgeInsets.symmetric(vertical: 15)),
             ],
           ),
         ],

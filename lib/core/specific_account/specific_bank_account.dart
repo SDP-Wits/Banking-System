@@ -94,7 +94,7 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
   @override
   Widget build(BuildContext context) {
     if (user == null || logs == null) {
-      return _buildLoadingScreen();
+      return buildLoadingScreen();
     } else {
       return Scaffold(
           key: _scaffoldKey,
@@ -241,7 +241,7 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
                       if (this.widget.acc.accountNumber ==
                           logs![index].accountTo) {
                         textCol = Colors.green[800]!;
-                        amountPrefix = "R ";
+                        amountPrefix = "+ R ";
                       } else {
                         textCol = Colors.red[500]!;
                         amountPrefix = "- R ";
@@ -411,14 +411,4 @@ class heading extends StatelessWidget {
   }
 }
 
-// Loading screen
-Widget _buildLoadingScreen() {
-  return Center(
-    child: Container(
-      width: 50,
-      height: 50,
-      child: CircularProgressIndicator(),
-    ),
-  );
-}
 // coverage:ignore-end

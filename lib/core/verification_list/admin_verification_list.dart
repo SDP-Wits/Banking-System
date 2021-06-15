@@ -127,12 +127,9 @@ class _AdminVerificationListPageState extends State<AdminVerificationListPage> {
                             // When user clicks on item box, sonmething happens:
                             // customBorder: Border.all(color: Colors.white, width: 2),
                             onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      VerifyUser(names[index].IDnum),
-                                ),
-                              );
+                              goToVerifyUser(
+                                  context: context,
+                                  idNumber: names[index].IDnum);
                             },
 
                             child: Container(
