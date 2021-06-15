@@ -1,7 +1,6 @@
 // coverage:ignore-start
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:last_national_bank/classes/accountDetails.dart';
 import 'package:last_national_bank/classes/user.class.dart';
 import 'package:last_national_bank/config/routes/router.dart';
@@ -9,7 +8,6 @@ import 'package:last_national_bank/constants/route_constants.dart';
 import 'package:last_national_bank/core/transfer/transfer.functions.dart';
 import 'package:last_national_bank/core/transfer/widgets/scrollAccount.dart';
 import 'package:last_national_bank/utils/helpers/dialogs.dart';
-import 'package:last_national_bank/utils/helpers/ignore_helper.dart';
 import 'package:last_national_bank/utils/helpers/style.dart';
 import 'package:last_national_bank/utils/services/local_db.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
@@ -255,7 +253,7 @@ class _TransfersState extends State<Transfers> {
 
                                 // Dialogue which asks user if they wish to make another transfer or
                                 // be directed to the Timeline UI
-                                Navigator.pop(context);
+                               // Navigator.pop(context);
                                 goToTimelineDialog(context);
                               }
                             });
