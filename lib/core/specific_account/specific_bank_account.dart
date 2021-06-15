@@ -36,7 +36,6 @@ All transactions (logs )
 */
 
 class SpecificAccountPage extends StatefulWidget {
-
   // Account details for specific account is retrieved from the previous UI (Accounts)
   accountDetails acc;
   SpecificAccountPage({required this.acc});
@@ -45,12 +44,12 @@ class SpecificAccountPage extends StatefulWidget {
   _SpecificAccountPageState createState() => _SpecificAccountPageState();
 }
 
-class _SpecificAccountPageState extends State<SpecificAccountPage> with TickerProviderStateMixin {
-  
+class _SpecificAccountPageState extends State<SpecificAccountPage>
+    with TickerProviderStateMixin {
   // User details
   User? user;
 
-  // All transactions (logs) are 
+  // All transactions (logs) are
   List<specificAccount>? logs;
 
   //Variables for transaction history pull up
@@ -250,133 +249,132 @@ class _SpecificAccountPageState extends State<SpecificAccountPage> with TickerPr
                 ),
 
                 // The list of transactions
-                child: ListView.builder(
-                    controller: scrollController,
-                    itemCount: (logs!.length == 0) ? 1 : logs!.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      //Checks whether a transaction amount is positive (accountTo) or negative (accountFrom)
-                      //and adds the appropriate Rand symbol to the front of the amount
-                      String amountPrefix;
-                      Color textCol = Colors.black;
-                      if (this.widget.acc.accountNumber ==
-                          logs![index].accountTo) {
-                        textCol = Colors.green[800]!;
-                        amountPrefix = "+ R ";
-                      } else {
-                        textCol = Colors.red[500]!;
-                        amountPrefix = "- R ";
-                      }
-                      // If there are no transactions, then display message in place
-                      if (logs!.length == 0) {
-                        return Column(
-                          children: [
-                            ListTile(
-                              title: Text("No Recent Activity",
-                                  style: TextStyle(
-                                      fontSize: 15, color: Colors.white)),
-                            ),
-                          ],
-                        );
-                      }
-
-                      // Display transactions if there are any
-                      else {
-                        return Container(
-                          padding: EdgeInsets.all(20),
-                          margin: EdgeInsets.symmetric(vertical: 15),
-                          decoration: BoxDecoration(
-                              color: Colors.teal[100],
-                              borderRadius: BorderRadius.circular(35)),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                logs![index].timeStamp.split(" ")[0],
+                child: (logs!.length == 0)
+                    ? // If there are no transactions, then display message in place
+                    Column(
+                        children: [
+                          ListTile(
+                            title: Text("No Recent Activity",
                                 style: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.blueGrey[600]!,
-                                  fontFamily: fontMont,
+                                    fontSize: 15, color: Colors.white)),
+                          ),
+                        ],
+                      )
+                    : ListView.builder(
+                        controller: scrollController,
+                        itemCount: logs!.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          //Checks whether a transaction amount is positive (accountTo) or negative (accountFrom)
+                          //and adds the appropriate Rand symbol to the front of the amount
+                          String amountPrefix;
+                          Color textCol = Colors.black;
+                          if (this.widget.acc.accountNumber ==
+                              logs![index].accountTo) {
+                            textCol = Colors.green[800]!;
+                            amountPrefix = "+ R ";
+                          } else {
+                            textCol = Colors.red[500]!;
+                            amountPrefix = "- R ";
+                          }
+
+                          // Display transactions if there are any
+
+                          return Container(
+                            padding: EdgeInsets.all(20),
+                            margin: EdgeInsets.symmetric(vertical: 15),
+                            decoration: BoxDecoration(
+                                color: Colors.teal[100],
+                                borderRadius: BorderRadius.circular(35)),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  logs![index].timeStamp.split(" ")[0],
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.blueGrey[600]!,
+                                    fontFamily: fontMont,
+                                  ),
                                 ),
-                              ),
-                              Padding(padding: EdgeInsets.only(top: 5)),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Ref No: ',
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.black,
-                                          fontFamily: fontMont,
-                                          fontWeight: FontWeight.bold,
+                                Padding(padding: EdgeInsets.only(top: 5)),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Ref No: ',
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            color: Colors.black,
+                                            fontFamily: fontMont,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 10),
+                                          child: Text(
+                                            logs![index].referenceNumber,
+                                            style: TextStyle(
+                                                fontSize: 17,
+                                                color: Colors.black,
+                                                fontFamily: fontMont),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Text(
+                                      amountPrefix +
+                                          logs![index].amount.toString(),
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          color: textCol,
+                                          fontFamily: fontMont),
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.all(10),
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Ref: ',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.black,
+                                        fontFamily: fontMont,
+                                        fontWeight: FontWeight.bold,
                                       ),
-                                      Padding(
+                                    ),
+                                    Flexible(
+                                      child: Padding(
                                         padding: EdgeInsets.symmetric(
-                                            horizontal: 10),
+                                            horizontal: 30),
                                         child: Text(
-                                          logs![index].referenceNumber,
+                                          logs![index].referenceName,
                                           style: TextStyle(
                                               fontSize: 17,
                                               color: Colors.black,
                                               fontFamily: fontMont),
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 5,
+                                          textAlign: TextAlign.left,
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                  Text(
-                                    amountPrefix +
-                                        logs![index].amount.toString(),
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        color: textCol,
-                                        fontFamily: fontMont),
-                                  ),
-                                ],
-                              ),
-                              Padding(
-                                padding: EdgeInsets.all(10),
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Ref: ',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Colors.black,
-                                      fontFamily: fontMont,
-                                      fontWeight: FontWeight.bold,
                                     ),
-                                  ),
-                                  Flexible(
-                                    child: Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 30),
-                                      child: Text(
-                                        logs![index].referenceName,
-                                        style: TextStyle(
-                                            fontSize: 17,
-                                            color: Colors.black,
-                                            fontFamily: fontMont),
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 5,
-                                        textAlign: TextAlign.left,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        );
-                      }
-                    }),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          );
+                        }),
               );
             },
           ),
