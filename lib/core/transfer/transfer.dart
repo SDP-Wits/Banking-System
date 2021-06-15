@@ -65,6 +65,10 @@ class _TransfersState extends State<Transfers> {
 
     BackButtonInterceptor.add(myInterceptor);
 
+    emptyTextTransfer();// Clear InputFields
+    accountFromIndex = 0; 
+    accountToIndex = 0;
+
     // Get user details
     LocalDatabaseHelper.instance.getUserAndAddress().then((userDB) {
       // Get user's account details
@@ -248,7 +252,9 @@ class _TransfersState extends State<Transfers> {
                                       double.parse(amountText);
                                   acc[accountToIndex].currentBalance +=
                                       double.parse(amountText);
-                                  emptyTextTransfer(); // Clear InputFields
+                                  emptyTextTransfer();// Clear InputFields
+                                  accountFromIndex = 0; 
+                                  accountToIndex = 0;
                                 });
 
                                 // Dialogue which asks user if they wish to make another transfer or

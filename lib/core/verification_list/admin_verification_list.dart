@@ -77,8 +77,17 @@ class _AdminVerificationListPageState extends State<AdminVerificationListPage> {
     super.dispose();
   }
 
+    // Displays loading screen while the data loads
   @override
   Widget build(BuildContext context) {
+    if (user == null) {
+      return buildLoadingScreen(context);
+    } else {
+      return buildPage();
+    }
+  }
+
+  Widget buildPage() {
     final size = MediaQuery.of(context).size;
     // _scaffoldKey is the key used for the navigation drawer
     GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();

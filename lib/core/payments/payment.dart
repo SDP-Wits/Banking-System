@@ -38,6 +38,9 @@ class _PaymentsState extends State<Payments> {
 
     BackButtonInterceptor.add(myInterceptor);
 
+    emptyText();
+    accountFromIndex = 0;
+
     LocalDatabaseHelper.instance.getUserAndAddress().then((user) {
       getAccountDetails(user!.idNumber).then((accounts) {
         setState(() {
@@ -156,6 +159,7 @@ class _PaymentsState extends State<Payments> {
                                   .currentBalance -= double.parse(amountText);
 
                               emptyText();
+                              accountFromIndex = 0;
                             });
 
                             goToTimelineDialog(context);
