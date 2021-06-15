@@ -3,11 +3,15 @@ import 'dart:ui';
 
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
+import 'package:last_national_bank/classes/user.class.dart';
 import 'package:last_national_bank/config/routes/router.dart';
 import 'package:last_national_bank/constants/route_constants.dart';
+import 'package:last_national_bank/utils/services/local_db.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
 import 'package:last_national_bank/widgets/heading.dart';
 import 'package:last_national_bank/utils/helpers/back_button_helper.dart';
+import 'package:last_national_bank/widgets/navigation.dart';
+import 'package:last_national_bank/widgets/pendingNav.dart';
 
 import '../../classes/name.class.dart';
 import '../../utils/helpers/style.dart';
@@ -38,6 +42,7 @@ class _AdminVerificationListPageState extends State<AdminVerificationListPage> {
   ];*/
 
   List<Name> names = [];
+  User? user; // User information
 
   @override
   void initState() {
@@ -45,8 +50,14 @@ class _AdminVerificationListPageState extends State<AdminVerificationListPage> {
     BackButtonInterceptor.add(myInterceptor);
 
     getUnverifiedClients().then((lstNames) {
+      names = lstNames;
+      setState(() {});
+    });
+
+    // Get user details
+    LocalDatabaseHelper.instance.getUserAndAddress().then((userDB) {
       setState(() {
-        names = lstNames;
+        user = userDB;
       });
     });
   }
@@ -69,7 +80,14 @@ class _AdminVerificationListPageState extends State<AdminVerificationListPage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    // _scaffoldKey is the key used for the navigation drawer
+    GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+    
     return Scaffold(
+      // Set navigation drawer
+                key: _scaffoldKey,
+                drawer: pendingNav(
+                    clientName: user!.firstName, clientSurname: user!.lastName),
         body: Container(
       decoration: BoxDecoration(
         gradient: backgroundGradient,
@@ -85,6 +103,17 @@ class _AdminVerificationListPageState extends State<AdminVerificationListPage> {
           // List
           child: Column(
             children: [
+              // Three-line menu bar on the top to open the navigation drawer
+              Align(
+                alignment: Alignment.topLeft,
+                child: IconButton(
+                  icon: Icon(Icons.menu, color: Colors.white),
+                  onPressed: () {
+                    _scaffoldKey.currentState!.openDrawer();
+                  },
+                ),
+              ),
+
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Heading("Verify User"),
@@ -131,7 +160,6 @@ class _AdminVerificationListPageState extends State<AdminVerificationListPage> {
                               goToVerifyUser(
                                   context: context,
                                   idNumber: names[index].IDnum);
-                              Navigator.pop(context);
                             },
 
                             child: Container(

@@ -31,23 +31,27 @@ BACK END
 ==========================================================================================
 In the previous UI, when all user's accounts are retrieved, when a user swipes on a card widget
 the account details for that specific account that the client swiped on is sent to this UI.
+
+All transactions (logs )
 */
 
 class SpecificAccountPage extends StatefulWidget {
 
-  
+  // Account details for specific account is retrieved from the previous UI (Accounts)
   accountDetails acc;
-
   SpecificAccountPage({required this.acc});
 
   @override
   _SpecificAccountPageState createState() => _SpecificAccountPageState();
 }
 
-class _SpecificAccountPageState extends State<SpecificAccountPage>
-    with TickerProviderStateMixin {
+class _SpecificAccountPageState extends State<SpecificAccountPage> with TickerProviderStateMixin {
+  
+  // User details
   User? user;
-  List<specificAccount>? logs = null;
+
+  // All transactions (logs) are 
+  List<specificAccount>? logs;
 
   //Variables for transaction history pull up
   double radiusSize = 30.0;
