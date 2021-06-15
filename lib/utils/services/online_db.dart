@@ -44,7 +44,6 @@ Future<List<Map<String, dynamic>>> getURLData(String url) async {
     //coverage-ignore-line
     print("php script might be messed up");print(url);print(e.toString());Fluttertoast.showToast(msg:"Whoops, we encounted an issue. Please try again or contact support");return [{"status": false, "error": "Failed to get your information"}];
   }
-
 }
 //Log the user in, based off whether they are a client or not
 
@@ -90,7 +89,7 @@ Future<List<Name>> getUnverifiedClients() async {
   final List<Map> data = await getURLData(url);
 
   //no unverfied clients
-  if (data.isEmpty){
+  if (data.isEmpty) {
     return [];
   }
 
