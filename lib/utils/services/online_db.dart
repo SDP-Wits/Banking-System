@@ -35,37 +35,15 @@ Future<List<Map<String, dynamic>>> getURLData(String url) async {
 
       return map;
     } else {
-      print("Oi, the url that just failed was : $url");// coverage:ignore-line
-      return [// coverage:ignore-line
-        {"error": "Failed to get data from database"}// coverage:ignore-line
-      ];
+      //coverage-ignore-line
+      print("Oi, the url that just failed was : $url");return [{"error": "Failed to get data from database"}];
     }
-  } on SocketException catch (e) {
-    print("Database down");
-    print(e.toString());
-    Fluttertoast.showToast(msg: "The database's server is down :(");
-
-    return [
-      {
-        "status": false,
-        "error": "Failed to connect to database"
-      }
-    ];
+    //coverage-ignore-line
+  } on SocketException catch (e) {print("Database down");print(e.toString());Fluttertoast.showToast(msg: "The database's server is down :(");return [{"status": false,"error": "Failed to connect to database"}];
   } catch (e) {
-
-    print("php script might be messed up");
-    print(url);
-    print(e.toString());
-    Fluttertoast.showToast(
-
-        msg:
-            "Whoops, we encounted an issue. Please try again or contact support");
-
-    return [
-      {"status": false, "error": "Failed to get your information"}
-    ];
+    //coverage-ignore-line
+    print("php script might be messed up");print(url);print(e.toString());Fluttertoast.showToast(msg:"Whoops, we encounted an issue. Please try again or contact support");return [{"status": false, "error": "Failed to get your information"}];
   }
-
 }
 //Log the user in, based off whether they are a client or not
 
@@ -94,48 +72,14 @@ Future<String> userLoginOnline(
   //then we should return dbSuccess
 
   bool isAdmin = !isClientLogin;
-  // coverage:ignore-start
-  User user = User(
-    (isAdmin) ? int.parse(data["adminID"]) : int.parse(data["clientID"]),
-    data["firstName"],
-    data["middleName"],
-    data["lastName"],
-    int.parse(data["age"]),
-    data["phoneNumber"],
-    data["email"],
-    data["idNumber"],
-    data["password"],
-    // coverage:ignore-end
-    isAdmin,
-    // coverage:ignore-start
-    int.parse(data["streetNumber"]),
-    data["streetName"],
-    data["suburb"],
-    data["province"],
-    data["country"],
-    int.parse(data["apartmentNumber"]),
-    // coverage:ignore-end
+  //coverage:ignore-start
+  User user = User((isAdmin) ? int.parse(data["adminID"]) : int.parse(data["clientID"]),data["firstName"],data["middleName"],data["lastName"],int.parse(data["age"]),data["phoneNumber"],data["email"],data["idNumber"],data["password"],isAdmin,int.parse(data["streetNumber"]),data["streetName"],data["suburb"],data["province"],data["country"],int.parse(data["apartmentNumber"]),
+    //coverage:ignore-end
   );
 
-  // coverage:ignore-start
-  return await LocalDatabaseHelper.instance.addUserDetails(
-      user.userID,
-      user.email,
-      user.phoneNumber,
-      user.idNumber,
-      user.hashPassword,
-      user.age,
-      user.firstName,
-      user.middleName,
-      user.lastName,
-      user.isAdmin,
-      user.address.streetNumber,
-      user.address.streetName,
-      user.address.suburb,
-      user.address.province,
-      user.address.country,
-      user.address.apartmentNumber);
-  // coverage:ignore-end
+  //coverage:ignore-start
+  return await LocalDatabaseHelper.instance.addUserDetails(user.userID,user.email,user.phoneNumber,user.idNumber,user.hashPassword,user.age,user.firstName,user.middleName,user.lastName,user.isAdmin,user.address.streetNumber,user.address.streetName,user.address.suburb,user.address.province,user.address.country,user.address.apartmentNumber);
+  //coverage:ignore-end
 }
 
 //Getting list of all unverified clients
@@ -145,16 +89,15 @@ Future<List<Name>> getUnverifiedClients() async {
   final List<Map> data = await getURLData(url);
 
   //no unverfied clients
-  if (data.isEmpty){
+  if (data.isEmpty) {
     return [];
   }
 
   //status only returned in failed case, so as long as the returned data
   // contains "status" we can assume it failed
   if (data[0].containsKey("status")) {
-    // coverage:ignore-start
+    //coverage-ignore-line
     return [];
-    // coverage:ignore-end
   }
 // coverage:ignore-start
   List<Name> names = [];
@@ -274,9 +217,9 @@ Future<List<accountTypes>> getAccountTypes() async {
   //status only returned in failed case, so as long as the returned data
   // contains "status" we can assume it failed
   if (accTypeDetails[0].containsKey("status")) {
-    // coverage:ignore-start
+    //coverage:ignore-start
     return [];
-    // coverage:ignore-end
+    //coverage:ignore-end
   }
 
   List<accountTypes> bankAccTypes = [];
@@ -309,9 +252,9 @@ Future<List<int>> getExistingAccountTypes(int clientID) async {
 
   // if client has no accounts
   if (existingAccTypes.isEmpty) {
-    // coverage:ignore-start
+    //coverage:ignore-start
     return [];
-    // coverage:ignore-end
+    //coverage:ignore-end
   }
 
   //status only returned in failed case, so as long as the returned data
