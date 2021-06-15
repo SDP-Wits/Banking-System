@@ -144,6 +144,11 @@ Future<List<Name>> getUnverifiedClients() async {
 
   final List<Map> data = await getURLData(url);
 
+  //no unverfied clients
+  if (data.isEmpty){
+    return [];
+  }
+
   //status only returned in failed case, so as long as the returned data
   // contains "status" we can assume it failed
   if (data[0].containsKey("status")) {

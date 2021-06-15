@@ -839,7 +839,7 @@ void main() {
   });
 
   test("test to check for getExistingAccountTypes with accounts", () async {
-    var expected = [1, 4, 3];
+    var expected = [1, 2, 4, 3];
 
     var actual = await getExistingAccountTypes(35);
 
