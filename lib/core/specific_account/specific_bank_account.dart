@@ -3,20 +3,39 @@ import 'package:last_national_bank/utils/helpers/back_button_helper.dart';
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:last_national_bank/classes/accountDetails.dart';
-import 'package:last_national_bank/classes/log.dart';
 import 'package:last_national_bank/classes/specificAccount.dart';
 import 'package:last_national_bank/classes/user.class.dart';
 import 'package:last_national_bank/config/routes/router.dart';
 import 'package:last_national_bank/constants/app_constants.dart';
 import 'package:last_national_bank/constants/route_constants.dart';
 import 'package:last_national_bank/core/account/widgets/card_info.dart';
-import 'package:last_national_bank/core/select_payment/widgets/paymentButton.dart';
-import 'package:last_national_bank/utils/helpers/helper.dart';
-import 'package:last_national_bank/utils/helpers/icons.dart';
 import 'package:last_national_bank/utils/helpers/style.dart';
 import 'package:last_national_bank/utils/services/local_db.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
 import 'package:last_national_bank/widgets/navigation.dart';
+
+/*
+The SpecificAccountPage class allows for clients to view a apecific account that the client swiped
+on in the previous UI (Accounts class). This UI displays the card widget that shows the account details,
+and a swipe widget which displays all the relevant transactions for the specific account.
+
+FRONT END
+==========================================================================================
+There is no need for any input data but the front end includes displaying data:
+  - Account number that the client wishes to make the transfer FROM (accountFrom)
+  - Account number that the client wishes to make the transfer TO (accountTo)
+  - The amount the client wishes to transfer
+  - The refernce name of the transaction
+AccountFrom and AccountTo are presented in the form of scroll widgets which reduces user input.
+
+BACK END
+==========================================================================================
+There is an http request and PHP file that gets all the accounts that the client already has 
+with the bank which is used to display account information in the scroll widgets.
+
+There is an http request and PHP file that takes the input data from this UI and enters it into
+the respective tables in the database.
+*/
 
 class SpecificAccountPage extends StatefulWidget {
   accountDetails acc;
