@@ -23,6 +23,7 @@ import 'package:last_national_bank/utils/services/online_db.dart';
 import 'package:last_national_bank/classes/accountTypes.dart';
 import 'dart:math';
 import 'package:last_national_bank/constants/php_url.dart';
+import 'package:coverage/coverage.dart';
 
 void main() {
   List<String> phpNames = ["id", "password"];
@@ -773,13 +774,14 @@ void main() {
 
   group('testing http request getUnverifiedClients', () {
     test("testing getUnverifiedClients", () async {
-
       var actual = await getUnverifiedClients();
 
-      if (actual.isNotEmpty){//if there are unverified clients
+      if (actual.isNotEmpty) {
+        //if there are unverified clients
         var expected = true;
         expect(actual.isNotEmpty, expected);
-      }else{//if all clients have been verified
+      } else {
+        //if all clients have been verified
         var expected = true;
         expect(actual.isEmpty, expected);
       }

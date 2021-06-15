@@ -35,6 +35,7 @@ dependencies:
     back_button_interceptor: ^5.0.0
     #scrollable_positioned_list: ^0.1.10
     mockito: ^5.0.10
+    coverage: ^1.0.3
 
 dev_dependencies:
     flutter_test:
