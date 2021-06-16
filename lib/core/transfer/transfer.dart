@@ -49,8 +49,10 @@ int accountFromIndex = 0;
 int accountToIndex = 0;
 
 class _TransfersState extends State<Transfers> {
+
   User? user; // User information
   List<accountDetails> acc = []; // User's account information
+  
   // Two controlers to control scroll functionality on the two widgets (accountFrom and accountTo)
   late ScrollController controller1;
   late ScrollController controller2;
