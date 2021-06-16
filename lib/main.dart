@@ -1,15 +1,8 @@
-import 'dart:io';
-
-import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:last_national_bank/constants/route_constants.dart';
-
 import 'config/routes/router.dart' as router;
-import 'config/routes/router.helper.dart';
 import 'constants/app_constants.dart';
 import 'core/login/login.dart';
-import 'utils/helpers/ignore_helper.dart';
 
 // coverage:ignore-start
 void main() {

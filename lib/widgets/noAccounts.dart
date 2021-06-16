@@ -49,7 +49,7 @@ class _NoAccountState extends State<NoAccount> {
                         style: TextStyle(
                           fontFamily: fontMont,
                           fontSize: 40,
-                          color: Colors.teal,
+                          color: Colors.white,
                         ),
                       ),
                     ),
