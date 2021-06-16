@@ -36,6 +36,7 @@ class _PaymentsState extends State<Payments> {
     controller1 = ScrollController();
     super.initState();
 
+    //Adding the back button listener
     BackButtonInterceptor.add(myInterceptor);
 
     emptyText();
@@ -53,10 +54,12 @@ class _PaymentsState extends State<Payments> {
 
   @override
   void dispose() {
+    //Removing the back button listener
     BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
   }
 
+  //When the back button is pressed, go to Select Payment Page
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
     return helperInterceptor(
         context: context,
@@ -66,6 +69,12 @@ class _PaymentsState extends State<Payments> {
         stopDefaultButtonEvent: stopDefaultButtonEvent);
   }
 
+  /*
+  Builds the payment page,
+  there are a scorllable account selectors (you can choose which account
+  to pay from) and you type in the account number of the person you paying too,
+  the amount and there is a button, once clicked, the database will handle the payment.
+  */
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;

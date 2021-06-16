@@ -30,9 +30,12 @@ class _AdminRegistrationPage extends State<AdminRegistrationPage> {
   @override
   void initState() {
     super.initState();
+
+    //Adding the back button listener
     BackButtonInterceptor.add(myInterceptor);
   }
 
+  //When the back button is pressed, go to Login Page
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
     return helperInterceptor(
         context: context,
@@ -44,10 +47,26 @@ class _AdminRegistrationPage extends State<AdminRegistrationPage> {
 
   @override
   void dispose() {
+    //Removing the back button listener
     BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
   }
 
+  /*
+  Builds the Admin Registration page, same as the client registration page,
+  Contains different input fields for the user. 
+
+  They can click on the submit button and the users details will get submitted
+  to the PHP file which will be entered into Database.
+
+  If successful it will take them back to the login page. 
+
+  The difference is between the client registration pages is
+  that the admin registration page has an input field for 
+  the secret key which the admin must enter in order
+  to register successfully.
+
+  */
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -28,6 +28,7 @@ class _SelectPaymentPageState extends State<SelectPaymentPage> {
   void initState() {
     super.initState();
 
+    //Adding the back button listener
     BackButtonInterceptor.add(myInterceptor);
 
     LocalDatabaseHelper.instance.getUserAndAddress().then((userDB) {
@@ -44,10 +45,12 @@ class _SelectPaymentPageState extends State<SelectPaymentPage> {
 
   @override
   void dispose() {
+    //Removing the back button listener
     BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
   }
 
+  //When the back button is pressed, go to Profile Page
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
     return helperInterceptor(
         context: context,
@@ -71,6 +74,11 @@ class _SelectPaymentPageState extends State<SelectPaymentPage> {
     }
   }
 
+  /*
+  Choose which payment type you want to do, either
+  Transfer -> Transfering money from one of your accounts to another one of your accouts
+  Payments -> Paying somebody within the bank
+  */
   Widget buildPage(BuildContext context) {
     // Used for navigation bar:
     GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
