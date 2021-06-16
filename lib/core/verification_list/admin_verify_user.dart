@@ -26,6 +26,7 @@ class _VerifyUserState extends State<VerifyUser> {
 
   void initState() {
     super.initState();
+    //Adding the back button listener
     BackButtonInterceptor.add(myInterceptor);
 
     // gets the clients details for the admin to view
@@ -37,6 +38,7 @@ class _VerifyUserState extends State<VerifyUser> {
     // setState(() {});
   }
 
+  //When the back button is pressed, go to Admin Verification List
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
     return helperInterceptor(
         context: context,
@@ -48,6 +50,7 @@ class _VerifyUserState extends State<VerifyUser> {
 
   @override
   void dispose() {
+//Removing the back button listener
     BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
   }
@@ -63,6 +66,11 @@ class _VerifyUserState extends State<VerifyUser> {
     }
   }
 
+  /*
+  Builds the Admin Verifiy User page, the users list of details show up
+  and 2 buttons appear, either accept or reject, once the admin taps on either
+  it will either accept or reject the user.
+  */
   Widget buildpage() {
     final size = MediaQuery.of(context).size;
     // Name names = ModalRoute.of(context)!.settings.arguments as Name;

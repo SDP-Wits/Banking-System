@@ -1,23 +1,7 @@
 library bankingsystem.globals;
 
 import 'dart:core';
-
 import 'package:intl/intl.dart';
-
-// bool registerAdmin(String idNumber) {
-//   return true;
-// }
-// var age = NewAgeState().returnAge();
-// var name = NewNameState().returnName();
-// var surname = NewSurnameState().returnSurName();
-// var email = NewEmailState().returnEmail();
-// var idNum = NewIDnumState().returnID();
-// var loc = NewLocState().returnloc();
-// var password = PasswordInputState().getPassword();
-// var password2 = PasswordInput2State().returnpassword2();
-// var phone = NewPhoneState().returnPhone();
-
-// var hash = encode(password);
 
 //shared data classes
 class Data {
@@ -96,6 +80,7 @@ String giveError() {
     return ("Proceed to next page");
   }
 }
+
 // Checks for any errors when entering password - used for validation
 bool hasInputErrorsPassword(String password) {
   if (password.length < 8 || password.length > 20) {
@@ -169,7 +154,6 @@ bool hasInputErrorName(String name) {
   return false;
 }
 
-
 bool hasInputErrorsPassword1(String password) {
   if (password.length < 8 || password.length > 20) {
     //check if password length is correct
@@ -192,7 +176,6 @@ bool hasInputErrorsPassword2(String passwordVal) {
   return false;
 }
 
-
 bool hasInputErrorPhone(String phone) {
   if (phone.length != 10) {
     //checks if phone num is of length 13
@@ -211,9 +194,9 @@ bool hasInputErrorSurname(String surname) {
   return false;
 }
 
-
 // returns the current date
-String currentDate() {// coverage:ignore-start
+String currentDate() {
+  // coverage:ignore-start
   var now = new DateTime.now();
   var formatter = new DateFormat('yyyy-MM-dd');
   String formattedDate = formatter.format(now);

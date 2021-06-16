@@ -47,6 +47,8 @@ class _AdminVerificationListPageState extends State<AdminVerificationListPage> {
   @override
   void initState() {
     super.initState();
+
+    //Adding the back button listener
     BackButtonInterceptor.add(myInterceptor);
 
     getUnverifiedClients().then((lstNames) {
@@ -62,6 +64,7 @@ class _AdminVerificationListPageState extends State<AdminVerificationListPage> {
     });
   }
 
+  //When the back button is pressed, go to Login Page
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
     return helperInterceptor(
         context: context,
@@ -73,11 +76,12 @@ class _AdminVerificationListPageState extends State<AdminVerificationListPage> {
 
   @override
   void dispose() {
+    //Removing the back button listener
     BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
   }
 
-    // Displays loading screen while the data loads
+  // Displays loading screen while the data loads
   @override
   Widget build(BuildContext context) {
     if (user == null) {
@@ -87,6 +91,11 @@ class _AdminVerificationListPageState extends State<AdminVerificationListPage> {
     }
   }
 
+  /*
+  Builds the Admin Verification Page, there is a heading,
+  and a list of containers with the user name, once you tap on the user
+  it will take them to the verify user
+  */
   Widget buildPage() {
     final size = MediaQuery.of(context).size;
     // _scaffoldKey is the key used for the navigation drawer
@@ -201,33 +210,3 @@ class _AdminVerificationListPageState extends State<AdminVerificationListPage> {
 
 // coverage:ignore-end
 //==================================================================
-
-//@override
-/*Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(url1),
-          leading: Icon(
-            Icons.get_app,
-          ),
-        ),
-        body: Container(
-          padding: EdgeInsets.all(16.0),
-          child: FutureBuilder(
-            future: selectUnverifiedClients(),
-            builder: (BuildContext ctx, AsyncSnapshot snapshot) {
-              return ListView.builder(
-                itemCount: snapshot.data.length,
-                itemBuilder: (ctx, index) => ListTile(
-                  title: Text(snapshot.data[index].fNmae),
-                  subtitle: Text(snapshot.data[index].sName),
-                  contentPadding: EdgeInsets.only(bottom: 20.0),
-                ),
-              );
-            },
-          ),
-        ),
-      ),
-    );
-  }*/

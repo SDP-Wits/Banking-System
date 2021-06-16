@@ -26,6 +26,7 @@ class _TimelineListPageState extends State<TimelinePage> {
   void initState() {
     super.initState();
 
+    //Adding the back button listener
     BackButtonInterceptor.add(myInterceptor);
 
     LocalDatabaseHelper.instance.getUserAndAddress().then((userDB) {
@@ -44,10 +45,12 @@ class _TimelineListPageState extends State<TimelinePage> {
 
   @override
   void dispose() {
+    //Removing the back button listener
     BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
   }
 
+  //When the back button is pressed, go to Login Page
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
     return helperInterceptor(
         context: context,
@@ -67,6 +70,9 @@ class _TimelineListPageState extends State<TimelinePage> {
     }
   }
 
+  /*
+  Builds the Timeline page which shows the users logs (transactions and actions)
+  */
   Widget buildPage() {
     final Size size = MediaQuery.of(context).size;
     GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
