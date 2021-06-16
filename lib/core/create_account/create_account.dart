@@ -36,36 +36,36 @@ class _CreateAccountState extends State<CreateAccount> {
 
     BackButtonInterceptor.add(myInterceptor);
 
-    //get data, extract and put it into lists to use later on
-    getAccountTypes().then((value) {
-      for (int i = 0; i < value.length; ++i) {
-        String accType = value[i].accType;
-        String accDescription = value[i].accDescription;
-        int accTypeId = value[i].accountTypeId;
-
-        accountTypeIdList = [...accountTypeIdList, accTypeId];
-        accountTypeList = [...accountTypeList, accType];
-        descriptionList = [...descriptionList, accDescription];
-      }
-
+    // get IDs of existing account types for specific user
+    LocalDatabaseHelper.instance.getUserAndAddress().then((user) {
       setState(() {
-        accountTypeIdList = [...accountTypeIdList];
-        accountTypeList = [...accountTypeList];
-        descriptionList = [...descriptionList];
+        this.user = user;
       });
+      getExistingAccountTypes(user!.userID).then((value) {
+        for (int i = 0; i < value.length; ++i) {
+          int eID = value[i];
+          setState(() {
+            existingAccountTypes = [...existingAccountTypes, eID];
+          });
+        }
 
-      // get IDs of existing account types for specific user
-      LocalDatabaseHelper.instance.getUserAndAddress().then((user) {
-        setState(() {
-          this.user = user;
-        });
-        getExistingAccountTypes(user!.userID).then((value) {
+        //get data, extract and put it into lists to use later on
+        getAccountTypes().then((value) {
           for (int i = 0; i < value.length; ++i) {
-            int eID = value[i];
-            setState(() {
-              existingAccountTypes = [...existingAccountTypes, eID];
-            });
+            String accType = value[i].accType;
+            String accDescription = value[i].accDescription;
+            int accTypeId = value[i].accountTypeId;
+
+            accountTypeIdList = [...accountTypeIdList, accTypeId];
+            accountTypeList = [...accountTypeList, accType];
+            descriptionList = [...descriptionList, accDescription];
           }
+
+          setState(() {
+            accountTypeIdList = [...accountTypeIdList];
+            accountTypeList = [...accountTypeList];
+            descriptionList = [...descriptionList];
+          });
         });
       });
     });
@@ -94,7 +94,7 @@ class _CreateAccountState extends State<CreateAccount> {
 
     GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final size = MediaQuery.of(context).size;
-    return (user == null)
+    return (user == null || accountTypeIdList.isEmpty)
         ? buildLoadingScreen(context)
         : Scaffold(
             key: _scaffoldKey,
