@@ -17,7 +17,7 @@ def driver_func():
 
             i = 0
             for r in results:
-                print("These are the times taken for client ", all_ids[i] ,':','\t', r.get())
+                print("These are the times taken for client ", all_ids[i] ,':',["{0:.5f}".format(i) for i in r.get()])
                 i+=1
 
 def make_request(i):

@@ -7,7 +7,6 @@ import 'package:last_national_bank/constants/php_url.dart';
 import 'package:last_national_bank/constants/route_constants.dart';
 import 'package:last_national_bank/utils/helpers/style.dart';
 import 'package:last_national_bank/widgets/heading.dart';
-
 import '../../classes/user.class.dart';
 import '../../config/routes/router.dart';
 import '../../constants/database_constants.dart';

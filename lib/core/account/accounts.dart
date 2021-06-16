@@ -99,20 +99,26 @@ class _AccountsState extends State<Accounts> {
 
     //Only show if account is not empty
     if ((acc.isNotEmpty)) {
+
       return Scaffold(
         key: _scaffoldKey,
         drawer: Navigation(
             clientName: user!.firstName, clientSurname: user!.lastName),
+        
         body: Container(
           width: size.width,
           height: size.height,
+          
           decoration: BoxDecoration(
             gradient: backgroundGradient,
           ),
+          
           child: SingleChildScrollView(
             physics: ScrollPhysics(),
+            
             child: Column(
               children: [
+                
                 Align(
                   alignment: Alignment.topLeft,
                   child: IconButton(
@@ -122,6 +128,7 @@ class _AccountsState extends State<Accounts> {
                     },
                   ),
                 ),
+                
                 Padding(
                   padding: EdgeInsets.only(top: 10),
                 ),
@@ -144,6 +151,7 @@ class _AccountsState extends State<Accounts> {
                     textAlign: TextAlign.center,
                   ),
                 ),
+               
                 SizedBox(
                   width: size.width * 0.9,
                   child: ListView.builder(

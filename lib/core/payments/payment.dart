@@ -85,15 +85,19 @@ class _PaymentsState extends State<Payments> {
             key: _scaffoldKey,
             drawer: Navigation(
                 clientName: user!.firstName, clientSurname: user!.lastName),
+            
             body: SingleChildScrollView(
+              
               child: Container(
                 height: size.height * 1.2,
                 decoration: BoxDecoration(
                   gradient: backgroundGradient,
                 ),
+                
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
+                    
                     Align(
                       alignment: Alignment.topLeft,
                       child: IconButton(
@@ -103,10 +107,13 @@ class _PaymentsState extends State<Payments> {
                         },
                       ),
                     ),
+                    
                     Heading("Payments"),
+                    
                     Padding(
                       padding: EdgeInsets.only(top: 10),
                     ),
+                    
                     Text(
                       'Select account to make payment from: ',
                       style: TextStyle(
@@ -115,15 +122,18 @@ class _PaymentsState extends State<Payments> {
                         fontSize: 15.0,
                       ),
                     ),
+                    
                     ScrollAccount(
                       acc: accountsDetails,
                       controller: controller1,
                       setIndex: getAccountFromIndex,
                     ),
+                    
                     // Spacing
                     Padding(
                       padding: EdgeInsets.only(top: 10),
                     ),
+                    
                     InputField(
                       text: "Amount",
                       child: TextField(
@@ -135,6 +145,7 @@ class _PaymentsState extends State<Payments> {
                         style: inputTextStyle,
                       ),
                     ),
+                    
                     InputField(
                       text: "Recipient Account Number",
                       child: TextField(
@@ -146,6 +157,7 @@ class _PaymentsState extends State<Payments> {
                         style: inputTextStyle,
                       ),
                     ),
+                    
                     InputField(
                       text: "Reference Name",
                       child: TextField(
@@ -157,6 +169,7 @@ class _PaymentsState extends State<Payments> {
                         style: inputTextStyle,
                       ),
                     ),
+                    
                     TextButton(
                       // onPressed: ()=>{submitPayment(user!, accountsDetails[indexToUse])},
                       onPressed: () {
@@ -175,12 +188,15 @@ class _PaymentsState extends State<Payments> {
                           }
                         });
                       },
+                      
                       child: Container(
                         width: size.width * 0.5,
                         padding: EdgeInsets.all(15),
+                        
                         decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(50),
+                            
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.black54,
@@ -194,6 +210,7 @@ class _PaymentsState extends State<Payments> {
                                 ),
                               ),
                             ]),
+                        
                         child: Text(
                           "Send",
                           textAlign: TextAlign.center,
@@ -222,14 +239,18 @@ class InputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final size = MediaQuery.of(context).size;
+    
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        
         Container(
           width: size.width * 0.9,
           padding: EdgeInsets.all(10),
           alignment: Alignment.center,
+          
           decoration: BoxDecoration(
             color: Colors.white24,
             borderRadius: BorderRadius.only(
@@ -237,6 +258,7 @@ class InputField extends StatelessWidget {
               topRight: borderRadius,
             ),
           ),
+          
           child: Text(
             text,
             style: TextStyle(
@@ -246,30 +268,37 @@ class InputField extends StatelessWidget {
             ),
           ),
         ),
+        
         Container(
           width: size.width * 0.9,
           margin: EdgeInsets.only(bottom: 15.0),
           padding: EdgeInsets.all(5),
+          
           decoration: BoxDecoration(
             boxShadow: [
+              
               BoxShadow(
                 color: Colors.white24,
                 offset: Offset(4.0, 2.0), //(x,y)
                 blurRadius: 6.0,
               ),
+              
               BoxShadow(
                 color: Colors.white24,
                 offset: Offset(-4.0, 2.0), //(x,y)
                 blurRadius: 6.0,
               ),
             ],
+            
             color: Colors.white,
+            
             borderRadius: BorderRadius.only(
               bottomLeft: borderRadius,
               bottomRight: borderRadius,
               // topRight: borderRadius,
             ),
           ),
+          
           child: Container(width: (size.width * 0.9), child: child),
         ),
       ],
