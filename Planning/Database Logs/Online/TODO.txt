@@ -1,5 +1,0 @@
-(1)
-Make Address (ID Number) be foreign key for Client and Admin
-
-(2)
-Foreign Key for Verified Admin and Verified Client for Admin and Client tables
