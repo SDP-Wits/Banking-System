@@ -14,6 +14,10 @@ import 'package:last_national_bank/core/registration/widgets/Secret.dart';
 import 'package:last_national_bank/core/registration/widgets/buttonNewUser.dart';
 import 'package:last_national_bank/core/registration/widgets/userOld.dart';
 
+/*
+Contains some common input fields that the admin and 
+client registration pages use.
+*/
 class NewUser extends StatefulWidget {
   @override
   _NewUserState createState() => _NewUserState();

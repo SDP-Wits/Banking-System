@@ -32,6 +32,7 @@ class _ProfileState extends State<Profile> {
   void initState() {
     super.initState();
 
+    //Adding the back button listener
     BackButtonInterceptor.add(myInterceptor);
 
     LocalDatabaseHelper.instance.getUserAndAddress().then((currUser) {
@@ -51,6 +52,7 @@ class _ProfileState extends State<Profile> {
     });
   }
 
+  //When the back button is pressed, exit the app
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
     if (info.currentRoute(context)!.settings.name ==
         getCurrentRouteName(context)) {
@@ -62,11 +64,15 @@ class _ProfileState extends State<Profile> {
 
   @override
   void dispose() {
+    //Removing the back button listener
     BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
   }
 
-  // checks whether the database contents were loaded, and displays a loading screen while the data is extracted
+  /*
+  checks whether the database contents were loaded,
+  and displays a loading screen while the data is extracted
+  */
   @override
   Widget build(BuildContext context) {
     if (me == null) {
