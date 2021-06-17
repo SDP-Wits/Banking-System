@@ -1,7 +1,0 @@
-Test out PHP Files
-
-Test how errors happens, and how it respons, does it return
-List<Map<String, dynamic>> where it is [{"error" : "Error Message Here"}]?
-
-Does the successful output occur as you expect?
-[{"status" : TRUE}]

@@ -1,6 +1,0 @@
-//CREATE TABLE
-
-CREATE TABLE USER(userID AUTO INCREMENT PRIMARY KEY, email TEXT NOT NULL, phoneNumber TEXT, id TEXT NOT NULL, password TEXT NOT NULL, age INTEGER NOT NULL, firstName TEXT NOT NULL, middleName TEXT, lastName TEXT NOT NULL, isAdmin INT NOT NULL)
-
-//INSERT TEST
-INSERT INTO USER(userID, email, phoneNumber, id, password, age, firstName, middleName, lastName, isAdmin) VALUES(1,"temp@gmail.com","061494626","614846846846","password",18,"ardfs","middle","meLastName",1)
