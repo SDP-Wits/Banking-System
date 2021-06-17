@@ -1,5 +1,4 @@
 # Project Name: 
-[![Coverage Status](https://coveralls.io/repos/github/SDP-Wits/Banking-System/badge.svg?branch=main)](https://coveralls.io/github/SDP-Wits/Banking-System?branch=main)
 [![Build Status](https://travis-ci.com/SDP-Wits/Banking-System.svg?branch=main)](https://travis-ci.com/SDP-Wits/Banking-System)
 
 Banking System
