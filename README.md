@@ -5,7 +5,7 @@
 Banking System
 
 # Description: 
-The purpose of this project is to create a mobile banking application that enables interaction between customers and the banking system, as well as administrators and the banking system. It is beneficial because it promotes and enables remote access and efficiency. The software will provide functionalities such as managing user profiles, accounts and transactions, as well as administrative duties.
+The purpose of this project is to create a mobile application that enables interaction between customers and the banking system, as well as administrators and the banking system. It is beneficial because it promotes and enables remote access and efficiency. The software will provide functionalities such as dealing with user profiles, account transactions and administrative duties.
 
 # Authors:
 1. Kerina Bisnath
