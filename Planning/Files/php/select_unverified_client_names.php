@@ -1,8 +1,10 @@
 <?php
 include "./helpers/server_details.php";
 
-$sql = "SELECT firstName, middleName,lastName,idNumber 
-FROM CLIENT WHERE verificationStatus = 'Pending'";
+$sql = "SELECT firstName, middleName,lastName,idNumber
+FROM CLIENT LEFT JOIN `VERIFIED CLIENT` 
+ON CLIENT.clientID = `VERIFIED CLIENT`.clientID 
+WHERE `VERIFIED CLIENT`.clientID IS NULL";
 
 $output = array();
 if ($result = mysqli_query($conn,$sql)){

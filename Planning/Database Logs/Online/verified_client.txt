@@ -1,0 +1,3 @@
+//CREATE TABLE
+
+CREATE TABLE `3796506_ee`.`VERIFIED CLIENT` ( `clientID` INT NOT NULL , `verifiedDate` DATE NOT NULL , `verifiedBy` INT NOT NULL , UNIQUE (`clientID`)) ENGINE = MyISAM;
