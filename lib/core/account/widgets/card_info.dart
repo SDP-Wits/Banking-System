@@ -172,18 +172,17 @@ class _FrontCard extends StatelessWidget {
               fontFamily: fontMont,
             ),
           ),
-          (cardType != null)
-              ? Text(
-                  "VISA",
-                  style: TextStyle(
-                    color: Colors.teal,
-                    fontSize: 48,
-                    fontFamily: "arial",
-                    fontStyle: FontStyle.italic,
-                    fontWeight: FontWeight.bold,
-                  ),
-                )
-              : Container(),
+          if (cardType != null)
+            Text(
+              "VISA",
+              style: TextStyle(
+                color: Colors.teal,
+                fontSize: 48,
+                fontFamily: "arial",
+                fontStyle: FontStyle.italic,
+                fontWeight: FontWeight.bold,
+              ),
+            )
         ],
       ),
     ]);

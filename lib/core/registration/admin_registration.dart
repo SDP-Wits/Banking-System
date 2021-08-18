@@ -1,4 +1,5 @@
 // coverage:ignore-start
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:last_national_bank/config/routes/router.dart';
 import 'package:last_national_bank/constants/route_constants.dart';
@@ -30,7 +31,6 @@ class _AdminRegistrationPage extends State<AdminRegistrationPage> {
   @override
   void initState() {
     super.initState();
-
     //Adding the back button listener
     BackButtonInterceptor.add(myInterceptor);
   }

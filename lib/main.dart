@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'config/routes/router.dart' as router;
@@ -51,6 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
     ));
     // return PlaygroundTest();
     return LoginPage();
+    // if (kIsWeb) return LoginPageForWeb();
   }
 }
 // coverage:ignore-end

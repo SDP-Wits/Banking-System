@@ -24,6 +24,7 @@ dependencies:
     flutter:
         sdk: flutter
     crypto: ^3.0.1
+    encrypt: ^5.0.1
     cupertino_icons: ^1.0.2
     fluttertoast: ^8.0.7
     html: ^0.15.0
@@ -35,7 +36,6 @@ dependencies:
     back_button_interceptor: ^5.0.0
     #scrollable_positioned_list: ^0.1.10
     mockito: ^5.0.10
-    coverage: ^1.0.3
 
 dev_dependencies:
     flutter_test:

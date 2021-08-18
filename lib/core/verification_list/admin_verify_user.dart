@@ -109,9 +109,9 @@ class _VerifyUserState extends State<VerifyUser> {
               ),
 
               DetailedBlocks(curruser.firstName, "FirstName"),
-              (curruser.middleName != null || curruser.middleName!.trim() == "")
-                  ? DetailedBlocks(curruser.middleName!, "Middle Name")
-                  : Container(),
+              if (curruser.middleName != null ||
+                  curruser.middleName!.trim() == "")
+                DetailedBlocks(curruser.middleName!, "Middle Name"),
               DetailedBlocks(curruser.lastName, "LastName"),
               DetailedBlocks(curruser.email, "Email"),
               DetailedBlocks(curruser.idNumber, "ID"),
