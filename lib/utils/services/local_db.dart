@@ -269,10 +269,8 @@ class LocalDatabaseHelper {
       String province,
       String country,
       int? apartmentNumber) async {
-    toastyPrint("sup bro outside");
     //If web
     if (kIsWeb) {
-      toastyPrint("sup bro");
       _user = User(
         userID,
         firstName,
