@@ -26,14 +26,6 @@ import 'package:last_national_bank/constants/php_url.dart';
 import 'package:coverage/coverage.dart';
 
 void main() {
-  List<String> phpNames = ["id", "password"];
-  List<String> inputVariables = ["1234567891234", "thisisahashpassword"];
-
-  test("Testing to see if argument maker works properly", () {
-    expect(argumentMaker(phpNames: phpNames, inputVariables: inputVariables),
-        "?id=1234567891234&password=thisisahashpassword");
-  });
-
   group('testing registration page fullvalidation in registran.functions.dart',
       () {
     //setting values that are valid

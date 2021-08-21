@@ -21,7 +21,9 @@ import 'local_db.dart';
 Future<List<Map<String, dynamic>>> getURLData(
     {required String url, Map<String, String>? data = null}) async {
   print(url);
-  print(data);
+  if (data != null) {
+    print(data);
+  }
 
   final Uri uri = Uri.parse(url);
 
