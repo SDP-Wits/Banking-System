@@ -1,4 +1,5 @@
 // coverage:ignore-start
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -14,6 +15,11 @@ void toastyPrint(String string) {
 
 //Checks if the user is already logged in (if they in local DB)
 void autoLogin(BuildContext context) {
+  //If web
+  if (kIsWeb) {
+    return;
+  }
+
   LocalDatabaseHelper.instance.isUser().then((isUser) {
     //coverage:ignore-line
     if (isUser) {
