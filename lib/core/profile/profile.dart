@@ -121,7 +121,8 @@ class _ProfileState extends State<Profile> {
                     //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Container(
-                        height: size.height / 2,
+                        // height: size.height / 2,
+                        padding: EdgeInsets.only(bottom: 30),
                         decoration: BoxDecoration(
                           gradient: backgroundGradient,
                           borderRadius: BorderRadius.only(

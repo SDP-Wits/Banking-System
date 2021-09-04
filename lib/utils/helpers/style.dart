@@ -1,6 +1,9 @@
 // coverage:ignore-start
 import 'package:flutter/material.dart';
 
+final double phoneWidth = 500;
+final double tabletWidth = 1000;
+
 final String fontDefault = "";
 final String fontFancy = "";
 
