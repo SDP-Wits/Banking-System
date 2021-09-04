@@ -8,12 +8,12 @@ class DeviceLayout extends StatelessWidget {
   late final Widget tabletLayout;
 
   DeviceLayout(
-      {Widget? phoneWidget,
-      required this.desktopLayout,
+      {required this.phoneLayout,
+      Widget? desktopWidget,
       Widget? tabletWidget}) {
-    this.phoneLayout = phoneWidget ?? desktopLayout;
+    this.desktopLayout = desktopWidget ?? phoneLayout;
 
-    this.tabletLayout = tabletWidget ?? desktopLayout;
+    this.tabletLayout = tabletWidget ?? phoneLayout;
   }
 
   @override

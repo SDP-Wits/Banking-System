@@ -48,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     //TODO: Comment before final release
     // autoLogin(context);
-    // autoLoginWeb("0123456789987", "Arneev@123", true, context);
+    autoLoginWeb("0123456789987", "Arneev@123", true, context);
   }
 
   @override
