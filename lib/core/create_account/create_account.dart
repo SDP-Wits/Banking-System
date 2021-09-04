@@ -102,41 +102,39 @@ class _CreateAccountState extends State<CreateAccount> {
                 clientName: user!.firstName, clientSurname: user!.lastName),
             body: (accountTypeList.isNotEmpty)
                 ? Container(
+                    height: size.height,
                     decoration: BoxDecoration(
                       gradient: backgroundGradient,
                     ),
                     child: ListView.builder(
+                        shrinkWrap: true,
                         itemCount: accountTypeList.length,
                         itemBuilder: (context, index) {
                           return Column(
                             children: [
-                              (index == 0)
-                                  ? Column(
-                                      children: [
-                                        Align(
-                                          alignment: Alignment.topLeft,
-                                          child: IconButton(
-                                            icon: Icon(Icons.menu,
-                                                color: Colors.white),
-                                            onPressed: () {
-                                              _scaffoldKey.currentState!
-                                                  .openDrawer();
-                                            },
-                                          ),
-                                        ),
-                                        Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 5)),
-                                        Heading("Create Account"),
-                                        Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 15)),
-                                      ],
-                                    )
-                                  : Container(
-                                      width: 0,
-                                      height: 0,
+                              if (index == 0)
+                                Column(
+                                  children: [
+                                    Align(
+                                      alignment: Alignment.topLeft,
+                                      child: IconButton(
+                                        icon: Icon(Icons.menu,
+                                            color: Colors.white),
+                                        onPressed: () {
+                                          _scaffoldKey.currentState!
+                                              .openDrawer();
+                                        },
+                                      ),
                                     ),
+                                    Padding(
+                                        padding:
+                                            EdgeInsets.symmetric(vertical: 5)),
+                                    Heading("Create Account"),
+                                    Padding(
+                                        padding:
+                                            EdgeInsets.symmetric(vertical: 15)),
+                                  ],
+                                ),
                               GestureDetector(
                                   onTap: () async {
                                     //check if account type id exists in existing account type list
@@ -162,7 +160,12 @@ class _CreateAccountState extends State<CreateAccount> {
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 8.0),
                                     child: Container(
-                                      width: size.width * 0.95,
+                                      width: (size.width <= phoneWidth)
+                                          ? size.width * 0.95
+                                          : size.width * 0.7,
+                                      padding: (size.width >= tabletWidth)
+                                          ? EdgeInsets.only(top: 45)
+                                          : null,
                                       child: Card(
                                         color: Colors.white,
                                         child: Container(
