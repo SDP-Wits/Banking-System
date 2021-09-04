@@ -83,14 +83,27 @@ class _LoginPageState extends State<LoginPage> {
                       //VerticalText(),
                       //TextLogin(),
                     ]),
-                InputID(getIDController()),
-                PasswordInput(getPasswordController()),
-                ButtonLogin(() {
-                  //What happens when the login button is clicked
-                  loginProcedure(context);
-                  
-                }),
-                FirstTime()
+                Expanded(
+                  flex: 1,
+                  child: InputID(getIDController()),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: PasswordInput(getPasswordController()),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: ButtonLogin(() {
+                    //What happens when the login button is clicked
+                    loginProcedure(context);
+                    
+                  }),
+                ),
+                FirstTime(),
+                Expanded(
+                  flex: 1,
+                  child: Container(color: Colors.transparent),
+                ),
               ]),
         ),
       ),
