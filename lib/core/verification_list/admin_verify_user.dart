@@ -92,7 +92,8 @@ class _VerifyUserState extends State<VerifyUser> {
             right: 15.0,
           ),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Padding(padding: EdgeInsets.symmetric(vertical: 15)),
               Icon(
@@ -110,6 +111,7 @@ class _VerifyUserState extends State<VerifyUser> {
               ),
 
               DetailedBlocks(curruser.firstName, "FirstName"),
+
               if (curruser.middleName != null &&
                   curruser.middleName!.trim() != "")
                 DetailedBlocks(curruser.middleName!, "Middle Name"),
@@ -149,52 +151,58 @@ class DetailedBlocks extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = getSize(context);
-    return Row(
-      children: [
-        Container(
-          width:
-              (size.width < tabletWidth) ? size.width * 0.8 : size.width * 0.6,
-          padding: EdgeInsets.all(15),
-          //padding: const EdgeInsets.only(top: 20, left: 50, right: 50),
-          margin: EdgeInsets.all(15),
-          decoration: BoxDecoration(
-            color: Colors.transparent,
-            // borderRadius: BorderRadius.circular(15),
-            border: Border(
-              bottom: BorderSide(
-                color: Colors.white,
-                width: 1,
+    return Container(
+      width: size.width,
+      alignment: Alignment.center,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: (size.width < tabletWidth)
+                ? size.width * 0.8
+                : size.width * 0.6,
+            padding: EdgeInsets.all(15),
+            //padding: const EdgeInsets.only(top: 20, left: 50, right: 50),
+            margin: EdgeInsets.all(15),
+            decoration: BoxDecoration(
+              color: Colors.transparent,
+              // borderRadius: BorderRadius.circular(15),
+              border: Border(
+                bottom: BorderSide(
+                  color: Colors.white,
+                  width: 1,
+                ),
               ),
             ),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                property + ':',
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.white,
-                  fontFamily: fontMont,
-                  fontWeight: FontWeight.normal,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  property + ':',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.white,
+                    fontFamily: fontMont,
+                    fontWeight: FontWeight.normal,
+                  ),
                 ),
-              ),
-              // Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
-              Text(
-                text,
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.white,
-                  fontFamily: fontMont,
-                  fontWeight: FontWeight.w500,
+                // Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
+                Text(
+                  text,
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.white,
+                    fontFamily: fontMont,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

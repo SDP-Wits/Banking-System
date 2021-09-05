@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:last_national_bank/utils/helpers/helper.dart';
+import 'package:last_national_bank/utils/helpers/style.dart';
 
 // coverage:ignore-start
 class buttonRejectClient extends StatefulWidget {
@@ -11,6 +13,7 @@ class buttonRejectClient extends StatefulWidget {
 class _buttonRejectClientState extends State<buttonRejectClient> {
   @override
   Widget build(BuildContext context) {
+    final size = getSize(context);
     return Padding(
       padding: const EdgeInsets.only(
         top: 20,
@@ -20,7 +23,7 @@ class _buttonRejectClientState extends State<buttonRejectClient> {
       child: Container(
         alignment: Alignment.center,
         height: 40,
-        width: MediaQuery.of(context).size.width / 3,
+        width: (size.width < tabletWidth) ? size.width / 3 : size.width * 0.2,
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
