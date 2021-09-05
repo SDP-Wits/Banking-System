@@ -2,7 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:last_national_bank/config/routes/router.dart';
 import 'package:last_national_bank/constants/route_constants.dart';
+import 'package:last_national_bank/core/registration/widgets/orangeCircles.dart';
+import 'package:last_national_bank/core/registration/widgets/tealCircles.dart';
+import 'package:last_national_bank/utils/helpers/helper.dart';
 import 'package:last_national_bank/utils/helpers/style.dart';
+import 'package:last_national_bank/widgets/deviceLayout.dart';
+import 'package:last_national_bank/widgets/heading.dart';
 
 import 'widgets/buttonNewUser.dart';
 import 'widgets/userOld.dart';
@@ -67,8 +72,130 @@ class _ClientRegistrationPageState extends State<ClientRegistrationPage> {
   This page (client registation) does NOT have the secret key field
 
   */
-  @override
+
+    @override
   Widget build(BuildContext context) {
+    return buildPage();
+  }
+
+  Widget buildPage() {
+    return DeviceLayout(
+      phoneLayout: phoneLayout(context),
+      desktopWidget: desktopLayout(context),
+    );
+  }
+
+
+  Widget desktopLayout(BuildContext context) {
+
+    final size = getSize(context);
+
+    return SingleChildScrollView(
+    
+    child: Container(
+
+      width: size.width,
+      height: size.height,
+
+      child: Stack(
+
+        children: <Widget>[
+          
+              TealCircles(),
+
+              OrangeCircles(),
+
+              new Align(
+                
+                alignment: Alignment.center,
+                
+                child: Container(
+
+                  width: size.width/1.2,
+                  height: size.height/1.1,
+                  alignment: Alignment.center,
+
+                  decoration: BoxDecoration(
+
+                  gradient: LinearGradient(
+                    //Gradient we use for page background
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [Colors.teal.withAlpha(128), Color(0xFFffa781).withAlpha(128)],
+                  ),
+                  
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(25.0),
+                    bottomRight: Radius.circular(25.0),
+                    topLeft: Radius.circular(25.0),
+                    topRight: Radius.circular(25.0),
+                  ),
+                ),
+                  
+
+                child: Row(
+
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisSize: MainAxisSize.max,
+
+                  children: [
+
+                    Column(
+
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisSize: MainAxisSize.max,
+
+                      children: [
+
+                        Heading("Client Registration"),
+                        NewName(size.width/4),
+                        NewSurname(size.width/4),
+                        NewAge(size.width/4),
+                        NewPhone(size.width/4),
+                        NewEmail(size.width/4),
+                        NewIDnum(size.width/4),                        
+
+                      ],
+                    ),
+
+
+                    Column(
+
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisSize: MainAxisSize.max,
+
+                      children: [
+
+                        NewLoc(size.width/4),
+                        PasswordInput(size.width/4),
+                        PasswordInput2(size.width/4),    
+                        ButtonNewUser(size.width/10),                   
+
+                      ],
+                    )
+
+                  ],
+                ),
+                  
+                )
+              ),
+
+
+            ],
+
+      ),
+
+    ));
+
+
+
+   }
+
+
+
+
+
+  Widget phoneLayout(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         gradient: backgroundGradient,
@@ -83,16 +210,16 @@ class _ClientRegistrationPageState extends State<ClientRegistrationPage> {
                   Logo(),
                 ],
               ),
-              NewName(),
-              NewSurname(),
-              NewAge(),
-              NewPhone(),
-              NewEmail(),
-              NewIDnum(),
-              NewLoc(),
-              PasswordInput(),
-              PasswordInput2(),
-              ButtonNewUser(),
+              NewName(MediaQuery.of(context).size.width),
+              NewSurname(MediaQuery.of(context).size.width),
+              NewAge(MediaQuery.of(context).size.width),
+              NewPhone(MediaQuery.of(context).size.width),
+              NewEmail(MediaQuery.of(context).size.width),
+              NewIDnum(MediaQuery.of(context).size.width),
+              NewLoc(MediaQuery.of(context).size.width),
+              PasswordInput(MediaQuery.of(context).size.width),
+              PasswordInput2(MediaQuery.of(context).size.width),
+              ButtonNewUser(MediaQuery.of(context).size.width / 2),
               UserOld(),
               Padding(padding: EdgeInsets.symmetric(vertical: 15)),
             ],

@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import '../registration.functions.dart';
 
 class PasswordInput extends StatefulWidget {
+  final double width;
+
+  PasswordInput(this.width);
+
   @override
   PasswordInputState createState() => PasswordInputState();
 }
@@ -24,7 +28,7 @@ class PasswordInputState extends State<PasswordInput> {
       padding: const EdgeInsets.only(top: 20, left: 50, right: 50),
       child: Container(
         height: 100,
-        width: MediaQuery.of(context).size.width,
+        width: this.widget.width,
         child: TextField(
           onChanged: (value) {
             _hasInputError = hasInputErrorsPassword1(value);
