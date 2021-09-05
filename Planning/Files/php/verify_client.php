@@ -8,8 +8,8 @@ $currentDate = $_REQUEST["currentDate"];
 $verificationStatus = $_REQUEST["verificationStatus"]; // if 0 - reject, if 1 - accept
 
 //encrypting data
-$clientIdNumEncrypted = openssl_encrypt($clientIdNum, $ciphering, $encryption_key, $options, $encryption_iv);
-$adminIdNumEncrypted = openssl_encrypt($adminIdNum, $ciphering, $encryption_key, $options, $encryption_iv);
+$clientIdNum = openssl_encrypt($clientIdNum, $ciphering, $encryption_key, $options, $encryption_iv);
+$adminIdNum = openssl_encrypt($adminIdNum, $ciphering, $encryption_key, $options, $encryption_iv);
 
 //get table IDs of client and admin by querying with actual ID numbers
 $sql1 = "SELECT adminID AS ID FROM ADMIN WHERE idNumber = '$adminIdNum'";
