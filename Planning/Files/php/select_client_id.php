@@ -31,7 +31,7 @@ while ($row=$result->fetch_assoc()){
     //decrypting the email
     $decryptedEmail = $row["email"];
     $decryptedEmail = openssl_decrypt($decryptedEmail, $ciphering, $decryption_key, $options, $decryption_iv);
-    $row["mail"] = $decryptedEmail;
+    $row["email"] = $decryptedEmail;
 
     //decrypting the phone number
     $decryptedPhone = $row["phoneNumber"];

@@ -23,7 +23,7 @@ $accountNumber = openssl_encrypt($accountNumber, $ciphering, $encryption_key, $o
 
 //Create new account by inserting a new entry into the ACCOUNT
 $stmt1 = $conn->prepare("INSERT INTO ACCOUNT (accountNumber,accountTypeID,currentBalance,createdDate) VALUES (?,?,?,?)");
-$stmt1->bind_param("sids",$accountNumber,$accountType,$currentBalance,$currentDate);
+$stmt1->bind_param("siss",$accountNumber,$accountType,$currentBalance,$currentDate);
 $stmt1->execute();
 
 //Obtaining unique id from CLIENT table by querying with the client ID number
