@@ -12,9 +12,6 @@ function generateRandomString($length = 6) {
     return $randomString;
 }
 
-$referenceNumber = "TRAN";
-$referenceNumber .= generateRandomString();
-
 $accFrom = $_REQUEST['accFrom'];
 $clientID = $_REQUEST['clientID'];
 $clientName = $_REQUEST['clientName'];
@@ -27,7 +24,6 @@ $refno .= generateRandomString();
 //encrypting data
 $accTo = openssl_encrypt($accTo, $ciphering, $encryption_key, $options, $encryption_iv);
 $accFrom = openssl_encrypt($accFrom, $ciphering, $encryption_key, $options, $encryption_iv);
-$amount = openssl_encrypt($amount, $ciphering, $encryption_key, $options, $encryption_iv);
 $refno = openssl_encrypt($refno, $ciphering, $encryption_key, $options, $encryption_iv);
 
 $sql1 = "SELECT * FROM ACCOUNT WHERE accountNumber = '$accFrom'";
@@ -37,7 +33,7 @@ $check1 = mysqli_query($conn,$sql1);
 $check2 = mysqli_query($conn,$sql2);
 
 $rowcount = mysqli_num_rows($check);
-                 
+
 if(mysqli_num_rows($check2) < 1){
        echo json_encode(
             array(
@@ -46,38 +42,40 @@ if(mysqli_num_rows($check2) < 1){
               )
             )
           );
-          return; 
+          return;
 }else{
   		// Doing calculation for accFrom
   		$accFromRes = mysqli_fetch_array($check1);
   		$oldBalance = openssl_decrypt($accFromRes['currentBalance'], $ciphering, $decryption_key, $options, $decryption_iv);
-  		$newBalance = $oldBalance - amount;
+  		$newBalance = doubleval($oldBalance) - doubleval($amount);
  		$newBalance = openssl_encrypt($newBalance, $ciphering, $encryption_key, $options, $encryption_iv);
-  
-  		// Updating accounts
-        $sql1 = "UPDATE ACCOUNT 
-        SET currentBalance=$newBalance
-        WHERE accountNumber = '$accFrom'";
-        
+
+        $stmt2 = $conn->prepare("UPDATE ACCOUNT SET currentBalance = ? WHERE accountNumber = ?");
+        $stmt2->bind_param("ss", $newBalance, $accFrom);
+        $stmt2->execute();;
+
   		// Doing calculation for accTo
   		$accToRes = mysqli_fetch_array($check2);
     	$oldBalance = openssl_decrypt ($accToRes['currentBalance'], $ciphering, $decryption_key, $options, $decryption_iv);
-  		$newBalance = $oldBalance + amount;
+  		$newBalance = doubleval($oldBalance) + doubleval($amount);
  		$newBalance = openssl_encrypt($newBalance, $ciphering, $encryption_key, $options, $encryption_iv);
 
-        $sql2 = "UPDATE ACCOUNT 
-        SET currentBalance=$newBalance	 
-        WHERE accountNumber = '$accTo'";
-        
-        mysqli_query($conn,$sql1);
-        mysqli_query($conn,$sql2);
-        
+        $stmt2 = $conn->prepare("UPDATE ACCOUNT SET currentBalance = ? WHERE accountNumber = ?");
+        $stmt2->bind_param("ss", $newBalance, $accTo);
+        $stmt2->execute();
+
+
         // INSERTING INTO TRANSACTION TABLE
+    $amount = openssl_encrypt($amount, $ciphering, $encryption_key, $options, $encryption_iv);
 	$stmt1 = $conn->prepare("INSERT INTO TRANSACTION (customerName,amount,accountFrom,accountTo,referenceName,referenceNumber) VALUES (?,?,?,?,?,?)");
-	$stmt1->bind_param("ssdsss", $clientName, $amount, $accFrom, $accTo, $refname, $refno);
+	$stmt1->bind_param("ssssss", $clientName, $amount, $accFrom, $accTo, $refname, $refno);
 	$stmt1->execute();
-        
-        // LOGGING TRANSFER TO LOG TABLE
+
+  	$amount = openssl_decrypt($amount, $ciphering, $encryption_key, $options, $encryption_iv);
+    // LOGGING TRANSFER TO LOG TABLE
+  		//decrypt account numbers first
+  		$accTo = openssl_decrypt($accTo, $ciphering, $encryption_key, $options, $encryption_iv);
+  		$accFrom = openssl_decrypt($accFrom, $ciphering, $encryption_key, $options, $encryption_iv);
 	$stmt4 = $conn->prepare("INSERT INTO LOG (description, clientID) VALUES (?,?)");
 	$desc1 = "Payment to ";
 	$desc1 .= $accTo;
@@ -94,9 +92,9 @@ if(mysqli_num_rows($check2) < 1){
 	$stmt5->bind_param("si", $desc2, $clientID);
 	$stmt5->execute();
 
-     
+
 }
-        
+
 
 
 $conn->close();
