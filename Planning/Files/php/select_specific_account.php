@@ -1,7 +1,11 @@
 <?php
 include "./helpers/server_details.php";
+include "./helpers/encryption.php";
 
 $accNum = $_REQUEST['accNum'];
+
+//encrypting data
+$accNum = openssl_encrypt($accNum, $ciphering, $encryption_key, $options, $encryption_iv);
 
 $sql = "SELECT ACCOUNT.accountNumber,ACCOUNT.accountTypeID, ACCOUNT.currentBalance, `ACCOUNT TYPE`.accountType,`ACCOUNT TYPE`.accountDescription,TRANSACTION.*
 FROM ACCOUNT
@@ -26,6 +30,18 @@ if (mysqli_num_rows($result) < 1) {
 $output = array();
 
 while ($row=$result->fetch_assoc()){
+
+        //decrypting the data
+        $decryptedAccNum = $row["ACCOUNT.accountNumber"];
+        $decryptedCurrBalance = $row["ACCOUNT.currentBalance"];
+
+        $decryptedAccNum = openssl_decrypt($decryptedAccNum, $ciphering, $decryption_key, $options, $decryption_iv);
+        $decryptedCurrBalance = openssl_decrypt($decryptedCurrBalance, $ciphering, $decryption_key, $options, $decryption_iv);
+
+        $row["ACCOUNT.accountNumber"] = $decryptedAccNum;
+        $row["ACCOUNT.currentBalance"] = $decryptedCurrBalance;
+        //
+
         $output[]=$row;
 }
 
