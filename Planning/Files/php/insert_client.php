@@ -34,6 +34,11 @@ $province = "state";
 $country = "USA";
 $apartmentNum = "";*/
 
+//encrypting data
+$idNum  = openssl_encrypt($idNum, $ciphering, $encryption_key, $options, $encryption_iv);
+$email = openssl_encrypt($email, $ciphering, $encryption_key, $options, $encryption_iv);
+$phoneNum = openssl_encrypt($phoneNum, $ciphering, $encryption_key, $options, $encryption_iv);
+
 $sql1 = "SELECT COUNT(*) AS RESULT FROM CLIENT WHERE idNumber = '$idNum'";
 
 if($check = mysqli_query($conn, $sql1)) {

@@ -4,9 +4,15 @@ include "./helpers/encryption.php";
 
 //FOR BACK-END USE ONLY!!!
 
+/*All secret keys:
+notSecretKey
+69420tristan
+thisKeyIsASecret
+*/
+
 //create new key here - it gets encrypted
 $date = "2021-09-05"; //test date - make current date
-$newKey = "Testing1234";
+$newKey = "";
 $newKey = openssl_encrypt($newKey, $ciphering, $encryption_key, $options, $encryption_iv);
 
 //insert into online db

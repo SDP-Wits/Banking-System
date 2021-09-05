@@ -1,5 +1,6 @@
 <?php
 include "./helpers/server_details.php";
+include "./helpers/encryption.php";
 
 $firstName = $_REQUEST["firstName"];
 $middleName = $_REQUEST["middleName"];
@@ -20,7 +21,7 @@ $phoneNum = "0001112234";
 $email = "talk2themanager2@karenz.com";
 $idNum = "1234567890982";
 $password = "managerz1";
-$secretKey = "notSecretKey";
+$secretKey = "Testing1234";
 $currentDate = "2018-06-13";*/
 
 $streetName = $_REQUEST["streetName"];
@@ -29,6 +30,19 @@ $suburb = $_REQUEST["suburb"];
 $province = $_REQUEST["province"];
 $country = $_REQUEST["country"];
 $apartmentNum = $_REQUEST["apartmentNum"];
+
+/*$streetName = "Texas";
+$streetNum = "23";
+$suburb = "Philli";
+$province = "Status";
+$country = "usa";
+$apartmentNum = "21";*/
+
+//encrypting data
+$secretKey = openssl_encrypt($secretKey, $ciphering, $encryption_key, $options, $encryption_iv);
+$idNum  = openssl_encrypt($idNum, $ciphering, $encryption_key, $options, $encryption_iv);
+$email = openssl_encrypt($email, $ciphering, $encryption_key, $options, $encryption_iv);
+$phoneNum = openssl_encrypt($phoneNum, $ciphering, $encryption_key, $options, $encryption_iv);
 
 $sql1 = "SELECT COUNT(*) AS RESULT FROM ADMIN WHERE idNumber = '$idNum'";
 $sql2 = "SELECT COUNT(*) AS RESULT FROM `SECRET KEY` WHERE secretKey = '$secretKey'";
