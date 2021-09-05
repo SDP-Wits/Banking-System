@@ -67,46 +67,69 @@ class _LoginPageState extends State<LoginPage> {
       decoration: BoxDecoration(
         gradient: backgroundGradient,
       ),
-      child: SingleChildScrollView(
-        child: Container(
-          height: size.height,
-          child: Column(
-              //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              //mainAxisSize: MainAxisSize.max,
-              children: [
-                Row(
+      child: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints viewportConstraints){
+          return SingleChildScrollView(
+            physics: ScrollPhysics(),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: viewportConstraints.maxHeight),
+              child: Container(
+                //height: size.height,
+                child: Column(
+                    //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Logo(),
-                      //VerticalText(),
-                      //TextLogin(),
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    //mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Logo(),
+                            //VerticalText(),
+                            //TextLogin(),
+                          ]),
+                      InputID(getIDController()),
+                      PasswordInput(getPasswordController()),
+                      ButtonLogin(() {
+                        //What happens when the login button is clicked
+                        loginProcedure(context);
+                        
+                      }),
+                      FirstTime()
                     ]),
-                Expanded(
-                  flex: 1,
-                  child: InputID(getIDController()),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: PasswordInput(getPasswordController()),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: ButtonLogin(() {
-                    //What happens when the login button is clicked
-                    loginProcedure(context);
-                    
-                  }),
-                ),
-                FirstTime(),
-                Expanded(
-                  flex: 1,
-                  child: Container(color: Colors.transparent),
-                ),
-              ]),
-        ),
+              ),
+            ),
+          );
+        }
       ),
+      // child: SingleChildScrollView(
+      //   physics: ScrollPhysics(),
+      //   child: Container(
+      //     height: size.height,
+      //     child: Column(
+      //         //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      //         mainAxisAlignment: MainAxisAlignment.center,
+      //         crossAxisAlignment: CrossAxisAlignment.center,
+      //         //mainAxisSize: MainAxisSize.max,
+      //         children: [
+      //           Row(
+      //               mainAxisAlignment: MainAxisAlignment.center,
+      //               children: <Widget>[
+      //                 Logo(),
+      //                 //VerticalText(),
+      //                 //TextLogin(),
+      //               ]),
+      //           InputID(getIDController()),
+      //           PasswordInput(getPasswordController()),
+      //           ButtonLogin(() {
+      //             //What happens when the login button is clicked
+      //             loginProcedure(context);
+                  
+      //           }),
+      //           FirstTime()
+      //         ]),
+      //   ),
+      // ),
     );
   }
 }
