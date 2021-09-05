@@ -1,16 +1,15 @@
 <?php
 include "./helpers/server_details.php";
+include "./helpers/encryption.php";
 
 $clientIdNum = $_REQUEST["clientIdNum"];
 $adminIdNum = $_REQUEST["adminIdNum"];
 $currentDate = $_REQUEST["currentDate"];
 $verificationStatus = $_REQUEST["verificationStatus"]; // if 0 - reject, if 1 - accept
 
-//test example
-/*$clientIdNum = '0369852147896';
-$adminIdNum = '0011447788552';
-$currentDate = '2021-04-14';
-$status = '0';*/
+//encrypting data
+$clientIdNumEncrypted = openssl_encrypt($clientIdNum, $ciphering, $encryption_key, $options, $encryption_iv);
+$adminIdNumEncrypted = openssl_encrypt($adminIdNum, $ciphering, $encryption_key, $options, $encryption_iv);
 
 //get table IDs of client and admin by querying with actual ID numbers
 $sql1 = "SELECT adminID AS ID FROM ADMIN WHERE idNumber = '$adminIdNum'";

@@ -1,7 +1,9 @@
 <?php
 include "./helpers/server_details.php";
+include "./helpers/encryption.php";
 
 $idNum = $_REQUEST['idNum'];
+$idNum = openssl_encrypt($idNum, $ciphering, $encryption_key, $options, $encryption_iv);
 
 $sql = "SELECT CLIENT.firstName,CLIENT.middleName,CLIENT.lastName,`ACCOUNT TYPE`.accountType,`ACCOUNT TYPE`.accountTypeID,ACCOUNT.accountNumber,ACCOUNT.currentBalance
 FROM ACCOUNT
@@ -11,6 +13,8 @@ INNER JOIN `ACCOUNT TYPE` ON `ACCOUNT TYPE`.accountTypeID=ACCOUNT.AccountTypeID
 WHERE CLIENT.idNumber = '$idNum'";
 
 $result = mysqli_query($conn,$sql);
+$data = mysqli_fetch_array($result);
+
 
 if (mysqli_num_rows($result) < 1) { 
   echo json_encode(
@@ -23,11 +27,11 @@ if (mysqli_num_rows($result) < 1) {
   return;
  }
 
-$output = array();
+$data['accountNumber'] = openssl_decrypt ($data['accountNumber'], $ciphering, $decryption_key, $options, $decryption_iv);
+$data['currentBalance'] = openssl_decrypt ($data['currentBalance'], $ciphering, $decryption_key, $options, $decryption_iv);
 
-while ($row=$result->fetch_assoc()){
-        $output[]=$row;
-}
+$output = array();
+$output = $data;
 
 echo json_encode($output);
 
