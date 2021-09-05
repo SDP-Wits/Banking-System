@@ -50,6 +50,10 @@ Future<String> adminRegisterOnline() async {
 }
 
 class ButtonNewUser extends StatefulWidget {
+  final double width;
+
+  ButtonNewUser(this.width);
+
   @override
   _ButtonNewUserState createState() => _ButtonNewUserState();
 }
@@ -62,7 +66,7 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
       child: Container(
         alignment: Alignment.center,
         height: 40,
-        width: MediaQuery.of(context).size.width / 2,
+        width: this.widget.width,
         decoration: BoxDecoration(boxShadow: [
           BoxShadow(
             color: Colors.black12,
@@ -150,7 +154,7 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                'Create Account',
+                'Register',
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 16,

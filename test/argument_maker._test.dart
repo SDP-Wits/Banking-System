@@ -727,25 +727,25 @@ void main() {
     });
   });
 
-  group('testing http request makePayment', () {
-    test("test for valid payment", () async {
-      var expected = dbSuccess;
-
-      var actual = await makePayment("35", "34455637975", "65544312450", "1",
-          "test", "36", "Jared Govindsamy");
-
-      expect(actual, expected);
-    });
-
-    test("test for invalid payment", () async {
-      var expected = "Failed to make transfer";
-
-      var actual = await makePayment("35", "34455637975", "34455637825", "1",
-          "test", "35", "Jared Govindsamy");
-
-      expect(actual, expected);
-    });
-  });
+// group('testing http request makePayment', () {
+  //  test("test for valid payment", () async {
+  //    var expected = dbSuccess;
+//
+  //    var actual = await makePayment("35", "34455637975", "65544312450", "1",
+ //         "test", "36", "Jared Govindsamy");
+//
+ //     expect(actual, expected);
+ //   });
+//
+ //   test("test for invalid payment", () async {
+ //     var expected = "Failed to make transfer";
+///
+ //     var actual = await makePayment("35", "34455637975", "34455637825", "1",
+  //        "test", "35", "Jared Govindsamy");
+//
+  //    expect(actual, expected);
+  //  });
+  //});
 
   group('testing http request getSpecificAccount', () {
     test("test for valid specific Account", () async {

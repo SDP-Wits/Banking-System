@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import '../registration.functions.dart';
 
 class NewName extends StatefulWidget {
+  final double width;
+
+  NewName(this.width);
+
   @override
   NewNameState createState() => NewNameState();
 }
@@ -29,7 +33,7 @@ class NewNameState extends State<NewName> {
       padding: const EdgeInsets.only(top: 30, left: 50, right: 50),
       child: Container(
         height: 60,
-        width: MediaQuery.of(context).size.width,
+        width: this.widget.width,
         child: TextField(
           onChanged: (value) {
             _hasInputError =

@@ -13,6 +13,8 @@ INNER JOIN `ACCOUNT TYPE` ON `ACCOUNT TYPE`.accountTypeID=ACCOUNT.AccountTypeID
 WHERE CLIENT.idNumber = '$idNum'";
 
 $result = mysqli_query($conn,$sql);
+$data = mysqli_fetch_array($result);
+
 
 
 if (mysqli_num_rows($result) < 1) { 
