@@ -1,6 +1,4 @@
 // coverage:ignore-start
-import 'dart:html';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:last_national_bank/config/routes/router.dart';
@@ -87,47 +85,33 @@ class _AdminRegistrationPage extends State<AdminRegistrationPage> {
     );
   }
 
-
-
-
   Widget desktopLayout(BuildContext context) {
-
     final size = getSize(context);
 
     return SingleChildScrollView(
-    
-    child: Container(
-
+        child: Container(
       width: size.width,
       height: size.height,
-
       child: Stack(
-
         children: <Widget>[
-          
-              TealCircles(),
-
-              OrangeCircles(),
-
-              new Align(
-                
+          TealCircles(),
+          OrangeCircles(),
+          new Align(
+              alignment: Alignment.center,
+              child: Container(
+                width: size.width / 1.2,
+                height: size.height / 1.1,
                 alignment: Alignment.center,
-                
-                child: Container(
-
-                  width: size.width/1.2,
-                  height: size.height/1.1,
-                  alignment: Alignment.center,
-
-                  decoration: BoxDecoration(
-
+                decoration: BoxDecoration(
                   gradient: LinearGradient(
                     //Gradient we use for page background
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [Colors.teal.withAlpha(128), Color(0xFFffa781).withAlpha(128)],
+                    colors: [
+                      Colors.teal.withAlpha(128),
+                      Color(0xFFffa781).withAlpha(128)
+                    ],
                   ),
-                  
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(25.0),
                     bottomRight: Radius.circular(25.0),
@@ -135,77 +119,46 @@ class _AdminRegistrationPage extends State<AdminRegistrationPage> {
                     topRight: Radius.circular(25.0),
                   ),
                 ),
-                  
-
                 child: Row(
-
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   mainAxisSize: MainAxisSize.max,
-
                   children: [
-
                     Column(
-
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       mainAxisSize: MainAxisSize.max,
-
                       children: [
-
                         Heading("Admin Registration"),
-                        NewName(size.width/4),
-                        NewSurname(size.width/4),
-                        NewAge(size.width/4),
-                        NewPhone(size.width/4),
-                        NewEmail(size.width/4),
-                        NewIDnum(size.width/4),                        
-
+                        NewName(size.width / 4),
+                        NewSurname(size.width / 4),
+                        NewAge(size.width / 4),
+                        NewPhone(size.width / 4),
+                        NewEmail(size.width / 4),
+                        NewIDnum(size.width / 4),
                       ],
                     ),
-
-
                     Column(
-
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       mainAxisSize: MainAxisSize.max,
-
                       children: [
-
-                        NewLoc(size.width/4),
-                        PasswordInput(size.width/4),
-                        PasswordInput2(size.width/4),
-                        SecretKey(size.width/4),                       
-
+                        NewLoc(size.width / 4),
+                        PasswordInput(size.width / 4),
+                        PasswordInput2(size.width / 4),
+                        SecretKey(size.width / 4),
                       ],
                     )
-
                   ],
                 ),
-                  
-                )
-              ),
-
-              new Positioned(
-                
-                left: size.width/1.23,
-                bottom: size.height/15,
-                
-                child: ButtonNewUser(size.width/10)
-              ),
-
-            ],
-
+              )),
+          new Positioned(
+              left: size.width / 1.23,
+              bottom: size.height / 15,
+              child: ButtonNewUser(size.width / 10)),
+        ],
       ),
-
     ));
-
-
-
   }
 
-
-
   Widget phoneLayout(BuildContext context) {
-
     return Container(
       decoration: BoxDecoration(gradient: backgroundGradient),
       child: ListView(
@@ -237,9 +190,7 @@ class _AdminRegistrationPage extends State<AdminRegistrationPage> {
         ],
       ),
     );
-
   }
-
 }
 
 // coverage:ignore-end
