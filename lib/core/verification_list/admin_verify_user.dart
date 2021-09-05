@@ -5,6 +5,7 @@ import 'package:last_national_bank/constants/route_constants.dart';
 import 'package:last_national_bank/utils/helpers/back_button_helper.dart';
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
+import 'package:last_national_bank/utils/helpers/helper.dart';
 import 'package:last_national_bank/utils/helpers/style.dart';
 
 import '../../classes/thisUser.dart';
@@ -109,8 +110,8 @@ class _VerifyUserState extends State<VerifyUser> {
               ),
 
               DetailedBlocks(curruser.firstName, "FirstName"),
-              if (curruser.middleName != null ||
-                  curruser.middleName!.trim() == "")
+              if (curruser.middleName != null &&
+                  curruser.middleName!.trim() != "")
                 DetailedBlocks(curruser.middleName!, "Middle Name"),
               DetailedBlocks(curruser.lastName, "LastName"),
               DetailedBlocks(curruser.email, "Email"),
@@ -120,33 +121,16 @@ class _VerifyUserState extends State<VerifyUser> {
 
               // Add two verification buttons next to each other
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Expanded(
-                    flex: 4, // 20%
-                    child: Container(color: Colors.transparent),
-                  ),
-                  Expanded(
-                    flex: 3, // 60%
-                    child: buttonVerifyClient(() {
-                      // verification.functions.dart
-                      verificationProcedure(context, curruser.idNumber, true);
-                    }),
-                  ),
-                  Expanded(
-                    flex: 1, // 20%
-                    child: Container(color: Colors.transparent),
-                  ),
-                  Expanded(
-                    flex: 3, // 60%
-                    child: buttonRejectClient(() {
-                      // verification.functions.dart
-                      verificationProcedure(context, curruser.idNumber, false);
-                    }),
-                  ),
-                  Expanded(
-                    flex: 4, // 20%
-                    child: Container(color: Colors.transparent),
-                  )
+                  buttonVerifyClient(() {
+                    // verification.functions.dart
+                    verificationProcedure(context, curruser.idNumber, true);
+                  }),
+                  buttonRejectClient(() {
+                    // verification.functions.dart
+                    verificationProcedure(context, curruser.idNumber, false);
+                  }),
                 ],
               )
             ],
@@ -164,61 +148,52 @@ class DetailedBlocks extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = getSize(context);
     return Row(
       children: [
-        Expanded(
-          flex: 2, // 20%
-          child: Container(color: Colors.transparent),
-        ),
-        Expanded(
-          flex: 7, // 60%
-          child: Container(
-            width: MediaQuery.of(context).size.width * 0.8,
-            padding: EdgeInsets.all(15),
-            //padding: const EdgeInsets.only(top: 20, left: 50, right: 50),
-            margin: EdgeInsets.all(15),
-            decoration: BoxDecoration(
-              color: Colors.transparent,
-              // borderRadius: BorderRadius.circular(15),
-              border: Border(
-                bottom: BorderSide(
-                  color: Colors.white,
-                  width: 1,
-                ),
+        Container(
+          width:
+              (size.width < tabletWidth) ? size.width * 0.8 : size.width * 0.6,
+          padding: EdgeInsets.all(15),
+          //padding: const EdgeInsets.only(top: 20, left: 50, right: 50),
+          margin: EdgeInsets.all(15),
+          decoration: BoxDecoration(
+            color: Colors.transparent,
+            // borderRadius: BorderRadius.circular(15),
+            border: Border(
+              bottom: BorderSide(
+                color: Colors.white,
+                width: 1,
               ),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  property + ':',
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
-                    fontFamily: fontMont,
-                    fontWeight: FontWeight.normal,
-                  ),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                property + ':',
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white,
+                  fontFamily: fontMont,
+                  fontWeight: FontWeight.normal,
                 ),
-                // Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
-                Text(
-                  text,
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
-                    fontFamily: fontMont,
-                    fontWeight: FontWeight.w500,
-                  ),
+              ),
+              // Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
+              Text(
+                text,
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white,
+                  fontFamily: fontMont,
+                  fontWeight: FontWeight.w500,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
-        Expanded(
-          flex: 2, // 20%
-          child: Container(color: Colors.transparent),
-        )
       ],
     );
   }
