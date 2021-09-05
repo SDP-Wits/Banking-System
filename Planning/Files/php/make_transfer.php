@@ -65,26 +65,28 @@ if(mysqli_num_rows($check1) < 1) {
 
 	//Adding transfer to TRANSACTION table
 	$stmt1 = $conn->prepare("INSERT INTO TRANSACTION (customerName,amount,accountFrom,accountTo,referenceName,referenceNumber) VALUES (?,?,?,?,?,?)");
-	$stmt1->bind_param("ssdsss", $customerName, $amount, $accountFrom, $accountTo, $referenceName, $referenceNumber);
+	$stmt1->bind_param("ssssss", $customerName, $amount, $accountFrom, $accountTo, $referenceName, $referenceNumber);
 	$stmt1->execute();
 
 	//updating each account's balance (have to decrypt first)
+  	$amount = openssl_decrypt($amount, $ciphering, $encryption_key, $options, $encryption_iv);
+
 	$oldBalance1 = $accFromRes['currentBalance'];
 	$oldBalance1 = openssl_decrypt($oldBalance1, $ciphering, $encryption_key, $options, $encryption_iv);
-	$newBalance1 = $oldBalance1 - $amount;
+	$newBalance1 = doubleval($oldBalance1) - doubleval($amount);
 	$newBalance1 = openssl_encrypt($newBalance1, $ciphering, $encryption_key, $options, $encryption_iv);
-	
+
 	$stmt2 = $conn->prepare("UPDATE ACCOUNT SET currentBalance = ? WHERE accountNumber = ?");
-	$stmt2->bind_param("ds", $newBalance1, $accountFrom);
+	$stmt2->bind_param("ss", $newBalance1, $accountFrom);
 	$stmt2->execute();
 
 	$oldBalance2 = $accToRes['currentBalance'];
 	$oldBalance2 = openssl_decrypt($oldBalance2, $ciphering, $encryption_key, $options, $encryption_iv);
-	$newBalance2 = $oldBalance2 + $amount;
+	$newBalance2 = doubleval($oldBalance2) + doubleval($amount);
 	$newBalance2 = openssl_encrypt($newBalance2, $ciphering, $encryption_key, $options, $encryption_iv);
 
 	$stmt3 = $conn->prepare("UPDATE ACCOUNT SET currentBalance = ? WHERE accountNumber = ?");
-	$stmt3->bind_param("ds", $newBalance2, $accountTo);
+	$stmt3->bind_param("ss", $newBalance2, $accountTo);
 	$stmt3->execute();
 
 	//logging transfer to LOG table
@@ -109,7 +111,7 @@ if(mysqli_num_rows($check1) < 1) {
 				array("status" => TRUE, "details" => "Successful transfer")
 			)
 		);
-	
+
 }
 
 $conn->close();
