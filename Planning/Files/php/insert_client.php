@@ -1,5 +1,6 @@
 <?php
 include "./helpers/server_details.php";
+include "./helpers/encryption.php";
 
 $firstName = $_REQUEST["firstName"];
 $middleName = $_REQUEST["middleName"];
