@@ -90,6 +90,10 @@ if(mysqli_num_rows($check1) < 1) {
 	$stmt3->execute();
 
 	//logging transfer to LOG table
+  		//decrypt account numbers first
+  		$accToRes['accountNumber'] = openssl_decrypt($accToRes['accountNumber'], $ciphering, $encryption_key, $options, $encryption_iv);
+  		$accFromRes['accountNumber'] = openssl_decrypt($accFromRes['accountNumber'], $ciphering, $encryption_key, $options, $encryption_iv);
+
 	$stmt4 = $conn->prepare("INSERT INTO LOG (description, clientID) VALUES (?,?)");
 	$desc1 = "Transfer to ";
 	$desc1 .= $accToRes['accountNumber'];
