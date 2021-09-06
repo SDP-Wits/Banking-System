@@ -76,3 +76,29 @@ Widget buildLoadingScreen(BuildContext context) {
   );
 }
 // coverage:ignore-end
+
+class MySpacing extends StatelessWidget {
+  final double height;
+
+  MySpacing(this.height);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: height),
+    );
+  }
+}
+
+class MyHoriSpacing extends StatelessWidget {
+  final double width;
+
+  MyHoriSpacing(this.width);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: width),
+    );
+  }
+}

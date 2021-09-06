@@ -93,8 +93,26 @@ class _LoginPageState extends State<LoginPage> {
                           //VerticalText(),
                           //TextLogin(),
                         ]),
-                    InputID(getIDController()),
-                    PasswordInput(getPasswordController()),
+                    Container(
+                      width: (size.width < phoneWidth)
+                          ? null
+                          : (size.width < tabletWidth)
+                              ? size.width * 0.8
+                              : size.width * 0.5,
+                      child: InputID(
+                        getIDController(),
+                      ),
+                    ),
+                    Container(
+                      width: (size.width < phoneWidth)
+                          ? null
+                          : (size.width < tabletWidth)
+                              ? size.width * 0.8
+                              : size.width * 0.5,
+                      child: PasswordInput(
+                        getPasswordController(),
+                      ),
+                    ),
                     ButtonLogin(() {
                       //What happens when the login button is clicked
                       loginProcedure(context);

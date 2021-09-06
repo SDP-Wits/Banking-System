@@ -28,7 +28,6 @@ class _paymentButtonState extends State<paymentButton> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Container(
-      width: size.width * 0.9,
       alignment: Alignment.center,
       child: Padding(
         padding: const EdgeInsets.only(

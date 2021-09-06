@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:last_national_bank/utils/helpers/helper.dart';
 
 import '../../../utils/helpers/style.dart';
 
@@ -13,6 +14,7 @@ class ButtonLogin extends StatefulWidget {
 class _ButtonLoginState extends State<ButtonLogin> {
   @override
   Widget build(BuildContext context) {
+    final size = getSize(context);
     return Padding(
       padding: const EdgeInsets.only(
         top: 40,
@@ -43,13 +45,18 @@ class _ButtonLoginState extends State<ButtonLogin> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text(
-                'Login',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                  fontFamily: fontMont,
-                  fontWeight: FontWeight.w700,
+              Container(
+                padding: (size.width < tabletWidth)
+                    ? null
+                    : EdgeInsets.symmetric(vertical: 10),
+                child: Text(
+                  'Login',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontFamily: fontMont,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
             ],

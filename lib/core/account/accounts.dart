@@ -157,7 +157,11 @@ class _AccountsState extends State<Accounts> {
                 ),
 
                 SizedBox(
-                  width: size.width * 0.9,
+                  width: (size.width > tabletWidth)
+                      ? size.width * 0.5
+                      : (size.width > phoneWidth)
+                          ? size.width * 0.7
+                          : size.width * 0.9,
                   child: ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,

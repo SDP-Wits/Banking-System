@@ -49,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     //TODO: Comment before final release
     // autoLogin(context);
-    autoLoginWeb("2222222222222", "Test@123", true, context);
+    // autoLoginWeb("2222222222222", "Test@123", true, context);
   }
 
   @override

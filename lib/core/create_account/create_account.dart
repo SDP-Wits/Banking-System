@@ -144,11 +144,11 @@ class _CreateAccountState extends State<CreateAccount> {
                                             ),
                                           Padding(
                                               padding: EdgeInsets.symmetric(
-                                                  vertical: 5)),
+                                                  vertical: 15)),
                                           Heading("Create Account"),
                                           Padding(
                                               padding: EdgeInsets.symmetric(
-                                                  vertical: 15)),
+                                                  vertical: 10)),
                                         ],
                                       ),
                                     GestureDetector(

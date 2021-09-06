@@ -102,90 +102,95 @@ class _ProfileState extends State<Profile> {
       key: _scaffoldKey,
       body: Container(
         height: size.height,
-        child: Column(
-            //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              (me![0].status != "Pending")
-                  ? DesktopTabNavigator()
-                  : DesktopTabNavigator(
-                      isPending: true,
-                    ),
-              Container(
-                // height: size.height / 2,
-                padding: EdgeInsets.symmetric(vertical: 30),
-                decoration: BoxDecoration(
-                  gradient: backgroundGradient,
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(25.0),
-                    bottomRight: Radius.circular(25.0),
-                    // topRight: borderRadius,
-                  ),
-                ),
-                child: Column(
-                    //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      if (MediaQuery.of(context).size.width <= tabletWidth)
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: IconButton(
-                            icon: Icon(Icons.menu, color: Colors.white),
-                            onPressed: () {
-                              _scaffoldKey.currentState!.openDrawer();
-                            },
-                          ),
-                        ),
-
-                      Heading("My Profile"),
-
-                      // Spacing
-                      Padding(
-                        padding: EdgeInsets.only(top: 30),
-                      ),
-
-                      Icon(
-                        Icons.account_circle,
-                        size: 100,
-                      ),
-
-                      subHeading(user!.firstName + " " + user!.lastName),
-                      // Spacing
-                      Padding(
-                        padding: EdgeInsets.only(top: 15),
-                      ),
-                      subsubHeading(user!.idNumber),
-                    ]),
-              ),
-              Expanded(
-                  child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                mainAxisSize: MainAxisSize.max,
+        child: SingleChildScrollView(
+          child: Container(
+            height: size.height,
+            child: Column(
+                //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Row(
+                  (me![0].status != "Pending")
+                      ? DesktopTabNavigator()
+                      : DesktopTabNavigator(
+                          isPending: true,
+                        ),
+                  Container(
+                    // height: size.height / 2,
+                    padding: EdgeInsets.symmetric(vertical: 30),
+                    decoration: BoxDecoration(
+                      gradient: backgroundGradient,
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(25.0),
+                        bottomRight: Radius.circular(25.0),
+                        // topRight: borderRadius,
+                      ),
+                    ),
+                    child: Column(
+                        //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          if (MediaQuery.of(context).size.width <= tabletWidth)
+                            Align(
+                              alignment: Alignment.topLeft,
+                              child: IconButton(
+                                icon: Icon(Icons.menu, color: Colors.white),
+                                onPressed: () {
+                                  _scaffoldKey.currentState!.openDrawer();
+                                },
+                              ),
+                            ),
+
+                          Heading("My Profile"),
+
+                          // Spacing
+                          Padding(
+                            padding: EdgeInsets.only(top: 30),
+                          ),
+
+                          Icon(
+                            Icons.account_circle,
+                            size: 100,
+                          ),
+
+                          subHeading(user!.firstName + " " + user!.lastName),
+                          // Spacing
+                          Padding(
+                            padding: EdgeInsets.only(top: 15),
+                          ),
+                          subsubHeading(user!.idNumber),
+                        ]),
+                  ),
+                  Expanded(
+                      child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      DetailedBlocks(me![0].status, "Verification Status"),
-                      DetailedBlocks(user!.email, "Email Address"),
-                    ],
-                  ),
-                  // Spacing
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          DetailedBlocks(me![0].status, "Verification Status"),
+                          DetailedBlocks(user!.email, "Email Address"),
+                        ],
+                      ),
+                      // Spacing
 
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        DetailedBlocks(user!.phoneNumber, "Phone Number"),
-                        DetailedBlocks(
-                            user!.address.streetNumber.toString() +
-                                " " +
-                                user!.address.streetName +
-                                ", " +
-                                user!.address.suburb,
-                            "Address"),
-                      ]),
-                ],
-              )),
-            ]),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            DetailedBlocks(user!.phoneNumber, "Phone Number"),
+                            DetailedBlocks(
+                                user!.address.streetNumber.toString() +
+                                    " " +
+                                    user!.address.streetName +
+                                    ", " +
+                                    user!.address.suburb,
+                                "Address"),
+                          ]),
+                    ],
+                  )),
+                ]),
+          ),
+        ),
       ),
     );
   }

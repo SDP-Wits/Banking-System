@@ -200,8 +200,10 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
                 ),
 
                 // Card widget that displays the user's specific account details
-                Align(
+                Container(
+                  width: (size.width < tabletWidth) ? null : size.width * 0.5,
                   alignment: Alignment.topCenter,
+                  padding: EdgeInsets.symmetric(vertical: 15),
                   child: AccountCardInfo(
                     accountType: this.widget.acc.accountType,
                     accountNumber: this.widget.acc.accountNumber,
@@ -229,12 +231,17 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
                 ),
 
                 // Swipe up arrow to indicate to the user that they need to swipe up
-                Padding(
-                  padding: EdgeInsets.only(bottom: 5, top: size.height * 0.2),
-                  child: Icon(
-                    Icons.arrow_upward,
-                    color: Colors.teal,
-                    size: 36.0,
+                GestureDetector(
+                  onTap: () {
+                    animationController!.animateTo(size.width * 0.5);
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.only(bottom: 5, top: size.height * 0.2),
+                    child: Icon(
+                      Icons.arrow_upward,
+                      color: Colors.teal,
+                      size: 36.0,
+                    ),
                   ),
                 ),
 

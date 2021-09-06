@@ -7,6 +7,7 @@ import 'package:last_national_bank/classes/accountDetails.dart';
 import 'package:last_national_bank/classes/user.class.dart';
 import 'package:last_national_bank/config/routes/router.dart';
 import 'package:last_national_bank/constants/route_constants.dart';
+import 'package:last_national_bank/core/registration/widgets/customCircle.dart';
 import 'package:last_national_bank/core/select_payment/widgets/paymentButton.dart';
 import 'package:last_national_bank/utils/helpers/helper.dart';
 import 'package:last_national_bank/utils/helpers/icons.dart';
@@ -14,6 +15,7 @@ import 'package:last_national_bank/utils/helpers/style.dart';
 import 'package:last_national_bank/utils/services/local_db.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
 import 'package:last_national_bank/widgets/desktopNav.dart';
+import 'package:last_national_bank/widgets/heading.dart';
 import 'package:last_national_bank/widgets/navigation.dart';
 import 'package:last_national_bank/widgets/noAccounts.dart';
 import 'package:last_national_bank/utils/helpers/back_button_helper.dart';
@@ -103,6 +105,7 @@ class _SelectPaymentPageState extends State<SelectPaymentPage> {
           gradient: backgroundGradient,
         ),
         height: size.height,
+        width: size.width,
         // Column: Three lines icon, Heading, Two buttons
         child: SingleChildScrollView(
           child: Column(children: [
@@ -120,63 +123,118 @@ class _SelectPaymentPageState extends State<SelectPaymentPage> {
                   },
                 ),
               ),
+            // Heading
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 30.0),
+              child: Heading('Select Form of Payment'),
+            ),
 
-            Container(
-              height: (size.width < tabletWidth) ? null : size.height * 0.8,
-              alignment: Alignment.center,
-              child: SingleChildScrollView(
-                child: Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      // Heading
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 30.0),
-                        child: Text(
-                          'Select Form of Payment',
-                          style: new TextStyle(
-                              fontSize: 30.0,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white),
-                        ),
+            (size.width < tabletWidth)
+                ? Container(
+                    alignment: Alignment.center,
+                    child: Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          // First button
+                          if (accountDets.length > 1)
+                            paymentButton(
+                              // Pass parameters:
+
+                              // When buton is clicked, do..
+                              onTap: () {
+                                Navigator.pop(context);
+                                goToTransfers(context);
+                              },
+                              buttonTitle: "Transfers",
+                              buttonDescription:
+                                  "Transfer funds betweeen your own accounts.",
+                              buttonIcon: iconFamily.payment,
+                            ),
+
+                          // Second button
+                          paymentButton(
+                            // Pass parameters:
+
+                            // When buton is clicked, do..
+                            onTap: () {
+                              Navigator.pop(context);
+                              goToPayments(context);
+                            },
+                            buttonTitle: "Payments",
+                            buttonDescription:
+                                "Make payments to other client's bank accounts.",
+                            buttonIcon: iconFamily.user,
+                          ),
+                        ],
                       ),
+                    ),
+                  )
+                :
 
-                      // First button
-                      if (accountDets.length > 1)
-                        paymentButton(
-                          // Pass parameters:
-
-                          // When buton is clicked, do..
-                          onTap: () {
-                            Navigator.pop(context);
-                            goToTransfers(context);
-                          },
-                          buttonTitle: "Transfers",
-                          buttonDescription:
-                              "Transfer funds betweeen your own accounts.",
-                          buttonIcon: iconFamily.payment,
+                //Desktop Layout
+                Stack(
+                    children: [
+                      Positioned(
+                        child: CustomCircle(
+                          color: Color(0x005ca9).withAlpha(92),
+                          sizeFactor: 0.8,
                         ),
+                        top: size.height / 15,
+                        left: size.width / 15,
+                      ),
+                      Positioned(
+                        child: CustomCircle(
+                          color: Color(0xf0af25).withAlpha(92),
+                          sizeFactor: 0.8,
+                        ),
+                        top: size.height / 15,
+                        right: size.width / 15,
+                      ),
+                      Container(
+                        width: size.width,
+                        height: size.height * 0.8,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // First button
+                            if (accountDets.length > 1)
+                              paymentButton(
+                                // Pass parameters:
 
-                      // Second button
-                      paymentButton(
-                        // Pass parameters:
+                                // When buton is clicked, do..
+                                onTap: () {
+                                  Navigator.pop(context);
+                                  goToTransfers(context);
+                                },
+                                buttonTitle: "Transfers",
+                                buttonDescription:
+                                    "Transfer funds betweeen your own accounts.",
+                                buttonIcon: iconFamily.payment,
+                              ),
 
-                        // When buton is clicked, do..
-                        onTap: () {
-                          Navigator.pop(context);
-                          goToPayments(context);
-                        },
-                        buttonTitle: "Payments",
-                        buttonDescription:
-                            "Make payments to other client's bank accounts.",
-                        buttonIcon: iconFamily.user,
+                            // Second button
+                            paymentButton(
+                              // Pass parameters:
+
+                              // When buton is clicked, do..
+                              onTap: () {
+                                Navigator.pop(context);
+                                goToPayments(context);
+                              },
+                              buttonTitle: "Payments",
+                              buttonDescription:
+                                  "Make payments to other client's bank accounts.",
+                              buttonIcon: iconFamily.user,
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
-                ),
-              ),
-            ),
           ]),
         ),
       ),

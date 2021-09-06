@@ -139,70 +139,74 @@ class _TimelineListPageState extends State<TimelinePage> {
                         ),
                       ],
                     )
-                  : ListView.builder(
-                      shrinkWrap: true,
-                      physics: ScrollPhysics(),
-                      itemCount: logs!.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        Color colorToUse =
-                            (logs![index].logDescription.contains("to"))
-                                ? Colors.red[500]!
-                                : Colors.green[600]!;
-                        return Column(
-                          children: [
-                            (index == 0)
-                                ? Padding(
-                                    padding: const EdgeInsets.only(top: 15.0),
-                                    child: TimelineHeading(),
-                                  )
-                                : Container(
-                                    width: 0,
-                                    height: 0,
+                  : Container(
+                      margin: EdgeInsets.only(bottom: 15),
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          physics: ScrollPhysics(),
+                          itemCount: logs!.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            Color colorToUse =
+                                (logs![index].logDescription.contains("to"))
+                                    ? Colors.red[500]!
+                                    : Colors.green[600]!;
+                            return Column(
+                              children: [
+                                (index == 0)
+                                    ? Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 15.0),
+                                        child: TimelineHeading(),
+                                      )
+                                    : Container(
+                                        width: 0,
+                                        height: 0,
+                                      ),
+                                Container(
+                                  width: (size.width <= phoneWidth)
+                                      ? size.width * 0.9
+                                      : (size.width <= tabletWidth)
+                                          ? size.width * 0.7
+                                          : size.width * 0.5,
+                                  margin: EdgeInsets.only(top: 25),
+                                  padding: EdgeInsets.all(15),
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white70,
+                                    borderRadius: BorderRadius.circular(35),
                                   ),
-                            Container(
-                              width: (size.width <= phoneWidth)
-                                  ? size.width * 0.9
-                                  : (size.width <= tabletWidth)
-                                      ? size.width * 0.7
-                                      : size.width * 0.5,
-                              margin: EdgeInsets.only(top: 25),
-                              padding: EdgeInsets.all(15),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: Colors.white70,
-                                borderRadius: BorderRadius.circular(35),
-                              ),
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    logs![index].timeStamp.split(" ")[0],
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontFamily: fontMont,
-                                      color: Colors.blueGrey[800]!,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        logs![index].timeStamp.split(" ")[0],
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontFamily: fontMont,
+                                          color: Colors.blueGrey[800]!,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                      Padding(padding: EdgeInsets.only(top: 5)),
+                                      Text(
+                                        logs![index].logDescription,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontFamily: fontMont,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          color: colorToUse,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  Padding(padding: EdgeInsets.only(top: 5)),
-                                  Text(
-                                    logs![index].logDescription,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontFamily: fontMont,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: colorToUse,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        );
-                      }),
+                                ),
+                              ],
+                            );
+                          }),
+                    ),
             ),
           ]),
         ),

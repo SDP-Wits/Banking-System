@@ -71,7 +71,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
             acc: args,
           ),
           settings,
-          goToCreateAccount);
+          goToViewAccount);
 
     case TimelineRoute:
       return MaterialRouteWrap(TimelinePage(), settings, goToProfilePage);
