@@ -115,6 +115,7 @@ class _ProfileState extends State<Profile> {
                         ),
                   Container(
                     // height: size.height / 2,
+                    width: size.width * 1.1,
                     padding: EdgeInsets.symmetric(vertical: 30),
                     decoration: BoxDecoration(
                       gradient: backgroundGradient,

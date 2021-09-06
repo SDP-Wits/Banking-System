@@ -126,7 +126,9 @@ class _SelectPaymentPageState extends State<SelectPaymentPage> {
             // Heading
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 30.0),
-              child: Heading('Select Form of Payment'),
+              child: (size.width > tabletWidth)
+                  ? Heading('Select Form of Payment')
+                  : Heading('Select Form\n of Payment'),
             ),
 
             (size.width < tabletWidth)

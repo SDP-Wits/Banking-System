@@ -176,7 +176,7 @@ class _CreateAccountState extends State<CreateAccount> {
                                           padding: const EdgeInsets.symmetric(
                                               vertical: 8.0),
                                           child: Container(
-                                            width: (size.width <= phoneWidth)
+                                            width: (size.width <= tabletWidth)
                                                 ? size.width * 0.95
                                                 : size.width * 0.7,
                                             padding: (size.width >= tabletWidth)

@@ -104,171 +104,168 @@ class _PaymentsState extends State<Payments> {
                       DesktopTabNavigator(),
                     Expanded(
                       child: SingleChildScrollView(
-                        child: Container(
-                          height: size.height,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              if (MediaQuery.of(context).size.width <=
-                                  tabletWidth)
-                                Align(
-                                  alignment: Alignment.topLeft,
-                                  child: IconButton(
-                                    icon: Icon(Icons.menu, color: Colors.white),
-                                    onPressed: () {
-                                      _scaffoldKey.currentState!.openDrawer();
-                                    },
-                                  ),
-                                ),
-
-                              Heading("Payments"),
-
-                              Padding(
-                                padding: EdgeInsets.only(top: 10),
-                              ),
-
-                              Text(
-                                'Select account to make payment from: ',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: fontMont,
-                                  fontSize: 15.0,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            if (MediaQuery.of(context).size.width <=
+                                tabletWidth)
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: IconButton(
+                                  icon: Icon(Icons.menu, color: Colors.white),
+                                  onPressed: () {
+                                    _scaffoldKey.currentState!.openDrawer();
+                                  },
                                 ),
                               ),
 
-                              Container(
-                                width: (size.width < phoneWidth)
-                                    ? null
-                                    : (size.width < tabletWidth)
-                                        ? size.width * 0.8
-                                        : size.width * 0.5,
-                                margin: EdgeInsets.symmetric(vertical: 10),
-                                child: ScrollAccount(
-                                  acc: accountsDetails,
-                                  controller: controller1,
-                                  setIndex: getAccountFromIndex,
+                            Heading("Payments"),
+
+                            Padding(
+                              padding: EdgeInsets.only(top: 10),
+                            ),
+
+                            Text(
+                              'Select account to make payment from: ',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: fontMont,
+                                fontSize: 15.0,
+                              ),
+                            ),
+
+                            Container(
+                              width: (size.width < phoneWidth)
+                                  ? null
+                                  : (size.width < tabletWidth)
+                                      ? size.width * 0.8
+                                      : size.width * 0.5,
+                              margin: EdgeInsets.symmetric(vertical: 10),
+                              child: ScrollAccount(
+                                acc: accountsDetails,
+                                controller: controller1,
+                                setIndex: getAccountFromIndex,
+                              ),
+                            ),
+
+                            // Spacing
+                            Padding(
+                              padding: EdgeInsets.only(top: 10),
+                            ),
+
+                            Container(
+                              width: (size.width < phoneWidth)
+                                  ? null
+                                  : (size.width < tabletWidth)
+                                      ? size.width * 0.8
+                                      : size.width * 0.5,
+                              margin: EdgeInsets.symmetric(vertical: 10),
+                              child: InputField(
+                                text: "Amount",
+                                child: TextField(
+                                  maxLines: 1,
+                                  decoration: inputInputDecoration,
+                                  controller: amountController,
+                                  onChanged: onChangeAmount,
+                                  textAlign: TextAlign.center,
+                                  style: inputTextStyle,
                                 ),
                               ),
+                            ),
 
-                              // Spacing
-                              Padding(
-                                padding: EdgeInsets.only(top: 10),
-                              ),
-
-                              Container(
-                                width: (size.width < phoneWidth)
-                                    ? null
-                                    : (size.width < tabletWidth)
-                                        ? size.width * 0.8
-                                        : size.width * 0.5,
-                                margin: EdgeInsets.symmetric(vertical: 10),
-                                child: InputField(
-                                  text: "Amount",
-                                  child: TextField(
-                                    maxLines: 1,
-                                    decoration: inputInputDecoration,
-                                    controller: amountController,
-                                    onChanged: onChangeAmount,
-                                    textAlign: TextAlign.center,
-                                    style: inputTextStyle,
-                                  ),
+                            Container(
+                              width: (size.width < phoneWidth)
+                                  ? null
+                                  : (size.width < tabletWidth)
+                                      ? size.width * 0.8
+                                      : size.width * 0.5,
+                              margin: EdgeInsets.symmetric(vertical: 10),
+                              child: InputField(
+                                text: "Recipient Account Number",
+                                child: TextField(
+                                  maxLength: 11,
+                                  decoration: inputInputDecoration,
+                                  controller: receiptentAccountNumberController,
+                                  onChanged: onChangeReceipent,
+                                  textAlign: TextAlign.center,
+                                  style: inputTextStyle,
                                 ),
                               ),
+                            ),
 
-                              Container(
-                                width: (size.width < phoneWidth)
-                                    ? null
-                                    : (size.width < tabletWidth)
-                                        ? size.width * 0.8
-                                        : size.width * 0.5,
-                                margin: EdgeInsets.symmetric(vertical: 10),
-                                child: InputField(
-                                  text: "Recipient Account Number",
-                                  child: TextField(
-                                    maxLength: 11,
-                                    decoration: inputInputDecoration,
-                                    controller:
-                                        receiptentAccountNumberController,
-                                    onChanged: onChangeReceipent,
-                                    textAlign: TextAlign.center,
-                                    style: inputTextStyle,
-                                  ),
+                            Container(
+                              width: (size.width < phoneWidth)
+                                  ? null
+                                  : (size.width < tabletWidth)
+                                      ? size.width * 0.8
+                                      : size.width * 0.5,
+                              margin: EdgeInsets.symmetric(vertical: 10),
+                              child: InputField(
+                                text: "Reference Name",
+                                child: TextField(
+                                  // maxLength: 11,
+                                  decoration: inputInputDecoration,
+                                  controller: referenceNameController,
+                                  onChanged: onChangeReferenceName,
+                                  textAlign: TextAlign.center,
+                                  style: inputTextStyle,
                                 ),
                               ),
+                            ),
 
-                              Container(
-                                width: (size.width < phoneWidth)
-                                    ? null
-                                    : (size.width < tabletWidth)
-                                        ? size.width * 0.8
-                                        : size.width * 0.5,
-                                margin: EdgeInsets.symmetric(vertical: 10),
-                                child: InputField(
-                                  text: "Reference Name",
-                                  child: TextField(
-                                    // maxLength: 11,
-                                    decoration: inputInputDecoration,
-                                    controller: referenceNameController,
-                                    onChanged: onChangeReferenceName,
-                                    textAlign: TextAlign.center,
-                                    style: inputTextStyle,
-                                  ),
-                                ),
-                              ),
+                            TextButton(
+                              // onPressed: ()=>{submitPayment(user!, accountsDetails[indexToUse])},
+                              onPressed: () {
+                                submitPayment(user!,
+                                        accountsDetails[accountFromIndex])
+                                    .then((success) {
+                                  if (success) {
+                                    setState(() {
+                                      accountsDetails[accountFromIndex]
+                                              .currentBalance -=
+                                          double.parse(amountText);
 
-                              TextButton(
-                                // onPressed: ()=>{submitPayment(user!, accountsDetails[indexToUse])},
-                                onPressed: () {
-                                  submitPayment(user!,
-                                          accountsDetails[accountFromIndex])
-                                      .then((success) {
-                                    if (success) {
-                                      setState(() {
-                                        accountsDetails[accountFromIndex]
-                                                .currentBalance -=
-                                            double.parse(amountText);
+                                      emptyText();
+                                      accountFromIndex = 0;
+                                    });
 
-                                        emptyText();
-                                        accountFromIndex = 0;
-                                      });
+                                    goToTimelineDialog(context);
+                                  }
+                                });
+                              },
 
-                                      goToTimelineDialog(context);
-                                    }
-                                  });
-                                },
-
-                                child: Container(
-                                  width: size.width * 0.5,
-                                  padding: EdgeInsets.all(15),
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(50),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black54,
-                                          blurRadius:
-                                              10.0, // has the effect of softening the shadow
-                                          spreadRadius:
-                                              1.0, // has the effect of extending the shadow
-                                          offset: Offset(
-                                            5.0, // horizontal, move right 10
-                                            5.0, // vertical, move down 10
-                                          ),
+                              child: Container(
+                                width: size.width * 0.5,
+                                padding: EdgeInsets.all(15),
+                                margin: EdgeInsets.only(bottom: 20),
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(50),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black54,
+                                        blurRadius:
+                                            10.0, // has the effect of softening the shadow
+                                        spreadRadius:
+                                            1.0, // has the effect of extending the shadow
+                                        offset: Offset(
+                                          5.0, // horizontal, move right 10
+                                          5.0, // vertical, move down 10
                                         ),
-                                      ]),
-                                  child: Text(
-                                    "Send",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Colors.teal,
-                                      fontSize: 18.0,
-                                      fontFamily: fontMont,
-                                    ),
+                                      ),
+                                    ]),
+                                child: Text(
+                                  "Send",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.teal,
+                                    fontSize: 18.0,
+                                    fontFamily: fontMont,
                                   ),
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
