@@ -79,7 +79,7 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
           ),
         ], color: Colors.white, borderRadius: BorderRadius.circular(30)),
         child: TextButton(
-          onPressed: () {
+          onPressed: () async {
             if (Data.is_client) {
               if (getCheck() == false) {
                 // give error
@@ -134,16 +134,17 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
                     fontSize: 16.0);
               } else {
                 //call php for admin
-                adminRegisterOnline().then((value) {
-                  Fluttertoast.showToast(
-                      msg: "" + value,
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.CENTER,
-                      timeInSecForIosWeb: 3,
-                      backgroundColor: Colors.teal,
-                      textColor: Colors.white,
-                      fontSize: 16.0);
-                });
+                final String value = await adminRegisterOnline();
+
+                Fluttertoast.showToast(
+                    msg: value,
+                    toastLength: Toast.LENGTH_LONG,
+                    gravity: ToastGravity.CENTER,
+                    timeInSecForIosWeb: 3,
+                    backgroundColor: Colors.teal,
+                    textColor: Colors.white,
+                    fontSize: 16.0);
+
                 if (Navigator.canPop(context)) {
                   Navigator.pop(context);
                 }
