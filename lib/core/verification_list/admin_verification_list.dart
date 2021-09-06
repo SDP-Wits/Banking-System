@@ -8,6 +8,7 @@ import 'package:last_national_bank/config/routes/router.dart';
 import 'package:last_national_bank/constants/route_constants.dart';
 import 'package:last_national_bank/utils/services/local_db.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
+import 'package:last_national_bank/widgets/desktopNav.dart';
 import 'package:last_national_bank/widgets/heading.dart';
 import 'package:last_national_bank/utils/helpers/back_button_helper.dart';
 import 'package:last_national_bank/widgets/navigation.dart';
@@ -105,7 +106,9 @@ class _AdminVerificationListPageState extends State<AdminVerificationListPage> {
         // Set navigation drawer
         key: _scaffoldKey,
         drawer: pendingNav(
-            clientName: user!.firstName, clientSurname: user!.lastName),
+            clientName: user!.firstName,
+            clientSurname: user!.lastName,
+            context: context),
         body: Container(
           decoration: BoxDecoration(
             gradient: backgroundGradient,
@@ -121,6 +124,11 @@ class _AdminVerificationListPageState extends State<AdminVerificationListPage> {
                   //List
                   return Column(
                     children: [
+                      if (MediaQuery.of(context).size.width > tabletWidth)
+                        DesktopTabNavigator(
+                          isPending: true,
+                        ),
+
                       // Three-line menu bar on the top to open the navigation drawer
                       if (MediaQuery.of(context).size.width <= tabletWidth)
                         Align(

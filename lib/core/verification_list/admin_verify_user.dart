@@ -1,5 +1,6 @@
 // coverage:ignore-start
 import 'dart:ui';
+import 'package:last_national_bank/classes/user.class.dart';
 import 'package:last_national_bank/config/routes/router.dart';
 import 'package:last_national_bank/constants/route_constants.dart';
 import 'package:last_national_bank/utils/helpers/back_button_helper.dart';
@@ -7,6 +8,9 @@ import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:last_national_bank/utils/helpers/helper.dart';
 import 'package:last_national_bank/utils/helpers/style.dart';
+import 'package:last_national_bank/utils/services/local_db.dart';
+import 'package:last_national_bank/widgets/desktopNav.dart';
+import 'package:last_national_bank/widgets/pendingNav.dart';
 
 import '../../classes/thisUser.dart';
 import '../../utils/services/online_db.dart';
@@ -24,17 +28,25 @@ class VerifyUser extends StatefulWidget {
 class _VerifyUserState extends State<VerifyUser> {
 // late thisUser thisuser;
   List<thisUser> thisuser = [];
+  User? user;
 
   void initState() {
     super.initState();
     //Adding the back button listener
     BackButtonInterceptor.add(myInterceptor);
 
+    LocalDatabaseHelper.instance.getUserAndAddress().then((_user) {
+      setState(() {
+        user = _user;
+      });
+    });
+
     // gets the clients details for the admin to view
     getClientDetails(widget.IDnum).then((lstNames) {
       thisuser = lstNames;
       setState(() {});
     });
+
     // _thisuser = getClient();
     // setState(() {});
   }
@@ -77,6 +89,10 @@ class _VerifyUserState extends State<VerifyUser> {
     // Name names = ModalRoute.of(context)!.settings.arguments as Name;
     thisUser curruser = thisuser[0];
     return Scaffold(
+      drawer: pendingNav(
+          clientName: user!.firstName,
+          clientSurname: user!.lastName,
+          context: context),
       body: Container(
         width: size.width,
         height: size.height,
@@ -95,6 +111,10 @@ class _VerifyUserState extends State<VerifyUser> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              if (MediaQuery.of(context).size.width > tabletWidth)
+                DesktopTabNavigator(
+                  isPending: true,
+                ),
               Padding(padding: EdgeInsets.symmetric(vertical: 15)),
               Icon(
                 Icons.assignment_ind_rounded,

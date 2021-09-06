@@ -109,140 +109,147 @@ class _CreateAccountState extends State<CreateAccount> {
                     decoration: BoxDecoration(
                       gradient: backgroundGradient,
                     ),
-                    child: Column(
-                      children: [
-                        if (MediaQuery.of(context).size.width > tabletWidth)
-                          DesktopTabNavigator(),
-                        ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: accountTypeList.length,
-                            itemBuilder: (context, index) {
-                              return Column(
-                                children: [
-                                  if (index == 0)
-                                    Column(
-                                      children: [
-                                        Align(
-                                          alignment: Alignment.topLeft,
-                                          child: IconButton(
-                                            icon: Icon(Icons.menu,
-                                                color: Colors.white),
-                                            onPressed: () {
-                                              _scaffoldKey.currentState!
-                                                  .openDrawer();
-                                            },
-                                          ),
-                                        ),
-                                        Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 5)),
-                                        Heading("Create Account"),
-                                        Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 15)),
-                                      ],
-                                    ),
-                                  GestureDetector(
-                                      onTap: () async {
-                                        //check if account type id exists in existing account type list
-                                        if (existingAccountTypes.contains(
-                                            accountTypeIdList[index])) {
-                                          // display toast to restrict user
-                                          Fluttertoast.showToast(
-                                              msg:
-                                                  "An account of this type already exists. Restriction: Only one of each type of account allowed.",
-                                              toastLength: Toast.LENGTH_LONG,
-                                              gravity: ToastGravity.CENTER,
-                                              timeInSecForIosWeb: 3,
-                                              fontSize: 16.0);
-                                        } else {
-                                          // confirm creation of selected account
-                                          await _asyncConfirmDialog(
-                                              context,
-                                              accountTypeIdList[index],
-                                              accountTypeList[index]);
-                                        }
-                                      },
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 8.0),
-                                        child: Container(
-                                          width: (size.width <= phoneWidth)
-                                              ? size.width * 0.95
-                                              : size.width * 0.7,
-                                          padding: (size.width >= tabletWidth)
-                                              ? EdgeInsets.only(top: 45)
-                                              : null,
-                                          child: Card(
-                                            color: Colors.white,
-                                            child: Container(
-                                                margin:
-                                                    const EdgeInsets.all(10),
-                                                decoration: BoxDecoration(
-                                                    gradient: LinearGradient(
-                                                  begin: Alignment.topCenter,
-                                                  end: Alignment.bottomCenter,
-                                                  colors: [
-                                                    Colors.teal,
-                                                    Colors.teal[800]!,
-                                                  ],
-                                                )),
-                                                child: Row(
-                                                  children: <Widget>[
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              20.0),
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: <Widget>[
-                                                          Text(
-                                                            accountTypeList[
-                                                                index],
-                                                            style: TextStyle(
-                                                              fontSize: 20,
-                                                              color:
-                                                                  Colors.white,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontFamily:
-                                                                  fontMont,
-                                                            ),
-                                                          ),
-                                                          SizedBox(
-                                                            height: 10,
-                                                          ),
-                                                          Container(
-                                                            width: width,
-                                                            child: Text(
-                                                              descriptionList[
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          if (MediaQuery.of(context).size.width > tabletWidth)
+                            DesktopTabNavigator(),
+                          ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: accountTypeList.length,
+                              itemBuilder: (context, index) {
+                                return Column(
+                                  children: [
+                                    if (index == 0)
+                                      Column(
+                                        children: [
+                                          if (MediaQuery.of(context)
+                                                  .size
+                                                  .width <=
+                                              tabletWidth)
+                                            Align(
+                                              alignment: Alignment.topLeft,
+                                              child: IconButton(
+                                                icon: Icon(Icons.menu,
+                                                    color: Colors.white),
+                                                onPressed: () {
+                                                  _scaffoldKey.currentState!
+                                                      .openDrawer();
+                                                },
+                                              ),
+                                            ),
+                                          Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 5)),
+                                          Heading("Create Account"),
+                                          Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 15)),
+                                        ],
+                                      ),
+                                    GestureDetector(
+                                        onTap: () async {
+                                          //check if account type id exists in existing account type list
+                                          if (existingAccountTypes.contains(
+                                              accountTypeIdList[index])) {
+                                            // display toast to restrict user
+                                            Fluttertoast.showToast(
+                                                msg:
+                                                    "An account of this type already exists. Restriction: Only one of each type of account allowed.",
+                                                toastLength: Toast.LENGTH_LONG,
+                                                gravity: ToastGravity.CENTER,
+                                                timeInSecForIosWeb: 3,
+                                                fontSize: 16.0);
+                                          } else {
+                                            // confirm creation of selected account
+                                            await _asyncConfirmDialog(
+                                                context,
+                                                accountTypeIdList[index],
+                                                accountTypeList[index]);
+                                          }
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 8.0),
+                                          child: Container(
+                                            width: (size.width <= phoneWidth)
+                                                ? size.width * 0.95
+                                                : size.width * 0.7,
+                                            padding: (size.width >= tabletWidth)
+                                                ? EdgeInsets.only(top: 45)
+                                                : null,
+                                            child: Card(
+                                              color: Colors.white,
+                                              child: Container(
+                                                  margin:
+                                                      const EdgeInsets.all(10),
+                                                  decoration: BoxDecoration(
+                                                      gradient: LinearGradient(
+                                                    begin: Alignment.topCenter,
+                                                    end: Alignment.bottomCenter,
+                                                    colors: [
+                                                      Colors.teal,
+                                                      Colors.teal[800]!,
+                                                    ],
+                                                  )),
+                                                  child: Row(
+                                                    children: <Widget>[
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(20.0),
+                                                        child: Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: <Widget>[
+                                                            Text(
+                                                              accountTypeList[
                                                                   index],
                                                               style: TextStyle(
-                                                                  fontSize: 15,
-                                                                  color: Colors
-                                                                      .white70,
-                                                                  fontFamily:
-                                                                      fontMont,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500),
+                                                                fontSize: 20,
+                                                                color: Colors
+                                                                    .white,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontFamily:
+                                                                    fontMont,
+                                                              ),
                                                             ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    )
-                                                  ],
-                                                )),
+                                                            SizedBox(
+                                                              height: 10,
+                                                            ),
+                                                            Container(
+                                                              width: width,
+                                                              child: Text(
+                                                                descriptionList[
+                                                                    index],
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        15,
+                                                                    color: Colors
+                                                                        .white70,
+                                                                    fontFamily:
+                                                                        fontMont,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      )
+                                                    ],
+                                                  )),
+                                            ),
                                           ),
-                                        ),
-                                      )),
-                                ],
-                              );
-                            }),
-                      ],
+                                        )),
+                                  ],
+                                );
+                              }),
+                        ],
+                      ),
                     ),
                   )
                 : buildLoadingScreen(context),

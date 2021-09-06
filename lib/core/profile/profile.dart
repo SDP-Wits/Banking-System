@@ -96,98 +96,92 @@ class _ProfileState extends State<Profile> {
     final size = getSize(context);
     return Scaffold(
       key: _scaffoldKey,
-      drawer: (me![0].status != "Pending")
-          ? Navigation(
-              clientName: user!.firstName,
-              clientSurname: user!.lastName,
-              context: context)
-          : pendingNav(
-              clientName: user!.firstName, clientSurname: user!.lastName),
-      body: SingleChildScrollView(
-        child: Container(
-          height: size.height,
-          child: Column(
-              //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                if (MediaQuery.of(context).size.width > tabletWidth)
-                  DesktopTabNavigator(),
-                Container(
-                  // height: size.height / 2,
-                  padding: EdgeInsets.only(bottom: 30),
-                  decoration: BoxDecoration(
-                    gradient: backgroundGradient,
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(25.0),
-                      bottomRight: Radius.circular(25.0),
-                      // topRight: borderRadius,
+      body: Container(
+        height: size.height,
+        child: Column(
+            //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              (me![0].status != "Pending")
+                  ? DesktopTabNavigator()
+                  : DesktopTabNavigator(
+                      isPending: true,
                     ),
+              Container(
+                // height: size.height / 2,
+                padding: EdgeInsets.only(bottom: 30),
+                decoration: BoxDecoration(
+                  gradient: backgroundGradient,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(25.0),
+                    bottomRight: Radius.circular(25.0),
+                    // topRight: borderRadius,
                   ),
-                  child: Column(
-                      //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        if (MediaQuery.of(context).size.width <= tabletWidth)
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: IconButton(
-                              icon: Icon(Icons.menu, color: Colors.white),
-                              onPressed: () {
-                                _scaffoldKey.currentState!.openDrawer();
-                              },
-                            ),
-                          ),
-
-                        Heading("My Profile"),
-
-                        // Spacing
-                        Padding(
-                          padding: EdgeInsets.only(top: 30),
-                        ),
-
-                        Icon(
-                          Icons.account_circle,
-                          size: 100,
-                        ),
-
-                        subHeading(user!.firstName + " " + user!.lastName),
-                        // Spacing
-                        Padding(
-                          padding: EdgeInsets.only(top: 15),
-                        ),
-                        subsubHeading(user!.idNumber),
-                      ]),
                 ),
-                Expanded(
-                    child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Row(
+                child: Column(
+                    //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      if (MediaQuery.of(context).size.width <= tabletWidth)
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: IconButton(
+                            icon: Icon(Icons.menu, color: Colors.white),
+                            onPressed: () {
+                              _scaffoldKey.currentState!.openDrawer();
+                            },
+                          ),
+                        ),
+
+                      Heading("My Profile"),
+
+                      // Spacing
+                      Padding(
+                        padding: EdgeInsets.only(top: 30),
+                      ),
+
+                      Icon(
+                        Icons.account_circle,
+                        size: 100,
+                      ),
+
+                      subHeading(user!.firstName + " " + user!.lastName),
+                      // Spacing
+                      Padding(
+                        padding: EdgeInsets.only(top: 15),
+                      ),
+                      subsubHeading(user!.idNumber),
+                    ]),
+              ),
+              Expanded(
+                  child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      DetailedBlocks(me![0].status, "Verification Status"),
+                      DetailedBlocks(user!.email, "Email Address"),
+                    ],
+                  ),
+                  // Spacing
+
+                  Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        DetailedBlocks(me![0].status, "Verification Status"),
-                        DetailedBlocks(user!.email, "Email Address"),
-                      ],
-                    ),
-                    // Spacing
-
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          DetailedBlocks(user!.phoneNumber, "Phone Number"),
-                          DetailedBlocks(
-                              user!.address.streetNumber.toString() +
-                                  " " +
-                                  user!.address.streetName +
-                                  ", " +
-                                  user!.address.suburb,
-                              "Address"),
-                        ]),
-                  ],
-                )),
-              ]),
-        ),
+                        DetailedBlocks(user!.phoneNumber, "Phone Number"),
+                        DetailedBlocks(
+                            user!.address.streetNumber.toString() +
+                                " " +
+                                user!.address.streetName +
+                                ", " +
+                                user!.address.suburb,
+                            "Address"),
+                      ]),
+                ],
+              )),
+            ]),
       ),
     );
   }
@@ -211,7 +205,8 @@ class _ProfileState extends State<Profile> {
                       context: context)
                   : pendingNav(
                       clientName: user!.firstName,
-                      clientSurname: user!.lastName),
+                      clientSurname: user!.lastName,
+                      context: context),
               body: SingleChildScrollView(
                 child: Container(
                   //height: size.height * 1.1,

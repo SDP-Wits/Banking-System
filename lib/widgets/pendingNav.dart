@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:last_national_bank/utils/helpers/helper.dart';
 
 // coverage:ignore-start
 import '../config/routes/router.dart';
@@ -13,6 +14,7 @@ class DrawerCode extends StatelessWidget {
       drawer: pendingNav(
         clientName: '',
         clientSurname: '',
+        context: context,
       ),
       appBar: AppBar(
         title: Text("Drawer"),
@@ -23,11 +25,23 @@ class DrawerCode extends StatelessWidget {
 
 // Navigation and Drawer used interchangeably in comments
 
-class pendingNav extends StatelessWidget {
+Widget? pendingNav(
+    {required String clientName,
+    required String clientSurname,
+    required BuildContext context}) {
+  final size = getSize(context);
+  if (size.width > tabletWidth) {
+    return null;
+  }
+
+  return _pendingNav(clientName: clientName, clientSurname: clientSurname);
+}
+
+class _pendingNav extends StatelessWidget {
   String clientName, clientSurname;
 
   // Name and Surname needed to display in drawer header
-  pendingNav({required this.clientName, required this.clientSurname});
+  _pendingNav({required this.clientName, required this.clientSurname});
 
   @override
   Widget build(BuildContext context) {

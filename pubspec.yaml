@@ -26,13 +26,12 @@ dependencies:
     crypto: ^3.0.1
     cupertino_icons: ^1.0.2
     fluttertoast: ^8.0.7
-    html: ^0.15.0
     http: ^0.13.1
     path_provider: ^2.0.1
     sqflite: ^2.0.0+3
     intl: ^0.17.0
     animate_do: ^2.0.0
-    back_button_interceptor: ^5.0.0
+    back_button_interceptor: ^5.0.1
     #scrollable_positioned_list: ^0.1.10
     mockito: ^5.0.10
 
@@ -59,6 +58,7 @@ flutter:
     assets:
         - assets/images/logo.png
         - assets/images/logo1.png
+        - assets/images/appIcon.png
         #images/a_dot_ham.jpeg
     # An image asset can refer to one or more resolution-specific "variants", see
     # https://flutter.dev/assets-and-images/#resolution-aware.
