@@ -123,15 +123,15 @@ class _AdminVerificationListPageState extends State<AdminVerificationListPage> {
                     children: [
                       // Three-line menu bar on the top to open the navigation drawer
                       if (MediaQuery.of(context).size.width <= tabletWidth)
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: IconButton(
-                          icon: Icon(Icons.menu, color: Colors.white),
-                          onPressed: () {
-                            _scaffoldKey.currentState!.openDrawer();
-                          },
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: IconButton(
+                            icon: Icon(Icons.menu, color: Colors.white),
+                            onPressed: () {
+                              _scaffoldKey.currentState!.openDrawer();
+                            },
+                          ),
                         ),
-                      ),
 
                       Padding(
                         padding: const EdgeInsets.all(16.0),

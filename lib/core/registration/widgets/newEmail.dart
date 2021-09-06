@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import '../registration.functions.dart';
 
 class NewEmail extends StatefulWidget {
+  final double width;
+
+  NewEmail(this.width);
+
   @override
   NewEmailState createState() => NewEmailState();
 }
@@ -29,7 +33,7 @@ class NewEmailState extends State<NewEmail> {
       padding: const EdgeInsets.only(top: 20, left: 50, right: 50),
       child: Container(
         height: 60,
-        width: MediaQuery.of(context).size.width,
+        width: this.widget.width,
         child: TextField(
           onChanged: (value) {
             _hasInputError =

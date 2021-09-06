@@ -100,7 +100,9 @@ class _CreateAccountState extends State<CreateAccount> {
         : Scaffold(
             key: _scaffoldKey,
             drawer: Navigation(
-                clientName: user!.firstName, clientSurname: user!.lastName, context: context),
+                clientName: user!.firstName,
+                clientSurname: user!.lastName,
+                context: context),
             body: (accountTypeList.isNotEmpty)
                 ? Container(
                     height: size.height,
@@ -110,7 +112,7 @@ class _CreateAccountState extends State<CreateAccount> {
                     child: Column(
                       children: [
                         if (MediaQuery.of(context).size.width > tabletWidth)
-                        DesktopTabNavigator(),
+                          DesktopTabNavigator(),
                         ListView.builder(
                             shrinkWrap: true,
                             itemCount: accountTypeList.length,
@@ -132,19 +134,19 @@ class _CreateAccountState extends State<CreateAccount> {
                                           ),
                                         ),
                                         Padding(
-                                            padding:
-                                                EdgeInsets.symmetric(vertical: 5)),
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 5)),
                                         Heading("Create Account"),
                                         Padding(
-                                            padding:
-                                                EdgeInsets.symmetric(vertical: 15)),
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 15)),
                                       ],
                                     ),
                                   GestureDetector(
                                       onTap: () async {
                                         //check if account type id exists in existing account type list
-                                        if (existingAccountTypes
-                                            .contains(accountTypeIdList[index])) {
+                                        if (existingAccountTypes.contains(
+                                            accountTypeIdList[index])) {
                                           // display toast to restrict user
                                           Fluttertoast.showToast(
                                               msg:
@@ -174,7 +176,8 @@ class _CreateAccountState extends State<CreateAccount> {
                                           child: Card(
                                             color: Colors.white,
                                             child: Container(
-                                                margin: const EdgeInsets.all(10),
+                                                margin:
+                                                    const EdgeInsets.all(10),
                                                 decoration: BoxDecoration(
                                                     gradient: LinearGradient(
                                                   begin: Alignment.topCenter,
@@ -187,21 +190,26 @@ class _CreateAccountState extends State<CreateAccount> {
                                                 child: Row(
                                                   children: <Widget>[
                                                     Padding(
-                                                      padding: const EdgeInsets.all(
-                                                          20.0),
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              20.0),
                                                       child: Column(
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
                                                                 .start,
                                                         children: <Widget>[
                                                           Text(
-                                                            accountTypeList[index],
+                                                            accountTypeList[
+                                                                index],
                                                             style: TextStyle(
                                                               fontSize: 20,
-                                                              color: Colors.white,
+                                                              color:
+                                                                  Colors.white,
                                                               fontWeight:
-                                                                  FontWeight.bold,
-                                                              fontFamily: fontMont,
+                                                                  FontWeight
+                                                                      .bold,
+                                                              fontFamily:
+                                                                  fontMont,
                                                             ),
                                                           ),
                                                           SizedBox(

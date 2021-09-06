@@ -50,6 +50,10 @@ Future<String> adminRegisterOnline() async {
 }
 
 class ButtonNewUser extends StatefulWidget {
+  final double width;
+
+  ButtonNewUser(this.width);
+
   @override
   _ButtonNewUserState createState() => _ButtonNewUserState();
 }
@@ -62,7 +66,7 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
       child: Container(
         alignment: Alignment.center,
         height: 40,
-        width: MediaQuery.of(context).size.width / 2,
+        width: this.widget.width,
         decoration: BoxDecoration(boxShadow: [
           BoxShadow(
             color: Colors.black12,
@@ -75,7 +79,7 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
           ),
         ], color: Colors.white, borderRadius: BorderRadius.circular(30)),
         child: TextButton(
-          onPressed: () {
+          onPressed: () async {
             if (Data.is_client) {
               if (getCheck() == false) {
                 // give error
@@ -130,16 +134,17 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
                     fontSize: 16.0);
               } else {
                 //call php for admin
-                adminRegisterOnline().then((value) {
-                  Fluttertoast.showToast(
-                      msg: "" + value,
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.CENTER,
-                      timeInSecForIosWeb: 3,
-                      backgroundColor: Colors.teal,
-                      textColor: Colors.white,
-                      fontSize: 16.0);
-                });
+                final String value = await adminRegisterOnline();
+
+                Fluttertoast.showToast(
+                    msg: value,
+                    toastLength: Toast.LENGTH_LONG,
+                    gravity: ToastGravity.CENTER,
+                    timeInSecForIosWeb: 3,
+                    backgroundColor: Colors.teal,
+                    textColor: Colors.white,
+                    fontSize: 16.0);
+
                 if (Navigator.canPop(context)) {
                   Navigator.pop(context);
                 }
@@ -150,7 +155,7 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                'Create Account',
+                'Register',
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 16,

@@ -5,6 +5,10 @@ import 'package:flutter/material.dart';
 import '../registration.functions.dart';
 
 class SecretKey extends StatefulWidget {
+  final double width;
+
+  SecretKey(this.width);
+
   @override
   _SecretKeyState createState() => _SecretKeyState();
 }
@@ -19,7 +23,7 @@ class _SecretKeyState extends State<SecretKey> {
       padding: const EdgeInsets.only(top: 20, left: 50, right: 50),
       child: Container(
         height: 60,
-        width: MediaQuery.of(context).size.width,
+        width: this.widget.width,
         child: TextField(
           onChanged: (value) {
             _haserrors = hasInputErrorsSecret(value);

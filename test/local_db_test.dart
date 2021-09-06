@@ -1,6 +1,7 @@
 @TestOn("android")
 //  @Skip("Can't get android emulator running on Travis CI for automated testing")
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:last_national_bank/classes/user.class.dart';
 import 'package:last_national_bank/constants/database_constants.dart';
@@ -25,22 +26,41 @@ void main() async {
   */
   test("Testing, Add User ,Add Address and Get User works and Check User",
       () async {
-    await localDB.addUser(
-        9999,
-        "joker@gmail.com",
-        "0614762496",
-        "0123456789123",
-        "someHashedPassword",
-        84,
-        "Joker",
-        "Muco",
-        "Luke",
-        true);
+    if (kIsWeb) {
+      await localDB.addUserDetails(
+          9999,
+          "joker@gmail.com",
+          "0614762496",
+          "0123456789123",
+          "someHashedPassword",
+          84,
+          "Joker",
+          "Muco",
+          "Luke",
+          true,
+          5,
+          "villey",
+          "suburger",
+          "provs",
+          "texas",
+          19);
+    } else {
+      await localDB.addUser(
+          9999,
+          "joker@gmail.com",
+          "0614762496",
+          "0123456789123",
+          "someHashedPassword",
+          84,
+          "Joker",
+          "Muco",
+          "Luke",
+          true);
 
-    await localDB.addAddress(5, "villey", "suburger", "provs", "texas", 19);
+      await localDB.addAddress(5, "villey", "suburger", "provs", "texas", 19);
+    }
 
     User user = (await localDB.getUserAndAddress())!;
-
     // ignore: unnecessary_null_comparison
     expect(true, user != null);
 

@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import '../registration.functions.dart';
 
 class NewPhone extends StatefulWidget {
+  final double width;
+
+  NewPhone(this.width);
+
   @override
   NewPhoneState createState() => NewPhoneState();
 }
@@ -22,7 +26,7 @@ class NewPhoneState extends State<NewPhone> {
       padding: const EdgeInsets.only(top: 20, left: 50, right: 50),
       child: Container(
         height: 60,
-        width: MediaQuery.of(context).size.width,
+        width: this.widget.width,
         child: TextField(
           onChanged: (value) {
             _hasInputError = hasInputErrorPhone(value);

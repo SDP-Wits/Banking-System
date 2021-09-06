@@ -5,6 +5,7 @@ import 'package:last_national_bank/constants/route_constants.dart';
 import 'package:last_national_bank/utils/helpers/back_button_helper.dart';
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
+import 'package:last_national_bank/utils/helpers/helper.dart';
 import 'package:last_national_bank/utils/helpers/style.dart';
 
 import '../../classes/thisUser.dart';
@@ -91,7 +92,8 @@ class _VerifyUserState extends State<VerifyUser> {
             right: 15.0,
           ),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Padding(padding: EdgeInsets.symmetric(vertical: 15)),
               Icon(
@@ -109,8 +111,9 @@ class _VerifyUserState extends State<VerifyUser> {
               ),
 
               DetailedBlocks(curruser.firstName, "FirstName"),
-              if (curruser.middleName != null ||
-                  curruser.middleName!.trim() == "")
+
+              if (curruser.middleName != null &&
+                  curruser.middleName!.trim() != "")
                 DetailedBlocks(curruser.middleName!, "Middle Name"),
               DetailedBlocks(curruser.lastName, "LastName"),
               DetailedBlocks(curruser.email, "Email"),
@@ -120,33 +123,16 @@ class _VerifyUserState extends State<VerifyUser> {
 
               // Add two verification buttons next to each other
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Expanded(
-                    flex: 4, // 20%
-                    child: Container(color: Colors.transparent),
-                  ),
-                  Expanded(
-                    flex: 3, // 60%
-                    child: buttonVerifyClient(() {
-                      // verification.functions.dart
-                      verificationProcedure(context, curruser.idNumber, true);
-                    }),
-                  ),
-                  Expanded(
-                    flex: 1, // 20%
-                    child: Container(color: Colors.transparent),
-                  ),
-                  Expanded(
-                    flex: 3, // 60%
-                    child: buttonRejectClient(() {
-                      // verification.functions.dart
-                      verificationProcedure(context, curruser.idNumber, false);
-                    }),
-                  ),
-                  Expanded(
-                    flex: 4, // 20%
-                    child: Container(color: Colors.transparent),
-                  )
+                  buttonVerifyClient(() {
+                    // verification.functions.dart
+                    verificationProcedure(context, curruser.idNumber, true);
+                  }),
+                  buttonRejectClient(() {
+                    // verification.functions.dart
+                    verificationProcedure(context, curruser.idNumber, false);
+                  }),
                 ],
               )
             ],
@@ -164,16 +150,17 @@ class DetailedBlocks extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          flex: 2, // 20%
-          child: Container(color: Colors.transparent),
-        ),
-        Expanded(
-          flex: 7, // 60%
-          child: Container(
-            width: MediaQuery.of(context).size.width * 0.8,
+    final size = getSize(context);
+    return Container(
+      width: size.width,
+      alignment: Alignment.center,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: (size.width < tabletWidth)
+                ? size.width * 0.8
+                : size.width * 0.6,
             padding: EdgeInsets.all(15),
             //padding: const EdgeInsets.only(top: 20, left: 50, right: 50),
             margin: EdgeInsets.all(15),
@@ -214,12 +201,8 @@ class DetailedBlocks extends StatelessWidget {
               ],
             ),
           ),
-        ),
-        Expanded(
-          flex: 2, // 20%
-          child: Container(color: Colors.transparent),
-        )
-      ],
+        ],
+      ),
     );
   }
 }

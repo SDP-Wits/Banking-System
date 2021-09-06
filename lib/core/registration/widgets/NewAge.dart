@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import '../registration.functions.dart';
 
 class NewAge extends StatefulWidget {
+  final double width;
+
+  NewAge(this.width);
+
   @override
   NewAgeState createState() => NewAgeState();
 }
@@ -29,7 +33,7 @@ class NewAgeState extends State<NewAge> {
       padding: const EdgeInsets.only(top: 20, left: 50, right: 50),
       child: Container(
         height: 60,
-        width: MediaQuery.of(context).size.width,
+        width: this.widget.width,
         child: TextField(
           onChanged: (value) {
             if (value == "") {

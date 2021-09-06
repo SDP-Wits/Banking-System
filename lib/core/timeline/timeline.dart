@@ -80,7 +80,9 @@ class _TimelineListPageState extends State<TimelinePage> {
     return Scaffold(
       key: _scaffoldKey,
       drawer: Navigation(
-          clientName: user!.firstName, clientSurname: user!.lastName, context: context),
+          clientName: user!.firstName,
+          clientSurname: user!.lastName,
+          context: context),
       body: Container(
         width: size.width,
         alignment: Alignment.center,
@@ -92,17 +94,17 @@ class _TimelineListPageState extends State<TimelinePage> {
           // padding: EdgeInsets.all(2.0),
           child: Column(children: [
             if (MediaQuery.of(context).size.width > tabletWidth)
-            DesktopTabNavigator(),
+              DesktopTabNavigator(),
             if (MediaQuery.of(context).size.width <= tabletWidth)
-            Align(
-              alignment: Alignment.topLeft,
-              child: IconButton(
-                icon: Icon(Icons.menu, color: Colors.white),
-                onPressed: () {
-                  _scaffoldKey.currentState!.openDrawer();
-                },
+              Align(
+                alignment: Alignment.topLeft,
+                child: IconButton(
+                  icon: Icon(Icons.menu, color: Colors.white),
+                  onPressed: () {
+                    _scaffoldKey.currentState!.openDrawer();
+                  },
+                ),
               ),
-            ),
             ConstrainedBox(
               //Use MediaQuery.of(context).size.height for max Height
               constraints: BoxConstraints(

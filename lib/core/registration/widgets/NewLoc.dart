@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import '../registration.functions.dart';
 
 class NewLoc extends StatefulWidget {
+  final double width;
+
+  NewLoc(this.width);
+
   @override
   NewLocState createState() => NewLocState();
 }
@@ -27,7 +31,7 @@ class NewLocState extends State<NewLoc> {
       padding: const EdgeInsets.only(top: 20, left: 50, right: 50),
       child: Container(
         height: 374,
-        width: MediaQuery.of(context).size.width,
+        width: this.widget.width,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[

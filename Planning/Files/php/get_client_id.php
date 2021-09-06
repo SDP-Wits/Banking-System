@@ -1,7 +1,9 @@
 <?php
 include "./helpers/server_details.php";
+include "./helpers/encryption.php";
 
 $accountNumber = $_REQUEST['accountNumber'];
+$accountNumber = openssl_encrypt($accountNumber, $ciphering, $encryption_key, $options, $encryption_iv);
 
 $sql = "SELECT clientID FROM `CLIENT-ACCOUNT` WHERE accountNumber = '$accountNumber'";
 

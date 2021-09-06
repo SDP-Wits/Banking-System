@@ -2,22 +2,22 @@
 include "./helpers/server_details.php";
 include "./helpers/encryption.php";
 
-$sql = "SELECT firstName, middleName,lastName,idNumber 
-FROM CLIENT WHERE verificationStatus = 'Pending'";
+$clientID = "7";
+
+//make sql request
+$sql = "SELECT testData FROM TEST_ENCRYPTION WHERE idNumber = '$clientID'";
 
 $output = array();
 if ($result = mysqli_query($conn,$sql)){
 	while ($row=$result->fetch_assoc()){
-
-		//decrypting the data
-		$decryptedID = $row["idNumber"];
-		$decryptResult = openssl_decrypt($decryptedID, $ciphering, $decryption_key, $options, $decryption_iv);
-		$row["idNumber"] = $decryptResult;
-		//
-
+      	//decrypting the data
+      	$decryptedData = $row["testData"];
+      	$decryptResult = openssl_decrypt($decryptedData, $ciphering, $decryption_key, $options, $decryption_iv);
+      	$row["testData"] = $decryptResult;
+      
 		$output[] = $row;
 	}
-	echo json_encode($output);
+  	echo json_encode($output);
 } else{
 	echo json_encode(
         array(
@@ -25,7 +25,7 @@ if ($result = mysqli_query($conn,$sql)){
         )
     );
 }
-
+	
 $conn->close();
 
 ?>

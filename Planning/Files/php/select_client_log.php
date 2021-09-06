@@ -1,7 +1,11 @@
 <?php
 include "./helpers/server_details.php";
+include "./helpers/encryption.php";
 
 $clientID = $_REQUEST["clientID"];
+$clientID = openssl_encrypt($clientID, $ciphering, $encryption_key, $options, $encryption_iv);
+
+
 
 $sql = "SELECT * FROM LOG WHERE clientID = '$clientID'";
 
