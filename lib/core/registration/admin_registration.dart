@@ -131,24 +131,42 @@ class _AdminRegistrationPage extends State<AdminRegistrationPage> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Heading("Admin Registration"),
-                        NewName(size.width / 4),
-                        NewSurname(size.width / 4),
-                        NewAge(size.width / 4),
-                        NewPhone(size.width / 4),
-                        NewEmail(size.width / 4),
-                        NewIDnum(size.width / 4),
+                        Row(
+                          children: [
+                            NewName(size.width / 4),
+                            NewSurname(size.width / 4),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            NewAge(size.width / 4),
+                            NewEmail(size.width / 4),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            NewPhone(size.width / 4),
+                            NewIDnum(size.width / 4),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            PasswordInput(size.width / 4),
+                            Column(
+                              children: [
+                                PasswordInput2(size.width / 4),
+                                SecretKey(size.width / 4),
+                              ],
+                            )
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            NewLoc(size.width / 4),
+                          ],
+                        ),
                       ],
                     ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        NewLoc(size.width / 4),
-                        PasswordInput(size.width / 4),
-                        PasswordInput2(size.width / 4),
-                        SecretKey(size.width / 4),
-                      ],
-                    )
                   ],
                 ),
               )),

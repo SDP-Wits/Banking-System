@@ -5,7 +5,7 @@ import 'package:last_national_bank/core/profile/profile.dart';
 import 'package:last_national_bank/core/timeline/timeline.dart';
 import 'package:last_national_bank/utils/helpers/helper.dart';
 
-import '../../constants/route_constants.dart';
+import 'package:last_national_bank/constants/route_constants.dart';
 import 'package:last_national_bank/utils/helpers/helper.dart';
 // import '../../pages/accountspage.dart';
 
