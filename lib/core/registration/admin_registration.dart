@@ -38,6 +38,9 @@ class _AdminRegistrationPage extends State<AdminRegistrationPage> {
     super.initState();
     //Adding the back button listener
     BackButtonInterceptor.add(myInterceptor);
+    if (kIsWeb) {
+      BackButtonInterceptor.removeAll();
+    }
   }
 
   //When the back button is pressed, go to Login Page

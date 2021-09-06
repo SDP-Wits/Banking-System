@@ -32,34 +32,35 @@ Route<dynamic> generateRoute(RouteSettings settings) {
 
     //If page to go to equals "login"
     case LoginRoute:
-      return MaterialRouteWrap(LoginPage(), settings);
+      return MaterialRouteWrap(LoginPage(), settings, null);
 
     //If page to go to equals "admin-registration"
     case AdminRegistrationRoute:
-      return MaterialRouteWrap(AdminRegistrationPage(), settings);
+      return MaterialRouteWrap(AdminRegistrationPage(), settings, goToLogin);
 
     //If page to go to equals "client-registration"
     case ClientRegistrationRoute:
-      return MaterialRouteWrap(ClientRegistrationPage(), settings);
+      return MaterialRouteWrap(ClientRegistrationPage(), settings, goToLogin);
 
     //If page to go to equals "admin-verification-list"
     case AdminVerificationListRoute:
-      return MaterialRouteWrap(AdminVerificationListPage(), settings);
+      return MaterialRouteWrap(
+          AdminVerificationListPage(), settings, goToLogin);
 
     // case AdminVerifyUser :
     //   return MaterialRouteWrap(VerifyUser());
     //If User, go to see your application status
     case ProfileRoute:
-      return MaterialRouteWrap(Profile(), settings);
+      return MaterialRouteWrap(Profile(), settings, goToLogin);
 
     case NewUserRoute:
-      return MaterialRouteWrap(NewUser(), settings);
+      return MaterialRouteWrap(NewUser(), settings, goToLogin);
 
     case CreateAccountRoute:
-      return MaterialRouteWrap(CreateAccount(), settings);
+      return MaterialRouteWrap(CreateAccount(), settings, goToProfilePage);
 
     case ViewAccountRoute:
-      return MaterialRouteWrap(Accounts(), settings);
+      return MaterialRouteWrap(Accounts(), settings, goToProfilePage);
 
     case SpecificAccountRoute:
       //Whatever arguments that get passed will be converted into the
@@ -69,39 +70,43 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           SpecificAccountPage(
             acc: args,
           ),
-          settings);
+          settings,
+          goToCreateAccount);
 
     case TimelineRoute:
-      return MaterialRouteWrap(TimelinePage(), settings);
+      return MaterialRouteWrap(TimelinePage(), settings, goToProfilePage);
 
     case SelectPaymentRoute:
-      return MaterialRouteWrap(SelectPaymentPage(), settings);
+      return MaterialRouteWrap(SelectPaymentPage(), settings, goToProfilePage);
 
     case TransferRoute:
-      return MaterialRouteWrap(Transfers(), settings);
+      return MaterialRouteWrap(Transfers(), settings, goToSelectPayment);
 
     case PaymentRoute:
-      return MaterialRouteWrap(Payments(), settings);
+      return MaterialRouteWrap(Payments(), settings, goToSelectPayment);
 
     case VerifyUserRoute:
       final args = settings.arguments as String;
-      return MaterialRouteWrap(VerifyUser(args), settings);
+      return MaterialRouteWrap(
+          VerifyUser(args), settings, goToAdminVerificationList);
 
     //If page to go to is unknown, go to default home page, i.e. Login Page
     default:
-      return MaterialRouteWrap(LoginPage(), settings);
+      return MaterialRouteWrap(LoginPage(), settings, null);
   }
 }
 
 //When the app receives an unknown route name, do this
 Route<dynamic> unknownRoute(RouteSettings settings) {
-  return MaterialRouteWrap(UndefinedPage(name: settings.name!), settings);
+  return MaterialRouteWrap(
+      UndefinedPage(name: settings.name!), settings, goToLogin);
 }
 
 void goToLogin(BuildContext context) {
   Navigator.pushAndRemoveUntil(
       context,
-      MaterialPageRoute(builder: (context) => WrapScaffold(LoginPage())),
+      MaterialPageRoute(
+          builder: (context) => WrapScaffold(widget: LoginPage())),
       (route) => route.isFirst);
 }
 

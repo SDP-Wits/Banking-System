@@ -1,4 +1,5 @@
 // coverage:ignore-start
+import 'package:flutter/foundation.dart';
 import 'package:last_national_bank/utils/helpers/back_button_helper.dart';
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
@@ -71,6 +72,9 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
 
     // For the system back button
     BackButtonInterceptor.add(myInterceptor);
+    if (kIsWeb) {
+      BackButtonInterceptor.removeAll();
+    }
 
     // Intialization of animation controller and animation
     animationController = AnimationController(

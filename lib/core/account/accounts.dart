@@ -41,6 +41,9 @@ class _AccountsState extends State<Accounts> {
 
     //Adding Back Button Listener
     BackButtonInterceptor.add(myInterceptor);
+    if (kIsWeb) {
+      BackButtonInterceptor.removeAll();
+    }
 
     //Getting unique account details and number of accounts and set it to variables
     LocalDatabaseHelper.instance.getUserAndAddress().then((userDB) {
@@ -74,6 +77,7 @@ class _AccountsState extends State<Accounts> {
   @override
   void dispose() {
     //Removing Back Button Listener
+
     BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
   }

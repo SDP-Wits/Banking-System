@@ -1,5 +1,6 @@
 // coverage:ignore-start
 import 'package:back_button_interceptor/back_button_interceptor.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:last_national_bank/classes/accountDetails.dart';
@@ -32,6 +33,9 @@ class _SelectPaymentPageState extends State<SelectPaymentPage> {
 
     //Adding the back button listener
     BackButtonInterceptor.add(myInterceptor);
+    if (kIsWeb) {
+      BackButtonInterceptor.removeAll();
+    }
 
     LocalDatabaseHelper.instance.getUserAndAddress().then((userDB) {
       getAccountDetails(userDB!.idNumber).then((accounts) {

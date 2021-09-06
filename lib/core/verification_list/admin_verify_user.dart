@@ -1,5 +1,6 @@
 // coverage:ignore-start
 import 'dart:ui';
+import 'package:flutter/foundation.dart';
 import 'package:last_national_bank/classes/user.class.dart';
 import 'package:last_national_bank/config/routes/router.dart';
 import 'package:last_national_bank/constants/route_constants.dart';
@@ -34,6 +35,9 @@ class _VerifyUserState extends State<VerifyUser> {
     super.initState();
     //Adding the back button listener
     BackButtonInterceptor.add(myInterceptor);
+    if (kIsWeb) {
+      BackButtonInterceptor.removeAll();
+    }
 
     LocalDatabaseHelper.instance.getUserAndAddress().then((_user) {
       setState(() {

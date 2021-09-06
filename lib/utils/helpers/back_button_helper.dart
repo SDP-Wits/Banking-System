@@ -10,10 +10,11 @@ bool helperInterceptor(
     required BuildContext context,
     required Function(BuildContext) goTo,
     required String currentRoute}) {
-  // if (kIsWeb) {
-  //   goTo(context);
-  //   return true;
-  // }
+  if (kIsWeb) {
+    // Navigator.pop(context);
+    goTo(context);
+    return true;
+  }
 
   if (info.currentRoute(context)!.settings.name ==
       getCurrentRouteName(context)) {

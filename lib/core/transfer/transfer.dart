@@ -1,5 +1,6 @@
 // coverage:ignore-start
 import 'package:back_button_interceptor/back_button_interceptor.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:last_national_bank/classes/accountDetails.dart';
 import 'package:last_national_bank/classes/user.class.dart';
@@ -50,10 +51,9 @@ int accountFromIndex = 0;
 int accountToIndex = 0;
 
 class _TransfersState extends State<Transfers> {
-
   User? user; // User information
   List<accountDetails> acc = []; // User's account information
-  
+
   // Two controlers to control scroll functionality on the two widgets (accountFrom and accountTo)
   late ScrollController controller1;
   late ScrollController controller2;
@@ -67,9 +67,12 @@ class _TransfersState extends State<Transfers> {
     super.initState();
 
     BackButtonInterceptor.add(myInterceptor);
+    if (kIsWeb) {
+      BackButtonInterceptor.removeAll();
+    }
 
-    emptyTextTransfer();// Clear InputFields
-    accountFromIndex = 0; 
+    emptyTextTransfer(); // Clear InputFields
+    accountFromIndex = 0;
     accountToIndex = 0;
 
     // Get user details
@@ -121,7 +124,9 @@ class _TransfersState extends State<Transfers> {
                 // Set navigation drawer
                 key: _scaffoldKey,
                 drawer: Navigation(
-                    clientName: user!.firstName, clientSurname: user!.lastName, context: context),
+                    clientName: user!.firstName,
+                    clientSurname: user!.lastName,
+                    context: context),
 
                 // SingleChildScrollView allows the page to be scrollable
                 body: SingleChildScrollView(
@@ -139,18 +144,18 @@ class _TransfersState extends State<Transfers> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         if (MediaQuery.of(context).size.width > tabletWidth)
-                        DesktopTabNavigator(),
+                          DesktopTabNavigator(),
                         // Three-line menu bar on the top to open the navigation drawer
                         if (MediaQuery.of(context).size.width <= tabletWidth)
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: IconButton(
-                            icon: Icon(Icons.menu, color: Colors.white),
-                            onPressed: () {
-                              _scaffoldKey.currentState!.openDrawer();
-                            },
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: IconButton(
+                              icon: Icon(Icons.menu, color: Colors.white),
+                              onPressed: () {
+                                _scaffoldKey.currentState!.openDrawer();
+                              },
+                            ),
                           ),
-                        ),
 
                         // Global Heading Widget
                         Heading("Transfers"),
@@ -258,14 +263,14 @@ class _TransfersState extends State<Transfers> {
                                       double.parse(amountText);
                                   acc[accountToIndex].currentBalance +=
                                       double.parse(amountText);
-                                  emptyTextTransfer();// Clear InputFields
-                                  accountFromIndex = 0; 
+                                  emptyTextTransfer(); // Clear InputFields
+                                  accountFromIndex = 0;
                                   accountToIndex = 0;
                                 });
 
                                 // Dialogue which asks user if they wish to make another transfer or
                                 // be directed to the Timeline UI
-                               // Navigator.pop(context);
+                                // Navigator.pop(context);
                                 goToTimelineDialog(context);
                               }
                             });

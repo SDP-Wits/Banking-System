@@ -1,5 +1,6 @@
 // coverage:ignore-start
 import 'package:back_button_interceptor/back_button_interceptor.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:last_national_bank/config/routes/router.dart';
 import 'package:last_national_bank/constants/route_constants.dart';
@@ -29,6 +30,9 @@ class _TimelineListPageState extends State<TimelinePage> {
 
     //Adding the back button listener
     BackButtonInterceptor.add(myInterceptor);
+    if (kIsWeb) {
+      BackButtonInterceptor.removeAll();
+    }
 
     LocalDatabaseHelper.instance.getUserAndAddress().then((userDB) {
       setState(() {

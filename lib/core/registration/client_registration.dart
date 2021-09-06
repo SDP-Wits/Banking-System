@@ -1,4 +1,5 @@
 // coverage:ignore-start
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:last_national_bank/config/routes/router.dart';
 import 'package:last_national_bank/constants/route_constants.dart';
@@ -36,6 +37,9 @@ class _ClientRegistrationPageState extends State<ClientRegistrationPage> {
     super.initState();
     //Adding the back button listener
     BackButtonInterceptor.add(myInterceptor);
+    if (kIsWeb) {
+      BackButtonInterceptor.removeAll();
+    }
   }
 
   //When the back button is pressed, go to Login Page
@@ -73,7 +77,7 @@ class _ClientRegistrationPageState extends State<ClientRegistrationPage> {
 
   */
 
-    @override
+  @override
   Widget build(BuildContext context) {
     return buildPage();
   }
@@ -85,45 +89,33 @@ class _ClientRegistrationPageState extends State<ClientRegistrationPage> {
     );
   }
 
-
   Widget desktopLayout(BuildContext context) {
-
     final size = getSize(context);
 
     return SingleChildScrollView(
-    
-    child: Container(
-
+        child: Container(
       width: size.width,
       height: size.height,
-
       child: Stack(
-
         children: <Widget>[
-          
-              TealCircles(),
-
-              OrangeCircles(),
-
-              new Align(
-                
+          TealCircles(),
+          OrangeCircles(),
+          new Align(
+              alignment: Alignment.center,
+              child: Container(
+                width: size.width / 1.2,
+                height: size.height / 1.1,
                 alignment: Alignment.center,
-                
-                child: Container(
-
-                  width: size.width/1.2,
-                  height: size.height/1.1,
-                  alignment: Alignment.center,
-
-                  decoration: BoxDecoration(
-
+                decoration: BoxDecoration(
                   gradient: LinearGradient(
                     //Gradient we use for page background
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [Colors.teal.withAlpha(128), Color(0xFFffa781).withAlpha(128)],
+                    colors: [
+                      Colors.teal.withAlpha(128),
+                      Color(0xFFffa781).withAlpha(128)
+                    ],
                   ),
-                  
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(25.0),
                     bottomRight: Radius.circular(25.0),
@@ -131,69 +123,40 @@ class _ClientRegistrationPageState extends State<ClientRegistrationPage> {
                     topRight: Radius.circular(25.0),
                   ),
                 ),
-                  
-
                 child: Row(
-
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   mainAxisSize: MainAxisSize.max,
-
                   children: [
-
                     Column(
-
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       mainAxisSize: MainAxisSize.max,
-
                       children: [
-
                         Heading("Client Registration"),
-                        NewName(size.width/4),
-                        NewSurname(size.width/4),
-                        NewAge(size.width/4),
-                        NewPhone(size.width/4),
-                        NewEmail(size.width/4),
-                        NewIDnum(size.width/4),                        
-
+                        NewName(size.width / 4),
+                        NewSurname(size.width / 4),
+                        NewAge(size.width / 4),
+                        NewPhone(size.width / 4),
+                        NewEmail(size.width / 4),
+                        NewIDnum(size.width / 4),
                       ],
                     ),
-
-
                     Column(
-
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       mainAxisSize: MainAxisSize.max,
-
                       children: [
-
-                        NewLoc(size.width/4),
-                        PasswordInput(size.width/4),
-                        PasswordInput2(size.width/4),    
-                        ButtonNewUser(size.width/10),                   
-
+                        NewLoc(size.width / 4),
+                        PasswordInput(size.width / 4),
+                        PasswordInput2(size.width / 4),
+                        ButtonNewUser(size.width / 10),
                       ],
                     )
-
                   ],
                 ),
-                  
-                )
-              ),
-
-
-            ],
-
+              )),
+        ],
       ),
-
     ));
-
-
-
-   }
-
-
-
-
+  }
 
   Widget phoneLayout(BuildContext context) {
     return Container(

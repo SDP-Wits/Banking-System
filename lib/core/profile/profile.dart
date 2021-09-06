@@ -2,6 +2,7 @@
 import 'dart:io';
 
 import 'package:back_button_interceptor/back_button_interceptor.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:last_national_bank/config/routes/router.helper.dart';
@@ -37,6 +38,9 @@ class _ProfileState extends State<Profile> {
 
     //Adding the back button listener
     BackButtonInterceptor.add(myInterceptor);
+    if (kIsWeb) {
+      BackButtonInterceptor.removeAll();
+    }
 
     LocalDatabaseHelper.instance.getUserAndAddress().then((currUser) {
       setState(() {

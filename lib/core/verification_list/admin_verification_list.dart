@@ -2,6 +2,7 @@
 import 'dart:ui';
 
 import 'package:back_button_interceptor/back_button_interceptor.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:last_national_bank/classes/user.class.dart';
 import 'package:last_national_bank/config/routes/router.dart';
@@ -51,6 +52,9 @@ class _AdminVerificationListPageState extends State<AdminVerificationListPage> {
 
     //Adding the back button listener
     BackButtonInterceptor.add(myInterceptor);
+    if (kIsWeb) {
+      BackButtonInterceptor.removeAll();
+    }
 
     getUnverifiedClients().then((lstNames) {
       names = lstNames;

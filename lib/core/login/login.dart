@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:back_button_interceptor/back_button_interceptor.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -30,6 +31,9 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
     //Adding Back Button listener
     BackButtonInterceptor.add(myInterceptor);
+    if (kIsWeb) {
+      BackButtonInterceptor.removeAll();
+    }
 
     emptyTextLogin();
   }
@@ -68,40 +72,39 @@ class _LoginPageState extends State<LoginPage> {
         gradient: backgroundGradient,
       ),
       child: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints viewportConstraints){
-          return SingleChildScrollView(
-            physics: ScrollPhysics(),
-            child: ConstrainedBox(
-              constraints: BoxConstraints(minHeight: viewportConstraints.maxHeight),
-              child: Container(
-                //height: size.height,
-                child: Column(
-                    //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    //mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Logo(),
-                            //VerticalText(),
-                            //TextLogin(),
-                          ]),
-                      InputID(getIDController()),
-                      PasswordInput(getPasswordController()),
-                      ButtonLogin(() {
-                        //What happens when the login button is clicked
-                        loginProcedure(context);
-                        
-                      }),
-                      FirstTime()
-                    ]),
-              ),
+          builder: (BuildContext context, BoxConstraints viewportConstraints) {
+        return SingleChildScrollView(
+          physics: ScrollPhysics(),
+          child: ConstrainedBox(
+            constraints:
+                BoxConstraints(minHeight: viewportConstraints.maxHeight),
+            child: Container(
+              //height: size.height,
+              child: Column(
+                  //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  //mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Logo(),
+                          //VerticalText(),
+                          //TextLogin(),
+                        ]),
+                    InputID(getIDController()),
+                    PasswordInput(getPasswordController()),
+                    ButtonLogin(() {
+                      //What happens when the login button is clicked
+                      loginProcedure(context);
+                    }),
+                    FirstTime()
+                  ]),
             ),
-          );
-        }
-      ),
+          ),
+        );
+      }),
       // child: SingleChildScrollView(
       //   physics: ScrollPhysics(),
       //   child: Container(
@@ -124,7 +127,7 @@ class _LoginPageState extends State<LoginPage> {
       //           ButtonLogin(() {
       //             //What happens when the login button is clicked
       //             loginProcedure(context);
-                  
+
       //           }),
       //           FirstTime()
       //         ]),
