@@ -35,6 +35,7 @@ class WrapScaffold extends StatelessWidget {
   }
 }
 
+
 //Gets name of the current route given a BuildContext
 String getCurrentRouteName(BuildContext context) {
   return ModalRoute.of(context)!.settings.name!;

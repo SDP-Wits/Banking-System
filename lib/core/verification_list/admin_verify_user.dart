@@ -120,20 +120,35 @@ class _VerifyUserState extends State<VerifyUser> {
 
               // Add two verification buttons next to each other
               Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    // Accept Client
-                    buttonVerifyClient(() {
+                children: [
+                  Expanded(
+                    flex: 4, // 20%
+                    child: Container(color: Colors.transparent),
+                  ),
+                  Expanded(
+                    flex: 3, // 60%
+                    child: buttonVerifyClient(() {
                       // verification.functions.dart
                       verificationProcedure(context, curruser.idNumber, true);
                     }),
-
-                    // Reject Client
-                    buttonRejectClient(() {
+                  ),
+                  Expanded(
+                    flex: 1, // 20%
+                    child: Container(color: Colors.transparent),
+                  ),
+                  Expanded(
+                    flex: 3, // 60%
+                    child: buttonRejectClient(() {
                       // verification.functions.dart
                       verificationProcedure(context, curruser.idNumber, false);
                     }),
-                  ])
+                  ),
+                  Expanded(
+                    flex: 4, // 20%
+                    child: Container(color: Colors.transparent),
+                  )
+                ],
+              )
             ],
           ),
         ),
@@ -150,49 +165,59 @@ class DetailedBlocks extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: <Widget>[
-        Container(
-          width: MediaQuery.of(context).size.width * 0.8,
-          padding: EdgeInsets.all(15),
-          //padding: const EdgeInsets.only(top: 20, left: 50, right: 50),
-          margin: EdgeInsets.all(15),
-          decoration: BoxDecoration(
-            color: Colors.transparent,
-            // borderRadius: BorderRadius.circular(15),
-            border: Border(
-              bottom: BorderSide(
-                color: Colors.white,
-                width: 1,
+      children: [
+        Expanded(
+          flex: 2, // 20%
+          child: Container(color: Colors.transparent),
+        ),
+        Expanded(
+          flex: 7, // 60%
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.8,
+            padding: EdgeInsets.all(15),
+            //padding: const EdgeInsets.only(top: 20, left: 50, right: 50),
+            margin: EdgeInsets.all(15),
+            decoration: BoxDecoration(
+              color: Colors.transparent,
+              // borderRadius: BorderRadius.circular(15),
+              border: Border(
+                bottom: BorderSide(
+                  color: Colors.white,
+                  width: 1,
+                ),
               ),
             ),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                property + ':',
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.white,
-                  fontFamily: fontMont,
-                  fontWeight: FontWeight.normal,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  property + ':',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.white,
+                    fontFamily: fontMont,
+                    fontWeight: FontWeight.normal,
+                  ),
                 ),
-              ),
-              // Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
-              Text(
-                text,
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.white,
-                  fontFamily: fontMont,
-                  fontWeight: FontWeight.w500,
+                // Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
+                Text(
+                  text,
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.white,
+                    fontFamily: fontMont,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
+        ),
+        Expanded(
+          flex: 2, // 20%
+          child: Container(color: Colors.transparent),
         )
       ],
     );

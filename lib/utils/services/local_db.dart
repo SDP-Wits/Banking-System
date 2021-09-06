@@ -13,6 +13,8 @@ and does NOT start up an android emulator
 // coverage:ignore-start
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
+import 'package:last_national_bank/utils/helpers/ignore_helper.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -34,7 +36,15 @@ class LocalDatabaseHelper {
 
   static Database? _database;
 
-  Future<Database> get database async {
+  // ignore: avoid_init_to_null
+  static User? _user = null;
+
+  Future<Database?> get database async {
+    //If web, don't create database
+    if (kIsWeb) {
+      return null;
+    }
+
     if (_database != null) {
       return _database!;
     }
@@ -80,7 +90,7 @@ class LocalDatabaseHelper {
   }
 
   Future<List<Map>> rawQuery(String sql) async {
-    Database db = await instance.database;
+    Database db = (await instance.database)!;
     return await db.rawQuery(sql);
   }
 
@@ -88,6 +98,11 @@ class LocalDatabaseHelper {
 
   //Delete the User inside the User Table
   Future<bool> deleteUser() async {
+    if (kIsWeb) {
+      _user = null;
+      return true;
+    }
+
     final String sql = "DELETE FROM USER";
 
     await rawQuery(sql);
@@ -97,6 +112,11 @@ class LocalDatabaseHelper {
 
   //Delete the User's Address inside the Address Table
   Future<bool> deleteAddress() async {
+    if (kIsWeb) {
+      _user = null;
+      return true;
+    }
+
     final String sql = "DELETE FROM ADDRESS";
 
     await rawQuery(sql);
@@ -124,6 +144,11 @@ class LocalDatabaseHelper {
       String? middleName,
       String lastName,
       bool isAdmin) async {
+    //If web
+    if (kIsWeb) {
+      return dbSuccess;
+    }
+
     final String sql =
         "INSERT INTO USER(userID, email, phoneNumber, idNumber, password, age, firstName, middleName, lastName, isAdmin)" +
             "VALUES($userID, ${doubleQuote(email)}, ${doubleQuote(phoneNumber)}, ${doubleQuote(idNumber)}, ${doubleQuote(password)}, $age, ${doubleQuote(firstName)},${(middleName == null) ? "null" : doubleQuote(middleName)},${doubleQuote(lastName)}, ${isAdmin ? 1 : 0})";
@@ -142,6 +167,11 @@ class LocalDatabaseHelper {
 
   //Checks to see if the local DB contains a user
   Future<bool> isUser() async {
+    //If web
+    if (kIsWeb) {
+      return (_user != null);
+    }
+
     final String sql = "SELECT * FROM USER";
 
     List<Map> data = await rawQuery(sql);
@@ -151,6 +181,11 @@ class LocalDatabaseHelper {
 
   //Gives back a User object, with address information
   Future<User?> getUserAndAddress() async {
+    //If web
+    if (kIsWeb) {
+      return _user;
+    }
+
     if (await isUser()) {
       final String sqlUser = "SELECT * FROM USER LEFT JOIN ADDRESS";
 
@@ -177,13 +212,14 @@ class LocalDatabaseHelper {
     return null;
   }
 
-  // #endregion
-
-  // #region Address
-
   //Adds Address
   Future<String> addAddress(int streetNumber, String streetName, String suburb,
       String province, String country, int? apartmentNumber) async {
+    //If web
+    if (kIsWeb) {
+      return dbSuccess;
+    }
+
     final String sql =
         "INSERT INTO ADDRESS(streetNumber, streetName, suburb, province, country, apartmentNumber) VALUES($streetNumber, ${doubleQuote(streetName)}, ${doubleQuote(suburb)},${doubleQuote(province)}, ${doubleQuote(country)}, ${(apartmentNumber == null) ? null : apartmentNumber})";
 
@@ -201,6 +237,11 @@ class LocalDatabaseHelper {
 
   //Checks to see if there is an Address
   Future<bool> isAddress() async {
+    //If web
+    if (kIsWeb) {
+      return (_user != null);
+    }
+
     final String sql = "SELECT * FROM ADDRESS";
 
     List<Map> data = await rawQuery(sql);
@@ -228,6 +269,29 @@ class LocalDatabaseHelper {
       String province,
       String country,
       int? apartmentNumber) async {
+    //If web
+    if (kIsWeb) {
+      _user = User(
+        userID,
+        firstName,
+        middleName,
+        lastName,
+        age,
+        phoneNumber,
+        email,
+        idNumber,
+        "",
+        isAdmin,
+        streetNumber,
+        streetName,
+        suburb,
+        province,
+        country,
+        apartmentNumber,
+      );
+      return dbSuccess;
+    }
+
     //Clearing up any old data
     await deleteData();
 
@@ -261,6 +325,10 @@ class LocalDatabaseHelper {
 
   //Get the address of the user
   Future<Map> selectAddress() async {
+    if (kIsWeb) {
+      return (_user == null) ? {} : _user!.address.toMap();
+    }
+
     final String sql = "SELECT * FROM ADDRESS";
 
     return ((await rawQuery(sql))[0]);

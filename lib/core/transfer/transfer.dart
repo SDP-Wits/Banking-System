@@ -11,6 +11,7 @@ import 'package:last_national_bank/utils/helpers/dialogs.dart';
 import 'package:last_national_bank/utils/helpers/style.dart';
 import 'package:last_national_bank/utils/services/local_db.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
+import 'package:last_national_bank/widgets/desktopNav.dart';
 import 'package:last_national_bank/widgets/heading.dart';
 import 'package:last_national_bank/widgets/navigation.dart';
 import 'package:last_national_bank/widgets/noAccounts.dart';
@@ -120,7 +121,7 @@ class _TransfersState extends State<Transfers> {
                 // Set navigation drawer
                 key: _scaffoldKey,
                 drawer: Navigation(
-                    clientName: user!.firstName, clientSurname: user!.lastName),
+                    clientName: user!.firstName, clientSurname: user!.lastName, context: context),
 
                 // SingleChildScrollView allows the page to be scrollable
                 body: SingleChildScrollView(
@@ -137,7 +138,10 @@ class _TransfersState extends State<Transfers> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
+                        if (MediaQuery.of(context).size.width > tabletWidth)
+                        DesktopTabNavigator(),
                         // Three-line menu bar on the top to open the navigation drawer
+                        if (MediaQuery.of(context).size.width <= tabletWidth)
                         Align(
                           alignment: Alignment.topLeft,
                           child: IconButton(

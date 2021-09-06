@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:last_national_bank/constants/php_url.dart';
 import 'package:last_national_bank/constants/route_constants.dart';
 import 'package:last_national_bank/utils/helpers/style.dart';
+import 'package:last_national_bank/widgets/desktopNav.dart';
 import 'package:last_national_bank/widgets/heading.dart';
 import '../../classes/user.class.dart';
 import '../../config/routes/router.dart';
@@ -99,19 +100,25 @@ class _CreateAccountState extends State<CreateAccount> {
         : Scaffold(
             key: _scaffoldKey,
             drawer: Navigation(
-                clientName: user!.firstName, clientSurname: user!.lastName),
+                clientName: user!.firstName, clientSurname: user!.lastName, context: context),
             body: (accountTypeList.isNotEmpty)
                 ? Container(
+                    height: size.height,
                     decoration: BoxDecoration(
                       gradient: backgroundGradient,
                     ),
-                    child: ListView.builder(
-                        itemCount: accountTypeList.length,
-                        itemBuilder: (context, index) {
-                          return Column(
-                            children: [
-                              (index == 0)
-                                  ? Column(
+                    child: Column(
+                      children: [
+                        if (MediaQuery.of(context).size.width > tabletWidth)
+                        DesktopTabNavigator(),
+                        ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: accountTypeList.length,
+                            itemBuilder: (context, index) {
+                              return Column(
+                                children: [
+                                  if (index == 0)
+                                    Column(
                                       children: [
                                         Align(
                                           alignment: Alignment.topLeft,
@@ -125,107 +132,110 @@ class _CreateAccountState extends State<CreateAccount> {
                                           ),
                                         ),
                                         Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 5)),
+                                            padding:
+                                                EdgeInsets.symmetric(vertical: 5)),
                                         Heading("Create Account"),
                                         Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 15)),
+                                            padding:
+                                                EdgeInsets.symmetric(vertical: 15)),
                                       ],
-                                    )
-                                  : Container(
-                                      width: 0,
-                                      height: 0,
                                     ),
-                              GestureDetector(
-                                  onTap: () async {
-                                    //check if account type id exists in existing account type list
-                                    if (existingAccountTypes
-                                        .contains(accountTypeIdList[index])) {
-                                      // display toast to restrict user
-                                      Fluttertoast.showToast(
-                                          msg:
-                                              "An account of this type already exists. Restriction: Only one of each type of account allowed.",
-                                          toastLength: Toast.LENGTH_LONG,
-                                          gravity: ToastGravity.CENTER,
-                                          timeInSecForIosWeb: 3,
-                                          fontSize: 16.0);
-                                    } else {
-                                      // confirm creation of selected account
-                                      await _asyncConfirmDialog(
-                                          context,
-                                          accountTypeIdList[index],
-                                          accountTypeList[index]);
-                                    }
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 8.0),
-                                    child: Container(
-                                      width: size.width * 0.95,
-                                      child: Card(
-                                        color: Colors.white,
+                                  GestureDetector(
+                                      onTap: () async {
+                                        //check if account type id exists in existing account type list
+                                        if (existingAccountTypes
+                                            .contains(accountTypeIdList[index])) {
+                                          // display toast to restrict user
+                                          Fluttertoast.showToast(
+                                              msg:
+                                                  "An account of this type already exists. Restriction: Only one of each type of account allowed.",
+                                              toastLength: Toast.LENGTH_LONG,
+                                              gravity: ToastGravity.CENTER,
+                                              timeInSecForIosWeb: 3,
+                                              fontSize: 16.0);
+                                        } else {
+                                          // confirm creation of selected account
+                                          await _asyncConfirmDialog(
+                                              context,
+                                              accountTypeIdList[index],
+                                              accountTypeList[index]);
+                                        }
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8.0),
                                         child: Container(
-                                            margin: const EdgeInsets.all(10),
-                                            decoration: BoxDecoration(
-                                                gradient: LinearGradient(
-                                              begin: Alignment.topCenter,
-                                              end: Alignment.bottomCenter,
-                                              colors: [
-                                                Colors.teal,
-                                                Colors.teal[800]!,
-                                              ],
-                                            )),
-                                            child: Row(
-                                              children: <Widget>[
-                                                Padding(
-                                                  padding: const EdgeInsets.all(
-                                                      20.0),
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: <Widget>[
-                                                      Text(
-                                                        accountTypeList[index],
-                                                        style: TextStyle(
-                                                          fontSize: 20,
-                                                          color: Colors.white,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontFamily: fontMont,
-                                                        ),
-                                                      ),
-                                                      SizedBox(
-                                                        height: 10,
-                                                      ),
-                                                      Container(
-                                                        width: width,
-                                                        child: Text(
-                                                          descriptionList[
-                                                              index],
-                                                          style: TextStyle(
-                                                              fontSize: 15,
-                                                              color: Colors
-                                                                  .white70,
-                                                              fontFamily:
-                                                                  fontMont,
+                                          width: (size.width <= phoneWidth)
+                                              ? size.width * 0.95
+                                              : size.width * 0.7,
+                                          padding: (size.width >= tabletWidth)
+                                              ? EdgeInsets.only(top: 45)
+                                              : null,
+                                          child: Card(
+                                            color: Colors.white,
+                                            child: Container(
+                                                margin: const EdgeInsets.all(10),
+                                                decoration: BoxDecoration(
+                                                    gradient: LinearGradient(
+                                                  begin: Alignment.topCenter,
+                                                  end: Alignment.bottomCenter,
+                                                  colors: [
+                                                    Colors.teal,
+                                                    Colors.teal[800]!,
+                                                  ],
+                                                )),
+                                                child: Row(
+                                                  children: <Widget>[
+                                                    Padding(
+                                                      padding: const EdgeInsets.all(
+                                                          20.0),
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: <Widget>[
+                                                          Text(
+                                                            accountTypeList[index],
+                                                            style: TextStyle(
+                                                              fontSize: 20,
+                                                              color: Colors.white,
                                                               fontWeight:
-                                                                  FontWeight
-                                                                      .w500),
-                                                        ),
+                                                                  FontWeight.bold,
+                                                              fontFamily: fontMont,
+                                                            ),
+                                                          ),
+                                                          SizedBox(
+                                                            height: 10,
+                                                          ),
+                                                          Container(
+                                                            width: width,
+                                                            child: Text(
+                                                              descriptionList[
+                                                                  index],
+                                                              style: TextStyle(
+                                                                  fontSize: 15,
+                                                                  color: Colors
+                                                                      .white70,
+                                                                  fontFamily:
+                                                                      fontMont,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500),
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
-                                                    ],
-                                                  ),
-                                                )
-                                              ],
-                                            )),
-                                      ),
-                                    ),
-                                  )),
-                            ],
-                          );
-                        }),
+                                                    )
+                                                  ],
+                                                )),
+                                          ),
+                                        ),
+                                      )),
+                                ],
+                              );
+                            }),
+                      ],
+                    ),
                   )
                 : buildLoadingScreen(context),
           );

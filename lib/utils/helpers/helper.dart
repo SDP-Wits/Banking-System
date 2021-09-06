@@ -1,4 +1,6 @@
 //Takes in a card number and adds spaces to it
+import 'package:flutter/cupertino.dart';
+
 String seperateCardNumber(String cardNumber) {
   String ansString = "";
 
@@ -31,4 +33,8 @@ String getNameDisplay(String firstName, String middleNames, String lastName) {
   ansString += ' ' + lastName;
 
   return ansString;
+}
+
+Size getSize(BuildContext context) {
+  return MediaQuery.of(context).size;
 }

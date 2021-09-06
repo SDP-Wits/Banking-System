@@ -17,12 +17,21 @@ import '../helpers/ignore_helper.dart';
 import 'local_db.dart';
 
 //Give in a url, get back a List of Maps (List of Rows) from PHP File
-Future<List<Map<String, dynamic>>> getURLData(String url) async {
+// ignore: avoid_init_to_null
+Future<List<Map<String, dynamic>>> getURLData(
+    {required String url, Map<String, String>? data = null}) async {
   print(url);
+  if (data != null) {
+    print(data);
+  }
+
   final Uri uri = Uri.parse(url);
 
   try {
-    final httpResponse = await http.get(uri);
+    final httpResponse = await http.post(
+      uri,
+      body: data,
+    );
 
     if (httpResponse.statusCode == 200) {
       print("response from json is " + httpResponse.body);
@@ -36,13 +45,30 @@ Future<List<Map<String, dynamic>>> getURLData(String url) async {
       return map;
     } else {
       //coverage-ignore-line
-      print("Oi, the url that just failed was : $url");return [{"error": "Failed to get data from database"}];
+      print("Oi, the url that just failed was : $url");
+      return [
+        {"error": "Failed to get data from database"}
+      ];
     }
     //coverage-ignore-line
-  } on SocketException catch (e) {print("Database down");print(e.toString());Fluttertoast.showToast(msg: "The database's server is down :(");return [{"status": false,"error": "Failed to connect to database"}];
+  } on SocketException catch (e) {
+    print("Database down");
+    print(e.toString());
+    Fluttertoast.showToast(msg: "The database's server is down :(");
+    return [
+      {"status": false, "error": "Failed to connect to database"}
+    ];
   } catch (e) {
     //coverage-ignore-line
-    print("php script might be messed up");print(url);print(e.toString());Fluttertoast.showToast(msg:"Whoops, we encounted an issue. Please try again or contact support");return [{"status": false, "error": "Failed to get your information"}];
+    print("php script might be messed up");
+    print(url);
+    print(e.toString());
+    Fluttertoast.showToast(
+        msg:
+            "Whoops, we encounted an issue. Please try again or contact support");
+    return [
+      {"status": false, "error": "Failed to get your information"}
+    ];
   }
 }
 //Log the user in, based off whether they are a client or not
@@ -54,12 +80,14 @@ Future<String> userLoginOnline(
   String phpFileToUse =
       isClientLogin ? attempt_client_login : attempt_admin_login;
 
-  List<String> phpNames = ["id", "password"];
-  final String arguments = argumentMaker(
-      phpNames: phpNames, inputVariables: [idNumber, hashPassword]);
+  final Map<String, String> arguments = {
+    "id": idNumber,
+    "password": hashPassword,
+  };
 
   // print(urlPath + phpFileToUse + arguments);
-  Map data = (await getURLData(urlPath + phpFileToUse + arguments))[0];
+  Map data =
+      (await getURLData(url: urlPath + phpFileToUse, data: arguments))[0];
 
   //If there is an error
   if (data.containsKey("status")) {
@@ -73,12 +101,44 @@ Future<String> userLoginOnline(
 
   bool isAdmin = !isClientLogin;
   //coverage:ignore-start
-  User user = User((isAdmin) ? int.parse(data["adminID"]) : int.parse(data["clientID"]),data["firstName"],data["middleName"],data["lastName"],int.parse(data["age"]),data["phoneNumber"],data["email"],data["idNumber"],data["password"],isAdmin,int.parse(data["streetNumber"]),data["streetName"],data["suburb"],data["province"],data["country"],int.parse(data["apartmentNumber"]),
+  User user = User(
+    (isAdmin) ? int.parse(data["adminID"]) : int.parse(data["clientID"]),
+    data["firstName"],
+    data["middleName"],
+    data["lastName"],
+    int.parse(data["age"]),
+    data["phoneNumber"],
+    data["email"],
+    data["idNumber"],
+    data["password"],
+    isAdmin,
+    int.parse(data["streetNumber"]),
+    data["streetName"],
+    data["suburb"],
+    data["province"],
+    data["country"],
+    int.parse(data["apartmentNumber"]),
     //coverage:ignore-end
   );
 
   //coverage:ignore-start
-  return await LocalDatabaseHelper.instance.addUserDetails(user.userID,user.email,user.phoneNumber,user.idNumber,user.hashPassword,user.age,user.firstName,user.middleName,user.lastName,user.isAdmin,user.address.streetNumber,user.address.streetName,user.address.suburb,user.address.province,user.address.country,user.address.apartmentNumber);
+  return await LocalDatabaseHelper.instance.addUserDetails(
+      user.userID,
+      user.email,
+      user.phoneNumber,
+      user.idNumber,
+      user.hashPassword,
+      user.age,
+      user.firstName,
+      user.middleName,
+      user.lastName,
+      user.isAdmin,
+      user.address.streetNumber,
+      user.address.streetName,
+      user.address.suburb,
+      user.address.province,
+      user.address.country,
+      user.address.apartmentNumber);
   //coverage:ignore-end
 }
 
@@ -86,7 +146,7 @@ Future<String> userLoginOnline(
 Future<List<Name>> getUnverifiedClients() async {
   final String url = urlPath + select_unverified_client_names;
 
-  final List<Map> data = await getURLData(url);
+  final List<Map> data = await getURLData(url: url);
 
   //no unverfied clients
   if (data.isEmpty) {
@@ -119,7 +179,7 @@ Future<List<Name>> getUnverifiedClients() async {
 Future<int> getNumberOfAccounts() async {
   final String url = urlPath + count_num_accountTypes;
 
-  final List<Map> data = (await getURLData(url));
+  final List<Map> data = (await getURLData(url: url));
 
   //status only returned in failed case, so as long as the returned data
   // contains "status" we can assume it failed
@@ -134,10 +194,13 @@ Future<int> getNumberOfAccounts() async {
 
 // this function gets the ClientID from the database, using the clients ID number - we get all details, and return the ClientID
 Future<int> getClientID(String accountNumber) async {
-  final String arguments = "?accountNumber=$accountNumber";
-  final String url = urlPath + get_client_id + arguments;
+  final String url = urlPath + get_client_id;
 
-  final List<Map> data = (await getURLData(url));
+  final Map<String, String> arguments = {
+    "accountNumber": accountNumber,
+  };
+
+  final List<Map> data = (await getURLData(url: url, data: arguments));
 
   //status only returned in failed case, so as long as the returned data
   // contains "status" we can assume it failed
@@ -150,10 +213,13 @@ Future<int> getClientID(String accountNumber) async {
 
 // get clients details for admin to view
 Future<List<thisUser>> getClientDetails(String idNumber) async {
-  final String arguments = "?id=$idNumber";
-  final String url = urlPath + select_client_id + arguments;
+  final String url = urlPath + select_client_id;
 
-  final List<Map> data = (await getURLData(url));
+  final Map<String, String> arguments = {
+    "id": idNumber,
+  };
+
+  final List<Map> data = (await getURLData(url: url, data: arguments));
 
   //status only returned in failed case, so as long as the returned data
   // contains "status" we can assume it failed
@@ -185,19 +251,14 @@ Future<String> verifyClient(String clientIdNumber, String adminIdNumber,
     String clientStatus, String php) async {
   String date = getDate();
 
-  String arguments = argumentMaker(phpNames: [
-    "clientIdNum",
-    "adminIdNum",
-    "currentDate",
-    "verificationStatus"
-  ], inputVariables: [
-    clientIdNumber,
-    adminIdNumber,
-    date,
-    clientStatus
-  ]);
+  final Map<String, String> arguments = {
+    "clientIdNum": clientIdNumber,
+    "adminIdNum": adminIdNumber,
+    "currentDate": date,
+    "verificationStatus": clientStatus,
+  };
 
-  Map data = (await getURLData(urlPath + php + arguments))[0];
+  Map data = (await getURLData(url: urlPath + php, data: arguments))[0];
 
   bool status = data["status"];
 
@@ -212,7 +273,7 @@ Future<String> verifyClient(String clientIdNumber, String adminIdNumber,
 Future<List<accountTypes>> getAccountTypes() async {
   final String url = urlPath + select_account_types;
 
-  final List<Map> accTypeDetails = await getURLData(url);
+  final List<Map> accTypeDetails = await getURLData(url: url);
 
   //status only returned in failed case, so as long as the returned data
   // contains "status" we can assume it failed
@@ -243,12 +304,14 @@ Future<List<accountTypes>> getAccountTypes() async {
 
 // Check which accounts exist for specific user
 Future<List<int>> getExistingAccountTypes(int clientID) async {
-  final String args = argumentMaker(
-      phpNames: ["clientID"], inputVariables: [clientID.toString()]);
+  final Map<String, String> arguments = {
+    "clientID": clientID.toString(),
+  };
 
-  final String url = urlPath + select_client_unique_accounts + args;
+  final String url = urlPath + select_client_unique_accounts;
 
-  final List<Map> existingAccTypes = await getURLData(url);
+  final List<Map> existingAccTypes =
+      await getURLData(url: url, data: arguments);
 
   // if client has no accounts
   if (existingAccTypes.isEmpty) {
@@ -279,19 +342,15 @@ Future<String> createAccount(
     String clientIdNumber, int accountTypeID, String php) async {
   final String date = getDate();
 
-  List<String> phpNames = ["clientIdNum", "accountType", "currentDate"];
-  List<String> inputVariables = [
-    clientIdNumber,
-    accountTypeID.toString(),
-    date
-  ];
+  final Map<String, String> arguments = {
+    "clientIdNum": clientIdNumber,
+    "accountType": accountTypeID.toString(),
+    "currentDate": date,
+  };
 
-  String arguments =
-      argumentMaker(phpNames: phpNames, inputVariables: inputVariables);
+  final String url = urlPath + php;
 
-  final String url = urlPath + php + arguments;
-
-  final Map data = (await getURLData(url))[0];
+  final Map data = (await getURLData(url: url, data: arguments))[0];
 
   if (data["status"]) {
     return dbSuccess;
@@ -302,10 +361,16 @@ Future<String> createAccount(
 
 //Get all the details for all the user's accounts
 Future<List<accountDetails>> getAccountDetails(String idNumber) async {
-  final String arguments = "?idNum=$idNumber";
-  final String url = urlPath + select_client_account + arguments;
+  final String url = urlPath + select_client_account;
 
-  final List<Map> data = await getURLData(url);
+  final Map<String, String> arguments = {
+    "idNum": idNumber,
+  };
+
+  final List<Map> data = await getURLData(
+    url: url,
+    data: arguments,
+  );
 
   List<accountDetails> accounts = [];
 
@@ -336,10 +401,13 @@ Future<List<accountDetails>> getAccountDetails(String idNumber) async {
 
 //Getting specific account details
 Future<List<specificAccount>> getSpecificAccount(String accNum) async {
-  final String arguments = "?accNum=$accNum";
-  final String url = urlPath + select_specific_account + arguments;
+  final String url = urlPath + select_specific_account;
 
-  final List<Map> data = (await getURLData(url));
+  final Map<String, String> arguments = {
+    "accNum": accNum,
+  };
+
+  final List<Map> data = (await getURLData(url: url, data: arguments));
 
   if (data[0].containsKey("status")) {
     if (!data[0]["status"]) {
@@ -372,28 +440,16 @@ Future<List<specificAccount>> getSpecificAccount(String accNum) async {
 }
 
 //Helper Functions
-String argumentMaker(
-    {required List<String> phpNames, required List<String> inputVariables}) {
-  String argument = "?";
-  int length = phpNames.length;
-
-  for (int i = 0; i < length; i++) {
-    argument += "${phpNames[i]}=${inputVariables[i]}";
-
-    if (i != length - 1) {
-      argument += '&';
-    }
-  }
-
-  return argument;
-}
 
 // This function gets the logs for a specific client to view on their timeline page
 Future<List<Log>> getLogs(String clientID) async {
-  final String arguments = "?clientID=$clientID";
-  final String url = urlPath + select_client_log + arguments;
+  final String url = urlPath + select_client_log;
 
-  final List<Map> data = (await getURLData(url));
+  final Map<String, String> arguments = {
+    "clientID": clientID,
+  };
+
+  final List<Map> data = (await getURLData(url: url, data: arguments));
   // if (data[0].containsKey("status")) {
   //   if (!data[0]["status"]) {
   //     print("There are no logs");
@@ -419,22 +475,16 @@ Future<List<Log>> getLogs(String clientID) async {
 //used in transfer.functions.dart
 Future<String> makeTransfer(
     String accountFrom, String accountTo, String amount, String refName) async {
-  final String date = getDate();
+  final String url = urlPath + make_transfer;
 
-  List<String> phpNames = [
-    "accountFrom",
-    "accountTo",
-    "amount",
-    "referenceName"
-  ];
-  List<String> inputVariables = [accountFrom, accountTo, amount, refName];
+  final Map<String, String> arguments = {
+    "accountFrom": accountFrom,
+    "accountTo": accountTo,
+    "amount": amount,
+    "referenceName": refName,
+  };
 
-  String arguments =
-      argumentMaker(phpNames: phpNames, inputVariables: inputVariables);
-
-  final String url = urlPath + make_transfer + arguments;
-
-  final Map data = (await getURLData(url))[0];
+  final Map data = (await getURLData(url: url, data: arguments))[0];
 
   if (data["status"]) {
     return dbSuccess;
@@ -451,35 +501,116 @@ Future<String> makePayment(
     String refName,
     String clientID,
     String clientName) async {
-  List<String> phpNames = [
-    "recipientClientID",
-    "accFrom",
-    "clientID",
-    "clientName",
-    "amt",
-    "accTo",
-    "refname"
-  ];
-  List<String> inputVariables = [
-    recipientClientID,
-    accountFrom,
-    clientID,
-    clientName,
-    amount,
-    accountTo,
-    refName
-  ];
+  final String url = urlPath + make_payment;
 
-  String arguments =
-      argumentMaker(phpNames: phpNames, inputVariables: inputVariables);
+  final Map<String, String> arguments = {
+    "recipientClientID": recipientClientID,
+    "accFrom": accountFrom,
+    "clientID": clientID,
+    "clientName": clientName,
+    "amt": amount,
+    "accTo": accountTo,
+    "refname": refName,
+  };
 
-  final String url = urlPath + make_payment + arguments;
-
-  final Map data = (await getURLData(url))[0];
+  final Map data = (await getURLData(
+    url: url,
+    data: arguments,
+  ))[0];
 
   if (data["status"]) {
     return dbSuccess;
   }
 
   return "Failed to make transfer";
+}
+
+//Insert admin to database
+Future<String> insertAdmin({
+  required String firstName,
+  String middleName = "",
+  required String lastName,
+  required String age,
+  required String phoneNum,
+  required String email,
+  required String idNum,
+  required String password,
+  required String secretKey,
+  required String currentDate,
+  required String streetName,
+  required String streetNum,
+  required String suburb,
+  required String province,
+  required String country,
+  required String apartmentNum,
+}) async {
+  final String url = urlPath + insert_admin;
+
+  final Map<String, String> arguments = {
+    "firstName": firstName,
+    "middleName": middleName,
+    "lastName": lastName,
+    "age": age,
+    "phoneNum": phoneNum,
+    "email": email,
+    "idNum": idNum,
+    "password": password,
+    "secretKey": secretKey,
+    "currentDate": currentDate,
+    "streetName": streetName,
+    "streetNum": streetNum,
+    "suburb": suburb,
+    "province": province,
+    "country": country,
+    "apartmentNum": apartmentNum,
+  };
+
+  // print(urlPath + phpFileToUse + arguments);
+  Map data = (await getURLData(url: url, data: arguments))[0];
+
+  //If there is an error
+  return (data["status"]) ? data["details"] : data["error"];
+}
+
+//Insert client to database
+Future<String> insertClient({
+  required String firstName,
+  String middleName = "",
+  required String lastName,
+  required String age,
+  required String phoneNum,
+  required String email,
+  required String idNum,
+  required String password,
+  required String streetName,
+  required String streetNum,
+  required String suburb,
+  required String province,
+  required String country,
+  required String apartmentNum,
+}) async {
+  final String url = urlPath + insert_client;
+
+  final Map<String, String> arguments = {
+    "firstName": firstName,
+    "middleName": middleName,
+    "lastName": lastName,
+    "age": age,
+    "phoneNum": phoneNum,
+    "email": email,
+    "idNum": idNum,
+    "password": password,
+    "streetName": streetName,
+    "streetNum": streetNum,
+    "suburb": suburb,
+    "province": province,
+    "country": country,
+    "apartmentNum": apartmentNum,
+  };
+
+  // print(urlPath + phpFileToUse + arguments);
+  Map data = (await getURLData(url: url, data: arguments))[0];
+
+  //If there is an error
+  return (data["status"]) ? data["details"] : data["error"];
 }

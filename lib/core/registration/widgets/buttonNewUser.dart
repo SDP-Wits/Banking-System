@@ -10,94 +10,43 @@ import '../registration.functions.dart';
 // coverage:ignore-start
 //Manually tested
 Future<String> clientRegisterOnline() async {
-  //Choosing php file based off whether the user is a client or admin
-  String phpFileToUse = insert_client;
-  List<String> phpNames = [
-    "firstName",
-    "middleName",
-    "lastName",
-    "age",
-    "phoneNum",
-    "email",
-    "idNum",
-    "password",
-    "streetName",
-    "streetNum",
-    "suburb",
-    "province",
-    "country",
-    "apartmentNum"
-  ];
-  final String arguments = argumentMaker(phpNames: phpNames, inputVariables: [
-    Data.name,
-    "",
-    Data.surname,
-    Data.age.toString(),
-    Data.phone,
-    Data.email,
-    Data.idnum,
-    encode(Data.password1).toString(),
-    Address.streetName,
-    Address.streetNumber,
-    Address.suburb,
-    Address.province,
-    Address.country,
-    Address.apartmentNumber
-  ]);
-
-  // print(urlPath + phpFileToUse + arguments);
-  Map data = (await getURLData(urlPath + phpFileToUse + arguments))[0];
-
-  //If there is an error
-  return data["details"];
+  return (await insertClient(
+    firstName: Data.name,
+    middleName: "",
+    lastName: Data.surname,
+    age: Data.age.toString(),
+    phoneNum: Data.phone,
+    email: Data.email,
+    idNum: Data.idnum,
+    password: encode(Data.password1).toString(),
+    streetName: Address.streetName,
+    streetNum: Address.streetNumber,
+    suburb: Address.suburb,
+    province: Address.province,
+    country: Address.country,
+    apartmentNum: Address.apartmentNumber,
+  ));
 }
 
 //Manually tested
 Future<String> adminRegisterOnline() async {
-  //Choosing php file based off whether the user is a client or admin
-  String phpFileToUse = insert_admin;
-  List<String> phpNames = [
-    "firstName",
-    "middleName",
-    "lastName",
-    "age",
-    "phoneNum",
-    "email",
-    "idNum",
-    "password",
-    "secretKey",
-    "currentDate",
-    "streetName",
-    "streetNum",
-    "suburb",
-    "province",
-    "country",
-    "apartmentNum"
-  ];
-  final String arguments = argumentMaker(phpNames: phpNames, inputVariables: [
-    Data.name,
-    "",
-    Data.surname,
-    Data.age.toString(),
-    Data.phone,
-    Data.email,
-    Data.idnum,
-    encode(Data.password1).toString(),
-    Data.secretKey,
-    currentDate(),
-    Address.streetName,
-    Address.streetNumber,
-    Address.suburb,
-    Address.province,
-    Address.country,
-    Address.apartmentNumber
-  ]);
-
-  // print(urlPath + phpFileToUse + arguments);
-  Map data = (await getURLData(urlPath + phpFileToUse + arguments))[0];
-
-  //If there is an error
-  return data["details"];
+  return (await insertAdmin(
+      firstName: Data.name,
+      middleName: "",
+      lastName: Data.surname,
+      age: Data.age.toString(),
+      phoneNum: Data.phone,
+      email: Data.email,
+      idNum: Data.idnum,
+      password: encode(Data.password1).toString(),
+      secretKey: Data.secretKey,
+      currentDate: currentDate(),
+      streetName: Address.streetName,
+      streetNum: Address.streetNumber,
+      suburb: Address.suburb,
+      province: Address.province,
+      country: Address.country,
+      apartmentNum: Address.apartmentNumber));
 }
 
 class ButtonNewUser extends StatefulWidget {

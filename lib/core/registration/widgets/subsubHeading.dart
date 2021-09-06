@@ -10,7 +10,7 @@ class subsubHeading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-    //  padding: EdgeInsets.all(16),
+      //  padding: EdgeInsets.all(16),
       alignment: Alignment.center,
       child: Text(
         headingText,
@@ -18,6 +18,7 @@ class subsubHeading extends StatelessWidget {
           color: Colors.white,
           fontFamily: fontMont,
           fontSize: fontSizeSmall,
+          letterSpacing: 2.0,
         ),
         textAlign: TextAlign.center,
       ),

@@ -11,6 +11,7 @@ import 'package:last_national_bank/utils/helpers/icons.dart';
 import 'package:last_national_bank/utils/helpers/style.dart';
 import 'package:last_national_bank/utils/services/local_db.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
+import 'package:last_national_bank/widgets/desktopNav.dart';
 import 'package:last_national_bank/widgets/navigation.dart';
 import 'package:last_national_bank/widgets/noAccounts.dart';
 import 'package:last_national_bank/utils/helpers/back_button_helper.dart';
@@ -87,7 +88,7 @@ class _SelectPaymentPageState extends State<SelectPaymentPage> {
       // Set navigation:
       key: _scaffoldKey,
       drawer: Navigation(
-          clientName: user!.firstName, clientSurname: user!.lastName),
+          clientName: user!.firstName, clientSurname: user!.lastName, context: context),
 
       body: Container(
         // Decorate background
@@ -97,7 +98,10 @@ class _SelectPaymentPageState extends State<SelectPaymentPage> {
 
         // Column: Three lines icon, Heading, Two buttons
         child: Column(children: [
+          if (MediaQuery.of(context).size.width > tabletWidth)
+          DesktopTabNavigator(),
           // Open navigation icon (three lines icon)
+          if (MediaQuery.of(context).size.width <= tabletWidth)
           Align(
             alignment: Alignment.topLeft,
             child: IconButton(

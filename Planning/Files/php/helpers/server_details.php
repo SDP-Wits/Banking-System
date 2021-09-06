@@ -1,4 +1,6 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+
 $serverName = "localhost";
 $serverUsername = "executio";
 $serverPassword = "1KA0hJ:[xAl7j4";

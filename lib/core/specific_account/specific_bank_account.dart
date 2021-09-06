@@ -135,7 +135,7 @@ class _SpecificAccountPageState extends State<SpecificAccountPage> with TickerPr
         key: _scaffoldKey,
         drawer: Navigation(
           clientName: user!.firstName, 
-          clientSurname: user!.lastName
+          clientSurname: user!.lastName, context: context
         ),
 
         // buildPage
@@ -191,6 +191,7 @@ class _SpecificAccountPageState extends State<SpecificAccountPage> with TickerPr
               children: [
 
                 // Three-line menu bar on the top to open the navigation drawer
+                if (MediaQuery.of(context).size.width <= tabletWidth)
                 Align(
                   alignment: Alignment.topLeft,
                   child: IconButton(

@@ -1,8 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:last_national_bank/core/login/login.functions.dart';
+import 'package:last_national_bank/utils/helpers/SHA-256_encryption.dart';
+import 'package:last_national_bank/utils/services/online_db.dart';
+import 'package:last_national_bank/widgets/desktopNav.dart';
 import 'config/routes/router.dart' as router;
+import 'config/routes/router.dart';
 import 'constants/app_constants.dart';
+import 'constants/database_constants.dart';
 import 'core/login/login.dart';
 
 // coverage:ignore-start
@@ -43,6 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     //TODO: Comment before final release
     // autoLogin(context);
+    autoLoginWeb("0123456789987", "Arneev@123", true, context);
   }
 
   @override
@@ -53,6 +60,25 @@ class _MyHomePageState extends State<MyHomePage> {
     // return PlaygroundTest();
     return LoginPage();
     // if (kIsWeb) return LoginPageForWeb();
+  }
+}
+
+Future autoLoginWeb(String userID, String password, bool isClientLogin,
+    BuildContext context) async {
+  //Encrypt password
+  String encodePass = encode(password);
+
+  //Try to send login details to database
+  String response = await userLoginOnline(userID, encodePass, isClientLogin);
+
+  if (response == dbSuccess) {
+    if (!isClientLogin) {
+      //If Admin, go to admin verification list
+      goToAdminVerificationList(context);
+    } else {
+      //If client, go to profile page
+      goToProfilePage(context);
+    }
   }
 }
 // coverage:ignore-end

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:last_national_bank/config/routes/router.dart';
 import 'package:last_national_bank/constants/route_constants.dart';
+import 'package:last_national_bank/widgets/desktopNav.dart';
 import 'package:last_national_bank/widgets/heading.dart';
 import 'package:last_national_bank/widgets/navigation.dart';
 import 'package:last_national_bank/widgets/noAccounts.dart';
@@ -103,7 +104,7 @@ class _AccountsState extends State<Accounts> {
       return Scaffold(
         key: _scaffoldKey,
         drawer: Navigation(
-            clientName: user!.firstName, clientSurname: user!.lastName),
+            clientName: user!.firstName, clientSurname: user!.lastName, context: context),
         
         body: Container(
           width: size.width,
@@ -118,7 +119,9 @@ class _AccountsState extends State<Accounts> {
             
             child: Column(
               children: [
-                
+                if (size.width > tabletWidth)
+                DesktopTabNavigator(),
+                if (MediaQuery.of(context).size.width <= tabletWidth)
                 Align(
                   alignment: Alignment.topLeft,
                   child: IconButton(
@@ -188,6 +191,7 @@ class _AccountsState extends State<Accounts> {
         ),
       );
     } else if (finishedGetData) {
+      
       return NoAccount();
     } else {
       return buildLoadingScreen(context);

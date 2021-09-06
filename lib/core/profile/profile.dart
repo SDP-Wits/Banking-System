@@ -8,7 +8,10 @@ import 'package:last_national_bank/config/routes/router.helper.dart';
 import 'package:last_national_bank/constants/route_constants.dart';
 import 'package:last_national_bank/core/registration/widgets/subHeading.dart';
 import 'package:last_national_bank/core/registration/widgets/subsubHeading.dart';
+import 'package:last_national_bank/utils/helpers/helper.dart';
 import 'package:last_national_bank/utils/helpers/style.dart';
+import 'package:last_national_bank/widgets/desktopNav.dart';
+import 'package:last_national_bank/widgets/deviceLayout.dart';
 import 'package:last_national_bank/widgets/heading.dart';
 import 'package:last_national_bank/widgets/pendingNav.dart';
 
@@ -83,45 +86,32 @@ class _ProfileState extends State<Profile> {
   }
 
   Widget buildPage() {
-    final Size size = MediaQuery.of(context).size;
+    return DeviceLayout(
+      phoneLayout: phoneLayout(context),
+      desktopWidget: desktopLayout(context),
+    );
+  }
 
-    return (user == null)
-        ? Scaffold(
-            drawer: null,
-            body: Container(
-              width: size.width,
-              height: size.height,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topRight,
-                    end: Alignment.bottomLeft,
-                    colors: [Colors.blueGrey, Colors.teal]),
-              ),
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: IconButton(
-                  icon: Icon(Icons.menu, color: Colors.white),
-                  onPressed: () {
-                    _scaffoldKey.currentState!.openDrawer();
-                  },
-                ),
-              ),
-            ))
-        : Scaffold(
+  Widget desktopLayout(BuildContext context) {
+    final size = getSize(context);
+   return Scaffold(
             key: _scaffoldKey,
             drawer: (me![0].status != "Pending")
                 ? Navigation(
-                    clientName: user!.firstName, clientSurname: user!.lastName)
+                    clientName: user!.firstName, clientSurname: user!.lastName,context: context)
                 : pendingNav(
                     clientName: user!.firstName, clientSurname: user!.lastName),
             body: SingleChildScrollView(
               child: Container(
-                height: size.height * 1.1,
+                height: size.height,
                 child: Column(
                     //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
+                      if (MediaQuery.of(context).size.width > tabletWidth)
+                      DesktopTabNavigator(),
                       Container(
-                        height: size.height / 2,
+                        // height: size.height / 2,
+                        padding: EdgeInsets.only(bottom: 30),
                         decoration: BoxDecoration(
                           gradient: backgroundGradient,
                           borderRadius: BorderRadius.only(
@@ -133,6 +123,7 @@ class _ProfileState extends State<Profile> {
                         child: Column(
                             //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
+                              if (MediaQuery.of(context).size.width <= tabletWidth)
                               Align(
                                 alignment: Alignment.topLeft,
                                 child: IconButton(
@@ -159,40 +150,157 @@ class _ProfileState extends State<Profile> {
                                   user!.firstName + " " + user!.lastName),
                               // Spacing
                               Padding(
-                                padding: EdgeInsets.only(top: 10),
+                                padding: EdgeInsets.only(top: 15),
                               ),
                               subsubHeading(user!.idNumber),
                             ]),
                       ),
+                      Expanded(
+                          child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              DetailedBlocks(
+                                  me![0].status, "Verification Status"),
+                              DetailedBlocks(user!.email, "Email Address"),
+                            ],
+                          ),
+                          // Spacing
 
-                      // Spacing
-                      Padding(
-                        padding: EdgeInsets.only(top: 40),
-                      ),
-
-                      DetailedBlocks(me![0].status, "Verification Status"),
-                      // Spacing
-                      Padding(
-                        padding: EdgeInsets.only(top: 30),
-                      ),
-                      DetailedBlocks(user!.email, "Email Address"),
-                      Padding(
-                        padding: EdgeInsets.only(top: 30),
-                      ),
-                      DetailedBlocks(user!.phoneNumber, "Phone Number"),
-                      Padding(
-                        padding: EdgeInsets.only(top: 30),
-                      ),
-                      DetailedBlocks(
-                          user!.address.streetNumber.toString() +
-                              " " +
-                              user!.address.streetName +
-                              ", " +
-                              user!.address.suburb,
-                          "Address"),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                DetailedBlocks(
+                                    user!.phoneNumber, "Phone Number"),
+                                DetailedBlocks(
+                                    user!.address.streetNumber.toString() +
+                                        " " +
+                                        user!.address.streetName +
+                                        ", " +
+                                        user!.address.suburb,
+                                    "Address"),
+                              ]),
+                        ],
+                      )),
                     ]),
               ),
             ),
+          );
+  }
+
+  Widget phoneLayout(BuildContext context) {
+    final size = getSize(context);
+    return Row(
+            children: [
+              Expanded(
+                flex: 1, // 20%
+                child: Container(color: Colors.transparent),
+              ),
+              Expanded(
+                  flex: 500, // 60%
+                  child: Scaffold(
+                    key: _scaffoldKey,
+                    drawer: (me![0].status != "Pending")
+                        ? Navigation(
+                            clientName: user!.firstName,
+                            clientSurname: user!.lastName, context: context)
+                        : pendingNav(
+                            clientName: user!.firstName,
+                            clientSurname: user!.lastName),
+                    body: SingleChildScrollView(
+                      child: Container(
+                        //height: size.height * 1.1,
+                        child: Column(
+                            //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Container(
+                                //height: size.height / 2,
+                                decoration: BoxDecoration(
+                                  gradient: backgroundGradient,
+                                  borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(25.0),
+                                    bottomRight: Radius.circular(25.0),
+                                    // topRight: borderRadius,
+                                  ),
+                                ),
+                                child: Column(
+                                    //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Align(
+                                        alignment: Alignment.topLeft,
+                                        child: IconButton(
+                                          icon: Icon(Icons.menu,
+                                              color: Colors.white),
+                                          onPressed: () {
+                                            _scaffoldKey.currentState!
+                                                .openDrawer();
+                                          },
+                                        ),
+                                      ),
+
+                                      Heading("My Profile"),
+
+                                      // Spacing
+                                      Padding(
+                                        padding: EdgeInsets.only(top: 30),
+                                      ),
+
+                                      Icon(
+                                        Icons.account_circle,
+                                        size: 100,
+                                      ),
+
+                                      subHeading(user!.firstName +
+                                          " " +
+                                          user!.lastName),
+                                      // Spacing
+                                      Padding(
+                                        padding: EdgeInsets.only(top: 10),
+                                      ),
+                                      subsubHeading(user!.idNumber),
+                                    ]),
+                              ),
+
+                              // Spacing
+                              Padding(
+                                padding: EdgeInsets.only(top: 40),
+                              ),
+
+                              DetailedBlocks(
+                                  me![0].status, "Verification Status"),
+                              // Spacing
+                              Padding(
+                                padding: EdgeInsets.only(top: 30),
+                              ),
+                              DetailedBlocks(user!.email, "Email Address"),
+                              Padding(
+                                padding: EdgeInsets.only(top: 30),
+                              ),
+                              DetailedBlocks(user!.phoneNumber, "Phone Number"),
+                              Padding(
+                                padding: EdgeInsets.only(top: 30),
+                              ),
+                              DetailedBlocks(
+                                  user!.address.streetNumber.toString() +
+                                      " " +
+                                      user!.address.streetName +
+                                      ", " +
+                                      user!.address.suburb,
+                                  "Address"),
+                            ]),
+                      ),
+                    ),
+                  )),
+              Expanded(
+                flex: 1, // 20%
+                child: Container(color: Colors.transparent),
+              )
+            ],
           );
   }
 }
@@ -204,8 +312,10 @@ class DetailedBlocks extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = getSize(context);
     return Container(
-        width: MediaQuery.of(context).size.width * 0.9,
+        width:
+            (size.width <= tabletWidth) ? size.width * 0.9 : size.width * 0.4,
         padding: EdgeInsets.all(5),
         decoration: BoxDecoration(
           color: Colors.transparent,

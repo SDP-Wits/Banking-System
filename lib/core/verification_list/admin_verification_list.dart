@@ -115,94 +115,130 @@ class _AdminVerificationListPageState extends State<AdminVerificationListPage> {
           child: SingleChildScrollView(
             padding: EdgeInsets.all(10.0),
             child: ConstrainedBox(
-              constraints:
-                  BoxConstraints(minHeight: MediaQuery.of(context).size.height),
+                constraints: BoxConstraints(
+                    minHeight: MediaQuery.of(context).size.height),
+                child: LayoutBuilder(builder: (context, constraints) {
+                  //List
+                  return Column(
+                    children: [
+                      // Three-line menu bar on the top to open the navigation drawer
+                      if (MediaQuery.of(context).size.width <= tabletWidth)
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: IconButton(
+                          icon: Icon(Icons.menu, color: Colors.white),
+                          onPressed: () {
+                            _scaffoldKey.currentState!.openDrawer();
+                          },
+                        ),
+                      ),
 
-              // List
-              child: Column(
-                children: [
-                  // Three-line menu bar on the top to open the navigation drawer
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: IconButton(
-                      icon: Icon(Icons.menu, color: Colors.white),
-                      onPressed: () {
-                        _scaffoldKey.currentState!.openDrawer();
-                      },
-                    ),
-                  ),
-
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Heading("Verify User"),
-                  ),
-                  (names.length == 0)
-                      ? Container(
-                          width: size.width,
-                          height: size.height,
-                          child: Center(
-                            child: Text(
-                              "No Users to Verify",
-                              style: TextStyle(
-                                fontFamily: fontMont,
-                                fontSize: 30,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w400,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        )
-                      : ListView.builder(
-                          shrinkWrap: true,
-                          physics: ScrollPhysics(),
-                          itemCount: names.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            String textToUse = "\t\t ${names[index].fName} ";
-                            if (names[index].mName != null) {
-                              textToUse += names[index].mName!;
-                              textToUse += " ";
-                            }
-                            textToUse += names[index].sName;
-
-                            return Container(
-                              margin: EdgeInsets.symmetric(vertical: 10),
-                              decoration: BoxDecoration(
-                                color: Colors.black26,
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                              child: InkWell(
-                                // When user clicks on item box, sonmething happens:
-                                // customBorder: Border.all(color: Colors.white, width: 2),
-                                onTap: () {
-                                  goToVerifyUser(
-                                      context: context,
-                                      idNumber: names[index].IDnum);
-                                },
-
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15),
-                                  ),
-                                  padding: EdgeInsets.all(15),
-                                  child: Text(
-                                    // names i sthe name of the example array used above
-                                    // Will need to find outy how to use array in
-                                    // verification.functions.dart here
-                                    textToUse,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: fontSizeSmall,
-                                        color: Colors.white,
-                                        fontFamily: fontMont),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Heading("Verify User"),
+                      ),
+                      (names.length == 0)
+                          ? Row(
+                              children: [
+                                Expanded(
+                                  flex: 3, // 20%
+                                  child: Container(color: Colors.transparent),
+                                ),
+                                Expanded(
+                                  flex: 3, // 60%
+                                  child: Container(
+                                    width: size.width,
+                                    height: size.height,
+                                    child: Center(
+                                      child: Text(
+                                        "No Users to Verify",
+                                        style: TextStyle(
+                                          fontFamily: fontMont,
+                                          fontSize: 30,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            );
-                          }),
-                ],
-              ),
-            ),
+                                Expanded(
+                                  flex: 3, // 20%
+                                  child: Container(color: Colors.transparent),
+                                )
+                              ],
+                            )
+                          : Row(
+                              children: [
+                                Expanded(
+                                  flex: 3, // 20%
+                                  child: Container(color: Colors.transparent),
+                                ),
+                                Expanded(
+                                  flex: 3, // 60%
+                                  child: ListView.builder(
+                                      shrinkWrap: true,
+                                      physics: ScrollPhysics(),
+                                      itemCount: names.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        String
+                                            textToUse = /*"\t\t*/ " ${names[index].fName} "; //had to comment out /t/t since its converted to square boxes on the web version
+                                        if (names[index].mName != null) {
+                                          textToUse += names[index].mName!;
+                                          textToUse += " ";
+                                        }
+                                        textToUse += names[index].sName;
+
+                                        return Container(
+                                          margin: EdgeInsets.symmetric(
+                                              vertical: 10),
+                                          decoration: BoxDecoration(
+                                            color: Colors.black26,
+                                            borderRadius:
+                                                BorderRadius.circular(30),
+                                          ),
+                                          child: InkWell(
+                                            // When user clicks on item box, sonmething happens:
+                                            // customBorder: Border.all(color: Colors.white, width: 2),
+                                            onTap: () {
+                                              goToVerifyUser(
+                                                  context: context,
+                                                  idNumber: names[index].IDnum);
+                                            },
+
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                              ),
+                                              padding: EdgeInsets.all(15),
+                                              child: Text(
+                                                // names i sthe name of the example array used above
+                                                // Will need to find outy how to use array in
+                                                // verification.functions.dart here
+                                                textToUse,
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontSize: fontSizeSmall,
+                                                    color: Colors.white,
+                                                    fontFamily: fontMont),
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      }),
+                                ),
+                                Expanded(
+                                  flex: 3, // 20%
+                                  child: Container(color: Colors.transparent),
+                                )
+                              ],
+                            )
+                    ],
+                  );
+                })),
           ),
         ));
   }

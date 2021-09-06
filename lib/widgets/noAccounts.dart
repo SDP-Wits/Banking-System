@@ -6,6 +6,8 @@ import 'package:last_national_bank/utils/helpers/style.dart';
 import 'package:last_national_bank/utils/services/local_db.dart';
 import 'package:last_national_bank/widgets/navigation.dart';
 
+import 'desktopNav.dart';
+
 class NoAccount extends StatefulWidget {
   const NoAccount({Key? key}) : super(key: key);
 
@@ -32,7 +34,7 @@ class _NoAccountState extends State<NoAccount> {
         ? buildLoadingScreen(context)
         : Scaffold(
             drawer: Navigation(
-                clientName: user!.firstName, clientSurname: user!.lastName),
+                clientName: user!.firstName, clientSurname: user!.lastName,context: context),
             body: Container(
               decoration: BoxDecoration(
                 gradient: backgroundGradient,
@@ -40,6 +42,8 @@ class _NoAccountState extends State<NoAccount> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  if (MediaQuery.of(context).size.width > tabletWidth)
+                  DesktopTabNavigator(),
                   Center(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 90.0),
