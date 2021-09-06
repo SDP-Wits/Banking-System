@@ -115,7 +115,10 @@ class _TimelineListPageState extends State<TimelinePage> {
               child: (logs!.length == 0)
                   ? Column(
                       children: [
-                        TimelineHeading(),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 15.0),
+                          child: TimelineHeading(),
+                        ),
                         Container(
                           width: size.width,
                           height: size.height,
@@ -144,7 +147,10 @@ class _TimelineListPageState extends State<TimelinePage> {
                         return Column(
                           children: [
                             (index == 0)
-                                ? TimelineHeading()
+                                ? Padding(
+                                    padding: const EdgeInsets.only(top: 15.0),
+                                    child: TimelineHeading(),
+                                  )
                                 : Container(
                                     width: 0,
                                     height: 0,

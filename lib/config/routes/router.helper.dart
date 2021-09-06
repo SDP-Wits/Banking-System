@@ -1,5 +1,7 @@
 // coverage:ignore-start
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:last_national_bank/config/routes/router.dart';
 
 import '../../constants/route_constants.dart';
 
@@ -30,7 +32,9 @@ class WrapScaffold extends StatelessWidget {
         ),
         //Disabling default back button action
         onWillPop: () async {
-          return false;
+          // return false;
+
+          return kIsWeb;
         });
   }
 }

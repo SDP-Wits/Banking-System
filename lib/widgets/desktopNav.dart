@@ -27,89 +27,92 @@ class DesktopTabNavigator extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = getSize(context);
     return Container(
-      width: size.width,
-      // height: size.height * 0.3,
-      padding: EdgeInsets.symmetric(vertical: 45),
-      color: Colors.teal,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          if (!isPending)
-            makeTab(
-                icon: IconButton(
-                  icon: Icon(
-                    (iconFamily.user),
-                    color: Colors.white,
-                  ),
+      color: Colors.white,
+      child: Container(
+        width: size.width,
+        // height: size.height * 0.3,
+        padding: EdgeInsets.symmetric(vertical: 30),
+        color: Colors.black.withOpacity(0.75),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            if (!isPending)
+              makeTab(
+                  icon: IconButton(
+                    icon: Icon(
+                      (iconFamily.user),
+                      color: Colors.white,
+                    ),
 
-                  // When icon is clicked, close navigation
-                  onPressed: () {
-                    //Navigator.pop(context);
-                    goToProfilePage(context);
-                  },
-                ),
-                text: 'Profile'),
-          if (!isPending)
-            makeTab(
-                icon: IconButton(
-                  icon: Icon(
-                    (iconFamily.account_balance),
-                    color: Colors.white,
+                    // When icon is clicked, close navigation
+                    onPressed: () {
+                      //Navigator.pop(context);
+                      goToProfilePage(context);
+                    },
                   ),
+                  text: 'Profile'),
+            if (!isPending)
+              makeTab(
+                  icon: IconButton(
+                    icon: Icon(
+                      (iconFamily.account_balance),
+                      color: Colors.white,
+                    ),
 
-                  // When icon is clicked, close navigation
-                  onPressed: () {
-                    //Navigator.pop(context);
-                    goToViewAccount(context);
-                  },
-                ),
-                text: 'Accounts'),
-          if (!isPending)
-            makeTab(
-                icon: IconButton(
-                  icon: Icon(
-                    (iconFamily.history),
-                    color: Colors.white,
+                    // When icon is clicked, close navigation
+                    onPressed: () {
+                      //Navigator.pop(context);
+                      goToViewAccount(context);
+                    },
                   ),
+                  text: 'Accounts'),
+            if (!isPending)
+              makeTab(
+                  icon: IconButton(
+                    icon: Icon(
+                      (iconFamily.history),
+                      color: Colors.white,
+                    ),
 
-                  // When icon is clicked, close navigation
-                  onPressed: () {
-                    //Navigator.pop(context);
-                    goToTimeline(context);
-                  },
-                ),
-                text: 'Timeline'),
-          if (!isPending)
-            makeTab(
-                icon: IconButton(
-                  icon: Icon(
-                    (iconFamily.payment),
-                    color: Colors.white,
+                    // When icon is clicked, close navigation
+                    onPressed: () {
+                      //Navigator.pop(context);
+                      goToTimeline(context);
+                    },
                   ),
+                  text: 'Timeline'),
+            if (!isPending)
+              makeTab(
+                  icon: IconButton(
+                    icon: Icon(
+                      (iconFamily.payment),
+                      color: Colors.white,
+                    ),
 
-                  // When icon is clicked, close navigation
-                  onPressed: () {
-                    //Navigator.pop(context);
-                    goToSelectPayment(context);
-                  },
-                ),
-                text: 'Transfers & Payments'),
-          IconButton(
-            icon: Icon(
-              (iconFamily.logout),
-              color: Colors.redAccent,
+                    // When icon is clicked, close navigation
+                    onPressed: () {
+                      //Navigator.pop(context);
+                      goToSelectPayment(context);
+                    },
+                  ),
+                  text: 'Transfers & Payments'),
+            IconButton(
+              icon: Icon(
+                (iconFamily.logout),
+                color: Colors.redAccent,
+              ),
+
+              // When icon is clicked, close navigation
+              onPressed: () {
+                Future.delayed(Duration(milliseconds: 500)).then((value) {
+                  LocalDatabaseHelper.instance.deleteData();
+                });
+                goToLogin(context);
+              },
             ),
-
-            // When icon is clicked, close navigation
-            onPressed: () {
-              Future.delayed(Duration(milliseconds: 500)).then((value) {
-                LocalDatabaseHelper.instance.deleteData();
-              });
-              goToLogin(context);
-            },
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

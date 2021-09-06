@@ -1,5 +1,6 @@
 // coverage:ignore-start
 
+import 'package:flutter/foundation.dart';
 import 'package:last_national_bank/utils/helpers/back_button_helper.dart';
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
@@ -100,40 +101,36 @@ class _AccountsState extends State<Accounts> {
 
     //Only show if account is not empty
     if ((acc.isNotEmpty)) {
-
       return Scaffold(
         key: _scaffoldKey,
         drawer: Navigation(
-            clientName: user!.firstName, clientSurname: user!.lastName, context: context),
-        
+            clientName: user!.firstName,
+            clientSurname: user!.lastName,
+            context: context),
         body: Container(
           width: size.width,
           height: size.height,
-          
           decoration: BoxDecoration(
             gradient: backgroundGradient,
           ),
-          
           child: SingleChildScrollView(
             physics: ScrollPhysics(),
-            
             child: Column(
               children: [
-                if (size.width > tabletWidth)
-                DesktopTabNavigator(),
+                if (size.width > tabletWidth) DesktopTabNavigator(),
                 if (MediaQuery.of(context).size.width <= tabletWidth)
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: IconButton(
-                    icon: Icon(Icons.menu, color: Colors.white),
-                    onPressed: () {
-                      _scaffoldKey.currentState!.openDrawer();
-                    },
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: IconButton(
+                      icon: Icon(Icons.menu, color: Colors.white),
+                      onPressed: () {
+                        _scaffoldKey.currentState!.openDrawer();
+                      },
+                    ),
                   ),
-                ),
-                
+
                 Padding(
-                  padding: EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(top: 25.0),
                 ),
 
                 Heading("Accounts"),
@@ -154,7 +151,7 @@ class _AccountsState extends State<Accounts> {
                     textAlign: TextAlign.center,
                   ),
                 ),
-               
+
                 SizedBox(
                   width: size.width * 0.9,
                   child: ListView.builder(
@@ -191,7 +188,6 @@ class _AccountsState extends State<Accounts> {
         ),
       );
     } else if (finishedGetData) {
-      
       return NoAccount();
     } else {
       return buildLoadingScreen(context);
