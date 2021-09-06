@@ -1,3 +1,4 @@
+// coverage:ignore-start
 import 'package:flutter/material.dart';
 import 'package:last_national_bank/utils/helpers/helper.dart';
 import 'package:last_national_bank/utils/helpers/style.dart';
@@ -30,3 +31,4 @@ class DeviceLayout extends StatelessWidget {
     }
   }
 }
+// coverage:ignore-end

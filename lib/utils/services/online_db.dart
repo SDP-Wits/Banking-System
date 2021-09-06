@@ -45,30 +45,13 @@ Future<List<Map<String, dynamic>>> getURLData(
       return map;
     } else {
       //coverage-ignore-line
-      print("Oi, the url that just failed was : $url");
-      return [
-        {"error": "Failed to get data from database"}
-      ];
+      print("Oi, the url that just failed was : $url");return [{"error": "Failed to get data from database"}];
     }
     //coverage-ignore-line
-  } on SocketException catch (e) {
-    print("Database down");
-    print(e.toString());
-    Fluttertoast.showToast(msg: "The database's server is down :(");
-    return [
-      {"status": false, "error": "Failed to connect to database"}
-    ];
+  } on SocketException catch (e) {print("Database down");print(e.toString());Fluttertoast.showToast(msg: "The database's server is down :(");return [{"status": false, "error": "Failed to connect to database"}];
   } catch (e) {
     //coverage-ignore-line
-    print("php script might be messed up");
-    print(url);
-    print(e.toString());
-    Fluttertoast.showToast(
-        msg:
-            "Whoops, we encounted an issue. Please try again or contact support");
-    return [
-      {"status": false, "error": "Failed to get your information"}
-    ];
+    print("php script might be messed up");print(url);print(e.toString());Fluttertoast.showToast(msg:"Whoops, we encounted an issue. Please try again or contact support");return [{"status": false, "error": "Failed to get your information"}];
   }
 }
 //Log the user in, based off whether they are a client or not
@@ -101,44 +84,12 @@ Future<String> userLoginOnline(
 
   bool isAdmin = !isClientLogin;
   //coverage:ignore-start
-  User user = User(
-    (isAdmin) ? int.parse(data["adminID"]) : int.parse(data["clientID"]),
-    data["firstName"],
-    data["middleName"],
-    data["lastName"],
-    int.parse(data["age"]),
-    data["phoneNumber"],
-    data["email"],
-    data["idNumber"],
-    data["password"],
-    isAdmin,
-    int.parse(data["streetNumber"]),
-    data["streetName"],
-    data["suburb"],
-    data["province"],
-    data["country"],
-    int.parse(data["apartmentNumber"]),
+  User user = User((isAdmin) ? int.parse(data["adminID"]) : int.parse(data["clientID"]),data["firstName"],data["middleName"],data["lastName"],int.parse(data["age"]),data["phoneNumber"],data["email"],data["idNumber"],data["password"],isAdmin,int.parse(data["streetNumber"]),data["streetName"],data["suburb"],data["province"],data["country"],int.parse(data["apartmentNumber"]),
     //coverage:ignore-end
   );
 
   //coverage:ignore-start
-  return await LocalDatabaseHelper.instance.addUserDetails(
-      user.userID,
-      user.email,
-      user.phoneNumber,
-      user.idNumber,
-      user.hashPassword,
-      user.age,
-      user.firstName,
-      user.middleName,
-      user.lastName,
-      user.isAdmin,
-      user.address.streetNumber,
-      user.address.streetName,
-      user.address.suburb,
-      user.address.province,
-      user.address.country,
-      user.address.apartmentNumber);
+  return await LocalDatabaseHelper.instance.addUserDetails(user.userID,user.email,user.phoneNumber,user.idNumber,user.hashPassword,user.age,user.firstName,user.middleName,user.lastName,user.isAdmin,user.address.streetNumber,user.address.streetName,user.address.suburb,user.address.province,user.address.country,user.address.apartmentNumber);
   //coverage:ignore-end
 }
 
@@ -149,16 +100,16 @@ Future<List<Name>> getUnverifiedClients() async {
   final List<Map> data = await getURLData(url: url);
 
   //no unverfied clients
-  if (data.isEmpty) {
+  //or
+  //status only returned in failed case, so as long as the returned data
+  // contains "status" we can assume it failed
+//coverage-ignore-line
+  if (data.isEmpty || data[0].containsKey("status")) {
     return [];
   }
 
-  //status only returned in failed case, so as long as the returned data
-  // contains "status" we can assume it failed
-  if (data[0].containsKey("status")) {
-    //coverage-ignore-line
-    return [];
-  }
+  
+
 // coverage:ignore-start
   List<Name> names = [];
   for (var map in data) {

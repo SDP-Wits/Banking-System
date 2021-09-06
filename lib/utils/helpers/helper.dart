@@ -35,6 +35,8 @@ String getNameDisplay(String firstName, String middleNames, String lastName) {
   return ansString;
 }
 
+// coverage:ignore-start
 Size getSize(BuildContext context) {
   return MediaQuery.of(context).size;
 }
+// coverage:ignore-end

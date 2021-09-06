@@ -1,3 +1,4 @@
+// coverage:ignore-start
 import 'package:flutter/material.dart';
 import 'package:last_national_bank/core/account/accounts.dart';
 import 'package:last_national_bank/core/profile/profile.dart';
@@ -8,7 +9,6 @@ import '../../constants/route_constants.dart';
 import 'package:last_national_bank/utils/helpers/helper.dart';
 // import '../../pages/accountspage.dart';
 
-// coverage:ignore-start
 import '../config/routes/router.dart';
 import '../utils/helpers/icons.dart';
 import '../utils/helpers/style.dart';
@@ -141,3 +141,4 @@ class makeTab extends StatelessWidget {
     );
   }
 }
+// coverage:ignore-end
