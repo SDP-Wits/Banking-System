@@ -75,7 +75,6 @@ Widget buildLoadingScreen(BuildContext context) {
     ],
   );
 }
-// coverage:ignore-end
 
 class MySpacing extends StatelessWidget {
   final double height;
@@ -102,3 +101,4 @@ class MyHoriSpacing extends StatelessWidget {
     );
   }
 }
+// coverage:ignore-end

@@ -1,3 +1,4 @@
+// coverage:ignore-start
 import 'package:flutter/material.dart';
 import 'package:last_national_bank/utils/helpers/helper.dart';
 
@@ -20,3 +21,4 @@ class CustomCircle extends StatelessWidget {
     );
   }
 }
+// coverage:ignore-end
