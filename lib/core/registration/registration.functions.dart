@@ -210,6 +210,6 @@ void setCheck(bool check) {
 }
 
 bool getCheck() {
-  return _finalCheck;
+  return fullvalidation();
 }
 // coverage:ignore-end

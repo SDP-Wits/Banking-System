@@ -131,7 +131,7 @@ class _ClientRegistrationPageState extends State<ClientRegistrationPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        Heading("Admin Registration"),
+                        Heading("Client Registration"),
                         Row(
                           children: [
                             NewName(size.width / 4),
