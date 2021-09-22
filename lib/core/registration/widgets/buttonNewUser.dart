@@ -107,6 +107,7 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
                     setState(() {});
                   });
                 }*/
+
                 clientRegisterOnline().then((value) {
                   Fluttertoast.showToast(
                       msg: "" + value,

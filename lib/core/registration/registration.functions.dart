@@ -1,6 +1,7 @@
 library bankingsystem.globals;
 
 import 'dart:core';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 //shared data classes
@@ -14,18 +15,20 @@ class Data {
   static String loc = "";
   static String phone = "";
   static int age = 0;
-  static bool is_client = false;
+  static bool is_client = true;
   static String secretKey = "";
 }
 
 class Address {
-  static String streetName = "West Street";
+  static String streetName = "";
   static String streetNumber = "15";
   static String suburb = "Green";
   static String province = "Gauteng";
   static String country = "South Africa";
   static String apartmentNumber = "0";
 }
+
+bool finalCheck = false;
 
 // validation functions
 bool fullvalidation() {
@@ -48,7 +51,7 @@ bool fullvalidation() {
     //checks if id num is of length 13
     flag = false;
   }
-  if (Data.loc.length == 0) {
+  if (Address.streetName.length == 0) {
     flag = false;
   }
   if (Data.name.length == 0) {
@@ -64,6 +67,9 @@ bool fullvalidation() {
     flag = false;
   }
   if (Data.surname.length == 0) {
+    flag = false;
+  }
+  if (Data.password1.length == 0) {
     flag = false;
   }
   if (Data.password1 != Data.password2) {
@@ -203,13 +209,16 @@ String currentDate() {
   return formattedDate;
 }
 
-bool _finalCheck = false;
+
 
 void setCheck(bool check) {
-  _finalCheck = check;
+  finalCheck = check;
 }
 
 bool getCheck() {
-  return fullvalidation();
+  if (finalCheck){
+    return fullvalidation();
+  }
+  return false;
 }
 // coverage:ignore-end
