@@ -11,6 +11,7 @@ import 'config/routes/router.dart';
 import 'constants/app_constants.dart';
 import 'constants/database_constants.dart';
 import 'core/login/login.dart';
+import 'core/statements/statements.dart';
 
 // coverage:ignore-start
 void main() {
@@ -58,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
       statusBarColor: Colors.teal,
     ));
     // return PlaygroundTest();
-    return LoginPage();
+    return StatementsPage();
     // if (kIsWeb) return LoginPageForWeb();
   }
 }
