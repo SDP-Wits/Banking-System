@@ -15,6 +15,7 @@ import 'package:last_national_bank/utils/services/local_db.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
 import 'package:last_national_bank/widgets/desktopNav.dart';
 import 'package:last_national_bank/widgets/navigation.dart';
+import 'package:last_national_bank/utils/helpers/icons.dart';
 
 /*
 The SpecificAccountPage class allows for clients to view a apecific account that the client swiped
@@ -446,40 +447,63 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
 class heading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+    return Column(
       children: [
-        // Title
-        Text(
-          'Add New Transaction',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-            fontFamily: fontMont,
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            // Request pdf button
+            Container(
+              width: 50,
+              height: 50,
+              alignment: Alignment.topRight,
+              child: FloatingActionButton(
+                  onPressed: () {
+                    //TODO: go to pdf page
+                  },
+                  backgroundColor: Colors.teal,
+                  child: Icon(Icons.insert_drive_file_outlined),///Expanded(child:FittedBox(child: Icon(Icons.dynamic_feed),fit: BoxFit.fill))
+              ),
+            ),
+          ],
         ),
-
-        // Floating + button
-        Container(
-          width: 50,
-          height: 50,
-          child: FloatingActionButton(
-            onPressed: () {
-              //When floating action button is pressed
-              //this will go to 'select payment method' page
-              goToSelectPayment(context);
-            },
-            backgroundColor: Colors.teal,
-            child: Text(
-              '+',
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            // Title
+            Text(
+              'Add New Transaction',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 20,
                 fontFamily: fontMont,
               ),
             ),
-          ),
-        )
+
+            // Floating + button
+            Container(
+              width: 50,
+              height: 50,
+              child: FloatingActionButton(
+                onPressed: () {
+                  //When floating action button is pressed
+                  //this will go to 'select payment method' page
+                  goToSelectPayment(context);
+                },
+                backgroundColor: Colors.teal,
+                child: Text(
+                  '+',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontFamily: fontMont,
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
+
       ],
     );
   }
