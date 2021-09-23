@@ -120,7 +120,6 @@ class _AdminVerificationListPageState extends State<AdminVerificationListPage> {
 
           // Allows page to be scrollable
           child: SingleChildScrollView(
-            padding: EdgeInsets.all(10.0),
             child: ConstrainedBox(
                 constraints: BoxConstraints(
                     minHeight: MediaQuery.of(context).size.height),
