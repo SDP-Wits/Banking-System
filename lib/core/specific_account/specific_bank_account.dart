@@ -270,7 +270,7 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
                       height: 50,
                       child: FloatingActionButton(
                         onPressed: () {
-                          // TO DO - TRISTAN
+                          goToStatementPage(context);
                         },
                         backgroundColor: Colors.teal,
                         child: Icon(
