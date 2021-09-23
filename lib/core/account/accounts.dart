@@ -117,82 +117,92 @@ class _AccountsState extends State<Accounts> {
           decoration: BoxDecoration(
             gradient: backgroundGradient,
           ),
-          child: SingleChildScrollView(
-            physics: ScrollPhysics(),
-            child: Column(
+          child: Stack(
               children: [
-                if (size.width > tabletWidth) DesktopTabNavigator(),
-                if (MediaQuery.of(context).size.width <= tabletWidth)
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: IconButton(
-                      icon: Icon(Icons.menu, color: Colors.white),
-                      onPressed: () {
-                        _scaffoldKey.currentState!.openDrawer();
-                      },
+                SingleChildScrollView(
+                  physics: ScrollPhysics(),
+                  child: Column(
+                  children: [
+                    if (size.width > tabletWidth) DesktopTabNavigator(),
+                    if (MediaQuery.of(context).size.width <= tabletWidth)
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: IconButton(
+                          icon: Icon(Icons.menu, color: Colors.white),
+                          onPressed: () {
+                            _scaffoldKey.currentState!.openDrawer();
+                          },
+                        ),
+                      ),
+
+                    Padding(
+                      padding: const EdgeInsets.only(top: 25.0),
                     ),
-                  ),
 
-                Padding(
-                  padding: const EdgeInsets.only(top: 25.0),
+                    Heading("Accounts"),
+
+                    // Spacing
+                    Padding(
+                      padding: EdgeInsets.only(top: 20),
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Text(
+                        "Please swipe right to view that account's transaction history.",
+                        style: new TextStyle(
+                            fontSize: 20.0,
+                            color: Colors.white,
+                            fontFamily: fontMont),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+
+                    SizedBox(
+                      width: (size.width > tabletWidth)
+                          ? size.width * 0.5
+                          : (size.width > phoneWidth)
+                              ? size.width * 0.7
+                              : size.width * 0.9,
+                      child: ListView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          padding: EdgeInsets.symmetric(vertical: 15),
+                          itemCount: acc.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 24.0),
+                              child: AccountCardInfo(
+                                accountType: acc[index].accountType,
+                                accountNumber: acc[index].accountNumber,
+                                firstName: acc[index].fName,
+                                middleNames: acc[index].mName,
+                                lastName: acc[index].lName,
+                                cardType: cardType,
+                                currAmount: acc[index].currentBalance,
+                                accountTypeId: acc[index].accountTypeId,
+                                canSwipe: true,
+                              ),
+                            );
+                          }),
+                    ),
+                    
+                  ],
+                  
                 ),
-
-                Heading("Accounts"),
-
-                // Spacing
-                Padding(
-                  padding: EdgeInsets.only(top: 20),
-                ),
-
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Text(
-                    "Please swipe right to view that account's transaction history.",
-                    style: new TextStyle(
-                        fontSize: 20.0,
-                        color: Colors.white,
-                        fontFamily: fontMont),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-
-                SizedBox(
-                  width: (size.width > tabletWidth)
-                      ? size.width * 0.5
-                      : (size.width > phoneWidth)
-                          ? size.width * 0.7
-                          : size.width * 0.9,
-                  child: ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      padding: EdgeInsets.symmetric(vertical: 15),
-                      itemCount: acc.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 24.0),
-                          child: AccountCardInfo(
-                            accountType: acc[index].accountType,
-                            accountNumber: acc[index].accountNumber,
-                            firstName: acc[index].fName,
-                            middleNames: acc[index].mName,
-                            lastName: acc[index].lName,
-                            cardType: cardType,
-                            currAmount: acc[index].currentBalance,
-                            accountTypeId: acc[index].accountTypeId,
-                            canSwipe: true,
-                          ),
-                        );
-                      }),
                 ),
                 (acc.length < uniqueAccountTypes)
-                    //If and only if, the number of accounts the user has is less than the number of
-                    //unique accounts, show the + circle button. The user can click on this and it will
-                    //take them to the create accounts screen
-                    ? floatingCreateAccount(context)
-                    : Container(width: 0, height: 0)
+                        //If and only if, the number of accounts the user has is less than the number of
+                        //unique accounts, show the + circle button. The user can click on this and it will
+                        //take them to the create accounts screen
+                        ? new Positioned(
+                          left: size.width - 100,
+                          top: size.height - 100,
+                          child: floatingCreateAccount(context)
+                        )
+                        : Container(width: 0, height: 0)
               ],
             ),
-          ),
         ),
       );
     } else if (finishedGetData) {

@@ -267,7 +267,7 @@ class _CardLayout extends StatelessWidget {
       borderRadius: BorderRadius.circular(15.0),
       child: Container(
         width: size.width * 0.9,
-        height: size.height * 0.3,
+        height: 175, //size.height * 0.3,
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.centerLeft,
