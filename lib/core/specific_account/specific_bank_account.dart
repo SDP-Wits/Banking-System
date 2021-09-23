@@ -1,5 +1,6 @@
 // coverage:ignore-start
 import 'package:flutter/foundation.dart';
+import 'package:last_national_bank/core/specific_account/widgets/listTransactions.dart';
 import 'package:last_national_bank/utils/helpers/back_button_helper.dart';
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
@@ -202,58 +203,134 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
                     padding: EdgeInsets.only(top: 30),
                   ),
 
-                  Text(
-                    'Add New Transaction:',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontFamily: fontMont,
+                  Row(children: [
+                    Text(
+                      'Add New Transaction:',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontFamily: fontMont,
+                      ),
                     ),
-                  ),
 
-                  // Spacing
-                  Padding(
-                    padding: EdgeInsets.only(top: 30),
-                  ),
+                    // Spacing
+                    Padding(
+                      padding: EdgeInsets.only(right: 45),
+                    ),
 
-                  // Floating + button
-                  Container(
-                    width: 70,
-                    height: 70,
-                    child: FloatingActionButton(
-                      onPressed: () {
-                        //When floating action button is pressed
-                        //this will go to 'select payment method' page
-                        goToSelectPayment(context);
-                      },
-                      backgroundColor: Colors.teal,
-                      child: Text(
-                        '+',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 30,
-                          fontFamily: fontMont,
+                    // Floating + button
+                    Container(
+                      width: 50,
+                      height: 50,
+                      alignment: Alignment.centerRight,
+                      child: FloatingActionButton(
+                        onPressed: () {
+                          //When floating action button is pressed
+                          //this will go to 'select payment method' page
+                          goToSelectPayment(context);
+                        },
+                        backgroundColor: Colors.teal,
+                        child: Text(
+                          '+',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 30,
+                            fontFamily: fontMont,
+                          ),
                         ),
                       ),
                     ),
-                  ),
+                  ]),
 
+
+                  // Spacing
+                    Padding(
+                      padding: EdgeInsets.only(top: 40),
+                    ),
+
+
+                  Row(children: [
+                    Text(
+                      'Request Statement PDF:',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontFamily: fontMont,
+                      ),
+                    ),
+
+                    // Spacing
+                    Padding(
+                      padding: EdgeInsets.only(right: 30),
+                    ),
+
+                    // Floating + button
+                    Container(
+                      width: 50,
+                      height: 50,
+                      child: FloatingActionButton(
+                        onPressed: () {
+                          // TO DO - TRISTAN
+                        },
+                        backgroundColor: Colors.teal,
+                        child: Icon(
+                          Icons.print,
+                          color: Colors.white,                          
+                        ),
+                      ),
+                    ),
+                  ]),
 
                 ],),
 
 
-                Container(
+                Column(
+                    children: [
+                      Container(
+                        alignment: Alignment.topRight,
+                        child: Text(
+                          'Account Transactions:',
+                          textAlign: TextAlign.right,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontFamily: fontMont,
+                          ),
+                        ),
+                      ),
+                      // Spacing
+                      Padding(
+                        padding: EdgeInsets.only(top: 15),
+                      ),
+                      Container(
+                        width: size.width / 2.3,
+                        height: size.height / 1.7,
+                        alignment: Alignment.topRight,
+                        padding: EdgeInsets.symmetric(horizontal: 30),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withAlpha(128),
+                        ),
+                        child: DraggableScrollableSheet(
+                          initialChildSize: 1, // Size when page loads
+                          minChildSize: 1, // Minimum size allowed
+                          maxChildSize: 1, // Maximum size allowed
 
-                  width: size.width/2.3,
-                  height: size.height/1.6,
-                  alignment: Alignment.topRight,
-                  padding: EdgeInsets.symmetric(horizontal: 30),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withAlpha(128),
+                          builder: (BuildContext context,
+                              ScrollController scrollController) {
+                            // Scroll widget
+                            if (user == null || logs == null) {
+                              return buildLoadingScreen(context);
+                            } else {
+                              return listTransactions(
+                                  logs: logs,
+                                  scrollController: scrollController,
+                                  acc: this.widget.acc);
+                            }
+                          },
+                        ),
+                      )
+                    ],
                   ),
-
-                )
-
 
               ],
             ),
@@ -430,164 +507,12 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
 
             builder: (BuildContext context, ScrollController scrollController) {
               // Scroll widget
-              return Container(
-                padding: EdgeInsets.all(10.0),
 
-                decoration: BoxDecoration(
-                  color: Colors.white70,
-                  borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(radiusSize),
-                      topLeft: Radius.circular(radiusSize)),
-                ),
-
-                // The list of transactions
-                child: (logs!.length == 0)
-                    ? // If there are no transactions, then display message in place
-                    Column(
-                        children: [
-                          ListTile(
-                            title: Text("No Recent Activity",
-                                style: TextStyle(
-                                    fontSize: 15, color: Colors.white)),
-                          ),
-                        ],
-                      )
-                    : // If there are transactions, then display them
-                    ListView.builder(
-                        controller: scrollController,
-                        itemCount: logs!.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          // Checks whether a transaction amount is positive (accountTo) or negative (accountFrom)
-                          // and adds the appropriate Rand symbol to the front of the amount
-                          String amountPrefix = '';
-                          Color textCol = Colors.black;
-                          if (logs!.length > 0) {
-                            if (this.widget.acc.accountNumber ==
-                                logs![index].accountTo) {
-                              textCol = Colors.green[800]!;
-                              amountPrefix = "+ R ";
-                            } else {
-                              textCol = Colors.red[500]!;
-                              amountPrefix = "- R ";
-                            }
-                          }
-
-                          // Display transaction
-                          return Container(
-                            padding: EdgeInsets.all(20),
-                            margin: EdgeInsets.symmetric(vertical: 15),
-                            decoration: BoxDecoration(
-                                color: Colors.teal[100],
-                                borderRadius: BorderRadius.circular(35)),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                // Date of transaction
-                                Text(
-                                  logs![index].timeStamp.split(" ")[0],
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.blueGrey[600]!,
-                                    fontFamily: fontMont,
-                                  ),
-                                ),
-
-                                // Spacing
-                                Padding(padding: EdgeInsets.only(top: 5)),
-
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        // Title
-                                        Text(
-                                          'Ref No: ',
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            color: Colors.black,
-                                            fontFamily: fontMont,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-
-                                        // Spacing
-                                        Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 10),
-
-                                          // Reference number
-                                          child: Text(
-                                            logs![index].referenceNumber,
-                                            style: TextStyle(
-                                                fontSize: 17,
-                                                color: Colors.black,
-                                                fontFamily: fontMont),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-
-                                    // Transaction amount
-                                    Text(
-                                      amountPrefix +
-                                          logs![index].amount.toString(),
-                                      style: TextStyle(
-                                          fontSize: 15,
-                                          color: textCol,
-                                          fontFamily: fontMont),
-                                    ),
-                                  ],
-                                ),
-
-                                // Spacing
-                                Padding(
-                                  padding: EdgeInsets.all(10),
-                                ),
-
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    // Title
-                                    Text(
-                                      'Ref: ',
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        color: Colors.black,
-                                        fontFamily: fontMont,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-
-                                    Flexible(
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 30),
-
-                                        // Reference name
-                                        child: Text(
-                                          logs![index].referenceName,
-                                          style: TextStyle(
-                                              fontSize: 17,
-                                              color: Colors.black,
-                                              fontFamily: fontMont),
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 5,
-                                          textAlign: TextAlign.left,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          );
-                        }),
-              );
+              return listTransactions(
+                  logs: logs,
+                  scrollController: scrollController,
+                  acc: this.widget.acc);
+              
             },
           ),
         ),
