@@ -10,10 +10,13 @@ import 'package:last_national_bank/config/routes/router.dart';
 import 'package:last_national_bank/constants/app_constants.dart';
 import 'package:last_national_bank/constants/route_constants.dart';
 import 'package:last_national_bank/core/account/widgets/card_info.dart';
+import 'package:last_national_bank/utils/helpers/helper.dart';
 import 'package:last_national_bank/utils/helpers/style.dart';
 import 'package:last_national_bank/utils/services/local_db.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
 import 'package:last_national_bank/widgets/desktopNav.dart';
+import 'package:last_national_bank/widgets/deviceLayout.dart';
+import 'package:last_national_bank/widgets/heading.dart';
 import 'package:last_national_bank/widgets/navigation.dart';
 
 /*
@@ -120,9 +123,160 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
         stopDefaultButtonEvent: stopDefaultButtonEvent);
   }
 
-  // Use loading page instead of red error screen
   @override
   Widget build(BuildContext context) {
+    return DeviceLayout(
+      phoneLayout: buildPage(context),
+      desktopWidget: desktopLayout(context),
+    );
+  }
+
+
+
+
+
+
+ // ========================================================== WEB ==============================================
+  Widget desktopLayout(BuildContext context) {  
+
+    final size = getSize(context);
+
+    return SingleChildScrollView(
+
+      child: Container(
+
+        width: size.width,
+        height: size.height,
+        decoration: BoxDecoration(
+          gradient: backgroundGradient,
+        ),
+
+        child: Column(children: [
+
+          if (MediaQuery.of(context).size.width > tabletWidth)
+            DesktopTabNavigator(),
+
+          // Spacing
+          Padding(
+            padding: EdgeInsets.only(top: 20),
+          ),
+
+          Heading(this.widget.acc.accountType),
+
+          // Spacing
+          Padding(
+            padding: EdgeInsets.only(top: 20),
+          ),
+
+          Container(
+
+            child: Row(
+              
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+
+                Column(children: [
+
+                  // Card widget that displays the user's specific account details
+                  Container(
+                    width: size.width / 2.5,
+                    alignment: Alignment.topLeft,
+                    padding: EdgeInsets.symmetric(vertical: 15),
+                    child: AccountCardInfo(
+                      accountType: this.widget.acc.accountType,
+                      accountNumber: this.widget.acc.accountNumber,
+                      firstName: this.widget.acc.fName,
+                      middleNames: this.widget.acc.mName,
+                      lastName: this.widget.acc.lName,
+                      cardType: "VISA",
+                      currAmount: this.widget.acc.currentBalance,
+                      accountTypeId: this.widget.acc.accountTypeId,
+                      canSwipe: false,
+                    ),
+                  ),
+
+                  // Spacing
+                  Padding(
+                    padding: EdgeInsets.only(top: 30),
+                  ),
+
+                  Text(
+                    'Add New Transaction:',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontFamily: fontMont,
+                    ),
+                  ),
+
+                  // Spacing
+                  Padding(
+                    padding: EdgeInsets.only(top: 30),
+                  ),
+
+                  // Floating + button
+                  Container(
+                    width: 70,
+                    height: 70,
+                    child: FloatingActionButton(
+                      onPressed: () {
+                        //When floating action button is pressed
+                        //this will go to 'select payment method' page
+                        goToSelectPayment(context);
+                      },
+                      backgroundColor: Colors.teal,
+                      child: Text(
+                        '+',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 30,
+                          fontFamily: fontMont,
+                        ),
+                      ),
+                    ),
+                  ),
+
+
+                ],),
+
+
+                Container(
+
+                  width: size.width/2.3,
+                  height: size.height/1.6,
+                  alignment: Alignment.topRight,
+                  padding: EdgeInsets.symmetric(horizontal: 30),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withAlpha(128),
+                  ),
+
+                )
+
+
+              ],
+            ),
+
+          ),
+
+        ],),
+
+      ),
+    );
+
+  }
+
+
+
+
+
+
+
+
+  // ========================================================== PHONE ==============================================
+
+  // Use loading page instead of red error screen
+  Widget buildPage(BuildContext context) {
     // While data is being loaded, display loading screen
     if (user == null || logs == null) {
       return buildLoadingScreen(context);
@@ -141,12 +295,12 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
             decoration: BoxDecoration(
               gradient: backgroundGradient,
             ),
-            child: buildPage(context),
+            child: phoneLayout(context),
           ));
     }
   }
 
-  Widget buildPage(BuildContext context) {
+  Widget phoneLayout(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
 
     //Setting the transaction history list animation variable
