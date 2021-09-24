@@ -565,3 +565,40 @@ Future<String> insertClient({
   //If there is an error
   return (data["status"]) ? data["details"] : data["error"];
 }
+
+//Get recent transaction history (past 6 months only) for pdf statements page
+Future<List<specificAccount>> getRecentTransactions(String clientID) async {
+  final String url = urlPath + select_previous_transactions;
+
+  final Map<String, String> arguments = {
+    "clientID": clientID,
+  };
+
+  final List<Map> data = (await getURLData(url: url, data: arguments));
+
+  if (data.isEmpty) {
+    return [];
+  }
+
+  List<specificAccount> specAccounts = [];
+  for (var map in data) {
+    specificAccount specAccount = specificAccount(
+      accountNumber: map["accountNumber"],
+      accountTypeId: int.parse(map["accountTypeID"]),
+      currentBalance: double.parse(map["currentBalance"]),
+      accountType: map["accountType"],
+      accountDescription: map["accountDescription"],
+      transactionID: int.parse(map["transactionID"]),
+      customerName: map["customerName"],
+      timeStamp: map["timeStamp"],
+      amount: double.parse(map["amount"]),
+      accountFrom: map["accountFrom"],
+      accountTo: map["accountTo"],
+      referenceName: map["referenceName"],
+      referenceNumber: map["referenceNumber"],
+    );
+    specAccounts.add(specAccount);
+  }
+
+  return specAccounts;
+}

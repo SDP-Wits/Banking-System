@@ -2,15 +2,28 @@
 include "./helpers/server_details.php";
 include "./helpers/encryption.php";
 
-$accNum = $_REQUEST['accNum'];
-$accNum = openssl_encrypt($accNum, $ciphering, $encryption_key, $options, $encryption_iv);
+$idNum = $_REQUEST['idNum'];
+$idNum = openssl_encrypt($idNum, $ciphering, $encryption_key, $options, $encryption_iv);
 
-$sql = "SELECT TRANSACTION.transactionID, TRANSACTION.timeStamp, TRANSACTION.amount, TRANSACTION.accountFrom, TRANSACTION.accountTo, TRANSACTION.referenceName, TRANSACTION.referenceNumber
-FROM TRANSACTION
-WHERE TRANSACTION.accountTo = '$accNum' 
-AND TRANSACTION.timeStamp BETWEEN DATE_ADD(TRANSACTION.timeStamp, INTERVAL -6 MONTH) AND SYSDATE()
-OR TRANSACTION.accountFrom = '$accNum'
-AND TRANSACTION.timeStamp BETWEEN DATE_ADD(TRANSACTION.timeStamp, INTERVAL -6 MONTH) And SYSDATE()";
+$sql = "SELECT CLIENT.firstName,CLIENT.middleName,CLIENT.lastName,`ACCOUNT TYPE`.accountType,`ACCOUNT TYPE`.accountTypeID,ACCOUNT.accountNumber,ACCOUNT.currentBalance,
+TRANSACTION.transactionID, TRANSACTION.timeStamp, TRANSACTION.amount, TRANSACTION.accountFrom, TRANSACTION.accountTo, TRANSACTION.referenceName, TRANSACTION.referenceNumber
+FROM ACCOUNT
+INNER JOIN `CLIENT-ACCOUNT`ON ACCOUNT.accountNumber=`CLIENT-ACCOUNT`.accountNumber
+INNER JOIN CLIENT ON CLIENT.clientID=`CLIENT-ACCOUNT`.clientID
+INNER JOIN `ACCOUNT TYPE` ON `ACCOUNT TYPE`.accountTypeID=ACCOUNT.AccountTypeID
+INNER JOIN TRANSACTION ON TRANSACTION.accountFrom = ACCOUNT.accountNumber
+WHERE TRANSACTION.timeStamp BETWEEN DATE_ADD(TRANSACTION.timeStamp, INTERVAL -6 MONTH) AND SYSDATE()
+AND CLIENT.idNumber = '$idNum'
+UNION
+SELECT CLIENT.firstName,CLIENT.middleName,CLIENT.lastName,`ACCOUNT TYPE`.accountType,`ACCOUNT TYPE`.accountTypeID,ACCOUNT.accountNumber,ACCOUNT.currentBalance,
+TRANSACTION.transactionID, TRANSACTION.timeStamp, TRANSACTION.amount, TRANSACTION.accountFrom, TRANSACTION.accountTo, TRANSACTION.referenceName, TRANSACTION.referenceNumber
+FROM ACCOUNT
+INNER JOIN `CLIENT-ACCOUNT`ON ACCOUNT.accountNumber=`CLIENT-ACCOUNT`.accountNumber
+INNER JOIN CLIENT ON CLIENT.clientID=`CLIENT-ACCOUNT`.clientID
+INNER JOIN `ACCOUNT TYPE` ON `ACCOUNT TYPE`.accountTypeID=ACCOUNT.AccountTypeID
+INNER JOIN TRANSACTION ON TRANSACTION.accountTo = ACCOUNT.accountNumber
+WHERE TRANSACTION.timeStamp BETWEEN DATE_ADD(TRANSACTION.timeStamp, INTERVAL -6 MONTH) AND SYSDATE()
+AND CLIENT.idNumber = '$idNum'";
 
 $result = mysqli_query($conn,$sql);
 
@@ -34,6 +47,8 @@ while ($row=$result->fetch_assoc()){
         $row["accountFrom"] = openssl_decrypt($row["accountFrom"], $ciphering, $decryption_key, $options, $decryption_iv);
         $row["accountTo"] = openssl_decrypt($row["accountTo"], $ciphering, $decryption_key, $options, $decryption_iv);
         $row["referenceNumber"] = openssl_decrypt($row["referenceNumber"], $ciphering, $decryption_key, $options, $decryption_iv);
+  		$row["accountNumber"] = openssl_decrypt($row["accountNumber"], $ciphering, $decryption_key, $options, $decryption_iv);
+  		$row["currentBalance"] = openssl_decrypt($row["currentBalance"], $ciphering, $decryption_key, $options, $decryption_iv);
 
         $output[]=$row;
 }
