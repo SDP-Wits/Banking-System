@@ -1,3 +1,4 @@
+// coverage:ignore-start
 import 'package:last_national_bank/classes/accountTypes.dart';
 import 'package:last_national_bank/classes/specificAccount.dart';
 
@@ -33,3 +34,4 @@ String getMonthFromDate(DateTime date) {
       return "Invalid Month";
   }
 }
+// coverage:ignore-end
