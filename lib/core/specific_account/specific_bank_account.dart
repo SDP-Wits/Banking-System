@@ -1,6 +1,9 @@
 // coverage:ignore-start
 import 'package:flutter/foundation.dart';
+import 'package:hovering/hovering.dart';
+import 'package:last_national_bank/classes/accountTypes.dart';
 import 'package:last_national_bank/core/specific_account/widgets/listTransactions.dart';
+import 'package:last_national_bank/core/statements/statements.function.dart';
 import 'package:last_national_bank/utils/helpers/back_button_helper.dart';
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
@@ -71,9 +74,42 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
   // _scaffoldKey is the key used for the navigation drawer
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
+  List<String> months = [];
+  List<specificAccount> transactionsForAccount = [];
+
   @override
   void initState() {
     super.initState();
+
+    //Get Months
+    LocalDatabaseHelper.instance.getUserAndAddress().then((user) {
+      getRecentTransactions((user!.idNumber).toString())
+          .then((specificAccounts) {
+        // print("Hey we inside getRecentTransactions");
+        for (specificAccount specificAcc in specificAccounts) {
+          if (specificAcc.accountNumber == this.widget.acc.accountNumber ||
+              specificAcc.accountTo == this.widget.acc.accountNumber ||
+              specificAcc.accountFrom == this.widget.acc.accountNumber) {
+            transactionsForAccount.add(specificAcc);
+
+            int monthInt =
+                int.parse(specificAcc.timeStamp[5] + specificAcc.timeStamp[6]);
+            String _month = getMonthFromDate(monthInt);
+
+            if (!months.contains(_month)) {
+              months.add(_month);
+            }
+          }
+        }
+
+        setState(() {
+          transactionsForAccount = [...transactionsForAccount];
+          months = [...months];
+        });
+      });
+    });
+
+    //End of Get Months
 
     // For the system back button
     BackButtonInterceptor.add(myInterceptor);
@@ -127,164 +163,151 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
 
   @override
   Widget build(BuildContext context) {
-    return DeviceLayout(
-      phoneLayout: buildPage(context),
-      desktopWidget: desktopLayout(context),
-    );
+    return (months.isEmpty)
+        ? buildLoadingScreen(context)
+        : DeviceLayout(
+            phoneLayout: buildPage(context),
+            desktopWidget: desktopLayout(context),
+          );
   }
 
-
-
-
-
-
- // ========================================================== WEB ==============================================
-  Widget desktopLayout(BuildContext context) {  
-
+  // ========================================================== WEB ==============================================
+  Widget desktopLayout(BuildContext context) {
     final size = getSize(context);
 
     return SingleChildScrollView(
-
       child: Container(
-
         width: size.width,
         height: size.height,
         decoration: BoxDecoration(
           gradient: backgroundGradient,
         ),
+        child: Column(
+          children: [
+            if (MediaQuery.of(context).size.width > tabletWidth)
+              DesktopTabNavigator(),
 
-        child: Column(children: [
+            // Spacing
+            Padding(
+              padding: EdgeInsets.only(top: 20),
+            ),
 
-          if (MediaQuery.of(context).size.width > tabletWidth)
-            DesktopTabNavigator(),
+            Heading(this.widget.acc.accountType),
 
-          // Spacing
-          Padding(
-            padding: EdgeInsets.only(top: 20),
-          ),
+            // Spacing
+            Padding(
+              padding: EdgeInsets.only(top: 20),
+            ),
 
-          Heading(this.widget.acc.accountType),
-
-          // Spacing
-          Padding(
-            padding: EdgeInsets.only(top: 20),
-          ),
-
-          Container(
-
-            child: Row(
-              
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-
-                Column(children: [
-
-                  // Card widget that displays the user's specific account details
-                  Container(
-                    width: size.width / 2.5,
-                    alignment: Alignment.topLeft,
-                    padding: EdgeInsets.symmetric(vertical: 15),
-                    child: AccountCardInfo(
-                      accountType: this.widget.acc.accountType,
-                      accountNumber: this.widget.acc.accountNumber,
-                      firstName: this.widget.acc.fName,
-                      middleNames: this.widget.acc.mName,
-                      lastName: this.widget.acc.lName,
-                      cardType: "VISA",
-                      currAmount: this.widget.acc.currentBalance,
-                      accountTypeId: this.widget.acc.accountTypeId,
-                      canSwipe: false,
-                    ),
-                  ),
-
-                  // Spacing
-                  Padding(
-                    padding: EdgeInsets.only(top: 30),
-                  ),
-
-                  Row(children: [
-                    Text(
-                      'Add New Transaction:',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontFamily: fontMont,
+            Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Column(
+                    children: [
+                      // Card widget that displays the user's specific account details
+                      Container(
+                        width: size.width / 2.5,
+                        alignment: Alignment.topLeft,
+                        padding: EdgeInsets.symmetric(vertical: 15),
+                        child: AccountCardInfo(
+                          accountType: this.widget.acc.accountType,
+                          accountNumber: this.widget.acc.accountNumber,
+                          firstName: this.widget.acc.fName,
+                          middleNames: this.widget.acc.mName,
+                          lastName: this.widget.acc.lName,
+                          cardType: "VISA",
+                          currAmount: this.widget.acc.currentBalance,
+                          accountTypeId: this.widget.acc.accountTypeId,
+                          canSwipe: false,
+                        ),
                       ),
-                    ),
 
-                    // Spacing
-                    Padding(
-                      padding: EdgeInsets.only(right: 45),
-                    ),
+                      // Spacing
+                      Padding(
+                        padding: EdgeInsets.only(top: 30),
+                      ),
 
-                    // Floating + button
-                    Container(
-                      width: 50,
-                      height: 50,
-                      alignment: Alignment.centerRight,
-                      child: FloatingActionButton(
-                        onPressed: () {
-                          //When floating action button is pressed
-                          //this will go to 'select payment method' page
-                          goToSelectPayment(context);
-                        },
-                        backgroundColor: Colors.teal,
-                        child: Text(
-                          '+',
+                      Row(children: [
+                        Text(
+                          'Add New Transaction:',
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 30,
+                            fontSize: 20,
                             fontFamily: fontMont,
                           ),
                         ),
-                      ),
-                    ),
-                  ]),
 
-
-                  // Spacing
-                    Padding(
-                      padding: EdgeInsets.only(top: 40),
-                    ),
-
-
-                  Row(children: [
-                    Text(
-                      'Request Statement PDF:',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontFamily: fontMont,
-                      ),
-                    ),
-
-                    // Spacing
-                    Padding(
-                      padding: EdgeInsets.only(right: 30),
-                    ),
-
-                    // Floating + button
-                    Container(
-                      width: 50,
-                      height: 50,
-                      child: FloatingActionButton(
-                        onPressed: () {
-                          goToStatementPage(context);
-                        },
-                        backgroundColor: Colors.teal,
-                        child: Icon(
-                          Icons.print,
-                          color: Colors.white,                          
+                        // Spacing
+                        Padding(
+                          padding: EdgeInsets.only(right: 45),
                         ),
+
+                        // Floating + button
+                        Container(
+                          width: 50,
+                          height: 50,
+                          alignment: Alignment.centerRight,
+                          child: FloatingActionButton(
+                            onPressed: () {
+                              //When floating action button is pressed
+                              //this will go to 'select payment method' page
+                              goToSelectPayment(context);
+                            },
+                            backgroundColor: Colors.teal,
+                            child: Text(
+                              '+',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 30,
+                                fontFamily: fontMont,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ]),
+
+                      // Spacing
+                      Padding(
+                        padding: EdgeInsets.only(top: 40),
                       ),
-                    ),
-                  ]),
 
-                ],),
+                      Row(children: [
+                        Text(
+                          'Request Statement PDF:',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontFamily: fontMont,
+                          ),
+                        ),
 
+                        // Spacing
+                        Padding(
+                          padding: EdgeInsets.only(right: 30),
+                        ),
 
-                Column(
+                        // Floating + button
+                        Container(
+                          width: 50,
+                          height: 50,
+                          child: FloatingActionButton(
+                            onPressed: () {
+                              //Choose Previous Months
+                              showMonthDialog(context, months);
+                            },
+                            backgroundColor: Colors.teal,
+                            child: Icon(
+                              Icons.print,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ]),
+                    ],
+                  ),
+                  Column(
                     children: [
                       Container(
                         alignment: Alignment.topRight,
@@ -331,25 +354,14 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
                       )
                     ],
                   ),
-
-              ],
+                ],
+              ),
             ),
-
-          ),
-
-        ],),
-
+          ],
+        ),
       ),
     );
-
   }
-
-
-
-
-
-
-
 
   // ========================================================== PHONE ==============================================
 
@@ -512,7 +524,6 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
                   logs: logs,
                   scrollController: scrollController,
                   acc: this.widget.acc);
-              
             },
           ),
         ),
@@ -537,11 +548,13 @@ class heading extends StatelessWidget {
               height: 50,
               alignment: Alignment.topRight,
               child: FloatingActionButton(
-                  onPressed: () {
-                    //TODO: go to pdf page
-                  },
-                  backgroundColor: Colors.teal,
-                  child: Icon(Icons.insert_drive_file_outlined),///Expanded(child:FittedBox(child: Icon(Icons.dynamic_feed),fit: BoxFit.fill))
+                onPressed: () {
+                  //TODO: go to pdf page
+                },
+                backgroundColor: Colors.teal,
+                child: Icon(Icons.insert_drive_file_outlined),
+
+                ///Expanded(child:FittedBox(child: Icon(Icons.dynamic_feed),fit: BoxFit.fill))
               ),
             ),
           ],
@@ -582,10 +595,60 @@ class heading extends StatelessWidget {
             )
           ],
         ),
-
       ],
     );
   }
+}
+
+Future<void> showMonthDialog(BuildContext context, List<String> months) async {
+  return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        final size = getSize(context);
+        return AlertDialog(
+          backgroundColor: Colors.teal,
+          actions: [],
+          title: Heading("Statements"),
+          insetPadding: EdgeInsets.all(40),
+          titlePadding: EdgeInsets.all(20),
+          content: SingleChildScrollView(
+            child: Container(
+              // width: (size.width < tabletWidth)
+              //     ? size.width * 0.8
+              //     : size.width * 0.5,
+              // height: size.height * 0.75,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: months.map((e) {
+                  return HoverContainer(
+                    hoverDecoration: BoxDecoration(
+                      color: Colors.black54,
+                      borderRadius: BorderRadius.circular(3000),
+                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                    margin: EdgeInsets.symmetric(vertical: 10),
+                    decoration: BoxDecoration(
+                      color: Colors.black38,
+                      borderRadius: BorderRadius.circular(3000),
+                    ),
+                    child: Text(
+                      e,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: fontDefault,
+                        fontSize: fontSizeLarge,
+                      ),
+                    ),
+                  );
+                }).toList(growable: false),
+              ),
+            ),
+          ),
+        );
+      });
 }
 
 // coverage:ignore-end

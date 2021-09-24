@@ -2,8 +2,8 @@ import 'package:last_national_bank/classes/accountTypes.dart';
 
 void generatePDF() {}
 
-String getMonthFromDate(DateTime date) {
-  switch (date.month) {
+String getMonthFromDate(int month) {
+  switch (month) {
     case 1:
       return "January";
     case 2:

@@ -10,7 +10,6 @@ import 'package:last_national_bank/core/select_payment/select_payment.dart';
 import 'package:last_national_bank/core/specific_account/specific_bank_account.dart';
 import 'package:last_national_bank/core/transfer/transfer.dart';
 import 'package:last_national_bank/core/verification_list/admin_verify_user.dart';
-import 'package:last_national_bank/core/statements/statements.dart';
 
 import '../../constants/route_constants.dart';
 import '../../core/login/login.dart';
@@ -79,9 +78,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
 
     case SelectPaymentRoute:
       return MaterialRouteWrap(SelectPaymentPage(), settings, goToProfilePage);
-
-    case StatementRoute:
-      return MaterialRouteWrap(StatementsPage(), settings, goToProfilePage);
 
     case TransferRoute:
       return MaterialRouteWrap(Transfers(), settings, goToSelectPayment);
@@ -158,11 +154,6 @@ void goToTimeline(BuildContext context) {
 void goToSelectPayment(BuildContext context) {
   Navigator.pushNamed(context, SelectPaymentRoute);
 }
-
-void goToStatementPage(BuildContext context) {
-  Navigator.pushNamed(context, StatementRoute);
-}
-
 
 void goToTransfers(BuildContext context) {
   Navigator.pushNamed(context, TransferRoute);

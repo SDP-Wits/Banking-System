@@ -11,7 +11,6 @@ const String ViewAccountRoute = "view-account";
 const String SpecificAccountRoute = "specific-account";
 const String TimelineRoute = "timeline";
 const String SelectPaymentRoute = "select-payment";
-const String StatementRoute = "statement";
 const String TransferRoute = "transfer";
 const String PaymentRoute = "payment";
 const String VerifyUserRoute = "verify-user";
