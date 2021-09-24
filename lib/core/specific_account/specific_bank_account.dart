@@ -295,7 +295,8 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
                           child: FloatingActionButton(
                             onPressed: () {
                               //Choose Previous Months
-                              showMonthDialog(context, months);
+                              showMonthDialog(
+                                  context, months, transactionsForAccount);
                             },
                             backgroundColor: Colors.teal,
                             child: Icon(
@@ -600,7 +601,8 @@ class heading extends StatelessWidget {
   }
 }
 
-Future<void> showMonthDialog(BuildContext context, List<String> months) async {
+Future<void> showMonthDialog(BuildContext context, List<String> months,
+    List<specificAccount> transactionsForAccount) async {
   return showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -622,24 +624,30 @@ Future<void> showMonthDialog(BuildContext context, List<String> months) async {
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: months.map((e) {
-                  return HoverContainer(
-                    hoverDecoration: BoxDecoration(
-                      color: Colors.black54,
-                      borderRadius: BorderRadius.circular(3000),
-                    ),
-                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                    margin: EdgeInsets.symmetric(vertical: 10),
-                    decoration: BoxDecoration(
-                      color: Colors.black38,
-                      borderRadius: BorderRadius.circular(3000),
-                    ),
-                    child: Text(
-                      e,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: fontDefault,
-                        fontSize: fontSizeLarge,
+                  return GestureDetector(
+                    onTap: () {
+                      generatePDF(transactionsForAccount);
+                    },
+                    child: HoverContainer(
+                      hoverDecoration: BoxDecoration(
+                        color: Colors.black54,
+                        borderRadius: BorderRadius.circular(3000),
+                      ),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                      margin: EdgeInsets.symmetric(vertical: 10),
+                      decoration: BoxDecoration(
+                        color: Colors.black38,
+                        borderRadius: BorderRadius.circular(3000),
+                      ),
+                      child: Text(
+                        e,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: fontDefault,
+                          fontSize: fontSizeLarge,
+                        ),
                       ),
                     ),
                   );

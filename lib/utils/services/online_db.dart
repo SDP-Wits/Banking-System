@@ -627,8 +627,6 @@ Future<List<specificAccount>> getRecentTransactions(String idNumber) async {
     return [];
   }
 
-  print("Hey we inside getRecentTransactions online db");
-
   List<specificAccount> specAccounts = [];
   for (var map in data) {
     specificAccount specAccount = specificAccount(
