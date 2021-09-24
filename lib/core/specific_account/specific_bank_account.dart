@@ -85,8 +85,9 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
 
     //Get Months
     LocalDatabaseHelper.instance.getUserAndAddress().then((user) {
-      getExistingAccountTypes(user!.userID).then((nAccountsLst) {
-        if (nAccountsLst.isNotEmpty) {
+      //Get transaction history for this
+      getSpecificAccount(this.widget.acc.accountNumber).then((transLst) {
+        if (transLst.isNotEmpty) {
           getRecentTransactions((user!.idNumber).toString())
               .then((specificAccounts) {
             for (specificAccount specificAcc in specificAccounts) {
@@ -114,6 +115,8 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
               finishLoad = true;
             });
           });
+        } else {
+          finishLoad = true;
         }
       });
     });
@@ -634,7 +637,8 @@ Future<void> showMonthDialog(BuildContext context, List<String> months,
                         "No Transactions",
                         style: TextStyle(
                           fontFamily: fontDefault,
-                          fontSize: fontSizeHeading,
+                          fontSize: fontSizeLarge,
+                          color: Colors.white,
                         ),
                       ),
                     )
