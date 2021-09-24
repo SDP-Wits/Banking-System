@@ -86,38 +86,33 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
     //Get Months
     LocalDatabaseHelper.instance.getUserAndAddress().then((user) {
       //Get transaction history for this
-      getSpecificAccount(this.widget.acc.accountNumber).then((transLst) {
-        if (transLst.isNotEmpty) {
-          getRecentTransactions((user!.idNumber).toString())
-              .then((specificAccounts) {
-            for (specificAccount specificAcc in specificAccounts) {
-              if (specificAcc.accountNumber == this.widget.acc.accountNumber ||
-                  specificAcc.accountTo == this.widget.acc.accountNumber ||
-                  specificAcc.accountFrom == this.widget.acc.accountNumber) {
-                DateTime date = DateTime(
-                  int.parse(specificAcc.timeStamp.substring(0, 4)),
-                  int.parse(specificAcc.timeStamp.substring(5, 7)),
-                );
 
-                String _month = getMonthFromDate(date);
+      getRecentTransactions((user!.idNumber).toString())
+          .then((specificAccounts) {
+        for (specificAccount specificAcc in specificAccounts) {
+          if (specificAcc.accountNumber == this.widget.acc.accountNumber ||
+              specificAcc.accountTo == this.widget.acc.accountNumber ||
+              specificAcc.accountFrom == this.widget.acc.accountNumber) {
+            DateTime date = DateTime(
+              int.parse(specificAcc.timeStamp.substring(0, 4)),
+              int.parse(specificAcc.timeStamp.substring(5, 7)),
+            );
 
-                if (!months.contains(_month)) {
-                  months.add(_month);
-                }
+            String _month = getMonthFromDate(date);
 
-                transactionsForAccount.add(specificAcc);
-              }
+            if (!months.contains(_month)) {
+              months.add(_month);
             }
 
-            setState(() {
-              transactionsForAccount = [...transactionsForAccount];
-              months = [...months];
-              finishLoad = true;
-            });
-          });
-        } else {
-          finishLoad = true;
+            transactionsForAccount.add(specificAcc);
+          }
         }
+
+        setState(() {
+          transactionsForAccount = [...transactionsForAccount];
+          months = [...months];
+          finishLoad = true;
+        });
       });
     });
 
@@ -638,7 +633,7 @@ Future<void> showMonthDialog(BuildContext context, List<String> months,
                         style: TextStyle(
                           fontFamily: fontDefault,
                           fontSize: fontSizeLarge,
-                          color: Colors.white,
+                          color: Colors.black,
                         ),
                       ),
                     )
