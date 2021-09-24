@@ -30,21 +30,10 @@ $output = array();
 while ($row=$result->fetch_assoc()){
 
         //decrypting the data
-        $decryptedTranID = $row["transactionID"];
-        $decryptedTimeStamp = $row["timeStamp"];
-        $decryptedAmount = $row["amount"];
-        $decryptedAccountFrom = $row["accountFrom"];
-        $decryptedAccountTo = $row["accountTo"];
-        $decryptedReferenceName = $row["referenceName"];
-        $decryptedReferenceNumber = $row["referenceNumber"];
-
-        $decryptedTranID = openssl_decrypt($decryptedTranID, $ciphering, $decryption_key, $options, $decryption_iv);
-        $decryptedTimeStamp = openssl_decrypt($decryptedTimeStamp, $ciphering, $decryption_key, $options, $decryption_iv);
-        $decryptedAmount = openssl_decrypt($decryptedAmount, $ciphering, $decryption_key, $options, $decryption_iv);
-        $decryptedAccountFrom = openssl_decrypt($decryptedAccountFrom, $ciphering, $decryption_key, $options, $decryption_iv);
-        $decryptedAccountTo = openssl_decrypt($decryptedAccountTo, $ciphering, $decryption_key, $options, $decryption_iv);
-        $decryptedReferenceName = openssl_decrypt($decryptedTimeStamp, $ciphering, $decryption_key, $options, $decryption_iv);
-        $decryptedReferenceNumber = openssl_decrypt($decryptedTimeStamp, $ciphering, $decryption_key, $options, $decryption_iv);
+        $row["amount"] = openssl_decrypt($row["amount"], $ciphering, $decryption_key, $options, $decryption_iv);
+        $row["accountFrom"] = openssl_decrypt($row["accountFrom"], $ciphering, $decryption_key, $options, $decryption_iv);
+        $row["accountTo"] = openssl_decrypt($row["accountTo"], $ciphering, $decryption_key, $options, $decryption_iv);
+        $row["referenceNumber"] = openssl_decrypt($row["referenceNumber"], $ciphering, $decryption_key, $options, $decryption_iv);
 
         $output[]=$row;
 }
