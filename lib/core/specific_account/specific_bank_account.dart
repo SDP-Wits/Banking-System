@@ -632,9 +632,10 @@ Future<void> showMonthDialog(BuildContext context, List<String> months,
                         "No Transactions",
                         style: TextStyle(
                           fontFamily: fontDefault,
-                          fontSize: fontSizeLarge,
+                          fontSize: fontSizeMedium,
                           color: Colors.black,
                         ),
+                        textAlign: TextAlign.center,
                       ),
                     )
                   : Column(
