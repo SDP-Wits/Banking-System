@@ -1,6 +1,7 @@
 import 'package:last_national_bank/classes/accountTypes.dart';
+import 'package:last_national_bank/classes/specificAccount.dart';
 
-void generatePDF() {}
+void generatePDF(List<specificAccount> transactions) {}
 
 String getMonthFromDate(int month) {
   switch (month) {
