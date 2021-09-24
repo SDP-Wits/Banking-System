@@ -354,7 +354,7 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
                           builder: (BuildContext context,
                               ScrollController scrollController) {
                             // Scroll widget
-                            if (user == null || logs == null) {
+                            if (user == null || logs == null || logs!.isEmpty) {
                               return buildLoadingScreen(context);
                             } else {
                               return listTransactions(
