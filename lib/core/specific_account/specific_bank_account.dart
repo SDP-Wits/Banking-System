@@ -1,5 +1,6 @@
 // coverage:ignore-start
 import 'package:flutter/foundation.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hovering/hovering.dart';
 import 'package:last_national_bank/classes/accountTypes.dart';
 import 'package:last_national_bank/core/specific_account/widgets/listTransactions.dart';
@@ -59,6 +60,7 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
     with TickerProviderStateMixin {
   // User details
   User? user;
+  bool finishLoad = false;
 
   // All transactions (logs) are retrieved for the specific account
   List<specificAccount>? logs;
@@ -83,29 +85,36 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
 
     //Get Months
     LocalDatabaseHelper.instance.getUserAndAddress().then((user) {
-      getRecentTransactions((user!.idNumber).toString())
-          .then((specificAccounts) {
-        // print("Hey we inside getRecentTransactions");
-        for (specificAccount specificAcc in specificAccounts) {
-          if (specificAcc.accountNumber == this.widget.acc.accountNumber ||
-              specificAcc.accountTo == this.widget.acc.accountNumber ||
-              specificAcc.accountFrom == this.widget.acc.accountNumber) {
-            transactionsForAccount.add(specificAcc);
+      getExistingAccountTypes(user!.userID).then((nAccountsLst) {
+        if (nAccountsLst.isNotEmpty) {
+          getRecentTransactions((user!.idNumber).toString())
+              .then((specificAccounts) {
+            for (specificAccount specificAcc in specificAccounts) {
+              if (specificAcc.accountNumber == this.widget.acc.accountNumber ||
+                  specificAcc.accountTo == this.widget.acc.accountNumber ||
+                  specificAcc.accountFrom == this.widget.acc.accountNumber) {
+                DateTime date = DateTime(
+                  int.parse(specificAcc.timeStamp.substring(0, 4)),
+                  int.parse(specificAcc.timeStamp.substring(5, 7)),
+                );
 
-            int monthInt =
-                int.parse(specificAcc.timeStamp[5] + specificAcc.timeStamp[6]);
-            String _month = getMonthFromDate(monthInt);
+                String _month = getMonthFromDate(date);
 
-            if (!months.contains(_month)) {
-              months.add(_month);
+                if (!months.contains(_month)) {
+                  months.add(_month);
+                }
+
+                transactionsForAccount.add(specificAcc);
+              }
             }
-          }
-        }
 
-        setState(() {
-          transactionsForAccount = [...transactionsForAccount];
-          months = [...months];
-        });
+            setState(() {
+              transactionsForAccount = [...transactionsForAccount];
+              months = [...months];
+              finishLoad = true;
+            });
+          });
+        }
       });
     });
 
@@ -163,7 +172,7 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
 
   @override
   Widget build(BuildContext context) {
-    return (months.isEmpty)
+    return (!finishLoad)
         ? buildLoadingScreen(context)
         : DeviceLayout(
             phoneLayout: buildPage(context),
@@ -619,40 +628,60 @@ Future<void> showMonthDialog(BuildContext context, List<String> months,
               //     ? size.width * 0.8
               //     : size.width * 0.5,
               // height: size.height * 0.75,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: months.map((e) {
-                  return GestureDetector(
-                    onTap: () {
-                      generatePDF(transactionsForAccount);
-                    },
-                    child: HoverContainer(
-                      hoverDecoration: BoxDecoration(
-                        color: Colors.black54,
-                        borderRadius: BorderRadius.circular(3000),
-                      ),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                      margin: EdgeInsets.symmetric(vertical: 10),
-                      decoration: BoxDecoration(
-                        color: Colors.black38,
-                        borderRadius: BorderRadius.circular(3000),
-                      ),
+              child: (transactionsForAccount.isEmpty)
+                  ? Center(
                       child: Text(
-                        e,
-                        textAlign: TextAlign.center,
+                        "No Transactions",
                         style: TextStyle(
-                          color: Colors.white,
                           fontFamily: fontDefault,
-                          fontSize: fontSizeLarge,
+                          fontSize: fontSizeHeading,
                         ),
                       ),
+                    )
+                  : Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: months.map((e) {
+                        return GestureDetector(
+                          onTap: () {
+                            Fluttertoast.showToast(msg: "Generating PDF");
+                            generatePDF(transactionsForAccount.where((element) {
+                              DateTime date = DateTime(
+                                int.parse(element.timeStamp.substring(0, 4)),
+                                int.parse(element.timeStamp.substring(5, 7)),
+                              );
+
+                              String _month = getMonthFromDate(date);
+
+                              return e == _month;
+                            }).toList());
+                          },
+                          child: HoverContainer(
+                            hoverDecoration: BoxDecoration(
+                              color: Colors.black54,
+                              borderRadius: BorderRadius.circular(3000),
+                            ),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 30, vertical: 15),
+                            margin: EdgeInsets.symmetric(vertical: 10),
+                            decoration: BoxDecoration(
+                              color: Colors.black38,
+                              borderRadius: BorderRadius.circular(3000),
+                            ),
+                            child: Text(
+                              e,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: fontDefault,
+                                fontSize: fontSizeLarge,
+                              ),
+                            ),
+                          ),
+                        );
+                      }).toList(growable: false),
                     ),
-                  );
-                }).toList(growable: false),
-              ),
             ),
           ),
         );
