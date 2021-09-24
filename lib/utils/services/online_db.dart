@@ -623,8 +623,11 @@ Future<List<specificAccount>> getRecentTransactions(String idNumber) async {
 
   final List<Map> data = (await getURLData(url: url, data: arguments));
 
-  if (data.isEmpty) {
-    return [];
+  if (data[0].containsKey("status")) {
+    if (!data[0]["status"]) {
+      print("There are no unverified clients");
+      return [];
+    }
   }
 
   List<specificAccount> specAccounts = [];
