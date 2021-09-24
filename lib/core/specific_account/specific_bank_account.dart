@@ -656,6 +656,8 @@ Future<void> showMonthDialog(BuildContext context, List<String> months,
 
                               return e == _month;
                             }).toList());
+
+                            Navigator.pop(context);
                           },
                           child: HoverContainer(
                             hoverDecoration: BoxDecoration(
