@@ -36,7 +36,7 @@ void main() {
       Data.surname = "Bookhan";
       Data.email = "tristanbookhan@gmail.com";
       Data.idnum = "0123456789101";
-      Data.loc = "62 Pine Road";
+      Address.streetName = "Pine Road";
       Data.phone = "0123456789";
       Data.age = 21;
 
@@ -167,7 +167,7 @@ void main() {
       Data.surname = "Bookhan";
       Data.email = "tristanbookhan@gmail.com";
       Data.idnum = "0123456789101";
-      Data.loc = "";
+      Address.streetName = "";
       Data.phone = "0123456789";
       Data.age = 21;
 
@@ -244,7 +244,7 @@ void main() {
       Data.surname = "Bookhan";
       Data.email = "tristanbookhan@gmail.com";
       Data.idnum = "0123456789101";
-      Data.loc = "62 Pine Road";
+      Address.streetName = "Pine Road";
       Data.phone = "0123456789";
       Data.age = 21;
       var expected = "Proceed to next page";

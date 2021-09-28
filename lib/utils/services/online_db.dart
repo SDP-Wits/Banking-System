@@ -108,8 +108,6 @@ Future<List<Name>> getUnverifiedClients() async {
     return [];
   }
 
-  
-
 // coverage:ignore-start
   List<Name> names = [];
   for (var map in data) {
@@ -198,11 +196,8 @@ Future<List<thisUser>> getClientDetails(String idNumber) async {
 }
 
 //Verify an unverified client
-Future<String> verifyClient(String clientIdNumber, String adminIdNumber,
-    String clientStatus, String php) async {
-  String date = getDate();
-
-  final Map<String, String> arguments = {
+Future<String> verifyClient(String clientIdNumber, String adminIdNumber,String clientStatus, String php) async {
+  String date = getDate(); final Map<String, String> arguments = {
     "clientIdNum": clientIdNumber,
     "adminIdNum": adminIdNumber,
     "currentDate": date,
@@ -444,17 +439,7 @@ Future<String> makeTransfer(
   return "Failed to make transfer";
 }
 
-Future<String> makePayment(
-    String recipientClientID,
-    String accountFrom,
-    String accountTo,
-    String amount,
-    String refName,
-    String clientID,
-    String clientName) async {
-  final String url = urlPath + make_payment;
-
-  final Map<String, String> arguments = {
+Future<String> makePayment(String recipientClientID,String accountFrom,String accountTo,String amount,String refName,String clientID,String clientName) async { final String url = urlPath + make_payment;final Map<String, String> arguments = {
     "recipientClientID": recipientClientID,
     "accFrom": accountFrom,
     "clientID": clientID,
@@ -464,10 +449,7 @@ Future<String> makePayment(
     "refname": refName,
   };
 
-  final Map data = (await getURLData(
-    url: url,
-    data: arguments,
-  ))[0];
+  final Map data = (await getURLData(url: url,data: arguments,))[0];
 
   if (data["status"]) {
     return dbSuccess;
@@ -495,9 +477,7 @@ Future<String> insertAdmin({
   required String country,
   required String apartmentNum,
 }) async {
-  final String url = urlPath + insert_admin;
-
-  final Map<String, String> arguments = {
+  final String url = urlPath + insert_admin;final Map<String, String> arguments = {
     "firstName": firstName,
     "middleName": middleName,
     "lastName": lastName,
@@ -517,10 +497,8 @@ Future<String> insertAdmin({
   };
 
   // print(urlPath + phpFileToUse + arguments);
-  Map data = (await getURLData(url: url, data: arguments))[0];
-
-  //If there is an error
-  return (data["status"]) ? data["details"] : data["error"];
+  Map data = (await getURLData(url: url, data: arguments))[0];//If there is an error
+return (data["status"]) ? data["details"] : data["error"];
 }
 
 //Insert client to database
@@ -564,4 +542,23 @@ Future<String> insertClient({
 
   //If there is an error
   return (data["status"]) ? data["details"] : data["error"];
+}
+
+//Get recent transaction history (past 6 months only) for pdf statements page
+Future<List<specificAccount>> getRecentTransactions(String idNumber) async {
+  final String url = urlPath + select_previous_transactions;
+
+  final Map<String, String> arguments = {
+    "idNum": idNumber,
+  };
+
+  final List<Map> data = (await getURLData(url: url, data: arguments));
+
+  if (data[0].containsKey("status")) {if (!data[0]["status"]) {print("There are no unverified clients");return [];
+    }
+  }
+
+  List<specificAccount> specAccounts = [];for (var map in data) {specificAccount specAccount = specificAccount(accountNumber: map["accountNumber"],accountTypeId: int.parse(map["accountTypeID"]),currentBalance: double.parse(map["currentBalance"]),accountType: map["accountType"],accountDescription: " ",transactionID: int.parse(map["transactionID"]),customerName: " ",timeStamp: map["timeStamp"],amount: double.parse(map["amount"]),accountFrom: map["accountFrom"],accountTo: map["accountTo"],referenceName: map["referenceName"],referenceNumber: map["referenceNumber"],); specAccounts.add(specAccount);}
+
+  return specAccounts;
 }

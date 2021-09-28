@@ -106,11 +106,6 @@ class _VerifyUserState extends State<VerifyUser> {
 
         // Allows page to be scrollable
         child: SingleChildScrollView(
-          padding: new EdgeInsets.only(
-            top: 15.0,
-            left: 15.0,
-            right: 15.0,
-          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,

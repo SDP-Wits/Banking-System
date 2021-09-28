@@ -126,46 +126,48 @@ class _AdminRegistrationPage extends State<AdminRegistrationPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Heading("Admin Registration"),
-                        Row(
-                          children: [
-                            NewName(size.width / 4),
-                            NewSurname(size.width / 4),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            NewAge(size.width / 4),
-                            NewEmail(size.width / 4),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            NewPhone(size.width / 4),
-                            NewIDnum(size.width / 4),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            PasswordInput(size.width / 4),
-                            Column(
-                              children: [
-                                PasswordInput2(size.width / 4),
-                                SecretKey(size.width / 4),
-                              ],
-                            )
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            NewLoc(size.width / 4),
-                          ],
-                        ),
-                      ],
+                    SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Heading("Admin Registration"),
+                          Row(
+                            children: [
+                              NewName(size.width / 4),
+                              NewSurname(size.width / 4),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              NewAge(size.width / 4),
+                              NewEmail(size.width / 4),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              NewPhone(size.width / 4),
+                              NewIDnum(size.width / 4),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              PasswordInput(size.width / 4),
+                              Column(
+                                children: [
+                                  PasswordInput2(size.width / 4),
+                                  SecretKey(size.width / 4),
+                                ],
+                              )
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              NewLoc(size.width / 4),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
