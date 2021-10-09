@@ -339,8 +339,8 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
                         alignment: Alignment.topRight,
                         padding: EdgeInsets.symmetric(horizontal: 30),
                         decoration: BoxDecoration(
-                          color: Colors.white.withAlpha(128),
-                        ),
+                            // color: Colors.white.withAlpha(128),
+                            ),
                         child: DraggableScrollableSheet(
                           initialChildSize: 1, // Size when page loads
                           minChildSize: 1, // Minimum size allowed
