@@ -134,43 +134,41 @@ class _SelectPaymentPageState extends State<SelectPaymentPage> {
             (size.width < tabletWidth)
                 ? Container(
                     alignment: Alignment.center,
-                    child: Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          // First button
-                          if (accountDets.length > 1)
-                            paymentButton(
-                              // Pass parameters:
-
-                              // When buton is clicked, do..
-                              onTap: () {
-                                Navigator.pop(context);
-                                goToTransfers(context);
-                              },
-                              buttonTitle: "Transfers",
-                              buttonDescription:
-                                  "Transfer funds betweeen your own accounts.",
-                              buttonIcon: iconFamily.payment,
-                            ),
-
-                          // Second button
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        // First button
+                        if (accountDets.length > 1)
                           paymentButton(
                             // Pass parameters:
 
                             // When buton is clicked, do..
                             onTap: () {
                               Navigator.pop(context);
-                              goToPayments(context);
+                              goToTransfers(context);
                             },
-                            buttonTitle: "Payments",
+                            buttonTitle: "Transfers",
                             buttonDescription:
-                                "Make payments to other client's bank accounts.",
-                            buttonIcon: iconFamily.user,
+                                "Transfer funds betweeen your own accounts.",
+                            buttonIcon: iconFamily.payment,
                           ),
-                        ],
-                      ),
+
+                        // Second button
+                        paymentButton(
+                          // Pass parameters:
+
+                          // When buton is clicked, do..
+                          onTap: () {
+                            Navigator.pop(context);
+                            goToPayments(context);
+                          },
+                          buttonTitle: "Payments",
+                          buttonDescription:
+                              "Make payments to other client's bank accounts.",
+                          buttonIcon: iconFamily.user,
+                        ),
+                      ],
                     ),
                   )
                 :

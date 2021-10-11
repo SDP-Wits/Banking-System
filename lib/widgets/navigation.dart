@@ -13,7 +13,8 @@ class DrawerCode extends StatelessWidget {
     return Scaffold(
       drawer: Navigation(
         clientName: '',
-        clientSurname: '', context: context,
+        clientSurname: '',
+        context: context,
       ),
       appBar: AppBar(
         title: Text("Drawer"),
@@ -23,11 +24,14 @@ class DrawerCode extends StatelessWidget {
 }
 
 // Navigation and Drawer used interchangeably in comments
-Widget? Navigation({required String clientName, required String clientSurname,required BuildContext context}) {
+Widget? Navigation(
+    {required String clientName,
+    required String clientSurname,
+    required BuildContext context}) {
   final size = getSize(context);
-  if (size.width>tabletWidth){
+  if (size.width > tabletWidth) {
     return null;
-  }else{
+  } else {
     return _Navigation(clientName: clientName, clientSurname: clientSurname);
   }
 }
@@ -46,7 +50,7 @@ class _Navigation extends StatelessWidget {
       child: ListView(
         children: <Widget>[
           Container(
-              height: 250,
+              height: 325,
 
               // Drawer Header: Close icon, Image, Name & Surname
               child: DrawerHeader(
@@ -81,14 +85,16 @@ class _Navigation extends StatelessWidget {
                       ),
 
                       // Client name & surname
-                      Padding(
+                      Container(
+                        alignment: Alignment.center,
                         padding: const EdgeInsets.only(top: 140, left: 10),
                         child: Text(
-                          clientName + ' ' + clientSurname,
+                          clientName + '\n' + clientSurname,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 25,
                             fontFamily: fontMont,
+                            fontWeight: FontWeight.w300,
                           ),
                         ),
                       ),
