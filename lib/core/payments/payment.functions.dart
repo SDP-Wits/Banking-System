@@ -50,9 +50,15 @@ Future<bool> submitPayment(User? user, accountDetails accountDetail) async {
     return false;
   }
 
+  int amount = -1;
   try {
-    int.parse(amountText);
+    amount = int.parse(amountText);
   } catch (e) {
+    Fluttertoast.showToast(msg: "Please Enter Valid Amount");
+    return false;
+  }
+
+  if (amount <= 0) {
     Fluttertoast.showToast(msg: "Please Enter Valid Amount");
     return false;
   }
@@ -62,7 +68,7 @@ Future<bool> submitPayment(User? user, accountDetails accountDetail) async {
     return false;
   }
 
-  if (accountDetail.currentBalance < int.parse(amountText)) {
+  if (accountDetail.currentBalance < amount) {
     Fluttertoast.showToast(msg: "Insufficient funds");
     return false;
   }
