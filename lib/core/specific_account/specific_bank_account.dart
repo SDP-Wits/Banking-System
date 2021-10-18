@@ -47,6 +47,10 @@ All transactions (logs) are retireved using a php file and http request for the 
 chosen.
 */
 
+//these vriables need to be accssed in two places that aren't in the same widget so they are global
+List<String> months = [];
+List<specificAccount> transactionsForAccount = [];
+
 class SpecificAccountPage extends StatefulWidget {
   // Account details for specific account is retrieved from the previous UI (Accounts)
   accountDetails acc;
@@ -75,9 +79,6 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
 
   // _scaffoldKey is the key used for the navigation drawer
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
-  List<String> months = [];
-  List<specificAccount> transactionsForAccount = [];
 
   @override
   void initState() {
@@ -550,19 +551,16 @@ class heading extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-		  
-			//Text(
-            //'Requst Statement PDF:',
-            // style: TextStyle(
-            // color: Colors.white,
-            // fontSize: 20,
-            // fontFamily: fontMont,
-            // ),
-            //),
+            Text(
+              'Request Statement PDF:',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontFamily: fontMont,
+              ),
+            ),
 
-            //Padding(
-            //  padding: EdgeInsets.only(right: 30),
-            //),
+            
             // Request pdf button
             Container(
               width: 50,
@@ -571,6 +569,8 @@ class heading extends StatelessWidget {
               child: FloatingActionButton(
                 onPressed: () {
                   //TODO: go to pdf page
+                  showMonthDialog(
+                                  context, months, transactionsForAccount);
                 },
                 backgroundColor: Colors.teal,
                 child: Icon(Icons.insert_drive_file_outlined),
@@ -579,6 +579,11 @@ class heading extends StatelessWidget {
               ),
             ),
           ],
+        ),
+        Row(
+          children : [Padding(
+              padding: EdgeInsets.only(bottom: 30),
+            ),]
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
