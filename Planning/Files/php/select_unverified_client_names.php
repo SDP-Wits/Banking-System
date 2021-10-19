@@ -2,7 +2,7 @@
 include "./helpers/server_details.php";
 include "./helpers/encryption.php";
 
-$sql = "SELECT firstName, middleName,lastName,idNumber 
+$sql = "SELECT *
 FROM CLIENT WHERE verificationStatus = 'Pending'";
 
 $output = array();
@@ -14,6 +14,16 @@ if ($result = mysqli_query($conn,$sql)){
 		$decryptResult = openssl_decrypt($decryptedID, $ciphering, $decryption_key, $options, $decryption_iv);
 		$row["idNumber"] = $decryptResult;
 		//
+
+		//decrypting the email
+		$decryptedEmail = $row["email"];
+		$decryptedEmail = openssl_decrypt($decryptedEmail, $ciphering, $decryption_key, $options, $decryption_iv);
+		$row["email"] = $decryptedEmail;
+	
+		//decrypting the phone number
+		$decryptedPhone = $row["phoneNumber"];
+		$decryptedPhone = openssl_decrypt($decryptedPhone, $ciphering, $decryption_key, $options, $decryption_iv);
+		$row["phoneNumber"] = $decryptedPhone;
 
 		$output[] = $row;
 	}

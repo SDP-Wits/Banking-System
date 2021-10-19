@@ -94,7 +94,7 @@ Future<String> userLoginOnline(
 }
 
 //Getting list of all unverified clients
-Future<List<Name>> getUnverifiedClients() async {
+Future<List<thisUser>> getUnverifiedClients() async {
   final String url = urlPath + select_unverified_client_names;
 
   final List<Map> data = await getURLData(url: url);
@@ -109,14 +109,19 @@ Future<List<Name>> getUnverifiedClients() async {
   }
 
 // coverage:ignore-start
-  List<Name> names = [];
+  List<thisUser> names = [];
   for (var map in data) {
-    Name name = Name(
-      fName: map["firstName"],
-      mName: (map["middleName"] == null) ? null : map["middleName"],
-      sName: map["lastName"],
-      IDnum: map["idNumber"],
-    );
+    thisUser name = thisUser(
+        userID: int.parse(map["clientID"]),
+        firstName: map["firstName"],
+        middleName: (map["middleName"] == null) ? null : map["middleName"],
+        lastName: map["lastName"],
+        age: int.parse(map["age"]),
+        phoneNumber: map["phoneNumber"],
+        email: map["email"],
+        idNumber: map["idNumber"],
+        address: "",
+        status: map["verificationStatus"]);
 
     names.add(name);
   }

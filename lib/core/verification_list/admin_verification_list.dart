@@ -14,6 +14,11 @@ import 'package:last_national_bank/widgets/heading.dart';
 import 'package:last_national_bank/utils/helpers/back_button_helper.dart';
 import 'package:last_national_bank/widgets/navigation.dart';
 import 'package:last_national_bank/widgets/pendingNav.dart';
+import 'package:last_national_bank/core/verification_list/admin_verification_widget_web.dart';
+import 'package:last_national_bank/classes/thisUser.dart';
+import '../registration/widgets/buttonRejectClient.dart';
+import '../registration/widgets/buttonVerifyClient.dart';
+import 'verification.functions.dart';
 
 import '../../classes/name.class.dart';
 import '../../utils/helpers/style.dart';
@@ -43,7 +48,7 @@ class _AdminVerificationListPageState extends State<AdminVerificationListPage> {
     VerificationListClass(name: 'Seshlin Mike', id: '0664652652')
   ];*/
 
-  List<Name> names = [];
+  List<thisUser> names = [];
   User? user; // User information
 
   @override
@@ -102,157 +107,468 @@ class _AdminVerificationListPageState extends State<AdminVerificationListPage> {
   it will take them to the verify user
   */
   Widget buildPage() {
-    final size = MediaQuery.of(context).size;
-    // _scaffoldKey is the key used for the navigation drawer
-    GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+    if (kIsWeb) {
+      final size = MediaQuery.of(context).size;
+      // _scaffoldKey is the key used for the navigation drawer
+      GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-    return Scaffold(
-        // Set navigation drawer
-        key: _scaffoldKey,
-        drawer: pendingNav(
-            clientName: user!.firstName,
-            clientSurname: user!.lastName,
-            context: context),
-        body: Container(
-          decoration: BoxDecoration(
-            gradient: backgroundGradient,
-          ),
+      return Scaffold(
+          // Set navigation drawer
+          key: _scaffoldKey,
+          drawer: pendingNav(
+              clientName: user!.firstName,
+              clientSurname: user!.lastName,
+              context: context),
+          body: Container(
+            decoration: BoxDecoration(
+              gradient: backgroundGradient,
+            ),
 
-          // Allows page to be scrollable
-          child: SingleChildScrollView(
-            child: ConstrainedBox(
-                constraints: BoxConstraints(
-                    minHeight: MediaQuery.of(context).size.height),
-                child: LayoutBuilder(builder: (context, constraints) {
-                  //List
-                  return Column(
-                    children: [
-                      if (MediaQuery.of(context).size.width > tabletWidth)
-                        DesktopTabNavigator(
-                          isPending: true,
-                        ),
-
-                      // Three-line menu bar on the top to open the navigation drawer
-                      if (MediaQuery.of(context).size.width <= tabletWidth)
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: IconButton(
-                            icon: Icon(Icons.menu, color: Colors.white),
-                            onPressed: () {
-                              _scaffoldKey.currentState!.openDrawer();
-                            },
+            // Allows page to be scrollable
+            child: SingleChildScrollView(
+              child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                      minHeight: MediaQuery.of(context).size.height),
+                  child: LayoutBuilder(builder: (context, constraints) {
+                    //List
+                    return Column(
+                      children: [
+                        if (MediaQuery.of(context).size.width > tabletWidth)
+                          DesktopTabNavigator(
+                            isPending: true,
                           ),
-                        ),
 
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Heading("Verify User"),
-                      ),
-                      (names.length == 0)
-                          ? Row(
-                              children: [
-                                Expanded(
-                                  flex: 3, // 20%
-                                  child: Container(color: Colors.transparent),
-                                ),
-                                Expanded(
-                                  flex: 3, // 60%
-                                  child: Container(
-                                    width: size.width,
-                                    height: size.height,
-                                    child: Center(
-                                      child: Text(
-                                        "No Users to Verify",
-                                        style: TextStyle(
-                                          fontFamily: fontMont,
-                                          fontSize: 30,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w400,
+                        // Three-line menu bar on the top to open the navigation drawer
+                        if (MediaQuery.of(context).size.width <= tabletWidth)
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: IconButton(
+                              icon: Icon(Icons.menu, color: Colors.white),
+                              onPressed: () {
+                                _scaffoldKey.currentState!.openDrawer();
+                              },
+                            ),
+                          ),
+
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Heading("Verify User"),
+                        ),
+                        (names.length == 0)
+                            ? Row(
+                                children: [
+                                  Expanded(
+                                    flex: 3, // 20%
+                                    child: Container(color: Colors.transparent),
+                                  ),
+                                  Expanded(
+                                    flex: 3, // 60%
+                                    child: Container(
+                                      width: size.width,
+                                      height: size.height,
+                                      child: Center(
+                                        child: Text(
+                                          "No Users to Verify",
+                                          style: TextStyle(
+                                            fontFamily: fontMont,
+                                            fontSize: 30,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                          textAlign: TextAlign.center,
                                         ),
-                                        textAlign: TextAlign.center,
                                       ),
                                     ),
                                   ),
-                                ),
-                                Expanded(
-                                  flex: 3, // 20%
-                                  child: Container(color: Colors.transparent),
-                                )
-                              ],
-                            )
-                          : Row(
-                              children: [
-                                Expanded(
-                                  flex: 3, // 20%
-                                  child: Container(color: Colors.transparent),
-                                ),
-                                Expanded(
-                                  flex: 3, // 60%
-                                  child: ListView.builder(
-                                      shrinkWrap: true,
-                                      physics: ScrollPhysics(),
-                                      itemCount: names.length,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        String
-                                            textToUse = /*"\t\t*/ " ${names[index].fName} "; //had to comment out /t/t since its converted to square boxes on the web version
-                                        if (names[index].mName != null) {
-                                          textToUse += names[index].mName!;
-                                          textToUse += " ";
-                                        }
-                                        textToUse += names[index].sName;
+                                  Expanded(
+                                    flex: 3, // 20%
+                                    child: Container(color: Colors.transparent),
+                                  )
+                                ],
+                              )
+                            : Row(
+                                children: [
+                                  Expanded(
+                                    flex: 1, // 20%
+                                    child: Container(color: Colors.transparent),
+                                  ),
+                                  Expanded(
+                                    flex: 3, // 60%
+                                    child: ListView.builder(
+                                        shrinkWrap: true,
+                                        physics: ScrollPhysics(),
+                                        itemCount: names.length,
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          String
+                                              textToUse = /*"\t\t*/ " ${names[index].firstName} "; //had to comment out /t/t since its converted to square boxes on the web version
+                                          if (names[index].middleName != null) {
+                                            textToUse +=
+                                                names[index].middleName!;
+                                            textToUse += " ";
+                                          }
+                                          textToUse += names[index].lastName;
+                                          textToUse = "Name: " + textToUse;
+                                          String Age = "Age: " +
+                                              (names[index].age).toString();
+                                          String ph = "Phone No.: " +
+                                              (names[index].phoneNumber)
+                                                  .toString();
+                                          String id = "ID No.: " +
+                                              (names[index].idNumber)
+                                                  .toString();
+                                          String v = "verificationStatus: " +
+                                              (names[index].status).toString();
+                                          String e = "Email: " +
+                                              (names[index].email).toString();
 
-                                        return Container(
-                                          margin: EdgeInsets.symmetric(
-                                              vertical: 10),
-                                          decoration: BoxDecoration(
-                                            color: Colors.black26,
-                                            borderRadius:
-                                                BorderRadius.circular(30),
-                                          ),
-                                          child: InkWell(
-                                            // When user clicks on item box, sonmething happens:
-                                            // customBorder: Border.all(color: Colors.white, width: 2),
-                                            onTap: () {
-                                              goToVerifyUser(
-                                                  context: context,
-                                                  idNumber: names[index].IDnum);
-                                            },
-
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(15),
-                                              ),
-                                              padding: EdgeInsets.all(15),
-                                              child: Text(
-                                                // names i sthe name of the example array used above
-                                                // Will need to find outy how to use array in
-                                                // verification.functions.dart here
-                                                textToUse,
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                    fontSize: fontSizeSmall,
-                                                    color: Colors.white,
-                                                    fontFamily: fontMont),
+                                          return Container(
+                                            margin: EdgeInsets.symmetric(
+                                                vertical: 10),
+                                            decoration: BoxDecoration(
+                                              color: Colors.black26,
+                                              borderRadius:
+                                                  BorderRadius.circular(30),
+                                            ),
+                                            child: InkWell(
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(15),
+                                                ),
+                                                padding: EdgeInsets.all(15),
+                                                child: SingleChildScrollView(
+                                                  scrollDirection: Axis.horizontal,
+                                                  child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceEvenly,
+                                                      children: [
+                                                        Column(
+                                                          children: [
+                                                            Text(
+                                                              textToUse,
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              style: TextStyle(
+                                                                  fontSize:
+                                                                      fontSizeSmall,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontFamily:
+                                                                      fontMont),
+                                                            ),
+                                                            Padding(
+                                                                padding: EdgeInsets
+                                                                    .symmetric(
+                                                                        vertical:
+                                                                            15)),
+                                                            Text(
+                                                              id,
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              style: TextStyle(
+                                                                  fontSize:
+                                                                      fontSizeSmall,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontFamily:
+                                                                      fontMont),
+                                                            ),
+                                                            Padding(
+                                                                padding: EdgeInsets
+                                                                    .symmetric(
+                                                                        vertical:
+                                                                            15)),
+                                                            Text(
+                                                              e,
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              softWrap: true,
+                                                              style: TextStyle(
+                                                                  fontSize:
+                                                                      fontSizeSmall,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontFamily:
+                                                                      fontMont),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Column(
+                                                          children: [
+                                                            Padding(
+                                                                padding: EdgeInsets
+                                                                    .symmetric(
+                                                                        horizontal:
+                                                                            25)),
+                                                          ],
+                                                        ),
+                                                        Column(
+                                                          children: [
+                                                            Text(
+                                                              Age,
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              style: TextStyle(
+                                                                  fontSize:
+                                                                      fontSizeSmall,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontFamily:
+                                                                      fontMont),
+                                                            ),
+                                                            Padding(
+                                                                padding: EdgeInsets
+                                                                    .symmetric(
+                                                                        vertical:
+                                                                            15)),
+                                                            Text(
+                                                              ph,
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              style: TextStyle(
+                                                                  fontSize:
+                                                                      fontSizeSmall,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontFamily:
+                                                                      fontMont),
+                                                            ),
+                                                            Padding(
+                                                                padding: EdgeInsets
+                                                                    .symmetric(
+                                                                        vertical:
+                                                                            15)),
+                                                            Text(
+                                                              v,
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              style: TextStyle(
+                                                                  fontSize:
+                                                                      fontSizeSmall,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontFamily:
+                                                                      fontMont),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Column(
+                                                          children: [
+                                                            Padding(
+                                                                padding: EdgeInsets
+                                                                    .symmetric(
+                                                                        horizontal:
+                                                                            25)),
+                                                          ],
+                                                        ),
+                                                        Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceEvenly,
+                                                          children: [
+                                                            buttonVerifyClient(
+                                                                () {
+                                                              // verification.functions.dart
+                                                              verificationProcedure(
+                                                                  context,
+                                                                  id,
+                                                                  true);
+                                                            }),
+                                                            buttonRejectClient(
+                                                                () {
+                                                              // verification.functions.dart
+                                                              verificationProcedure(
+                                                                  context,
+                                                                  id,
+                                                                  false);
+                                                            }),
+                                                          ],
+                                                        ),
+                                                      ]),
+                                                ),
                                               ),
                                             ),
+                                          );
+                                        }),
+                                  ),
+                                  Expanded(
+                                    flex: 1, // 20%
+                                    child: Container(color: Colors.transparent),
+                                  )
+                                ],
+                              )
+                      ],
+                    );
+                  })),
+            ),
+          ));
+    } else {
+      final size = MediaQuery.of(context).size;
+      // _scaffoldKey is the key used for the navigation drawer
+      GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+      return Scaffold(
+          // Set navigation drawer
+          key: _scaffoldKey,
+          drawer: pendingNav(
+              clientName: user!.firstName,
+              clientSurname: user!.lastName,
+              context: context),
+          body: Container(
+            decoration: BoxDecoration(
+              gradient: backgroundGradient,
+            ),
+
+            // Allows page to be scrollable
+            child: SingleChildScrollView(
+              child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                      minHeight: MediaQuery.of(context).size.height),
+                  child: LayoutBuilder(builder: (context, constraints) {
+                    //List
+                    return Column(
+                      children: [
+                        if (MediaQuery.of(context).size.width > tabletWidth)
+                          DesktopTabNavigator(
+                            isPending: true,
+                          ),
+
+                        // Three-line menu bar on the top to open the navigation drawer
+                        if (MediaQuery.of(context).size.width <= tabletWidth)
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: IconButton(
+                              icon: Icon(Icons.menu, color: Colors.white),
+                              onPressed: () {
+                                _scaffoldKey.currentState!.openDrawer();
+                              },
+                            ),
+                          ),
+
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Heading("Verify Users"),
+                        ),
+                        (names.length == 0)
+                            ? Row(
+                                children: [
+                                  Expanded(
+                                    flex: 3, // 20%
+                                    child: Container(color: Colors.transparent),
+                                  ),
+                                  Expanded(
+                                    flex: 3, // 60%
+                                    child: Container(
+                                      width: size.width,
+                                      height: size.height,
+                                      child: Center(
+                                        child: Text(
+                                          "No Users to Verify",
+                                          style: TextStyle(
+                                            fontFamily: fontMont,
+                                            fontSize: 30,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w400,
                                           ),
-                                        );
-                                      }),
-                                ),
-                                Expanded(
-                                  flex: 3, // 20%
-                                  child: Container(color: Colors.transparent),
-                                )
-                              ],
-                            )
-                    ],
-                  );
-                })),
-          ),
-        ));
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 3, // 20%
+                                    child: Container(color: Colors.transparent),
+                                  )
+                                ],
+                              )
+                            : Row(
+                                children: [
+                                  Expanded(
+                                    flex: 3, // 20%
+                                    child: Container(color: Colors.transparent),
+                                  ),
+                                  Expanded(
+                                    flex: 3, // 60%
+                                    child: ListView.builder(
+                                        shrinkWrap: true,
+                                        physics: ScrollPhysics(),
+                                        itemCount: names.length,
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          String
+                                              textToUse = /*"\t\t*/ " ${names[index].firstName} "; //had to comment out /t/t since its converted to square boxes on the web version
+                                          if (names[index].middleName != null) {
+                                            textToUse +=
+                                                names[index].middleName!;
+                                            textToUse += " ";
+                                          }
+                                          textToUse += names[index].lastName;
+
+                                          return Container(
+                                            margin: EdgeInsets.symmetric(
+                                                vertical: 10),
+                                            decoration: BoxDecoration(
+                                              color: Colors.black26,
+                                              borderRadius:
+                                                  BorderRadius.circular(30),
+                                            ),
+                                            child: InkWell(
+                                              // When user clicks on item box, sonmething happens:
+                                              // customBorder: Border.all(color: Colors.white, width: 2),
+                                              onTap: () {
+                                                goToVerifyUser(
+                                                    context: context,
+                                                    idNumber:
+                                                        names[index].idNumber);
+                                              },
+
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(15),
+                                                ),
+                                                padding: EdgeInsets.all(15),
+                                                child: Text(
+                                                  // names i sthe name of the example array used above
+                                                  // Will need to find outy how to use array in
+                                                  // verification.functions.dart here
+                                                  textToUse,
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      fontSize: fontSizeSmall,
+                                                      color: Colors.white,
+                                                      fontFamily: fontMont),
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        }),
+                                  ),
+                                  Expanded(
+                                    flex: 3, // 20%
+                                    child: Container(color: Colors.transparent),
+                                  )
+                                ],
+                              )
+                      ],
+                    );
+                  })),
+            ),
+          ));
+    }
   }
+}
+
+Widget buildcont(BuildContext ctxt, String index) {
+  return new Text(index);
 }
 
 // coverage:ignore-end
