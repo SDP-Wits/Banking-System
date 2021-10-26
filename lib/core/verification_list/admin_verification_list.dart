@@ -14,7 +14,6 @@ import 'package:last_national_bank/widgets/heading.dart';
 import 'package:last_national_bank/utils/helpers/back_button_helper.dart';
 import 'package:last_national_bank/widgets/navigation.dart';
 import 'package:last_national_bank/widgets/pendingNav.dart';
-import 'package:last_national_bank/core/verification_list/admin_verification_widget_web.dart';
 import 'package:last_national_bank/classes/thisUser.dart';
 import '../registration/widgets/buttonRejectClient.dart';
 import '../registration/widgets/buttonVerifyClient.dart';
@@ -238,7 +237,8 @@ class _AdminVerificationListPageState extends State<AdminVerificationListPage> {
                                                 ),
                                                 padding: EdgeInsets.all(15),
                                                 child: SingleChildScrollView(
-                                                  scrollDirection: Axis.horizontal,
+                                                  scrollDirection:
+                                                      Axis.horizontal,
                                                   child: Row(
                                                       mainAxisAlignment:
                                                           MainAxisAlignment
