@@ -1,8 +1,17 @@
 // coverage:ignore-start
+import 'dart:io';
+
 import 'package:last_national_bank/classes/accountTypes.dart';
 import 'package:last_national_bank/classes/specificAccount.dart';
+import 'package:last_national_bank/core/statements/statement.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-void generatePDF(List<specificAccount> transactions) {}
+void generatePDF(List<specificAccount> transactions) async {
+  final pdfFile = await Statement.generateStatement(transactions);
+  Statement.openFile(pdfFile);
+
+  // Fluttertoast.showToast(msg: "Got here successfully. Let's go");
+}
 
 String getMonthFromDate(DateTime date) {
   switch (date.month) {

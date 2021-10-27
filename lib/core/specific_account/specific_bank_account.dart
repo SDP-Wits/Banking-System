@@ -24,6 +24,7 @@ import 'package:last_national_bank/widgets/deviceLayout.dart';
 import 'package:last_national_bank/widgets/heading.dart';
 import 'package:last_national_bank/widgets/navigation.dart';
 import 'package:last_national_bank/utils/helpers/icons.dart';
+import 'package:pdf/pdf.dart';
 
 /*
 The SpecificAccountPage class allows for clients to view a apecific account that the client swiped
@@ -560,7 +561,6 @@ class heading extends StatelessWidget {
               ),
             ),
 
-            
             // Request pdf button
             Container(
               width: 50,
@@ -569,8 +569,7 @@ class heading extends StatelessWidget {
               child: FloatingActionButton(
                 onPressed: () {
                   //TODO: go to pdf page
-                  showMonthDialog(
-                                  context, months, transactionsForAccount);
+                  showMonthDialog(context, months, transactionsForAccount);
                 },
                 backgroundColor: Colors.teal,
                 child: Icon(Icons.insert_drive_file_outlined),
@@ -580,11 +579,11 @@ class heading extends StatelessWidget {
             ),
           ],
         ),
-        Row(
-          children : [Padding(
-              padding: EdgeInsets.only(bottom: 30),
-            ),]
-        ),
+        Row(children: [
+          Padding(
+            padding: EdgeInsets.only(bottom: 30),
+          ),
+        ]),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
