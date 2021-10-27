@@ -40,9 +40,11 @@ class _TimelineListPageState extends State<TimelinePage> {
       });
       //uses the local database to get the userID then makes a call to the online database to get the Logs for this user
       getLogs(user!.userID.toString()).then((logsIn) {
-        setState(() {
-          logs = logsIn;
-          logs = logs!.reversed.toList();
+        updateLogs(logsIn).then((updatedLogs) {
+          setState(() {
+            logs = updatedLogs;
+            logs = logs!.reversed.toList();
+          });
         });
       });
     });
@@ -147,9 +149,10 @@ class _TimelineListPageState extends State<TimelinePage> {
                           itemCount: logs!.length,
                           itemBuilder: (BuildContext context, int index) {
                             Color colorToUse =
-                                (logs![index].logDescription.contains("to"))
+                                (logs![index].logDescription.contains("from"))
                                     ? Colors.red[500]!
                                     : Colors.green[600]!;
+
                             return Column(
                               children: [
                                 (index == 0)
@@ -230,6 +233,56 @@ class TimelineHeading extends StatelessWidget {
       ],
     );
   }
+}
+
+Future<List<Log>> updateLogs(List<Log> updateLogs) async {
+  Map<String, String> accNumToAccType = {};
+
+  List<Log> ansLogs = [];
+
+  for (Log log in updateLogs) {
+    List<String> split = log.logDescription.split(" ");
+
+    if (split[0] == "Transfer") {
+      String accNum = split[2];
+      Log newLog = log;
+
+      //Check if in map before requesting from db
+      if (accNumToAccType.containsKey(accNum)) {
+        split[2] = accNumToAccType[accNum]!;
+      }
+      //If not in map, request from db and add to map
+      else {
+        String? accTypeText = await getAccountTypeFromAccNumber(accNum);
+
+        //Should always be the case but, just in case
+        if (accTypeText != null) {
+          accNumToAccType[accNum] = accTypeText;
+          split[2] = accTypeText;
+        }
+      }
+
+      String updatedLogDescription = "";
+
+      final int size = split.length;
+      for (int i = 0; i < size; i++) {
+        updatedLogDescription += split[i];
+
+        if (i != size - 1) {
+          updatedLogDescription += " ";
+        }
+      }
+
+      newLog.logDescription = updatedLogDescription;
+      ansLogs.add(newLog);
+    }
+    //If no changes, add to list
+    else {
+      ansLogs.add(log);
+    }
+  }
+
+  return ansLogs;
 }
 
 // coverage:ignore-end
