@@ -110,6 +110,9 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
           }
         }
 
+        transactionsForAccount =
+            getUniqueSpecificAccounts(transactionsForAccount);
+
         setState(() {
           transactionsForAccount = [...transactionsForAccount];
           months = [...months];
@@ -705,6 +708,27 @@ Future<void> showMonthDialog(BuildContext context, List<String> months,
           ),
         );
       });
+}
+
+List<specificAccount> getUniqueSpecificAccounts(List<specificAccount> accs) {
+  List<specificAccount> tempLst = [];
+
+  for (specificAccount specificAcc in accs) {
+    bool alreadyIn = false;
+
+    for (specificAccount tempAcc in tempLst) {
+      if (specificAcc.transactionID == tempAcc.transactionID) {
+        alreadyIn = true;
+        break;
+      }
+    }
+
+    if (!alreadyIn) {
+      tempLst.add(specificAcc);
+    }
+  }
+
+  return tempLst;
 }
 
 // coverage:ignore-end

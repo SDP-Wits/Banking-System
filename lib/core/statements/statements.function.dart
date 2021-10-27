@@ -7,6 +7,16 @@ import 'package:last_national_bank/core/statements/statement.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 void generatePDF(List<specificAccount> transactions) async {
+  print("About to print transactions\n========================");
+  int i = 0;
+  transactions.forEach((element) {
+    print("Iteration : " + i.toString());
+    print("Time stamp : " + element.timeStamp);
+    print("Reference Number : " + element.referenceNumber);
+    i++;
+  });
+  print("End of print transactions\n========================");
+
   final pdfFile = await Statement.generateStatement(transactions);
   Statement.openFile(pdfFile);
 
