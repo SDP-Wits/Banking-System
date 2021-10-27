@@ -77,23 +77,28 @@ class Statement {
       );
 
   static Widget buildTable(List<specificAccount> transactions) {
-    final headers = ['Date', 'Transaction', 'Amount', 'Balance'];
+    final headers = ['Date', 'Transaction', 'Debit', 'Credit', 'Balance'];
 
     List<StatementItem> data = [];
 
     for (int i = 0; i < transactions.length; ++i) {
       String prefix = "";
+      String debit = "";
+      String credit = "";
       if (transactions[i].accountNumber == transactions[i].accountTo) {
         prefix = "+ R ";
+        credit = transactions[i].amount.toString();
       } else {
         prefix = "- R ";
+        debit = "-" + transactions[i].amount.toString();
       }
 
       StatementItem si = new StatementItem(
           date: transactions[i].timeStamp.split(" ")[0],
-          amount: transactions[i].amount,
           referenceName: transactions[i].referenceName,
           amountPrefix: prefix,
+          debitAmount: debit,
+          creditAmount: credit,
           currentBalance: transactions[i].currentBalance);
 
       data.add(si);
@@ -105,7 +110,8 @@ class Statement {
         // new DateFormat('d.MMMM y', 'en').format(item.date),
         item.date,
         item.referenceName,
-        '\R ${item.amount}',
+        item.debitAmount,
+        item.creditAmount,
         item.currentBalance,
       ];
     }).toList();
@@ -122,6 +128,7 @@ class Statement {
         1: Alignment.centerRight,
         2: Alignment.centerRight,
         3: Alignment.centerRight,
+        4: Alignment.centerRight,
       },
     );
   }
