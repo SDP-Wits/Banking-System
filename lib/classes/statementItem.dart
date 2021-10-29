@@ -1,3 +1,4 @@
+// coverage:ignore-start
 class StatementItem {
   final String date;
   final String debitAmount;
@@ -15,3 +16,4 @@ class StatementItem {
     required this.currentBalance,
   });
 }
+// coverage:ignore-end

@@ -1,3 +1,4 @@
+// coverage:ignore-start
 import 'dart:io';
 
 import 'package:flutter/services.dart';
@@ -18,7 +19,7 @@ class Statement {
     required String name,
     required Document pdf,
   }) async {
-    if (kIsWeb){
+    if (kIsWeb) {
       final bytes = await pdf.save();
       final blob = html.Blob([bytes], 'application/pdf');
       final url = html.Url.createObjectUrlFromBlob(blob);
@@ -33,8 +34,7 @@ class Statement {
 
       final file = File('');
       return file;
-    }
-    else {
+    } else {
       final bytes = await pdf.save();
 
       final dir = await getApplicationDocumentsDirectory();
@@ -153,3 +153,4 @@ class Statement {
     );
   }
 }
+// coverage:ignore-end
