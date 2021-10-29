@@ -14,26 +14,25 @@ import 'package:last_national_bank/core/registration/widgets/Logo.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 class Statement {
-  static  saveDocument({
+  static Future<File> saveDocument({
     required String name,
     required Document pdf,
   }) async {
     if (kIsWeb){
-      try {
-        final bytes = await pdf.save();
-        final blob = html.Blob([bytes], 'application/pdf');
-        final url = html.Url.createObjectUrlFromBlob(blob);
-        final anchor = html.AnchorElement()
-          ..href = url
-          ..style.display = 'none'
-          ..download = 'my_statement.pdf';
-        html.document.body?.children.add(anchor);
-        anchor.click();
-        html.document.body?.children.remove(anchor);
-        html.Url.revokeObjectUrl(url);
-      } on Exception catch (_){
-        print('document not saved');
-      }
+      final bytes = await pdf.save();
+      final blob = html.Blob([bytes], 'application/pdf');
+      final url = html.Url.createObjectUrlFromBlob(blob);
+      final anchor = html.AnchorElement()
+        ..href = url
+        ..style.display = 'none'
+        ..download = 'my_statement.pdf';
+      html.document.body?.children.add(anchor);
+      anchor.click();
+      html.document.body?.children.remove(anchor);
+      html.Url.revokeObjectUrl(url);
+
+      final file = File('');
+      return file;
     }
     else {
       final bytes = await pdf.save();
@@ -43,7 +42,7 @@ class Statement {
 
       await file.writeAsBytes(bytes);
 
-      //return file;
+      return file;
     }
   }
 
