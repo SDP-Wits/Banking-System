@@ -262,6 +262,7 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
                           height: 50,
                           alignment: Alignment.centerRight,
                           child: FloatingActionButton(
+                            heroTag: "Add Transaction",
                             onPressed: () {
                               //When floating action button is pressed
                               //this will go to 'select payment method' page
@@ -305,6 +306,7 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
                           width: 50,
                           height: 50,
                           child: FloatingActionButton(
+                            heroTag: "Choose Month for Statement",
                             onPressed: () {
                               //Choose Previous Months
                               showMonthDialog(
@@ -570,6 +572,7 @@ class heading extends StatelessWidget {
               height: 50,
               alignment: Alignment.topRight,
               child: FloatingActionButton(
+                heroTag: "Request PDF",
                 onPressed: () {
                   //TODO: go to pdf page
                   showMonthDialog(context, months, transactionsForAccount);
@@ -605,6 +608,7 @@ class heading extends StatelessWidget {
               width: 50,
               height: 50,
               child: FloatingActionButton(
+                heroTag: "Add Transactions",
                 onPressed: () {
                   //When floating action button is pressed
                   //this will go to 'select payment method' page
