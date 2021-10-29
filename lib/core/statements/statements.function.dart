@@ -5,6 +5,7 @@ import 'package:last_national_bank/classes/accountTypes.dart';
 import 'package:last_national_bank/classes/specificAccount.dart';
 import 'package:last_national_bank/core/statements/statement.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:universal_html/html.dart';
 
 void generatePDF(List<specificAccount> transactions) async {
   print("About to print transactions\n========================");

@@ -9,21 +9,42 @@ import 'package:last_national_bank/classes/specificAccount.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
+import 'package:universal_html/html.dart' as html;
 import 'package:last_national_bank/core/registration/widgets/Logo.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class Statement {
-  static Future<File> saveDocument({
+  static  saveDocument({
     required String name,
     required Document pdf,
   }) async {
-    final bytes = await pdf.save();
+    if (kIsWeb){
+      try {
+        final bytes = await pdf.save();
+        final blob = html.Blob([bytes], 'application/pdf');
+        final url = html.Url.createObjectUrlFromBlob(blob);
+        final anchor = html.AnchorElement()
+          ..href = url
+          ..style.display = 'none'
+          ..download = 'my_statement.pdf';
+        html.document.body?.children.add(anchor);
+        anchor.click();
+        html.document.body?.children.remove(anchor);
+        html.Url.revokeObjectUrl(url);
+      } on Exception catch (_){
+        print('document not saved');
+      }
+    }
+    else {
+      final bytes = await pdf.save();
 
-    final dir = await getApplicationDocumentsDirectory();
-    final file = File('${dir.path}/$name');
+      final dir = await getApplicationDocumentsDirectory();
+      final file = File('${dir.path}/$name');
 
-    await file.writeAsBytes(bytes);
+      await file.writeAsBytes(bytes);
 
-    return file;
+      //return file;
+    }
   }
 
   static Future openFile(File file) async {
