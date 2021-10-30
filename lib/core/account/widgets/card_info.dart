@@ -177,7 +177,7 @@ class _FrontCard extends StatelessWidget {
               "VISA",
               style: TextStyle(
                 color: Colors.teal,
-                fontSize: 48,
+                fontSize: 36,
                 fontFamily: "arial",
                 fontStyle: FontStyle.italic,
                 fontWeight: FontWeight.bold,
@@ -210,7 +210,7 @@ class _BackCard extends StatelessWidget {
         accountType,
         style: TextStyle(
           color: Colors.teal,
-          fontSize: fontSizeLarge,
+          fontSize: fontSizeLarge * 0.9,
           fontFamily: fontMont,
           // fontStyle: FontStyle.italic,
           fontWeight: FontWeight.bold,
@@ -234,7 +234,7 @@ class _BackCard extends StatelessWidget {
             nameDisplay,
             style: TextStyle(
               color: Colors.teal,
-              fontSize: fontSizeMedium,
+              fontSize: fontSizeMedium * 0.6,
               fontFamily: fontMont,
             ),
           ),

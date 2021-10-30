@@ -4,9 +4,11 @@ import 'dart:ui';
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:last_national_bank/classes/user.class.dart';
 import 'package:last_national_bank/config/routes/router.dart';
 import 'package:last_national_bank/constants/route_constants.dart';
+import 'package:last_national_bank/utils/helpers/helper.dart';
 import 'package:last_national_bank/utils/services/local_db.dart';
 import 'package:last_national_bank/utils/services/online_db.dart';
 import 'package:last_national_bank/widgets/desktopNav.dart';
@@ -96,7 +98,7 @@ class _AdminVerificationListPageState extends State<AdminVerificationListPage> {
     if (user == null) {
       return buildLoadingScreen(context);
     } else {
-      return buildPage();
+      return buildPage(context);
     }
   }
 
@@ -105,8 +107,9 @@ class _AdminVerificationListPageState extends State<AdminVerificationListPage> {
   and a list of containers with the user name, once you tap on the user
   it will take them to the verify user
   */
-  Widget buildPage() {
-    if (kIsWeb) {
+  Widget buildPage(BuildContext context) {
+    final size = getSize(context);
+    if (size.width > tabletWidth) {
       final size = MediaQuery.of(context).size;
       // _scaffoldKey is the key used for the navigation drawer
       GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -192,7 +195,7 @@ class _AdminVerificationListPageState extends State<AdminVerificationListPage> {
                                     child: Container(color: Colors.transparent),
                                   ),
                                   Expanded(
-                                    flex: 3, // 60%
+                                    flex: 8, // 60%
                                     child: ListView.builder(
                                         shrinkWrap: true,
                                         physics: ScrollPhysics(),
@@ -222,6 +225,7 @@ class _AdminVerificationListPageState extends State<AdminVerificationListPage> {
                                               (names[index].email).toString();
 
                                           return Container(
+                                            alignment: Alignment.center,
                                             margin: EdgeInsets.symmetric(
                                                 vertical: 10),
                                             decoration: BoxDecoration(
@@ -378,17 +382,44 @@ class _AdminVerificationListPageState extends State<AdminVerificationListPage> {
                                                                 () {
                                                               // verification.functions.dart
                                                               verificationProcedure(
-                                                                  context,
-                                                                  id,
-                                                                  true);
+                                                                      context,
+                                                                      names[index]
+                                                                          .idNumber,
+                                                                      true,
+                                                                      fromVerifyUser:
+                                                                          false)
+                                                                  .then(
+                                                                      (value) {
+                                                                setState(() {
+                                                                  names.removeAt(
+                                                                      index);
+
+                                                                  names = [
+                                                                    ...names
+                                                                  ];
+                                                                });
+                                                              });
                                                             }),
                                                             buttonRejectClient(
                                                                 () {
                                                               // verification.functions.dart
                                                               verificationProcedure(
-                                                                  context,
-                                                                  id,
-                                                                  false);
+                                                                      context,
+                                                                      names[index]
+                                                                          .idNumber,
+                                                                      false,
+                                                                      fromVerifyUser:
+                                                                          false)
+                                                                  .then(
+                                                                      (value) {
+                                                                setState(() {
+                                                                  names.removeAt(
+                                                                      index);
+                                                                  names = [
+                                                                    ...names
+                                                                  ];
+                                                                });
+                                                              });
                                                             }),
                                                           ],
                                                         ),

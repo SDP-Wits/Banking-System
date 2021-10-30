@@ -14,7 +14,8 @@ import '../../utils/services/online_db.dart';
 // When the Reject Client Button is clicked,  change status to Rejected
 
 Future<void> verificationProcedure(
-    BuildContext context, String clientIDNum, bool accepted) async {
+    BuildContext context, String clientIDNum, bool accepted,
+    {bool fromVerifyUser = true}) async {
   User? user;
 
   // Using getUserAndAddress() from Local DB to get current admin user's idNumber
@@ -51,7 +52,9 @@ Future<void> verificationProcedure(
               backgroundColor: Colors.teal,
               textColor: Colors.white,
               fontSize: 16.0);
-          goToAdminVerificationList(context);
+          if (fromVerifyUser) {
+            goToAdminVerificationList(context);
+          }
         }); // 1 represents client is accepted
       } else {
         // Rejected button clicked
@@ -64,7 +67,9 @@ Future<void> verificationProcedure(
               backgroundColor: Colors.teal,
               textColor: Colors.white,
               fontSize: 16.0);
-          goToAdminVerificationList(context);
+          if (fromVerifyUser) {
+            goToAdminVerificationList(context);
+          }
         }); // 0 represents client is rejected
       }
 
