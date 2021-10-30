@@ -56,10 +56,12 @@ class Statement {
   static Future<File> generateStatement(
       List<specificAccount> transactions, accountDetails currAccount) async {
     final pdf = Document();
+    // final logoImage = (await rootBundle.loadString("assets/images/logo1.png"));
 
     pdf.addPage(MultiPage(
       build: (context) => <Widget>[
         buildCustomHeader(),
+        buildStatementDetails(currAccount),
         buildTable(transactions, currAccount),
       ],
       footer: (context) {
@@ -87,7 +89,7 @@ class Statement {
           children: [
             // Image.asset('assets/images/logo1.png'),
             PdfLogo(),
-            SizedBox(width: 1.5 * PdfPageFormat.cm),
+            SizedBox(width: 5 * PdfPageFormat.cm),
             Text(
               'Statement Enquiry',
               style: TextStyle(fontSize: 20, color: PdfColors.black),
@@ -97,9 +99,36 @@ class Statement {
         ),
       );
 
+  static Widget buildStatementDetails(accountDetails currAccount) => Container(
+        padding: EdgeInsets.only(bottom: 3 * PdfPageFormat.mm),
+        decoration: BoxDecoration(
+          border: Border(bottom: BorderSide(width: 2, color: PdfColors.black)),
+        ),
+        child: Column(
+          children: [
+            Text(
+              'Account Description: ' + currAccount.accountType,
+              style: TextStyle(fontSize: 15, color: PdfColors.black),
+              textAlign: TextAlign.left,
+            ),
+            Text(
+              'Account Number: ' + currAccount.accountNumber,
+              style: TextStyle(fontSize: 15, color: PdfColors.black),
+              textAlign: TextAlign.left,
+            ),
+          ],
+        ),
+      );
+
   static Widget buildTable(
       List<specificAccount> transactions, accountDetails currAccount) {
-    final headers = ['Date', 'Transaction', 'Debit', 'Credit', 'Balance'];
+    final headers = [
+      'Date',
+      'Transaction Reference',
+      'Debit',
+      'Credit',
+      'Balance'
+    ];
 
     List<StatementItem> data = [];
 
@@ -160,7 +189,7 @@ class Statement {
       cellHeight: 30,
       cellAlignments: {
         0: Alignment.centerLeft,
-        1: Alignment.centerRight,
+        1: Alignment.centerLeft,
         2: Alignment.centerRight,
         3: Alignment.centerRight,
         4: Alignment.centerRight,
