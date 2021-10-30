@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:last_national_bank/classes/accountDetails.dart';
 import 'package:last_national_bank/classes/statementItem.dart';
 import 'package:last_national_bank/core/registration/widgets/Logo.dart';
 import 'package:open_file/open_file.dart';
@@ -53,13 +54,13 @@ class Statement {
   }
 
   static Future<File> generateStatement(
-      List<specificAccount> transactions) async {
+      List<specificAccount> transactions, accountDetails currAccount) async {
     final pdf = Document();
 
     pdf.addPage(MultiPage(
       build: (context) => <Widget>[
         buildCustomHeader(),
-        buildTable(transactions),
+        buildTable(transactions, currAccount),
       ],
       footer: (context) {
         final pageNo = 'Page ${context.pageNumber} of ${context.pagesCount}';
@@ -96,7 +97,8 @@ class Statement {
         ),
       );
 
-  static Widget buildTable(List<specificAccount> transactions) {
+  static Widget buildTable(
+      List<specificAccount> transactions, accountDetails currAccount) {
     final headers = ['Date', 'Transaction', 'Debit', 'Credit', 'Balance'];
 
     List<StatementItem> data = [];
@@ -105,13 +107,26 @@ class Statement {
       String prefix = "";
       String debit = "";
       String credit = "";
-      if (transactions[i].accountNumber == transactions[i].accountTo) {
+
+      //Arneev Changes Begin
+      if (transactions[i].accountTo == currAccount.accountNumber) {
         prefix = "+ R ";
         credit = transactions[i].amount.toString();
       } else {
         prefix = "- R ";
         debit = "-" + transactions[i].amount.toString();
       }
+
+      //Arneev Changes End
+
+      //Arneev Comment out below lines, 123 - 129
+      // if (transactions[i].accountNumber == transactions[i].accountTo) {
+      //   prefix = "+ R ";
+      //   credit = transactions[i].amount.toString();
+      // } else {
+      //   prefix = "- R ";
+      //   debit = "-" + transactions[i].amount.toString();
+      // }
 
       StatementItem si = new StatementItem(
           date: transactions[i].timeStamp.split(" ")[0],

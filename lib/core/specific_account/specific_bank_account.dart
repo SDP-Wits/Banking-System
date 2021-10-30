@@ -178,13 +178,13 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
     return (!finishLoad)
         ? buildLoadingScreen(context)
         : DeviceLayout(
-            phoneLayout: buildPage(context),
-            desktopWidget: desktopLayout(context),
+            phoneLayout: buildPage(context, this.widget.acc),
+            desktopWidget: desktopLayout(context, this.widget.acc),
           );
   }
 
   // ========================================================== WEB ==============================================
-  Widget desktopLayout(BuildContext context) {
+  Widget desktopLayout(BuildContext context, accountDetails currAccount) {
     final size = getSize(context);
 
     return SingleChildScrollView(
@@ -309,8 +309,8 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
                             heroTag: "Choose Month for Statement",
                             onPressed: () {
                               //Choose Previous Months
-                              showMonthDialog(
-                                  context, months, transactionsForAccount);
+                              showMonthDialog(context, months,
+                                  transactionsForAccount, currAccount);
                             },
                             backgroundColor: Colors.teal,
                             child: Icon(
@@ -381,7 +381,7 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
   // ========================================================== PHONE ==============================================
 
   // Use loading page instead of red error screen
-  Widget buildPage(BuildContext context) {
+  Widget buildPage(BuildContext context, accountDetails currAcc) {
     // While data is being loaded, display loading screen
     if (user == null || logs == null) {
       return buildLoadingScreen(context);
@@ -400,12 +400,12 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
             decoration: BoxDecoration(
               gradient: backgroundGradient,
             ),
-            child: phoneLayout(context),
+            child: phoneLayout(context, currAcc),
           ));
     }
   }
 
-  Widget phoneLayout(BuildContext context) {
+  Widget phoneLayout(BuildContext context, accountDetails currAcc) {
     final Size size = MediaQuery.of(context).size;
 
     //Setting the transaction history list animation variable
@@ -486,7 +486,7 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
                   padding: EdgeInsets.only(left: 15, right: 15),
 
                   // Function is at the bottom
-                  child: heading(),
+                  child: heading(currAcc),
                 ),
 
                 // Swipe up arrow to indicate to the user that they need to swipe up
@@ -550,6 +550,10 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
 // heading is the title: "Add New Transaction"
 // and the floting button to add a new transaction
 class heading extends StatelessWidget {
+  accountDetails currAcc;
+
+  heading(this.currAcc);
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -575,7 +579,8 @@ class heading extends StatelessWidget {
                 heroTag: "Request PDF",
                 onPressed: () {
                   //TODO: go to pdf page
-                  showMonthDialog(context, months, transactionsForAccount);
+                  showMonthDialog(
+                      context, months, transactionsForAccount, currAcc);
                 },
                 backgroundColor: Colors.teal,
                 child: Icon(Icons.insert_drive_file_outlined),
@@ -632,8 +637,11 @@ class heading extends StatelessWidget {
   }
 }
 
-Future<void> showMonthDialog(BuildContext context, List<String> months,
-    List<specificAccount> transactionsForAccount) async {
+Future<void> showMonthDialog(
+    BuildContext context,
+    List<String> months,
+    List<specificAccount> transactionsForAccount,
+    accountDetails currAccount) async {
   return showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -670,16 +678,20 @@ Future<void> showMonthDialog(BuildContext context, List<String> months,
                         return GestureDetector(
                           onTap: () {
                             Fluttertoast.showToast(msg: "Generating PDF");
-                            generatePDF(transactionsForAccount.where((element) {
-                              DateTime date = DateTime(
-                                int.parse(element.timeStamp.substring(0, 4)),
-                                int.parse(element.timeStamp.substring(5, 7)),
-                              );
+                            generatePDF(
+                                transactionsForAccount.where((element) {
+                                  DateTime date = DateTime(
+                                    int.parse(
+                                        element.timeStamp.substring(0, 4)),
+                                    int.parse(
+                                        element.timeStamp.substring(5, 7)),
+                                  );
 
-                              String _month = getMonthFromDate(date);
+                                  String _month = getMonthFromDate(date);
 
-                              return e == _month;
-                            }).toList());
+                                  return e == _month;
+                                }).toList(),
+                                currAccount);
 
                             Navigator.pop(context);
                           },

@@ -1,13 +1,15 @@
 // coverage:ignore-start
 import 'dart:io';
 
+import 'package:last_national_bank/classes/accountDetails.dart';
 import 'package:last_national_bank/classes/accountTypes.dart';
 import 'package:last_national_bank/classes/specificAccount.dart';
 import 'package:last_national_bank/core/statements/statement.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:universal_html/html.dart';
 
-void generatePDF(List<specificAccount> transactions) async {
+void generatePDF(
+    List<specificAccount> transactions, accountDetails currAccount) async {
   print("About to print transactions\n========================");
   int i = 0;
   transactions.forEach((element) {
@@ -18,7 +20,7 @@ void generatePDF(List<specificAccount> transactions) async {
   });
   print("End of print transactions\n========================");
 
-  final pdfFile = await Statement.generateStatement(transactions);
+  final pdfFile = await Statement.generateStatement(transactions, currAccount);
   Statement.openFile(pdfFile);
 
   // Fluttertoast.showToast(msg: "Got here successfully. Let's go");
