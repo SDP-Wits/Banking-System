@@ -49,8 +49,6 @@ chosen.
 */
 
 //these vriables need to be accssed in two places that aren't in the same widget so they are global
-List<String> months = [];
-List<specificAccount> transactionsForAccount = [];
 
 class SpecificAccountPage extends StatefulWidget {
   // Account details for specific account is retrieved from the previous UI (Accounts)
@@ -66,6 +64,8 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
   // User details
   User? user;
   bool finishLoad = false;
+  List<String> months = [];
+  List<specificAccount> transactionsForAccount = [];
 
   // All transactions (logs) are retrieved for the specific account
   List<specificAccount>? logs;
@@ -118,6 +118,18 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
           months = [...months];
           finishLoad = true;
         });
+
+        print("\n\n\n");
+        print("===================");
+        for (specificAccount acc in transactionsForAccount) {
+          print("accFrom: " + acc.accountFrom);
+          print("accTo: " + acc.accountTo);
+          print("amount: " + acc.amount.toString());
+          print("referenceNumber: " + acc.referenceNumber);
+        }
+
+        print("===================");
+        print("\n\n\n");
       });
     });
 
@@ -486,7 +498,7 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
                   padding: EdgeInsets.only(left: 15, right: 15),
 
                   // Function is at the bottom
-                  child: heading(currAcc),
+                  child: heading(currAcc, months, transactionsForAccount),
                 ),
 
                 // Swipe up arrow to indicate to the user that they need to swipe up
@@ -551,8 +563,10 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
 // and the floting button to add a new transaction
 class heading extends StatelessWidget {
   accountDetails currAcc;
+  List<String> months;
+  List<specificAccount> transactionsForAccount;
 
-  heading(this.currAcc);
+  heading(this.currAcc, this.months, this.transactionsForAccount);
 
   @override
   Widget build(BuildContext context) {
