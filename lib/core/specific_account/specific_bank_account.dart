@@ -199,194 +199,194 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
   Widget desktopLayout(BuildContext context, accountDetails currAccount) {
     final size = getSize(context);
 
-    return SingleChildScrollView(
-      child: Container(
+    return Container(
         width: size.width,
         height: size.height,
         decoration: BoxDecoration(
           gradient: backgroundGradient,
         ),
-        child: Column(
-          children: [
-            if (MediaQuery.of(context).size.width > tabletWidth)
-              DesktopTabNavigator(),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              if (MediaQuery.of(context).size.width > tabletWidth)
+                DesktopTabNavigator(),
 
-            // Spacing
-            Padding(
-              padding: EdgeInsets.only(top: 20),
-            ),
+              // Spacing
+              Padding(
+                padding: EdgeInsets.only(top: 20),
+              ),
 
-            Heading(this.widget.acc.accountType),
+              Heading(this.widget.acc.accountType),
 
-            // Spacing
-            Padding(
-              padding: EdgeInsets.only(top: 20),
-            ),
+              // Spacing
+              Padding(
+                padding: EdgeInsets.only(top: 20),
+              ),
 
-            Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Column(
-                    children: [
-                      // Card widget that displays the user's specific account details
-                      Container(
-                        width: size.width / 2.5,
-                        alignment: Alignment.topLeft,
-                        padding: EdgeInsets.symmetric(vertical: 15),
-                        child: AccountCardInfo(
-                          accountType: this.widget.acc.accountType,
-                          accountNumber: this.widget.acc.accountNumber,
-                          firstName: this.widget.acc.fName,
-                          middleNames: this.widget.acc.mName,
-                          lastName: this.widget.acc.lName,
-                          cardType: "VISA",
-                          currAmount: this.widget.acc.currentBalance,
-                          accountTypeId: this.widget.acc.accountTypeId,
-                          canSwipe: false,
-                        ),
-                      ),
-
-                      // Spacing
-                      Padding(
-                        padding: EdgeInsets.only(top: 30),
-                      ),
-
-                      Row(children: [
-                        Text(
-                          'Add New Transaction:',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontFamily: fontMont,
+              Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Column(
+                      children: [
+                        // Card widget that displays the user's specific account details
+                        Container(
+                          width: size.width / 2.5,
+                          alignment: Alignment.topLeft,
+                          padding: EdgeInsets.symmetric(vertical: 15),
+                          child: AccountCardInfo(
+                            accountType: this.widget.acc.accountType,
+                            accountNumber: this.widget.acc.accountNumber,
+                            firstName: this.widget.acc.fName,
+                            middleNames: this.widget.acc.mName,
+                            lastName: this.widget.acc.lName,
+                            cardType: "VISA",
+                            currAmount: this.widget.acc.currentBalance,
+                            accountTypeId: this.widget.acc.accountTypeId,
+                            canSwipe: false,
                           ),
                         ),
 
                         // Spacing
                         Padding(
-                          padding: EdgeInsets.only(right: 45),
+                          padding: EdgeInsets.only(top: 30),
                         ),
 
-                        // Floating + button
-                        Container(
-                          width: 50,
-                          height: 50,
-                          alignment: Alignment.centerRight,
-                          child: FloatingActionButton(
-                            heroTag: "Add Transaction",
-                            onPressed: () {
-                              //When floating action button is pressed
-                              //this will go to 'select payment method' page
-                              goToSelectPayment(context);
-                            },
-                            backgroundColor: Colors.teal,
-                            child: Text(
-                              '+',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 30,
-                                fontFamily: fontMont,
+                        Row(children: [
+                          Text(
+                            'Add New Transaction:',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontFamily: fontMont,
+                            ),
+                          ),
+
+                          // Spacing
+                          Padding(
+                            padding: EdgeInsets.only(right: 45),
+                          ),
+
+                          // Floating + button
+                          Container(
+                            width: 50,
+                            height: 50,
+                            alignment: Alignment.centerRight,
+                            child: FloatingActionButton(
+                              heroTag: "Add Transaction",
+                              onPressed: () {
+                                //When floating action button is pressed
+                                //this will go to 'select payment method' page
+                                goToSelectPayment(context);
+                              },
+                              backgroundColor: Colors.teal,
+                              child: Text(
+                                '+',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 30,
+                                  fontFamily: fontMont,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ]),
-
-                      // Spacing
-                      Padding(
-                        padding: EdgeInsets.only(top: 40),
-                      ),
-
-                      Row(children: [
-                        Text(
-                          'Request Statement PDF:',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontFamily: fontMont,
-                          ),
-                        ),
+                        ]),
 
                         // Spacing
                         Padding(
-                          padding: EdgeInsets.only(right: 30),
+                          padding: EdgeInsets.only(top: 40),
                         ),
 
-                        // Floating + button
-                        Container(
-                          width: 50,
-                          height: 50,
-                          child: FloatingActionButton(
-                            heroTag: "Choose Month for Statement",
-                            onPressed: () {
-                              //Choose Previous Months
-                              showMonthDialog(context, months,
-                                  transactionsForAccount, currAccount);
-                            },
-                            backgroundColor: Colors.teal,
-                            child: Icon(
-                              Icons.print,
+                        Row(children: [
+                          Text(
+                            'Request Statement PDF:',
+                            style: TextStyle(
                               color: Colors.white,
+                              fontSize: 20,
+                              fontFamily: fontMont,
                             ),
                           ),
-                        ),
-                      ]),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Container(
-                        alignment: Alignment.topRight,
-                        child: Text(
-                          'Account Transactions:',
-                          textAlign: TextAlign.right,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontFamily: fontMont,
-                          ),
-                        ),
-                      ),
-                      // Spacing
-                      Padding(
-                        padding: EdgeInsets.only(top: 15),
-                      ),
-                      Container(
-                        width: size.width / 2.3,
-                        height: size.height / 1.7,
-                        alignment: Alignment.topRight,
-                        padding: EdgeInsets.symmetric(horizontal: 30),
-                        decoration: BoxDecoration(
-                            // color: Colors.white.withAlpha(128),
-                            ),
-                        child: DraggableScrollableSheet(
-                          initialChildSize: 1, // Size when page loads
-                          minChildSize: 1, // Minimum size allowed
-                          maxChildSize: 1, // Maximum size allowed
 
-                          builder: (BuildContext context,
-                              ScrollController scrollController) {
-                            // Scroll widget
-                            if (user == null || logs == null) {
-                              return buildLoadingScreen(context);
-                            } else {
-                              return listTransactions(
-                                  logs: logs,
-                                  scrollController: scrollController,
-                                  acc: this.widget.acc);
-                            }
-                          },
+                          // Spacing
+                          Padding(
+                            padding: EdgeInsets.only(right: 30),
+                          ),
+
+                          // Floating + button
+                          Container(
+                            width: 50,
+                            height: 50,
+                            child: FloatingActionButton(
+                              heroTag: "Choose Month for Statement",
+                              onPressed: () {
+                                //Choose Previous Months
+                                showMonthDialog(context, months,
+                                    transactionsForAccount, currAccount);
+                              },
+                              backgroundColor: Colors.teal,
+                              child: Icon(
+                                Icons.print,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ]),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Container(
+                          alignment: Alignment.topRight,
+                          child: Text(
+                            'Account Transactions:',
+                            textAlign: TextAlign.right,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontFamily: fontMont,
+                            ),
+                          ),
                         ),
-                      )
-                    ],
-                  ),
-                ],
+                        // Spacing
+                        Padding(
+                          padding: EdgeInsets.only(top: 15),
+                        ),
+                        Container(
+                          width: size.width / 2.3,
+                          height: size.height / 1.7,
+                          alignment: Alignment.topRight,
+                          padding: EdgeInsets.symmetric(horizontal: 30),
+                          decoration: BoxDecoration(
+                              // color: Colors.white.withAlpha(128),
+                              ),
+                          child: DraggableScrollableSheet(
+                            initialChildSize: 1, // Size when page loads
+                            minChildSize: 1, // Minimum size allowed
+                            maxChildSize: 1, // Maximum size allowed
+
+                            builder: (BuildContext context,
+                                ScrollController scrollController) {
+                              // Scroll widget
+                              if (user == null || logs == null) {
+                                return buildLoadingScreen(context);
+                              } else {
+                                return listTransactions(
+                                    logs: logs,
+                                    scrollController: scrollController,
+                                    acc: this.widget.acc);
+                              }
+                            },
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
-      ),
+            ],
+          ),
+        )
     );
   }
 
@@ -518,7 +518,7 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
 
                 // Title
                 Text(
-                  "Swipe Up for Transaction History",
+                  "Swipe Up/Tap for Transaction History",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white,
