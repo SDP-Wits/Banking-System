@@ -50,9 +50,9 @@ Future<bool> submitPayment(User? user, accountDetails accountDetail) async {
     return false;
   }
 
-  int amount = -1;
+  double amount = -1;
   try {
-    amount = int.parse(amountText);
+    amount = double.parse(amountText);
   } catch (e) {
     Fluttertoast.showToast(msg: "Please Enter Valid Amount");
     return false;

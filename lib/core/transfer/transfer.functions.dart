@@ -40,14 +40,14 @@ void emptyTextTransfer() {
 }
 
 // When user clicks the 'Submit' button, this function is called
-Future<bool> submitTransfer(double currAmt, String accountFrom, String accountTo, BuildContext context) async {
-
+Future<bool> submitTransfer(double currAmt, String accountFrom,
+    String accountTo, BuildContext context) async {
   // Validation checks
   // ===============================================================================
 
   //check if input amount is correct
   try {
-    int.parse(amountText);
+    double.parse(amountText);
   } catch (e) {
     Fluttertoast.showToast(msg: "Please Enter Valid Transfer Amount");
     return false;
@@ -59,7 +59,7 @@ Future<bool> submitTransfer(double currAmt, String accountFrom, String accountTo
     return false;
   }
 
-  if (currAmt < int.parse(amountText)) {
+  if (currAmt < double.parse(amountText)) {
     Fluttertoast.showToast(msg: "Insufficient funds");
     return false;
   }
@@ -75,11 +75,7 @@ Future<bool> submitTransfer(double currAmt, String accountFrom, String accountTo
   String success =
       await makeTransfer(accountFrom, accountTo, amountText, referenceNameText);
 
-  
-
   Fluttertoast.showToast(msg: success);
   return (success == dbSuccess);
-
-  
 }
 // coverage:ignore-end

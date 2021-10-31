@@ -1,6 +1,8 @@
 // coverage:ignore-start
 import 'dart:io';
+import 'dart:typed_data';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:last_national_bank/classes/accountDetails.dart';
@@ -10,7 +12,7 @@ import 'package:open_file/open_file.dart';
 import 'package:last_national_bank/classes/specificAccount.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
-import 'package:pdf/widgets.dart';
+import 'package:pdf/widgets.dart' as pw;
 import 'package:universal_html/html.dart' as html;
 import 'package:last_national_bank/core/registration/widgets/Logo.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -18,7 +20,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 class Statement {
   static Future<File> saveDocument({
     required String name,
-    required Document pdf,
+    required pw.Document pdf,
   }) async {
     if (kIsWeb) {
       final bytes = await pdf.save();
@@ -55,25 +57,32 @@ class Statement {
 
   static Future<File> generateStatement(
       List<specificAccount> transactions, accountDetails currAccount) async {
-    final pdf = Document();
-    // final logoImage = (await rootBundle.loadString("assets/images/logo1.png"));
+    final pdf = pw.Document();
 
-    pdf.addPage(MultiPage(
-      build: (context) => <Widget>[
-        buildCustomHeader(),
+    final font =
+        await rootBundle.load("fonts/Montserrat/Montserrat-Regular.ttf");
+
+    final tff = pw.Font.ttf(font);
+
+    final logoData =
+        (await rootBundle.load("images/fullBlack.png")).buffer.asUint8List();
+
+    pdf.addPage(pw.MultiPage(
+      build: (context) => <pw.Widget>[
+        buildCustomHeader(tff, logoData),
         // buildStatementDetails(currAccount),
-        buildHeader(currAccount),
-        buildTable(transactions, currAccount),
+        buildHeader(currAccount, tff),
+        buildTable(transactions, currAccount, tff),
       ],
       footer: (context) {
         final pageNo = 'Page ${context.pageNumber} of ${context.pagesCount}';
 
-        return Container(
-            alignment: Alignment.centerRight,
-            margin: EdgeInsets.only(top: 1 * PdfPageFormat.cm),
-            child: Text(
+        return pw.Container(
+            alignment: pw.Alignment.centerRight,
+            margin: pw.EdgeInsets.only(top: 1 * PdfPageFormat.cm),
+            child: pw.Text(
               pageNo,
-              style: TextStyle(color: PdfColors.black),
+              style: pw.TextStyle(color: PdfColors.black, font: tff),
             ));
       },
     ));
@@ -81,75 +90,82 @@ class Statement {
     return Statement.saveDocument(name: 'my_statement.pdf', pdf: pdf);
   }
 
-  static Widget buildCustomHeader() => Container(
-        padding: EdgeInsets.only(bottom: 5 * PdfPageFormat.mm),
-        decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(width: 2, color: PdfColors.black)),
+  static pw.Widget buildCustomHeader(pw.Font tff, Uint8List logoData) =>
+      pw.Container(
+        padding: pw.EdgeInsets.only(bottom: 5 * PdfPageFormat.mm),
+        decoration: pw.BoxDecoration(
+          border: pw.Border(
+              bottom: pw.BorderSide(width: 2, color: PdfColors.black)),
         ),
-        child: Row(
-          children: [
+        child: pw.Row(
+          children: <pw.Widget>[
             // Image.asset('assets/images/logo1.png'),
-            PdfLogo(),
-            SizedBox(width: 5 * PdfPageFormat.cm),
-            Text(
+            pw.Image(pw.MemoryImage(logoData),
+                width: 3 * PdfPageFormat.cm, height: 3 * PdfPageFormat.cm),
+            pw.SizedBox(width: 5 * PdfPageFormat.cm),
+            pw.Text(
               'Statement Enquiry',
-              style: TextStyle(fontSize: 20, color: PdfColors.black),
-              textAlign: TextAlign.center,
+              style:
+                  pw.TextStyle(fontSize: 20, color: PdfColors.black, font: tff),
+              textAlign: pw.TextAlign.center,
             ),
           ],
         ),
       );
 
-  static Widget buildStatementDetails(accountDetails currAccount) => Container(
-        padding: EdgeInsets.only(bottom: 3 * PdfPageFormat.cm),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+  static pw.Widget buildStatementDetails(accountDetails currAccount) =>
+      pw.Container(
+        padding: pw.EdgeInsets.only(bottom: 3 * PdfPageFormat.cm),
+        child: pw.Column(
+          crossAxisAlignment: pw.CrossAxisAlignment.start,
           children: [
-            SizedBox(width: 1.5 * PdfPageFormat.cm),
-            Text(
+            pw.SizedBox(width: 1.5 * PdfPageFormat.cm),
+            pw.Text(
               'Account Description: ' + currAccount.accountType,
-              style: TextStyle(fontSize: 15, color: PdfColors.black),
-              textAlign: TextAlign.left,
+              style: pw.TextStyle(fontSize: 15, color: PdfColors.black),
+              textAlign: pw.TextAlign.left,
             ),
-            SizedBox(width: 1.5 * PdfPageFormat.cm),
-            Text(
+            pw.SizedBox(width: 1.5 * PdfPageFormat.cm),
+            pw.Text(
               'Account Number: ' + currAccount.accountNumber,
-              style: TextStyle(fontSize: 15, color: PdfColors.black),
-              textAlign: TextAlign.left,
+              style: pw.TextStyle(fontSize: 15, color: PdfColors.black),
+              textAlign: pw.TextAlign.left,
             ),
-            SizedBox(width: 1.5 * PdfPageFormat.cm),
+            pw.SizedBox(width: 1.5 * PdfPageFormat.cm),
           ],
         ),
       );
 
-  static Widget buildHeader(accountDetails currAccount) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+  static pw.Widget buildHeader(accountDetails currAccount, pw.Font tff) =>
+      pw.Column(
+        crossAxisAlignment: pw.CrossAxisAlignment.start,
         children: [
-          SizedBox(height: 1 * PdfPageFormat.cm),
-          Row(
+          pw.SizedBox(height: 1 * PdfPageFormat.cm),
+          pw.Row(
             children: [
-              Text(
+              pw.Text(
                 "Timestamp: " +
                     DateFormat('yyyy-MM-dd – kk:mm')
                         .format(DateTime.now())
                         .toString(),
-                style: TextStyle(fontSize: 15, color: PdfColors.black),
-                textAlign: TextAlign.left,
+                style: pw.TextStyle(
+                    fontSize: 15, color: PdfColors.black, font: tff),
+                textAlign: pw.TextAlign.left,
               ),
             ],
           ),
-          SizedBox(height: 0.5 * PdfPageFormat.cm),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
+          pw.SizedBox(height: 0.5 * PdfPageFormat.cm),
+          pw.Row(
+            crossAxisAlignment: pw.CrossAxisAlignment.end,
             children: [
-              buildInvoiceInfo(currAccount),
+              buildInvoiceInfo(currAccount, tff),
             ],
           ),
-          SizedBox(height: 1 * PdfPageFormat.cm),
+          pw.SizedBox(height: 1 * PdfPageFormat.cm),
         ],
       );
 
-  static Widget buildInvoiceInfo(accountDetails currAccount) {
+  static pw.Widget buildInvoiceInfo(accountDetails currAccount, pw.Font tff) {
     final titles = <String>[
       'Account Description:',
       'Account Number:',
@@ -160,13 +176,13 @@ class Statement {
       currAccount.accountNumber,
     ];
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return pw.Column(
+      crossAxisAlignment: pw.CrossAxisAlignment.start,
       children: List.generate(titles.length, (index) {
         final title = titles[index];
         final value = data[index];
 
-        return buildText(title: title, value: value, width: 500);
+        return buildText(title: title, value: value, width: 500, tff: tff);
       }),
     );
   }
@@ -175,25 +191,27 @@ class Statement {
     required String title,
     required String value,
     double width = double.infinity,
-    TextStyle? titleStyle,
+    pw.TextStyle? titleStyle,
     bool unite = false,
+    required pw.Font tff,
   }) {
-    final style =
-        titleStyle ?? TextStyle(fontSize: 15, fontWeight: FontWeight.bold);
+    final style = titleStyle ??
+        pw.TextStyle(fontSize: 15, fontWeight: pw.FontWeight.bold, font: tff);
 
-    return Container(
+    return pw.Container(
       width: width,
-      child: Row(
+      child: pw.Row(
         children: [
-          Expanded(child: Text(title, style: style)),
-          Text(value, style: unite ? style : null, textAlign: TextAlign.left),
+          pw.Expanded(child: pw.Text(title, style: style)),
+          pw.Text(value,
+              style: unite ? style : null, textAlign: pw.TextAlign.left),
         ],
       ),
     );
   }
 
-  static Widget buildTable(
-      List<specificAccount> transactions, accountDetails currAccount) {
+  static pw.Widget buildTable(List<specificAccount> transactions,
+      accountDetails currAccount, pw.Font tff) {
     final headers = [
       'Date',
       'Transaction Reference',
@@ -230,12 +248,13 @@ class Statement {
       // }
 
       StatementItem si = new StatementItem(
-          date: transactions[i].timeStamp.split(" ")[0],
-          referenceName: transactions[i].referenceName,
-          amountPrefix: prefix,
-          debitAmount: debit,
-          creditAmount: credit,
-          currentBalance: transactions[i].currentBalance);
+        date: transactions[i].timeStamp.split(" ")[0],
+        referenceName: transactions[i].referenceName,
+        amountPrefix: prefix,
+        debitAmount: debit,
+        creditAmount: credit,
+        currentBalance: transactions[i].currentBalance,
+      );
 
       data.add(si);
     }
@@ -253,7 +272,7 @@ class Statement {
     }).toList();
 
     // Testing corrected balances
-    for (int i = transactions.length; i > 0; --i) {
+    for (int i = transactions.length - 1; i >= 0; --i) {
       String prefix = "";
       String debit = "";
       String credit = "";
@@ -280,19 +299,26 @@ class Statement {
           (transactions[i].currentBalance + diff).toString());
     }
 
-    return Table.fromTextArray(
+    return pw.Table.fromTextArray(
       headers: headers,
       data: statementData,
       border: null,
-      headerStyle: TextStyle(fontWeight: FontWeight.bold),
-      headerDecoration: BoxDecoration(color: PdfColors.grey300),
+      headerStyle: pw.TextStyle(fontWeight: pw.FontWeight.bold, font: tff),
+      headerDecoration: pw.BoxDecoration(color: PdfColors.grey300),
       cellHeight: 30,
+      cellStyle: pw.TextStyle(font: tff),
+      cellDecoration: (int i1, dynamic ekWeetNie, int i2) {
+        return pw.BoxDecoration(
+            color: (i1 % 2 == 0)
+                ? PdfColor.fromInt(0xfafafa)
+                : PdfColor.fromInt(0xfdfdfd));
+      },
       cellAlignments: {
-        0: Alignment.centerLeft,
-        1: Alignment.centerLeft,
-        2: Alignment.centerRight,
-        3: Alignment.centerRight,
-        4: Alignment.centerRight,
+        0: pw.Alignment.centerLeft,
+        1: pw.Alignment.centerLeft,
+        2: pw.Alignment.centerRight,
+        3: pw.Alignment.centerRight,
+        4: pw.Alignment.centerRight,
       },
     );
   }
