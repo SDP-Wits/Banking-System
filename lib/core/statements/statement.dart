@@ -252,6 +252,34 @@ class Statement {
       ];
     }).toList();
 
+    // Testing corrected balances
+    for (int i = transactions.length; i > 0; --i) {
+      String prefix = "";
+      String debit = "";
+      String credit = "";
+      double diff = 0;
+
+      //Arneev Changes Begin
+      if (transactions[i].accountTo == currAccount.accountNumber) {
+        prefix = "+ R ";
+        diff = diff - transactions[i].amount;
+        credit = transactions[i].amount.toString();
+      } else {
+        prefix = "- R ";
+        diff = diff + transactions[i].amount;
+        debit = "-" + transactions[i].amount.toString();
+      }
+
+      print("Date : " + transactions[i].timeStamp.split(" ")[0]);
+      print("Ref name : " + transactions[i].referenceName);
+      print("Prefix : " + prefix);
+      print("Debit : " + debit);
+      print("Credit : " + credit);
+      print("Current balance : " + transactions[i].currentBalance.toString());
+      print("Adjusted balance : " +
+          (transactions[i].currentBalance + diff).toString());
+    }
+
     return Table.fromTextArray(
       headers: headers,
       data: statementData,
