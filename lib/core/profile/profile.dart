@@ -99,6 +99,7 @@ class _ProfileState extends State<Profile> {
   Widget desktopLayout(BuildContext context) {
     final size = getSize(context);
     return Container(
+      key: _scaffoldKey,
       width: size.width,
       height: size.height,
       child: SingleChildScrollView(
