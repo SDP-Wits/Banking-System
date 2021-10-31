@@ -61,7 +61,8 @@ class Statement {
     pdf.addPage(MultiPage(
       build: (context) => <Widget>[
         buildCustomHeader(),
-        buildStatementDetails(currAccount),
+        // buildStatementDetails(currAccount),
+        buildHeader(currAccount),
         buildTable(transactions, currAccount),
       ],
       footer: (context) {
@@ -81,7 +82,7 @@ class Statement {
   }
 
   static Widget buildCustomHeader() => Container(
-        padding: EdgeInsets.only(bottom: 3 * PdfPageFormat.mm),
+        padding: EdgeInsets.only(bottom: 5 * PdfPageFormat.mm),
         decoration: BoxDecoration(
           border: Border(bottom: BorderSide(width: 2, color: PdfColors.black)),
         ),
@@ -93,32 +94,103 @@ class Statement {
             Text(
               'Statement Enquiry',
               style: TextStyle(fontSize: 20, color: PdfColors.black),
-              textAlign: TextAlign.right,
+              textAlign: TextAlign.center,
             ),
           ],
         ),
       );
 
   static Widget buildStatementDetails(accountDetails currAccount) => Container(
-        padding: EdgeInsets.only(bottom: 3 * PdfPageFormat.mm),
-        decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(width: 2, color: PdfColors.black)),
-        ),
+        padding: EdgeInsets.only(bottom: 3 * PdfPageFormat.cm),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SizedBox(width: 1.5 * PdfPageFormat.cm),
             Text(
               'Account Description: ' + currAccount.accountType,
               style: TextStyle(fontSize: 15, color: PdfColors.black),
               textAlign: TextAlign.left,
             ),
+            SizedBox(width: 1.5 * PdfPageFormat.cm),
             Text(
               'Account Number: ' + currAccount.accountNumber,
               style: TextStyle(fontSize: 15, color: PdfColors.black),
               textAlign: TextAlign.left,
             ),
+            SizedBox(width: 1.5 * PdfPageFormat.cm),
           ],
         ),
       );
+
+  static Widget buildHeader(accountDetails currAccount) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: 1 * PdfPageFormat.cm),
+          Row(
+            children: [
+              Text(
+                "Timestamp: " +
+                    DateFormat('yyyy-MM-dd – kk:mm')
+                        .format(DateTime.now())
+                        .toString(),
+                style: TextStyle(fontSize: 15, color: PdfColors.black),
+                textAlign: TextAlign.left,
+              ),
+            ],
+          ),
+          SizedBox(height: 0.5 * PdfPageFormat.cm),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              buildInvoiceInfo(currAccount),
+            ],
+          ),
+          SizedBox(height: 1 * PdfPageFormat.cm),
+        ],
+      );
+
+  static Widget buildInvoiceInfo(accountDetails currAccount) {
+    final titles = <String>[
+      'Account Description:',
+      'Account Number:',
+    ];
+
+    final data = <String>[
+      currAccount.accountType,
+      currAccount.accountNumber,
+    ];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: List.generate(titles.length, (index) {
+        final title = titles[index];
+        final value = data[index];
+
+        return buildText(title: title, value: value, width: 500);
+      }),
+    );
+  }
+
+  static buildText({
+    required String title,
+    required String value,
+    double width = double.infinity,
+    TextStyle? titleStyle,
+    bool unite = false,
+  }) {
+    final style =
+        titleStyle ?? TextStyle(fontSize: 15, fontWeight: FontWeight.bold);
+
+    return Container(
+      width: width,
+      child: Row(
+        children: [
+          Expanded(child: Text(title, style: style)),
+          Text(value, style: unite ? style : null, textAlign: TextAlign.left),
+        ],
+      ),
+    );
+  }
 
   static Widget buildTable(
       List<specificAccount> transactions, accountDetails currAccount) {
