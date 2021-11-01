@@ -127,9 +127,6 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
           ..sort((a, b) => -a.compareTo(b));
 
         for (DateTime dateTime in monthList) {
-          //Add current balance for starting of month
-          monthToCurr[dateTime.month] = currBalance;
-
           for (specificAccount specificAcc in transactionsForAccount) {
             //Starter
             DateTime date = DateTime(
@@ -144,11 +141,14 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
             //If transaction from same month
 
             if (specificAcc.accountTo == this.widget.acc.accountNumber) {
-              currBalance += specificAcc.amount;
-            } else {
               currBalance -= specificAcc.amount;
+            } else {
+              currBalance += specificAcc.amount;
             }
           }
+
+          //Add current balance for starting of month
+          monthToCurr[dateTime.month] = currBalance;
         }
 
         // for (int monthInt in monthSet) {
