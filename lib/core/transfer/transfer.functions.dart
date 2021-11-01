@@ -64,6 +64,11 @@ Future<bool> submitTransfer(double currAmt, String accountFrom,
     return false;
   }
 
+  if (double.parse(amountText) <= 0) {
+    Fluttertoast.showToast(msg: "Please Enter Valid Amount");
+    return false;
+  }
+
   if (accountTo == accountFrom) {
     Fluttertoast.showToast(msg: "Cannot send money to the same account");
     return false;

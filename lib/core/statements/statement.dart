@@ -59,13 +59,18 @@ class Statement {
       List<specificAccount> transactions, accountDetails currAccount) async {
     final pdf = pw.Document();
 
-    final font =
-        await rootBundle.load("fonts/Montserrat/Montserrat-Regular.ttf");
+    final font = (kIsWeb)
+        ? await rootBundle.load("fonts/Montserrat/Montserrat-Regular.ttf")
+        : await rootBundle
+            .load("assets/fonts/Montserrat/Montserrat-Regular.ttf");
 
     final tff = pw.Font.ttf(font);
 
-    final logoData =
-        (await rootBundle.load("images/logo1.png")).buffer.asUint8List();
+    final logoData = (kIsWeb)
+        ? (await rootBundle.load("images/logo1.png")).buffer.asUint8List()
+        : (await rootBundle.load("assets/images/logo1.png"))
+            .buffer
+            .asUint8List();
 
     pdf.addPage(pw.MultiPage(
       build: (context) => <pw.Widget>[
