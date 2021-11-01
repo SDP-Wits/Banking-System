@@ -25,7 +25,6 @@ import 'package:last_national_bank/widgets/heading.dart';
 import 'package:last_national_bank/widgets/navigation.dart';
 import 'package:last_national_bank/utils/helpers/icons.dart';
 import 'package:pdf/pdf.dart';
-import 'package:tuple/tuple.dart';
 
 /*
 The SpecificAccountPage class allows for clients to view a apecific account that the client swiped
@@ -737,6 +736,7 @@ Future<void> showMonthDialog(
                         return GestureDetector(
                           onTap: () {
                             Fluttertoast.showToast(msg: "Generating PDF");
+                            String _month = "";
                             generatePDF(
                               transactionsForAccount.where((element) {
                                 DateTime date = DateTime(
@@ -744,12 +744,13 @@ Future<void> showMonthDialog(
                                   int.parse(element.timeStamp.substring(5, 7)),
                                 );
 
-                                String _month = getMonthFromDate(date);
+                                _month = getMonthFromDate(date);
 
                                 return e == _month;
                               }).toList(),
                               currAccount,
                               monthToCurr[getMonthIndex(e)]!,
+                              _month,
                             );
 
                             Navigator.pop(context);
