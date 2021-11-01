@@ -65,7 +65,7 @@ class Statement {
     final tff = pw.Font.ttf(font);
 
     final logoData =
-        (await rootBundle.load("images/fullBlack.png")).buffer.asUint8List();
+        (await rootBundle.load("images/logo1.png")).buffer.asUint8List();
 
     pdf.addPage(pw.MultiPage(
       build: (context) => <pw.Widget>[
@@ -202,9 +202,10 @@ class Statement {
       width: width,
       child: pw.Row(
         children: [
-          pw.Expanded(child: pw.Text(title, style: style)),
-          pw.Text(value,
-              style: unite ? style : null, textAlign: pw.TextAlign.left),
+          pw.Expanded(
+              child:
+                  pw.Text(title, style: style, textAlign: pw.TextAlign.left)),
+          pw.Text(value, style: style, textAlign: pw.TextAlign.left),
         ],
       ),
     );
@@ -222,7 +223,7 @@ class Statement {
 
     List<StatementItem> data = [];
 
-    for (int i = 0; i < transactions.length; ++i) {
+    /*   for (int i = 0; i < transactions.length; ++i) {
       String prefix = "";
       String debit = "";
       String credit = "";
@@ -261,8 +262,6 @@ class Statement {
 
     final statementData = data.map((item) {
       return [
-        // DateFormat.yMd(item.date),
-        // new DateFormat('d.MMMM y', 'en').format(item.date),
         item.date,
         item.referenceName,
         item.debitAmount,
@@ -270,8 +269,11 @@ class Statement {
         item.currentBalance,
       ];
     }).toList();
+    */
 
     // Testing corrected balances
+    double runningBalance = currAccount.currentBalance;
+    String prevPrefix = "";
     for (int i = transactions.length - 1; i >= 0; --i) {
       String prefix = "";
       String debit = "";
@@ -281,12 +283,21 @@ class Statement {
       //Arneev Changes Begin
       if (transactions[i].accountTo == currAccount.accountNumber) {
         prefix = "+ R ";
-        diff = diff - transactions[i].amount;
         credit = transactions[i].amount.toString();
       } else {
         prefix = "- R ";
-        diff = diff + transactions[i].amount;
+        // if (!(i == transactions.length - 1)) {
+        //   diff = diff - transactions[i + 1].amount;
+        // }
         debit = "-" + transactions[i].amount.toString();
+      }
+
+      if (!(i == transactions.length - 1)) {
+        if (transactions[i + 1].accountTo == currAccount.accountNumber) {
+          diff = diff - transactions[i + 1].amount;
+        } else {
+          diff = diff + transactions[i + 1].amount;
+        }
       }
 
       print("Date : " + transactions[i].timeStamp.split(" ")[0]);
@@ -294,14 +305,37 @@ class Statement {
       print("Prefix : " + prefix);
       print("Debit : " + debit);
       print("Credit : " + credit);
-      print("Current balance : " + transactions[i].currentBalance.toString());
-      print("Adjusted balance : " +
-          (transactions[i].currentBalance + diff).toString());
+      print("Diff: " + diff.toString());
+      print("Amount: " + transactions[i].amount.toString());
+      // print("Current balance : " + transactions[i].currentBalance.toString());
+      runningBalance = runningBalance + diff;
+      print("Adjusted balance : " + (runningBalance).toString());
+
+      StatementItem si = new StatementItem(
+        date: transactions[i].timeStamp.split(" ")[0],
+        referenceName: transactions[i].referenceName,
+        amountPrefix: prefix,
+        debitAmount: debit,
+        creditAmount: credit,
+        currentBalance: runningBalance,
+      );
+
+      data.add(si);
     }
+
+    final statementData = data.map((item) {
+      return [
+        item.date,
+        item.referenceName,
+        item.debitAmount,
+        item.creditAmount,
+        item.currentBalance,
+      ];
+    }).toList();
 
     return pw.Table.fromTextArray(
       headers: headers,
-      data: statementData,
+      data: statementData.reversed.toList(),
       border: null,
       headerStyle: pw.TextStyle(fontWeight: pw.FontWeight.bold, font: tff),
       headerDecoration: pw.BoxDecoration(color: PdfColors.grey300),
