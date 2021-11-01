@@ -8,17 +8,10 @@ import 'package:last_national_bank/core/statements/statement.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:universal_html/html.dart';
 
-void generatePDF(
-    List<specificAccount> transactions, accountDetails currAccount) async {
-  print("About to print transactions\n========================");
-  int i = 0;
-  transactions.forEach((element) {
-    print("Iteration : " + i.toString());
-    print("Time stamp : " + element.timeStamp);
-    print("Reference Number : " + element.referenceNumber);
-    i++;
-  });
-  print("End of print transactions\n========================");
+void generatePDF(List<specificAccount> transactions, accountDetails currAccount,
+    double currPassedBalance) async {
+  print(
+      "currAmount: $currPassedBalance, for month: ${transactions[0].timeStamp}");
 
   final pdfFile = await Statement.generateStatement(transactions, currAccount);
   Statement.openFile(pdfFile);
@@ -54,6 +47,37 @@ String getMonthFromDate(DateTime date) {
       return "Decemeber";
     default:
       return "Invalid Month";
+  }
+}
+
+int getMonthIndex(String month) {
+  switch (month.trim()) {
+    case "January":
+      return 1;
+    case "February":
+      return 2;
+    case "March":
+      return 3;
+    case "April":
+      return 4;
+    case "May":
+      return 5;
+    case "June":
+      return 6;
+    case "July":
+      return 7;
+    case "August":
+      return 8;
+    case "September":
+      return 9;
+    case "October":
+      return 10;
+    case "November":
+      return 11;
+    case "Decemeber":
+      return 12;
+    default:
+      return -1;
   }
 }
 // coverage:ignore-end

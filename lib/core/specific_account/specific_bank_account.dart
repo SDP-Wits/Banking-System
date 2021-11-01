@@ -25,6 +25,7 @@ import 'package:last_national_bank/widgets/heading.dart';
 import 'package:last_national_bank/widgets/navigation.dart';
 import 'package:last_national_bank/utils/helpers/icons.dart';
 import 'package:pdf/pdf.dart';
+import 'package:tuple/tuple.dart';
 
 /*
 The SpecificAccountPage class allows for clients to view a apecific account that the client swiped
@@ -65,9 +66,11 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
   User? user;
   bool finishLoad = false;
   List<String> months = [];
+  Set<DateTime> monthSet = {};
+
   List<specificAccount> transactionsForAccount = [];
 
-  Map<int, int> monthToCurr = {};
+  Map<int, double> monthToCurr = {};
 
   // All transactions (logs) are retrieved for the specific account
   List<specificAccount>? logs;
@@ -102,6 +105,7 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
               int.parse(specificAcc.timeStamp.substring(5, 7)),
             );
 
+            monthSet.add(date);
             String _month = getMonthFromDate(date);
 
             if (!months.contains(_month)) {
@@ -112,8 +116,52 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
           }
         }
 
+        //Getting Unique Transactions
         transactionsForAccount =
             getUniqueSpecificAccounts(transactionsForAccount);
+
+        //Get current Balance
+        double currBalance = this.widget.acc.currentBalance;
+
+        //Sort out month list from closer to further
+        List<DateTime> monthList = monthSet.toList()
+          ..sort((a, b) => -a.compareTo(b));
+
+        for (DateTime dateTime in monthList) {
+          //Add current balance for starting of month
+          monthToCurr[dateTime.month] = currBalance;
+
+          for (specificAccount specificAcc in transactionsForAccount) {
+            //Starter
+            DateTime date = DateTime(
+              int.parse(specificAcc.timeStamp.substring(0, 4)),
+              int.parse(specificAcc.timeStamp.substring(5, 7)),
+            );
+
+            if (date.month != dateTime.month) {
+              continue;
+            }
+
+            //If transaction from same month
+
+            if (specificAcc.accountTo == this.widget.acc.accountNumber) {
+              currBalance += specificAcc.amount;
+            } else {
+              currBalance -= specificAcc.amount;
+            }
+          }
+        }
+
+        // for (int monthInt in monthSet) {
+        //   for (specificAccount toCheckAcc in transactionsForAccount) {
+        //     DateTime date = DateTime(
+        //       int.parse(toCheckAcc.timeStamp.substring(0, 4)),
+        //       int.parse(toCheckAcc.timeStamp.substring(5, 7)),
+        //     );
+
+        //     if (date.month == monthInt) {}
+        //   }
+        // }
 
         setState(() {
           transactionsForAccount = [...transactionsForAccount];
@@ -311,8 +359,12 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
                               heroTag: "Choose Month for Statement",
                               onPressed: () {
                                 //Choose Previous Months
-                                showMonthDialog(context, months,
-                                    transactionsForAccount, currAccount);
+                                showMonthDialog(
+                                    context,
+                                    months,
+                                    transactionsForAccount,
+                                    currAccount,
+                                    monthToCurr);
                               },
                               backgroundColor: Colors.teal,
                               child: Icon(
@@ -487,7 +539,8 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
                   padding: EdgeInsets.only(left: 15, right: 15),
 
                   // Function is at the bottom
-                  child: heading(currAcc, months, transactionsForAccount),
+                  child: heading(
+                      currAcc, months, transactionsForAccount, monthToCurr),
                 ),
 
                 // Swipe up arrow to indicate to the user that they need to swipe up
@@ -554,8 +607,10 @@ class heading extends StatelessWidget {
   accountDetails currAcc;
   List<String> months;
   List<specificAccount> transactionsForAccount;
+  Map<int, double> monthToCurr;
 
-  heading(this.currAcc, this.months, this.transactionsForAccount);
+  heading(
+      this.currAcc, this.months, this.transactionsForAccount, this.monthToCurr);
 
   @override
   Widget build(BuildContext context) {
@@ -582,8 +637,8 @@ class heading extends StatelessWidget {
                 heroTag: "Request PDF",
                 onPressed: () {
                   //TODO: go to pdf page
-                  showMonthDialog(
-                      context, months, transactionsForAccount, currAcc);
+                  showMonthDialog(context, months, transactionsForAccount,
+                      currAcc, monthToCurr);
                 },
                 backgroundColor: Colors.teal,
                 child: Icon(Icons.insert_drive_file_outlined),
@@ -644,7 +699,8 @@ Future<void> showMonthDialog(
     BuildContext context,
     List<String> months,
     List<specificAccount> transactionsForAccount,
-    accountDetails currAccount) async {
+    accountDetails currAccount,
+    Map<int, double> monthToCurr) async {
   return showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -682,19 +738,19 @@ Future<void> showMonthDialog(
                           onTap: () {
                             Fluttertoast.showToast(msg: "Generating PDF");
                             generatePDF(
-                                transactionsForAccount.where((element) {
-                                  DateTime date = DateTime(
-                                    int.parse(
-                                        element.timeStamp.substring(0, 4)),
-                                    int.parse(
-                                        element.timeStamp.substring(5, 7)),
-                                  );
+                              transactionsForAccount.where((element) {
+                                DateTime date = DateTime(
+                                  int.parse(element.timeStamp.substring(0, 4)),
+                                  int.parse(element.timeStamp.substring(5, 7)),
+                                );
 
-                                  String _month = getMonthFromDate(date);
+                                String _month = getMonthFromDate(date);
 
-                                  return e == _month;
-                                }).toList(),
-                                currAccount);
+                                return e == _month;
+                              }).toList(),
+                              currAccount,
+                              monthToCurr[getMonthIndex(e)]!,
+                            );
 
                             Navigator.pop(context);
                           },
@@ -749,5 +805,6 @@ List<specificAccount> getUniqueSpecificAccounts(List<specificAccount> accs) {
 
   return tempLst;
 }
+
 
 // coverage:ignore-end

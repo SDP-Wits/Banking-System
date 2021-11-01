@@ -37,6 +37,7 @@ class _ScrollAccountState extends State<ScrollAccount> {
     return (itemSize == 0)
         ? buildLoadingScreen(context)
         : Container(
+            alignment: Alignment.center,
             width: containerWidth,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,12 +63,14 @@ class _ScrollAccountState extends State<ScrollAccount> {
 
                 // Center part with account information
                 Container(
+                  alignment: Alignment.center,
                   width: containerWidth,
                   decoration: BoxDecoration(
                     color: Colors.white,
                   ),
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 15.0),
+                    alignment: Alignment.center,
                     child: _BankDetails(
                       accDetails: accDetails!,
                     ),
@@ -109,7 +112,7 @@ class _BankDetails extends StatelessWidget {
         //Heading
         Text(
           accDetails.accountType,
-          textAlign: TextAlign.left,
+          textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.teal,
             fontSize: 15,
