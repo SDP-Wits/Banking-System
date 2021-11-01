@@ -12,8 +12,14 @@ void generatePDF(List<specificAccount> transactions, accountDetails currAccount,
     double currPassedBalance) async {
   print(
       "currAmount: $currPassedBalance, for month: ${transactions[0].timeStamp}");
-
-  final pdfFile = await Statement.generateStatement(transactions, currAccount);
+  String month = getMonthFromDate(DateTime.parse(transactions[0].timeStamp));
+  String year = transactions[0].timeStamp.substring(0, 4);
+  final pdfFile = await Statement.generateStatement(
+    transactions,
+    currAccount,
+    currPassedBalance,
+    month + " " + year,
+  );
   Statement.openFile(pdfFile);
 
   // Fluttertoast.showToast(msg: "Got here successfully. Let's go");
