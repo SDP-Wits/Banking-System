@@ -165,12 +165,13 @@ class Statement {
     ];
 
     return pw.Column(
+      mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
       crossAxisAlignment: pw.CrossAxisAlignment.start,
       children: List.generate(titles.length, (index) {
         final title = titles[index];
         final value = data[index];
 
-        return buildText(title: title, value: value, width: 300, tff: tff);
+        return buildText(title: title, value: value, width: 350, tff: tff);
       }),
     );
   }
@@ -184,18 +185,28 @@ class Statement {
     required pw.Font tff,
   }) {
     final style = titleStyle ??
-        pw.TextStyle(fontSize: 15, fontWeight: pw.FontWeight.bold, font: tff);
+        pw.TextStyle(
+          fontSize: 15,
+          fontWeight: pw.FontWeight.bold,
+          font: tff,
+        );
 
     return pw.Container(
       width: width,
       child: pw.Row(
         children: [
-          pw.Column(children: [
-            pw.Text(title, style: style, textAlign: pw.TextAlign.left)
-          ]),
-          pw.Column(children: [
-            pw.Text(value, style: style, textAlign: pw.TextAlign.left)
-          ]),
+          pw.Expanded(
+              child:
+                  pw.Text(title, style: style, textAlign: pw.TextAlign.left)),
+          pw.SizedBox(height: 1 * PdfPageFormat.cm),
+          pw.Text(value, style: style, textAlign: pw.TextAlign.left),
+
+          // pw.Column(children: [
+          //   pw.Text(title, style: style, textAlign: pw.TextAlign.left)
+          // ]),
+          // pw.Column(children: [
+          //   pw.Text(value, style: style, textAlign: pw.TextAlign.left)
+          // ]),
         ],
       ),
     );

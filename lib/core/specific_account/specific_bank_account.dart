@@ -736,7 +736,6 @@ Future<void> showMonthDialog(
                         return GestureDetector(
                           onTap: () {
                             Fluttertoast.showToast(msg: "Generating PDF");
-                            String _month = "";
                             generatePDF(
                               transactionsForAccount.where((element) {
                                 DateTime date = DateTime(
@@ -744,13 +743,12 @@ Future<void> showMonthDialog(
                                   int.parse(element.timeStamp.substring(5, 7)),
                                 );
 
-                                _month = getMonthFromDate(date);
+                                String _month = getMonthFromDate(date);
 
                                 return e == _month;
                               }).toList(),
                               currAccount,
                               monthToCurr[getMonthIndex(e)]!,
-                              _month,
                             );
 
                             Navigator.pop(context);
