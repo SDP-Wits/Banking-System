@@ -56,7 +56,10 @@ class Statement {
   }
 
   static Future<File> generateStatement(
-      List<specificAccount> transactions, accountDetails currAccount) async {
+      List<specificAccount> transactions,
+      accountDetails currAccount,
+      double currPassedBalance,
+      String month) async {
     final pdf = pw.Document();
 
     final font = (kIsWeb)
@@ -67,17 +70,16 @@ class Statement {
     final tff = pw.Font.ttf(font);
 
     final logoData = (kIsWeb)
-        ? (await rootBundle.load("images/logo1.png")).buffer.asUint8List()
-        : (await rootBundle.load("assets/images/logo1.png"))
+        ? (await rootBundle.load("images/logo_black.png")).buffer.asUint8List()
+        : (await rootBundle.load("assets/images/logo_black.png"))
             .buffer
             .asUint8List();
 
     pdf.addPage(pw.MultiPage(
       build: (context) => <pw.Widget>[
         buildCustomHeader(tff, logoData),
-        // buildStatementDetails(currAccount),
-        buildHeader(currAccount, tff),
-        buildTable(transactions, currAccount, tff),
+        buildHeader(month, currAccount, tff),
+        buildTable(transactions, currAccount, currPassedBalance, tff),
       ],
       footer: (context) {
         final pageNo = 'Page ${context.pageNumber} of ${context.pagesCount}';
@@ -92,7 +94,7 @@ class Statement {
       },
     ));
 
-    return Statement.saveDocument(name: 'my_statement.pdf', pdf: pdf);
+    return Statement.saveDocument(name: 'my_statement_$month.pdf', pdf: pdf);
   }
 
   static pw.Widget buildCustomHeader(pw.Font tff, Uint8List logoData) =>
@@ -106,8 +108,8 @@ class Statement {
           children: <pw.Widget>[
             // Image.asset('assets/images/logo1.png'),
             pw.Image(pw.MemoryImage(logoData),
-                width: 3 * PdfPageFormat.cm, height: 3 * PdfPageFormat.cm),
-            pw.SizedBox(width: 5 * PdfPageFormat.cm),
+                width: 3.5 * PdfPageFormat.cm, height: 3.5 * PdfPageFormat.cm),
+            pw.SizedBox(width: 3 * PdfPageFormat.cm),
             pw.Text(
               'Statement Enquiry',
               style:
@@ -118,30 +120,8 @@ class Statement {
         ),
       );
 
-  static pw.Widget buildStatementDetails(accountDetails currAccount) =>
-      pw.Container(
-        padding: pw.EdgeInsets.only(bottom: 3 * PdfPageFormat.cm),
-        child: pw.Column(
-          crossAxisAlignment: pw.CrossAxisAlignment.start,
-          children: [
-            pw.SizedBox(width: 1.5 * PdfPageFormat.cm),
-            pw.Text(
-              'Account Description: ' + currAccount.accountType,
-              style: pw.TextStyle(fontSize: 15, color: PdfColors.black),
-              textAlign: pw.TextAlign.left,
-            ),
-            pw.SizedBox(width: 1.5 * PdfPageFormat.cm),
-            pw.Text(
-              'Account Number: ' + currAccount.accountNumber,
-              style: pw.TextStyle(fontSize: 15, color: PdfColors.black),
-              textAlign: pw.TextAlign.left,
-            ),
-            pw.SizedBox(width: 1.5 * PdfPageFormat.cm),
-          ],
-        ),
-      );
-
-  static pw.Widget buildHeader(accountDetails currAccount, pw.Font tff) =>
+  static pw.Widget buildHeader(
+          String month, accountDetails currAccount, pw.Font tff) =>
       pw.Column(
         crossAxisAlignment: pw.CrossAxisAlignment.start,
         children: [
@@ -149,7 +129,7 @@ class Statement {
           pw.Row(
             children: [
               pw.Text(
-                "Timestamp: " +
+                "Timestamp:\t" +
                     DateFormat('yyyy-MM-dd – kk:mm')
                         .format(DateTime.now())
                         .toString(),
@@ -163,20 +143,23 @@ class Statement {
           pw.Row(
             crossAxisAlignment: pw.CrossAxisAlignment.end,
             children: [
-              buildInvoiceInfo(currAccount, tff),
+              buildInvoiceInfo(month, currAccount, tff),
             ],
           ),
           pw.SizedBox(height: 1 * PdfPageFormat.cm),
         ],
       );
 
-  static pw.Widget buildInvoiceInfo(accountDetails currAccount, pw.Font tff) {
+  static pw.Widget buildInvoiceInfo(
+      String month, accountDetails currAccount, pw.Font tff) {
     final titles = <String>[
-      'Account Description:',
-      'Account Number:',
+      'Statement Month:\t',
+      'Account Description:\t',
+      'Account Number:\t',
     ];
 
     final data = <String>[
+      month,
       currAccount.accountType,
       currAccount.accountNumber,
     ];
@@ -187,7 +170,7 @@ class Statement {
         final title = titles[index];
         final value = data[index];
 
-        return buildText(title: title, value: value, width: 500, tff: tff);
+        return buildText(title: title, value: value, width: 300, tff: tff);
       }),
     );
   }
@@ -197,7 +180,7 @@ class Statement {
     required String value,
     double width = double.infinity,
     pw.TextStyle? titleStyle,
-    bool unite = false,
+    // bool unite = false,
     required pw.Font tff,
   }) {
     final style = titleStyle ??
@@ -207,17 +190,19 @@ class Statement {
       width: width,
       child: pw.Row(
         children: [
-          pw.Expanded(
-              child:
-                  pw.Text(title, style: style, textAlign: pw.TextAlign.left)),
-          pw.Text(value, style: style, textAlign: pw.TextAlign.left),
+          pw.Column(children: [
+            pw.Text(title, style: style, textAlign: pw.TextAlign.left)
+          ]),
+          pw.Column(children: [
+            pw.Text(value, style: style, textAlign: pw.TextAlign.left)
+          ]),
         ],
       ),
     );
   }
 
   static pw.Widget buildTable(List<specificAccount> transactions,
-      accountDetails currAccount, pw.Font tff) {
+      accountDetails currAccount, double currPassedBalance, pw.Font tff) {
     final headers = [
       'Date',
       'Transaction Reference',
@@ -277,7 +262,7 @@ class Statement {
     */
 
     // Testing corrected balances
-    double runningBalance = currAccount.currentBalance;
+    double runningBalance = currPassedBalance;
     String prevPrefix = "";
     for (int i = transactions.length - 1; i >= 0; --i) {
       String prefix = "";
@@ -294,7 +279,11 @@ class Statement {
         // if (!(i == transactions.length - 1)) {
         //   diff = diff - transactions[i + 1].amount;
         // }
-        debit = "-" + transactions[i].amount.toString();
+        if (transactions[i].amount < 0) {
+          debit = transactions[i].amount.toString();
+        } else {
+          debit = "-" + transactions[i].amount.toString();
+        }
       }
 
       if (!(i == transactions.length - 1)) {
