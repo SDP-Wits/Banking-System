@@ -67,6 +67,8 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
   List<String> months = [];
   List<specificAccount> transactionsForAccount = [];
 
+  Map<int, int> monthToCurr = {};
+
   // All transactions (logs) are retrieved for the specific account
   List<specificAccount>? logs;
 
@@ -118,18 +120,6 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
           months = [...months];
           finishLoad = true;
         });
-
-        print("\n\n\n");
-        print("===================");
-        for (specificAccount acc in transactionsForAccount) {
-          print("accFrom: " + acc.accountFrom);
-          print("accTo: " + acc.accountTo);
-          print("amount: " + acc.amount.toString());
-          print("referenceNumber: " + acc.referenceNumber);
-        }
-
-        print("===================");
-        print("\n\n\n");
       });
     });
 
@@ -386,8 +376,7 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
               ),
             ],
           ),
-        )
-    );
+        ));
   }
 
   // ========================================================== PHONE ==============================================

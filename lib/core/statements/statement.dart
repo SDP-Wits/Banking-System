@@ -60,9 +60,9 @@ class Statement {
     final pdf = pw.Document();
 
     final font = (kIsWeb)
-        ? await rootBundle.load("fonts/Montserrat/Montserrat-Regular.ttf")
+        ? await rootBundle.load("fonts/Montserrat/Montserrat-Medium.ttf")
         : await rootBundle
-            .load("assets/fonts/Montserrat/Montserrat-Regular.ttf");
+            .load("assets/fonts/Montserrat/Montserrat-Medium.ttf");
 
     final tff = pw.Font.ttf(font);
 
