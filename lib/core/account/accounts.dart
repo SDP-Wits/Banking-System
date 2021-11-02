@@ -118,10 +118,10 @@ class _AccountsState extends State<Accounts> {
             gradient: backgroundGradient,
           ),
           child: Stack(
-              children: [
-                SingleChildScrollView(
-                  physics: ScrollPhysics(),
-                  child: Column(
+            children: [
+              SingleChildScrollView(
+                physics: ScrollPhysics(),
+                child: Column(
                   children: [
                     if (size.width > tabletWidth) DesktopTabNavigator(),
                     if (MediaQuery.of(context).size.width <= tabletWidth)
@@ -171,7 +171,8 @@ class _AccountsState extends State<Accounts> {
                           itemCount: acc.length,
                           itemBuilder: (BuildContext context, int index) {
                             return Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 24.0),
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 24.0),
                               child: AccountCardInfo(
                                 accountType: acc[index].accountType,
                                 accountNumber: acc[index].accountNumber,
@@ -186,23 +187,20 @@ class _AccountsState extends State<Accounts> {
                             );
                           }),
                     ),
-                    
                   ],
-                  
                 ),
-                ),
-                (acc.length < uniqueAccountTypes)
-                        //If and only if, the number of accounts the user has is less than the number of
-                        //unique accounts, show the + circle button. The user can click on this and it will
-                        //take them to the create accounts screen
-                        ? new Positioned(
-                          left: size.width - 100,
-                          top: size.height - 100,
-                          child: floatingCreateAccount(context)
-                        )
-                        : Container(width: 0, height: 0)
-              ],
-            ),
+              ),
+              (acc.length < uniqueAccountTypes)
+                  //If and only if, the number of accounts the user has is less than the number of
+                  //unique accounts, show the + circle button. The user can click on this and it will
+                  //take them to the create accounts screen
+                  ? new Positioned(
+                      left: size.width - 100,
+                      top: size.height - 100,
+                      child: floatingCreateAccount(context, "Add Account"))
+                  : Container(width: 0, height: 0)
+            ],
+          ),
         ),
       );
     } else if (finishedGetData) {

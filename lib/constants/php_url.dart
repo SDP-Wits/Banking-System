@@ -25,6 +25,8 @@ const String make_transfer = "make_transfer.php";
 const String make_payment = "make_payment.php";
 const String get_client_id = "get_client_id.php";
 const String select_previous_transactions = "select_previous_transactions.php";
+const String get_account_type_by_account_number =
+    "get_account_type_by_account_number.php";
 
 // coverage:ignore-end
 // this file stores all the php file names for http requests

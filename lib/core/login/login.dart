@@ -35,7 +35,9 @@ class _LoginPageState extends State<LoginPage> {
       BackButtonInterceptor.removeAll();
     }
 
-    emptyTextLogin();
+    Future.delayed(Duration(milliseconds: 500)).then((_) {
+      emptyTextLogin();
+    });
   }
 
   //What happens when you press the back button, exit the app

@@ -34,7 +34,9 @@ class _NoAccountState extends State<NoAccount> {
         ? buildLoadingScreen(context)
         : Scaffold(
             drawer: Navigation(
-                clientName: user!.firstName, clientSurname: user!.lastName,context: context),
+                clientName: user!.firstName,
+                clientSurname: user!.lastName,
+                context: context),
             body: Container(
               decoration: BoxDecoration(
                 gradient: backgroundGradient,
@@ -43,7 +45,7 @@ class _NoAccountState extends State<NoAccount> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   if (MediaQuery.of(context).size.width > tabletWidth)
-                  DesktopTabNavigator(),
+                    DesktopTabNavigator(),
                   Center(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 90.0),
@@ -58,7 +60,7 @@ class _NoAccountState extends State<NoAccount> {
                       ),
                     ),
                   ),
-                  floatingCreateAccount(context),
+                  floatingCreateAccount(context, "Create Account"),
                 ],
               ),
             ),
@@ -66,7 +68,7 @@ class _NoAccountState extends State<NoAccount> {
   }
 }
 
-Widget floatingCreateAccount(BuildContext context) {
+Widget floatingCreateAccount(BuildContext context, String heroTag) {
   return Row(
     mainAxisSize: MainAxisSize.max,
     mainAxisAlignment: MainAxisAlignment.end,
@@ -74,6 +76,7 @@ Widget floatingCreateAccount(BuildContext context) {
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
         child: FloatingActionButton(
+            heroTag: heroTag,
             backgroundColor: Colors.white,
             child: Text(
               '+',

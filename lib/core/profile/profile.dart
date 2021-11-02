@@ -98,39 +98,36 @@ class _ProfileState extends State<Profile> {
 
   Widget desktopLayout(BuildContext context) {
     final size = getSize(context);
-    return Scaffold(
+    return Container(
       key: _scaffoldKey,
-      body: Container(
-        height: size.height,
-        width: size.width,
-        child: SingleChildScrollView(
-          child: Container(
-            width: size.width,
-            height: size.height,
+      width: size.width,
+      height: size.height,
+      child: SingleChildScrollView(
+        child: Column(
+            //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisSize: MainAxisSize.min,
+          children: [
+          (me![0].status != "Pending")
+              ? DesktopTabNavigator()
+              : DesktopTabNavigator(
+                  isPending: true,
+                ),
+          Container(
+            // height: size.height / 2,
+            width: size.width * 1,
+            padding: EdgeInsets.symmetric(vertical: 30),
+            decoration: BoxDecoration(
+            gradient: backgroundGradient,
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(25.0),
+              bottomRight: Radius.circular(25.0),
+              // topRight: borderRadius,
+              ),
+            ),
             child: Column(
                 //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  (me![0].status != "Pending")
-                      ? DesktopTabNavigator()
-                      : DesktopTabNavigator(
-                          isPending: true,
-                        ),
-                  Container(
-                    // height: size.height / 2,
-                    width: size.width * 1,
-                    padding: EdgeInsets.symmetric(vertical: 30),
-                    decoration: BoxDecoration(
-                      gradient: backgroundGradient,
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(25.0),
-                        bottomRight: Radius.circular(25.0),
-                        // topRight: borderRadius,
-                      ),
-                    ),
-                    child: Column(
-                        //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          if (MediaQuery.of(context).size.width <= tabletWidth)
+                  if (MediaQuery.of(context).size.width <= tabletWidth)
                             Align(
                               alignment: Alignment.topLeft,
                               child: IconButton(
@@ -161,7 +158,7 @@ class _ProfileState extends State<Profile> {
                           subsubHeading(user!.idNumber),
                         ]),
                   ),
-                  Expanded(
+          Container(
                       child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     mainAxisSize: MainAxisSize.max,
@@ -192,9 +189,8 @@ class _ProfileState extends State<Profile> {
                     ],
                   )),
                 ]),
-          ),
+
         ),
-      ),
     );
   }
 

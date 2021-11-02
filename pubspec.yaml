@@ -35,6 +35,10 @@ dependencies:
   #scrollable_positioned_list: ^0.1.10
   mockito: ^5.0.10
   hovering: ^1.0.4
+  pdf: ^3.6.1
+  open_file: ^3.1.0
+  universal_html: ^2.0.8
+  tuple: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -59,7 +63,9 @@ flutter:
   assets:
     - assets/images/logo.png
     - assets/images/logo1.png
+    - assets/images/colour_logo.png
     - assets/images/appIcon.png
+    - assets/images/logo_black.png
     #images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

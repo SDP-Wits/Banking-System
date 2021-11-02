@@ -14,12 +14,13 @@ import 'core/login/login.dart';
 
 // coverage:ignore-start
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
-  // hrllo
+  // hello
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -51,6 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // TODO: Comment before final release
     // autoLogin(context);
     // autoLoginWeb("7899876543210", "Joker@123", true, context);
+    autoLoginWeb("9999999999999", "Password@123", true, context);
   }
 
   @override
