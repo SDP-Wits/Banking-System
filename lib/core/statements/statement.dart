@@ -29,7 +29,7 @@ class Statement {
       final anchor = html.AnchorElement()
         ..href = url
         ..style.display = 'none'
-        ..download = 'my_statement.pdf';
+        ..download = name;
       html.document.body?.children.add(anchor);
       anchor.click();
       html.document.body?.children.remove(anchor);
@@ -70,8 +70,8 @@ class Statement {
     final tff = pw.Font.ttf(font);
 
     final logoData = (kIsWeb)
-        ? (await rootBundle.load("images/logo_black.png")).buffer.asUint8List()
-        : (await rootBundle.load("assets/images/logo_black.png"))
+        ? (await rootBundle.load("images/colour_logo.png")).buffer.asUint8List()
+        : (await rootBundle.load("assets/images/colour_logo.png"))
             .buffer
             .asUint8List();
 
@@ -94,7 +94,8 @@ class Statement {
       },
     ));
 
-    return Statement.saveDocument(name: 'my_statement_$month.pdf', pdf: pdf);
+    return Statement.saveDocument(
+        name: currAccount.accountNumber + "_" + month + ".pdf", pdf: pdf);
   }
 
   static pw.Widget buildCustomHeader(pw.Font tff, Uint8List logoData) =>
