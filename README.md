@@ -16,3 +16,4 @@ The purpose of this project is to create both a mobile application and a web bas
 1. Shravan Singh
 1. Mohammed Gathoo
 1. Kiara Gabriel
+1. Aaliya Makda
