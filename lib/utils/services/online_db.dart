@@ -201,8 +201,7 @@ Future<List<thisUser>> getClientDetails(String idNumber) async {
 }
 
 //Verify an unverified client
-Future<String> verifyClient(String clientIdNumber, String adminIdNumber,    String clientStatus, String php) async {
-  String date = getDate();  final Map<String, String> arguments = {    "clientIdNum": clientIdNumber,    "adminIdNum": adminIdNumber,    "currentDate": date,    "verificationStatus": clientStatus,  };  Map data = (await getURLData(url: urlPath + php, data: arguments))[0];  bool status = data["status"];
+Future<String> verifyClient(String clientIdNumber, String adminIdNumber,    String clientStatus, String php) async {String date = getDate();  final Map<String, String> arguments = {    "clientIdNum": clientIdNumber,    "adminIdNum": adminIdNumber,    "currentDate": date,    "verificationStatus": clientStatus,  };  Map data = (await getURLData(url: urlPath + php, data: arguments))[0];  bool status = data["status"];
 
   if (status) {
     return dbSuccess;
@@ -375,18 +374,7 @@ Future<List<specificAccount>> getSpecificAccount(String accNum) async {
 
 //Get Account Type from Account Number
 //Getting specific account details
-Future<String?> getAccountTypeFromAccNumber(String accNum) async {
-  final String url = urlPath + get_account_type_by_account_number;
-
-  final Map<String, String> arguments = {
-    "accountNumber": accNum,
-  };
-
-  final List<Map> data = (await getURLData(url: url, data: arguments));
-
-  if (data[0].containsKey("status")) {
-    if (!data[0]["status"]) {
-      print(data[0]["error"]);
+Future<String?> getAccountTypeFromAccNumber(String accNum) async {  final String url = urlPath + get_account_type_by_account_number;final Map<String, String> arguments = {    "accountNumber": accNum,  };  final List<Map> data = (await getURLData(url: url, data: arguments));  if (data[0].containsKey("status")) {    if (!data[0]["status"]) {      print(data[0]["error"]);
       return null;
     }
   }
@@ -448,71 +436,12 @@ Future<String> makeTransfer(
   return "Failed to make transfer";
 }
 
-Future<String> makePayment(
-    String recipientClientID,
-    String accountFrom,
-    String accountTo,
-    String amount,
-    String refName,
-    String clientID,
-    String clientName) async {
-  final String url = urlPath + make_payment;  final Map<String, String> arguments = {
-    "recipientClientID": recipientClientID,
-    "accFrom": accountFrom,
-    "clientID": clientID,
-    "clientName": clientName,
-    "amt": amount,
-    "accTo": accountTo,
-    "refname": refName,
-  };
-
-  final Map data = (await getURLData(    url: url,    data: arguments,  ))[0];  if (data["status"]) {
-    return dbSuccess;
-  }
-
-  return "Failed to make transfer";
+Future<String> makePayment(    String recipientClientID,    String accountFrom,    String accountTo,    String amount,    String refName,    String clientID,    String clientName) async {  final String url = urlPath + make_payment;  final Map<String, String> arguments = {"recipientClientID": recipientClientID,    "accFrom": accountFrom,    "clientID": clientID,    "clientName": clientName,    "amt": amount,    "accTo": accountTo,    "refname": refName,  };  final Map data = (await getURLData(    url: url,    data: arguments,  ))[0];  if (data["status"]) {    return dbSuccess;  }  return "Failed to make transfer";
 }
 
-//Insert admin to database
-Future<String> insertAdmin({
-  required String firstName,
-  String middleName = "",
-  required String lastName,
-  required String age,
-  required String phoneNum,
-  required String email,
-  required String idNum,
-  required String password,
-  required String secretKey,
-  required String currentDate,
-  required String streetName,
-  required String streetNum,
-  required String suburb,
-  required String province,
-  required String country,
-  required String apartmentNum,
-}) async {
-  final String url = urlPath + insert_admin;  final Map<String, String> arguments = {
-    "firstName": firstName,
-    "middleName": middleName,
-    "lastName": lastName,
-    "age": age,
-    "phoneNum": phoneNum,
-    "email": email,
-    "idNum": idNum,
-    "password": password,
-    "secretKey": secretKey,
-    "currentDate": currentDate,
-    "streetName": streetName,
-    "streetNum": streetNum,
-    "suburb": suburb,
-    "province": province,
-    "country": country,
-    "apartmentNum": apartmentNum,
-  };
+Future<String> insertAdmin({  required String firstName,  String middleName = "",  required String lastName,  required String age,  required String phoneNum,  required String email,  required String idNum,  required String password,  required String secretKey,  required String currentDate,  required String streetName,  required String streetNum,  required String suburb,  required String province,  required String country,  required String apartmentNum,}) async {  final String url = urlPath + insert_admin;  final Map<String, String> arguments = {    "firstName": firstName,    "middleName": middleName,    "lastName": lastName,    "age": age,    "phoneNum": phoneNum,    "email": email,    "idNum": idNum,    "password": password,    "secretKey": secretKey,    "currentDate": currentDate,    "streetName": streetName,    "streetNum": streetNum,    "suburb": suburb,    "province": province,    "country": country,    "apartmentNum": apartmentNum,  };   Map data =      (await getURLData(url: url, data: arguments))[0]; return (data["status"]) ? data["details"] : data["error"];
 
-  // print(urlPath + phpFileToUse + arguments);
-  Map data =      (await getURLData(url: url, data: arguments))[0]; return (data["status"]) ? data["details"] : data["error"];
+
 }
 
 //Insert client to database
