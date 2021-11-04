@@ -210,6 +210,7 @@ bool hasInputErrorSurname(String surname) {
 }
 
 // returns the current date
+// coverage:ignore-line
 String currentDate() {
   // coverage:ignore-start
   var now = new DateTime.now();
