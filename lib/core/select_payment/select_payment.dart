@@ -134,6 +134,7 @@ class _SelectPaymentPageState extends State<SelectPaymentPage> {
             (size.width < tabletWidth)
                 ? Container(
                     alignment: Alignment.center,
+                    padding: EdgeInsets.symmetric(horizontal: 15),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       mainAxisSize: MainAxisSize.max,
