@@ -290,89 +290,96 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
                           padding: EdgeInsets.only(top: 30),
                         ),
 
-                        Row(children: [
-                          Text(
-                            'Add New Transaction:',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontFamily: fontMont,
-                            ),
-                          ),
-
-                          // Spacing
-                          Padding(
-                            padding: EdgeInsets.only(right: 45),
-                          ),
-
-                          // Floating + button
-                          Container(
-                            width: 50,
-                            height: 50,
-                            alignment: Alignment.centerRight,
-                            child: FloatingActionButton(
-                              heroTag: "Add Transaction",
-                              onPressed: () {
-                                //When floating action button is pressed
-                                //this will go to 'select payment method' page
-                                goToSelectPayment(context);
-                              },
-                              backgroundColor: Colors.teal,
-                              child: Text(
-                                '+',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 30,
-                                  fontFamily: fontMont,
+                        Row(
+                          children: [
+                            Column(
+                              children: [
+                                Text(
+                                  'Add New Transaction:',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontFamily: fontMont,
+                                  ),
                                 ),
-                              ),
-                            ),
-                          ),
-                        ]),
 
-                        // Spacing
-                        Padding(
-                          padding: EdgeInsets.only(top: 40),
+                                // Spacing
+                                Padding(
+                                  padding: EdgeInsets.only(top: 40),
+                                ),
+
+                                Text(
+                                  'Request Statement PDF:',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontFamily: fontMont,
+                                  ),
+                                ),
+                              ],
+                            ),
+
+                            // Spacing
+                            Padding(
+                              padding: EdgeInsets.only(right: 45),
+                            ),
+
+                            Column(
+                              children: [
+                                Container(
+                                  width: 50,
+                                  height: 50,
+                                  alignment: Alignment.centerRight,
+                                  child: FloatingActionButton(
+                                    heroTag: "Add Transaction",
+                                    onPressed: () {
+                                      //When floating action button is pressed
+                                      //this will go to 'select payment method' page
+                                      goToSelectPayment(context);
+                                    },
+                                    backgroundColor: Colors.teal,
+                                    child: Text(
+                                      '+',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 30,
+                                        fontFamily: fontMont,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+
+                                // Spacing
+                                Padding(
+                                  padding: EdgeInsets.only(top: 30),
+                                ),
+
+                                // Floating + button
+                                Container(
+                                  width: 50,
+                                  height: 50,
+                                  child: FloatingActionButton(
+                                    heroTag: "Choose Month for Statement",
+                                    onPressed: () {
+                                      //Choose Previous Months
+                                      showMonthDialog(
+                                          context,
+                                          months,
+                                          transactionsForAccount,
+                                          currAccount,
+                                          monthToCurr);
+                                    },
+                                    backgroundColor: Colors.teal,
+                                    child: Icon(
+                                      Icons.print,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
-
-                        Row(children: [
-                          Text(
-                            'Request Statement PDF:',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontFamily: fontMont,
-                            ),
-                          ),
-
-                          // Spacing
-                          Padding(
-                            padding: EdgeInsets.only(right: 30),
-                          ),
-
-                          // Floating + button
-                          Container(
-                            width: 50,
-                            height: 50,
-                            child: FloatingActionButton(
-                              heroTag: "Choose Month for Statement",
-                              onPressed: () {
-                                //Choose Previous Months
-                                showMonthDialog(
-                                    context,
-                                    months,
-                                    transactionsForAccount,
-                                    currAccount,
-                                    monthToCurr);
-                              },
-                              backgroundColor: Colors.teal,
-                              child: Icon(
-                                Icons.print,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ]),
                       ],
                     ),
                     Column(
