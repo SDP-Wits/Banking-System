@@ -2,7 +2,7 @@ import multiprocessing
 import time
 import requests
 all_ids = ['37','41','35','41','36','45']
-url = 'http://execution-empire.c1.biz/php/select_client_log.php?clientID='
+url = 'http://execution-empire.co.za/php/select_client_log.php?clientID='
 arr = []
 
 for i in range(len(all_ids)):
