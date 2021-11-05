@@ -23,7 +23,10 @@ class _buttonRejectClientState extends State<buttonRejectClient> {
       child: Container(
         alignment: Alignment.center,
         height: 40,
-        width: (size.width < tabletWidth) ? size.width / 3 : size.width * 0.2,
+        width: (size.width < tabletWidth) ? size.width / 3 : size.width * 0.1,
+        // margin: (size.width >= tabletWidth)
+        //     ? EdgeInsets.symmetric(vertical: 10, horizontal: 15)
+        //     : null,
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
