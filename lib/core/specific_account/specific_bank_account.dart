@@ -495,87 +495,82 @@ class _SpecificAccountPageState extends State<SpecificAccountPage>
           left: 0,
           right: 0,
           child: Container(
-            child: SingleChildScrollView(
-              child: Column(children: [
-                if (MediaQuery.of(context).size.width > tabletWidth)
-                  DesktopTabNavigator(),
+            child:
+                Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+              if (MediaQuery.of(context).size.width > tabletWidth)
+                DesktopTabNavigator(),
 
-                // Three-line menu bar on the top to open the navigation drawer
-                if (MediaQuery.of(context).size.width <= tabletWidth)
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: IconButton(
-                      icon: Icon(Icons.menu, color: Colors.white),
-                      onPressed: () {
-                        _scaffoldKey.currentState!.openDrawer();
-                      },
+              // Three-line menu bar on the top to open the navigation drawer
+              if (MediaQuery.of(context).size.width <= tabletWidth)
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: IconButton(
+                    icon: Icon(Icons.menu, color: Colors.white),
+                    onPressed: () {
+                      _scaffoldKey.currentState!.openDrawer();
+                    },
+                  ),
+                ),
+
+              Expanded(
+                  child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  // Card widget that displays the user's specific account details
+                  Container(
+                    width: (size.width < tabletWidth) ? null : size.width * 0.5,
+                    alignment: Alignment.topCenter,
+                    padding: EdgeInsets.symmetric(vertical: 15),
+                    child: AccountCardInfo(
+                      accountType: this.widget.acc.accountType,
+                      accountNumber: this.widget.acc.accountNumber,
+                      firstName: this.widget.acc.fName,
+                      middleNames: this.widget.acc.mName,
+                      lastName: this.widget.acc.lName,
+                      cardType: "VISA",
+                      currAmount: this.widget.acc.currentBalance,
+                      accountTypeId: this.widget.acc.accountTypeId,
+                      canSwipe: false,
                     ),
                   ),
 
-                // Spacing
-                Padding(
-                  padding: EdgeInsets.only(top: 20),
-                ),
+                  // Spacing
+                  Padding(
+                    padding: EdgeInsets.only(left: 15, right: 15),
 
-                // Card widget that displays the user's specific account details
-                Container(
-                  width: (size.width < tabletWidth) ? null : size.width * 0.5,
-                  alignment: Alignment.topCenter,
-                  padding: EdgeInsets.symmetric(vertical: 15),
-                  child: AccountCardInfo(
-                    accountType: this.widget.acc.accountType,
-                    accountNumber: this.widget.acc.accountNumber,
-                    firstName: this.widget.acc.fName,
-                    middleNames: this.widget.acc.mName,
-                    lastName: this.widget.acc.lName,
-                    cardType: "VISA",
-                    currAmount: this.widget.acc.currentBalance,
-                    accountTypeId: this.widget.acc.accountTypeId,
-                    canSwipe: false,
+                    // Function is at the bottom
+                    child: heading(
+                        currAcc, months, transactionsForAccount, monthToCurr),
                   ),
-                ),
 
-                // Spacing
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 18),
-                ),
-
-                // Spacing
-                Padding(
-                  padding: EdgeInsets.only(left: 15, right: 15),
-
-                  // Function is at the bottom
-                  child: heading(
-                      currAcc, months, transactionsForAccount, monthToCurr),
-                ),
-
-                // Swipe up arrow to indicate to the user that they need to swipe up
-                GestureDetector(
-                  onTap: () {
-                    animationController!.animateTo(size.width * 0.5);
-                  },
-                  child: Padding(
-                    padding: EdgeInsets.only(bottom: 5, top: size.height * 0.2),
-                    child: Icon(
-                      Icons.arrow_upward,
-                      color: Colors.teal,
-                      size: 36.0,
+                  // Swipe up arrow to indicate to the user that they need to swipe up
+                  GestureDetector(
+                    onTap: () {
+                      animationController!.animateTo(size.width * 0.5);
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.only(bottom: 5, top: 5),
+                      child: Icon(
+                        Icons.arrow_upward,
+                        color: Colors.teal,
+                        size: 36.0,
+                      ),
                     ),
                   ),
-                ),
 
-                // Title
-                Text(
-                  "Swipe Up/Tap for Transaction History",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: fontMont,
-                    fontSize: 20,
+                  // Title
+                  Text(
+                    "Swipe Up/Tap for Transaction History",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: fontMont,
+                      fontSize: 20,
+                    ),
                   ),
-                ),
-              ]),
-            ),
+                ],
+              )),
+            ]),
           ),
         ),
 
