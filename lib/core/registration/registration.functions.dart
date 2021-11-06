@@ -55,6 +55,10 @@ bool fullvalidation() {
     flag = false;
   }
 
+  if (Data.secretKey.trim().length == 0) {
+    flag = false;
+  }
+
   if (Address.suburb.length == 0) {
     flag = false;
   }

@@ -16,7 +16,7 @@ class SecretKey extends StatefulWidget {
 class _SecretKeyState extends State<SecretKey> {
   @override
   String key = "";
-  bool _haserrors = false;
+  bool _haserrors = true;
 
   Widget build(BuildContext context) {
     return Padding(
@@ -54,7 +54,7 @@ class _SecretKeyState extends State<SecretKey> {
 }
 
 bool hasInputErrorsSecret(String skey) {
-  if (skey.length == 0) {
+  if (skey.trim().length == 0) {
     return true;
   } else {
     return false;
