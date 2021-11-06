@@ -88,6 +88,9 @@ bool fullvalidation() {
   if (Data.password1 != Data.password2) {
     flag = false;
   }
+  if (Data.secretKey.length == 0 && Data.is_client == false){
+    flag = false;
+  }
   return flag;
 }
 
