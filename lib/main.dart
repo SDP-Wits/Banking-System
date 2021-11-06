@@ -52,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // TODO: Comment before final release
     // autoLogin(context);
     // autoLoginWeb("7899876543210", "Joker@123", true, context);
-    // autoLoginWeb("9999999999999", "Password@123", true, context);
+    autoLoginWeb("9999999999999", "Password@123", true, context);
     // autoLoginWeb("0005270315648", "Lily@123", false, context);
   }
 

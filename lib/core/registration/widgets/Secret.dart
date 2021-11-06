@@ -16,7 +16,7 @@ class SecretKey extends StatefulWidget {
 class _SecretKeyState extends State<SecretKey> {
   @override
   String key = "";
-  bool _haserrors = true;
+  bool _haserrors = false;
 
   Widget build(BuildContext context) {
     return Padding(
