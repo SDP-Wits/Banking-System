@@ -151,7 +151,7 @@ class _TimelineListPageState extends State<TimelinePage> {
                             Color colorToUse = (logs![index]
                                     .logDescription
                                     .contains("Payment"))
-                                ? (logs![index].logDescription.contains("from"))
+                                ? (logs![index].logDescription.contains("to"))
                                     ? Colors.green[600]!
                                     : Colors.red[500]!
                                 : (logs![index].logDescription.contains("from"))
