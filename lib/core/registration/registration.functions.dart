@@ -55,7 +55,7 @@ bool fullvalidation() {
     flag = false;
   }
 
-  if (Data.secretKey.trim().length == 0) {
+  if (!Data.is_client && Data.secretKey.trim().length == 0) {
     flag = false;
   }
 
