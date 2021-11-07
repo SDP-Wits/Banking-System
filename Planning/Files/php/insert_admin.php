@@ -55,13 +55,13 @@ if($check1 and $check2) {
     if($check_admin['RESULT'] != '0'){
 		echo json_encode(
 			array(
-				array("status" => FALSE, "details" => "User with ID number already exists")
+				array("status" => FALSE, "error" => "User with ID number already exists")
 			)
 		);
     } elseif ($check_secret_key['RESULT'] == '0') {
 		echo json_encode(
 			array(
-				array("status" => FALSE, "details" => "Invalid Secret Key")
+				array("status" => FALSE, "error" => "Invalid Secret Key")
 			)
 		);
 	} else	{
@@ -97,5 +97,3 @@ if($check1 and $check2) {
 	
 
 $conn->close();
-
-?>

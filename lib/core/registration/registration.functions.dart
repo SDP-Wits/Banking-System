@@ -54,11 +54,24 @@ bool fullvalidation() {
   if (Address.streetName.length == 0) {
     flag = false;
   }
+
+  if (!Data.is_client && Data.secretKey.trim().length == 0) {
+    flag = false;
+  }
+
+  if (Address.suburb.length == 0) {
+    flag = false;
+  }
+
+  if (Address.province.length == 0) {
+    flag = false;
+  }
+
   if (Data.name.length == 0) {
     flag = false;
   }
   if (Data.phone.length != 10) {
-    //checks if phone num is of length 13
+    //checks if phone num is of length 10
     flag = false;
   }
   bool hasLetters = double.tryParse(Data.phone) !=
@@ -73,6 +86,9 @@ bool fullvalidation() {
     flag = false;
   }
   if (Data.password1 != Data.password2) {
+    flag = false;
+  }
+  if (Data.secretKey.length == 0 && Data.is_client == false){
     flag = false;
   }
   return flag;
@@ -201,6 +217,7 @@ bool hasInputErrorSurname(String surname) {
 }
 
 // returns the current date
+// coverage:ignore-line
 String currentDate() {
   // coverage:ignore-start
   var now = new DateTime.now();
@@ -209,14 +226,12 @@ String currentDate() {
   return formattedDate;
 }
 
-
-
 void setCheck(bool check) {
   finalCheck = check;
 }
 
 bool getCheck() {
-  if (finalCheck){
+  if (finalCheck) {
     return fullvalidation();
   }
   return false;

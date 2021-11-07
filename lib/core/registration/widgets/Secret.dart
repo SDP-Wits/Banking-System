@@ -54,7 +54,7 @@ class _SecretKeyState extends State<SecretKey> {
 }
 
 bool hasInputErrorsSecret(String skey) {
-  if (skey.length == 0) {
+  if (skey.trim().length == 0) {
     return true;
   } else {
     return false;

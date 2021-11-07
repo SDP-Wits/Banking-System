@@ -148,8 +148,13 @@ class _TimelineListPageState extends State<TimelinePage> {
                           physics: ScrollPhysics(),
                           itemCount: logs!.length,
                           itemBuilder: (BuildContext context, int index) {
-                            Color colorToUse =
-                                (logs![index].logDescription.contains("from"))
+                            Color colorToUse = (logs![index]
+                                    .logDescription
+                                    .contains("Payment"))
+                                ? (logs![index].logDescription.contains("to"))
+                                    ? Colors.green[600]!
+                                    : Colors.red[500]!
+                                : (logs![index].logDescription.contains("from"))
                                     ? Colors.red[500]!
                                     : Colors.green[600]!;
 

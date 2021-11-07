@@ -195,7 +195,7 @@ class _AdminVerificationListPageState extends State<AdminVerificationListPage> {
                                     child: Container(color: Colors.transparent),
                                   ),
                                   Expanded(
-                                    flex: 8, // 60%
+                                    flex: 10, // 60%
                                     child: ListView.builder(
                                         shrinkWrap: true,
                                         physics: ScrollPhysics(),

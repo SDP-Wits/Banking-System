@@ -45,30 +45,13 @@ Future<List<Map<String, dynamic>>> getURLData(
       return map;
     } else {
       //coverage-ignore-line
-      print("Oi, the url that just failed was : $url");
-      return [
-        {"error": "Failed to get data from database"}
-      ];
+      print("Oi, the url that just failed was : $url");return [{"error": "Failed to get data from database"}];
     }
     //coverage-ignore-line
-  } on SocketException catch (e) {
-    print("Database down");
-    print(e.toString());
-    Fluttertoast.showToast(msg: "The database's server is down :(");
-    return [
-      {"status": false, "error": "Failed to connect to database"}
-    ];
+  } on SocketException catch (e) {    print("Database down");    print(e.toString());Fluttertoast.showToast(msg: "The database's server is down :(");return [{"status": false, "error": "Failed to connect to database"}];
   } catch (e) {
     //coverage-ignore-line
-    print("php script might be messed up");
-    print(url);
-    print(e.toString());
-    Fluttertoast.showToast(
-        msg:
-            "Whoops, we encounted an issue. Please try again or contact support");
-    return [
-      {"status": false, "error": "Failed to get your information"}
-    ];
+    print("php script might be messed up");print(url);print(e.toString());Fluttertoast.showToast( msg:"Whoops, we encounted an issue. Please try again or contact support");return [{"status": false, "error": "Failed to get your information"}];
   }
 }
 //Log the user in, based off whether they are a client or not
@@ -101,44 +84,12 @@ Future<String> userLoginOnline(
 
   bool isAdmin = !isClientLogin;
   //coverage:ignore-start
-  User user = User(
-    (isAdmin) ? int.parse(data["adminID"]) : int.parse(data["clientID"]),
-    data["firstName"],
-    data["middleName"],
-    data["lastName"],
-    int.parse(data["age"]),
-    data["phoneNumber"],
-    data["email"],
-    data["idNumber"],
-    data["password"],
-    isAdmin,
-    int.parse(data["streetNumber"]),
-    data["streetName"],
-    data["suburb"],
-    data["province"],
-    data["country"],
-    int.parse(data["apartmentNumber"]),
+  User user = User( (isAdmin) ? int.parse(data["adminID"]) : int.parse(data["clientID"]),    data["firstName"],   data["middleName"],    data["lastName"],    int.parse(data["age"]),   data["phoneNumber"],    data["email"],    data["idNumber"],    data["password"],    isAdmin,    int.parse(data["streetNumber"]),    data["streetName"],    data["suburb"],    data["province"],    data["country"],int.parse(data["apartmentNumber"]),
     //coverage:ignore-end
   );
 
   //coverage:ignore-start
-  return await LocalDatabaseHelper.instance.addUserDetails(
-      user.userID,
-      user.email,
-      user.phoneNumber,
-      user.idNumber,
-      user.hashPassword,
-      user.age,
-      user.firstName,
-      user.middleName,
-      user.lastName,
-      user.isAdmin,
-      user.address.streetNumber,
-      user.address.streetName,
-      user.address.suburb,
-      user.address.province,
-      user.address.country,
-      user.address.apartmentNumber);
+  return await LocalDatabaseHelper.instance.addUserDetails(      user.userID,      user.email,      user.phoneNumber,      user.idNumber,      user.hashPassword,      user.age,      user.firstName,      user.middleName,      user.lastName,      user.isAdmin,      user.address.streetNumber,      user.address.streetName,      user.address.suburb,      user.address.province,      user.address.country,      user.address.apartmentNumber);
   //coverage:ignore-end
 }
 
@@ -250,19 +201,7 @@ Future<List<thisUser>> getClientDetails(String idNumber) async {
 }
 
 //Verify an unverified client
-Future<String> verifyClient(String clientIdNumber, String adminIdNumber,
-    String clientStatus, String php) async {
-  String date = getDate();
-  final Map<String, String> arguments = {
-    "clientIdNum": clientIdNumber,
-    "adminIdNum": adminIdNumber,
-    "currentDate": date,
-    "verificationStatus": clientStatus,
-  };
-
-  Map data = (await getURLData(url: urlPath + php, data: arguments))[0];
-
-  bool status = data["status"];
+Future<String> verifyClient(String clientIdNumber, String adminIdNumber,    String clientStatus, String php) async {String date = getDate();  final Map<String, String> arguments = {    "clientIdNum": clientIdNumber,    "adminIdNum": adminIdNumber,    "currentDate": date,    "verificationStatus": clientStatus,  };  Map data = (await getURLData(url: urlPath + php, data: arguments))[0];  bool status = data["status"];
 
   if (status) {
     return dbSuccess;
@@ -362,17 +301,9 @@ Future<String> createAccount(
 }
 
 //Get all the details for all the user's accounts
-Future<List<accountDetails>> getAccountDetails(String idNumber) async {
-  final String url = urlPath + select_client_account;
+Future<List<accountDetails>> getAccountDetails(String idNumber) async {  final String url = urlPath + select_client_account;
 
-  final Map<String, String> arguments = {
-    "idNum": idNumber,
-  };
-
-  final List<Map> data = await getURLData(
-    url: url,
-    data: arguments,
-  );
+  final Map<String, String> arguments = {    "idNum": idNumber,  };  final List<Map> data = await getURLData(    url: url,    data: arguments,  );
 
   List<accountDetails> accounts = [];
 
@@ -443,18 +374,7 @@ Future<List<specificAccount>> getSpecificAccount(String accNum) async {
 
 //Get Account Type from Account Number
 //Getting specific account details
-Future<String?> getAccountTypeFromAccNumber(String accNum) async {
-  final String url = urlPath + get_account_type_by_account_number;
-
-  final Map<String, String> arguments = {
-    "accountNumber": accNum,
-  };
-
-  final List<Map> data = (await getURLData(url: url, data: arguments));
-
-  if (data[0].containsKey("status")) {
-    if (!data[0]["status"]) {
-      print(data[0]["error"]);
+Future<String?> getAccountTypeFromAccNumber(String accNum) async {  final String url = urlPath + get_account_type_by_account_number;final Map<String, String> arguments = {    "accountNumber": accNum,  };  final List<Map> data = (await getURLData(url: url, data: arguments));  if (data[0].containsKey("status")) {    if (!data[0]["status"]) {      print(data[0]["error"]);
       return null;
     }
   }
@@ -516,80 +436,12 @@ Future<String> makeTransfer(
   return "Failed to make transfer";
 }
 
-Future<String> makePayment(
-    String recipientClientID,
-    String accountFrom,
-    String accountTo,
-    String amount,
-    String refName,
-    String clientID,
-    String clientName) async {
-  final String url = urlPath + make_payment;
-  final Map<String, String> arguments = {
-    "recipientClientID": recipientClientID,
-    "accFrom": accountFrom,
-    "clientID": clientID,
-    "clientName": clientName,
-    "amt": amount,
-    "accTo": accountTo,
-    "refname": refName,
-  };
-
-  final Map data = (await getURLData(
-    url: url,
-    data: arguments,
-  ))[0];
-
-  if (data["status"]) {
-    return dbSuccess;
-  }
-
-  return "Failed to make transfer";
+Future<String> makePayment(    String recipientClientID,    String accountFrom,    String accountTo,    String amount,    String refName,    String clientID,    String clientName) async {  final String url = urlPath + make_payment;  final Map<String, String> arguments = {"recipientClientID": recipientClientID,    "accFrom": accountFrom,    "clientID": clientID,    "clientName": clientName,    "amt": amount,    "accTo": accountTo,    "refname": refName,  };  final Map data = (await getURLData(    url: url,    data: arguments,  ))[0];  if (data["status"]) {    return dbSuccess;  }  return "Failed to make transfer";
 }
 
-//Insert admin to database
-Future<String> insertAdmin({
-  required String firstName,
-  String middleName = "",
-  required String lastName,
-  required String age,
-  required String phoneNum,
-  required String email,
-  required String idNum,
-  required String password,
-  required String secretKey,
-  required String currentDate,
-  required String streetName,
-  required String streetNum,
-  required String suburb,
-  required String province,
-  required String country,
-  required String apartmentNum,
-}) async {
-  final String url = urlPath + insert_admin;
-  final Map<String, String> arguments = {
-    "firstName": firstName,
-    "middleName": middleName,
-    "lastName": lastName,
-    "age": age,
-    "phoneNum": phoneNum,
-    "email": email,
-    "idNum": idNum,
-    "password": password,
-    "secretKey": secretKey,
-    "currentDate": currentDate,
-    "streetName": streetName,
-    "streetNum": streetNum,
-    "suburb": suburb,
-    "province": province,
-    "country": country,
-    "apartmentNum": apartmentNum,
-  };
+Future<String> insertAdmin({  required String firstName,  String middleName = "",  required String lastName,  required String age,  required String phoneNum,  required String email,  required String idNum,  required String password,  required String secretKey,  required String currentDate,  required String streetName,  required String streetNum,  required String suburb,  required String province,  required String country,  required String apartmentNum,}) async {  final String url = urlPath + insert_admin;  final Map<String, String> arguments = {    "firstName": firstName,    "middleName": middleName,    "lastName": lastName,    "age": age,    "phoneNum": phoneNum,    "email": email,    "idNum": idNum,    "password": password,    "secretKey": secretKey,    "currentDate": currentDate,    "streetName": streetName,    "streetNum": streetNum,    "suburb": suburb,    "province": province,    "country": country,    "apartmentNum": apartmentNum,  };   Map data =      (await getURLData(url: url, data: arguments))[0]; return (data["status"]) ? data["details"] : data["error"];
 
-  // print(urlPath + phpFileToUse + arguments);
-  Map data =
-      (await getURLData(url: url, data: arguments))[0]; //If there is an error
-  return (data["status"]) ? data["details"] : data["error"];
+
 }
 
 //Insert client to database
@@ -609,9 +461,7 @@ Future<String> insertClient({
   required String country,
   required String apartmentNum,
 }) async {
-  final String url = urlPath + insert_client;
-
-  final Map<String, String> arguments = {
+  final String url = urlPath + insert_client;  final Map<String, String> arguments = {
     "firstName": firstName,
     "middleName": middleName,
     "lastName": lastName,
@@ -629,47 +479,18 @@ Future<String> insertClient({
   };
 
   // print(urlPath + phpFileToUse + arguments);
-  Map data = (await getURLData(url: url, data: arguments))[0];
-
-  //If there is an error
-  return (data["status"]) ? data["details"] : data["error"];
+  Map data = (await getURLData(url: url, data: arguments))[0]; return (data["status"]) ? data["details"] : data["error"];
 }
 
 //Get recent transaction history (past 6 months only) for pdf statements page
-Future<List<specificAccount>> getRecentTransactions(String idNumber) async {
-  final String url = urlPath + select_previous_transactions;
-
-  final Map<String, String> arguments = {
+Future<List<specificAccount>> getRecentTransactions(String idNumber) async {  final String url = urlPath + select_previous_transactions;final Map<String, String> arguments = {
     "idNum": idNumber,
   };
 
-  final List<Map> data = (await getURLData(url: url, data: arguments));
-
-  if (data[0].containsKey("status")) {
-    if (!data[0]["status"]) {
-      print("There are no unverified clients");
-      return [];
-    }
+  final List<Map> data = (await getURLData(url: url, data: arguments));  if (data[0].containsKey("status")) {    if (!data[0]["status"]) {      print("There are no unverified clients");      return [];    }
   }
 
-  List<specificAccount> specAccounts = [];
-  for (var map in data) {
-    specificAccount specAccount = specificAccount(
-      accountNumber: map["accountNumber"],
-      accountTypeId: int.parse(map["accountTypeID"]),
-      currentBalance: double.parse(map["currentBalance"]),
-      accountType: map["accountType"],
-      accountDescription: " ",
-      transactionID: int.parse(map["transactionID"]),
-      customerName: " ",
-      timeStamp: map["timeStamp"],
-      amount: double.parse(map["amount"]),
-      accountFrom: map["accountFrom"],
-      accountTo: map["accountTo"],
-      referenceName: map["referenceName"],
-      referenceNumber: map["referenceNumber"],
-    );
-    specAccounts.add(specAccount);
+  List<specificAccount> specAccounts = [];  for (var map in data) {    specificAccount specAccount = specificAccount(      accountNumber: map["accountNumber"],      accountTypeId: int.parse(map["accountTypeID"]),      currentBalance: double.parse(map["currentBalance"]),      accountType: map["accountType"],      accountDescription: " ",      transactionID: int.parse(map["transactionID"]),      customerName: " ",      timeStamp: map["timeStamp"],      amount: double.parse(map["amount"]),      accountFrom: map["accountFrom"],      accountTo: map["accountTo"],      referenceName: map["referenceName"],      referenceNumber: map["referenceNumber"],    );    specAccounts.add(specAccount);
   }
 
   return specAccounts;

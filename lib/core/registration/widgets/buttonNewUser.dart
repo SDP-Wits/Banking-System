@@ -146,8 +146,10 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
                     textColor: Colors.white,
                     fontSize: 16.0);
 
-                if (Navigator.canPop(context)) {
-                  Navigator.pop(context);
+                if (value == "Successful") {
+                  if (Navigator.canPop(context)) {
+                    Navigator.pop(context);
+                  }
                 }
               }
             }

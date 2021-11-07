@@ -5,7 +5,7 @@ class StatementItem {
   final String creditAmount;
   final String referenceName;
   final String amountPrefix;
-  final double currentBalance;
+  final String currentBalance;
 
   const StatementItem({
     required this.date,

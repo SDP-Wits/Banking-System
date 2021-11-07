@@ -78,7 +78,7 @@ class Statement {
     pdf.addPage(pw.MultiPage(
       build: (context) => <pw.Widget>[
         buildCustomHeader(tff, logoData),
-        buildHeader(month, currAccount, tff),
+        buildStatementInfo(month, currAccount, tff),
         buildTable(transactions, currAccount, currPassedBalance, tff),
       ],
       footer: (context) {
@@ -121,7 +121,7 @@ class Statement {
         ),
       );
 
-  static pw.Widget buildHeader(
+  static pw.Widget buildStatementInfo(
           String month, accountDetails currAccount, pw.Font tff) =>
       pw.Column(
         crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -144,14 +144,14 @@ class Statement {
           pw.Row(
             crossAxisAlignment: pw.CrossAxisAlignment.end,
             children: [
-              buildInvoiceInfo(month, currAccount, tff),
+              buildAccInfo(month, currAccount, tff),
             ],
           ),
           pw.SizedBox(height: 1 * PdfPageFormat.cm),
         ],
       );
 
-  static pw.Widget buildInvoiceInfo(
+  static pw.Widget buildAccInfo(
       String month, accountDetails currAccount, pw.Font tff) {
     final titles = <String>[
       'Statement Month:\t',
@@ -276,7 +276,7 @@ class Statement {
     // Testing corrected balances
     double runningBalance = currPassedBalance;
     String prevPrefix = "";
-    for (int i = transactions.length - 1; i >= 0; --i) {
+    for (int i = 0; i <= transactions.length - 1; ++i) {
       String prefix = "";
       String debit = "";
       String credit = "";
@@ -298,12 +298,10 @@ class Statement {
         }
       }
 
-      if (!(i == transactions.length - 1)) {
-        if (transactions[i + 1].accountTo == currAccount.accountNumber) {
-          diff = diff - transactions[i + 1].amount;
-        } else {
-          diff = diff + transactions[i + 1].amount;
-        }
+      if (transactions[i].accountTo == currAccount.accountNumber) {
+        diff = diff + transactions[i].amount;
+      } else {
+        diff = diff - transactions[i].amount;
       }
 
       print("Date : " + transactions[i].timeStamp.split(" ")[0]);
@@ -323,7 +321,7 @@ class Statement {
         amountPrefix: prefix,
         debitAmount: debit,
         creditAmount: credit,
-        currentBalance: runningBalance,
+        currentBalance: runningBalance.toStringAsFixed(2),
       );
 
       data.add(si);
@@ -341,7 +339,7 @@ class Statement {
 
     return pw.Table.fromTextArray(
       headers: headers,
-      data: statementData.reversed.toList(),
+      data: statementData,
       border: null,
       headerStyle: pw.TextStyle(fontWeight: pw.FontWeight.bold, font: tff),
       headerDecoration: pw.BoxDecoration(color: PdfColors.grey300),
